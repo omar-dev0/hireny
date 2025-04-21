@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hireny/routes/app_routes.dart';
+import 'package:hireny/user_accout/presentation/general_info.dart';
+import 'package:hireny/user_accout/presentation/widgets/general_tech_info.dart';
 import 'package:hireny/features/auth/views/error/error_screen.dart';
 import 'package:hireny/features/auth/views/salary_insights/salary_insights_screen.dart';
 import 'package:hireny/features/auth/views/thank_you/thank_you_screen.dart';
@@ -28,6 +31,9 @@ class Hireny extends StatelessWidget {
         initialRoute: RoutesName.login,
         debugShowCheckedModeBanner: false,
           theme: AppTheme.light,
+          debugShowCheckedModeBanner: false,
+          onGenerateRoute: AppRoutes.GeneratedRoute,
+
         initialRoute: SalaryInsightsScreen.routeName,
         routes: {
           ErrorScreen.routeName : (_) => ErrorScreen(),
