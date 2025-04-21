@@ -22,4 +22,8 @@ abstract class AppFonts {
     color: AppColors.hintColor,
     fontSize: 14.cSp,
   );
+  static TextStyle buttonTextStyle = GoogleFonts.poppins(
+    color: AppColors.white,
+    fontSize: 23.cSp,
+  );
 }

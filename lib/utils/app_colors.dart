@@ -8,4 +8,5 @@ abstract class AppColors {
   static const Color TextButtonColor = Color(0xFF2D31AB);
   static const Color white = Colors.white;
   static const Color grey = Color(0xFF5E6670);
+  static const Color textInputBorder = Color.fromRGBO(172, 178, 185, .45);
 }

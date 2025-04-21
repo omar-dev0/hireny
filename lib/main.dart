@@ -4,7 +4,9 @@ import 'package:hireny/features/auth/views/error/error_screen.dart';
 import 'package:hireny/features/auth/views/salary_insights/salary_insights_screen.dart';
 import 'package:hireny/features/auth/views/thank_you/thank_you_screen.dart';
 import 'package:hireny/utils/di/di.dart';
-import 'package:hireny/utils/extensions/theme.dart';
+import 'package:hireny/utils/theme.dart';
+import 'package:hireny/utils/routes/route_map.dart';
+import 'package:hireny/utils/routes/route_path.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,6 +22,10 @@ class Hireny extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.light,
+        routes: RoutesMap.routes,
+        initialRoute: RoutesName.login,
         debugShowCheckedModeBanner: false,
           theme: AppTheme.light,
         initialRoute: SalaryInsightsScreen.routeName,
