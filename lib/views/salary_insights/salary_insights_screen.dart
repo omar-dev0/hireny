@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hireny/utils/app_assets.dart';
-import 'package:hireny/utils/app_colors.dart';
-import 'package:hireny/utils/app_fonts.dart';
-import 'package:hireny/utils/customs/custom_buttom.dart';
-import 'package:hireny/utils/customs/custom_get_started.dart';
-import 'package:hireny/utils/customs/drop_down_list_custom.dart';
-import 'package:hireny/utils/extensions/font_size.dart';
+import 'package:hireny/utils/widgets/custom_buttom.dart';
+import 'package:hireny/utils/widgets/custom_get_started.dart';
+import 'package:hireny/utils/widgets/drop_down_list_custom.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_fonts.dart';
 
 class SalaryInsightsScreen extends StatefulWidget {
-  static String routeName = "SalaryInsightsScreen";
 
   const SalaryInsightsScreen({super.key});
 

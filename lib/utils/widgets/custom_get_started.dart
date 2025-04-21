@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hireny/utils/app_colors.dart';
-import 'package:hireny/utils/app_fonts.dart';
+
+import '../constants/app_colors.dart';
+import '../constants/app_fonts.dart';
 
 class CustomGetStarted extends StatelessWidget{
   const CustomGetStarted({super.key});

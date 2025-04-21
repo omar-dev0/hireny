@@ -2,12 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hireny/user_accout/presentation/widgets/side_bar.dart';
+import 'package:hireny/features/auth/view/user_accout/widgets/side_bar.dart';
 import 'package:hireny/utils/widgets/custom_text_field.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import '../../routes/page_route.dart';
-import '../../utils/constants/app_assets.dart';
-import '../../utils/constants/app_colors.dart';
+
+import '../../../../routes/page_route.dart';
+import '../../../../utils/app_assets.dart';
+import '../../../../utils/constants/app_colors.dart';
 import 'cubit/user_cubit.dart';
 import 'cubit/user_states.dart';
 

@@ -1,11 +1,12 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hireny/user_accout/presentation/cubit/user_states.dart';
+import 'package:hireny/features/auth/view/user_accout/cubit/user_states.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:injectable/injectable.dart';
+@injectable
 class UserCubit extends Cubit<UserStates>{
+  @factoryMethod
   UserCubit():super(InitialState());
   // attributes
   File? selectedImage;

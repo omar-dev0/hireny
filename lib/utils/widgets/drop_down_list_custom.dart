@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hireny/utils/app_colors.dart';
 import 'package:hireny/utils/extensions/font_size.dart';
+
+import '../constants/app_colors.dart';
 
 class DropDownListCustom extends StatefulWidget {
   String hintText;

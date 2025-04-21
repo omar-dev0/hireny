@@ -6,6 +6,8 @@ abstract class AppAssets{
   static const String salary_insights ="${imagePath}salary_insights.png";
   static const String icon_of_years_of_exp ="${imagePath}icon_of_years_of_exp.png";
 
+  static const String profileImg = '${imagePath}/profileImg.jpg';
+
 
 
 }

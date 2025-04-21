@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hireny/utils/app_assets.dart';
-import 'package:hireny/utils/app_fonts.dart';
 import 'package:hireny/utils/extensions/font_size.dart';
 
+import '../../../../utils/constants/app_fonts.dart';
+
 class ThankYouScreen extends StatelessWidget {
-  static String routeName = "ThankYouScreen";
 
   const ThankYouScreen({super.key});
 
