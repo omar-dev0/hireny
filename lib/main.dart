@@ -21,7 +21,6 @@ class Hireny extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
-        initialRoute: PagesRoute.generalInfo,
         onGenerateRoute: AppRoutes.GeneratedRoute,
       ),
     );

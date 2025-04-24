@@ -14,7 +14,7 @@ import '../views/thank_you/thank_you_screen.dart';
 abstract class AppRoutes {
   static Route<dynamic> GeneratedRoute(RouteSettings settings) {
     switch (settings.name) {
-      case PagesRoute.login:
+      case PagesRoute.firstPage:
         return MaterialPageRoute(builder: (_)=>LoginScreen());
       case PagesRoute.generalInfo:
         {
