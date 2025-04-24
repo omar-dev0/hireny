@@ -13,4 +13,7 @@ abstract class AppColors {
   static const Color secondlightGrey= Color(0xFFDAD5D5);
 
 
+  static const Color textInputBorder = Color.fromRGBO(172, 178, 185, .45);
+  static const Color red = Color(0xFFCC0000);
+
 }
