@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hireny/features/auth/view/user_accout/widgets/side_bar.dart';
+import 'package:hireny/features/user_accout/widgets/side_bar.dart';
 import 'package:hireny/utils/widgets/custom_text_field.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 

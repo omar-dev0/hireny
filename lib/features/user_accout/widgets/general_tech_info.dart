@@ -1,7 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hireny/features/auth/view/user_accout/widgets/side_bar.dart';
+import 'package:hireny/features/user_accout/widgets/side_bar.dart';
 import '../../../../../routes/page_route.dart';
 import '../../../../../utils/constants/app_colors.dart';
 import '../../../../../utils/widgets/custom_text_field.dart';
@@ -35,7 +35,7 @@ class _GeneralTechInfoState extends State<GeneralTechInfo> {
         //       builder: (context, state) {
         //         return IconButton(
         //           icon: const Icon(Icons.add),
-        //           onPressed: cubit.addFieldPair,
+        //           onPressed: manager.addFieldPair,
         //           color: AppColors.primary,
         //         );
         //       },

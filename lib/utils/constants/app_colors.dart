@@ -4,6 +4,8 @@ abstract class AppColors {
   static const Color primary = Color(0xFF6300B3);
   static const Color subPrimary = Color(0xFFF4EBFA);
   static const black = Colors.black;
+  static const purple = Colors.purple;
+  static const green = Colors.lightGreen;
   static const hintColor = Color.fromRGBO(18, 18, 36, .5);
   static const Color TextButtonColor = Color(0xFF2D31AB);
   static const Color white = Colors.white;

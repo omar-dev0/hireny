@@ -5,6 +5,8 @@ import 'package:hireny/routes/page_route.dart';
 import 'package:hireny/utils/di/di.dart';
 import 'package:hireny/utils/theme.dart';
 
+import 'features/show_courses/presentation/ui/show_courses_ui.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
@@ -22,6 +24,7 @@ class Hireny extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
         onGenerateRoute: AppRoutes.GeneratedRoute,
+        // home: ShowCoursesUi(),
       ),
     );
   }
