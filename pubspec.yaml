@@ -30,7 +30,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  injectable_generator:
+  injectable_generator: ^2.1.5
   build_runner:
   flutter_lints: ^5.0.0
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hireny/features/org_profile/presentation/manager/org_profile_cubit.dart';
 import 'package:hireny/features/org_profile/presentation/ui/org_profile.dart';
 import 'package:hireny/features/show_admin/presentation/manager/admin_cubit.dart';
 import 'package:hireny/features/show_admin/presentation/ui/show_admins.dart';
@@ -62,7 +63,12 @@ abstract class AppRoutes {
           create: (_) => getIt.get<AppCubit>(),
           child: ViewApplication(),
         ),);
-
+      case PagesRoute.orgProfile:
+        return MaterialPageRoute( builder:
+            (context) => BlocProvider(
+          create: (_) => getIt.get<OrgProfileCubit>(),
+          child: OrgProfile(),
+        ),);
       case PagesRoute.errorScreen:
         return MaterialPageRoute(builder: (context) => ErrorScreen());
       case PagesRoute.showAdmins:
@@ -71,13 +77,8 @@ abstract class AppRoutes {
           create: (_) => getIt.get<AdminCubit>(),
           child: ShowAdmins(),
         ),);
-
-
       case PagesRoute.thankYou:
         return MaterialPageRoute(builder: (_) => ThankYouScreen());
-      case PagesRoute.orgProfile:
-        return MaterialPageRoute(builder: (_) => OrgProfile());
-
       case PagesRoute.salaryInsights:
         return MaterialPageRoute(builder: (_) => SalaryInsightsScreen());
       default:

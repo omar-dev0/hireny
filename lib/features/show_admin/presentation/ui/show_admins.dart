@@ -66,7 +66,6 @@ class _ShowAdminsState extends State<ShowAdmins> {
                     return Center(child: CircularProgressIndicator());
                   }else if(state is ErrorState){
                     return Center(child: Text(state.message ?? "An error occurred"));
-
                   }else if(state is SuccessState){
                     return ListView.separated(
                       itemBuilder: (context, index) {
