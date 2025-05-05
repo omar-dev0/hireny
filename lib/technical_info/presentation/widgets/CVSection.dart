@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hireny/technical_info/presentation/widgets/CVBox.dart';
 
-import '../../../utils/app_fonts.dart';
+import '../../../utils/constants/app_fonts.dart';
 
 class CVSection extends StatelessWidget {
   const CVSection({super.key});

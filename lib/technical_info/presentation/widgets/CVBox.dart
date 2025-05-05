@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../utils/app_colors.dart';
-import '../../../utils/app_fonts.dart';
+import '../../../utils/constants/app_colors.dart';
+import '../../../utils/constants/app_fonts.dart';
+
 
 class CVBox extends StatelessWidget {
   const CVBox({

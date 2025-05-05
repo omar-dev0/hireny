@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hireny/models/technical%20info.dart';
 import 'package:hireny/technical_info/presentation/widgets/popUpEXPForm.dart';
 
-import '../../../utils/app_colors.dart';
-import '../../../utils/app_fonts.dart';
 import '../../../utils/constants/app_assets.dart';
+import '../../../utils/constants/app_colors.dart';
+import '../../../utils/constants/app_fonts.dart';
 import '../manager/technical_info_cubit.dart';
 
 

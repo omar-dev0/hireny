@@ -6,11 +6,11 @@ import "package:hireny/technical_info/presentation/widgets/CVSection.dart";
 import "package:hireny/technical_info/presentation/widgets/section.dart";
 import "package:hireny/technical_info/presentation/widgets/skillSection.dart";
 import "package:hireny/technical_info/presentation/widgets/technicalBOdy.dart";
-import "package:hireny/utils/app_fonts.dart";
 import "package:hireny/utils/constants/app_assets.dart";
 
 import "../../core/widgets/sideBar.dart";
-import "../../utils/app_colors.dart";
+import "../../utils/constants/app_colors.dart";
+import "../../utils/constants/app_fonts.dart";
 
 
 class technicalInfoView extends StatelessWidget {

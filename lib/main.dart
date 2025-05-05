@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hireny/routes/app_routes.dart';
-import 'package:hireny/routes/page_route.dart';
-import 'package:hireny/utils/AppRoutes.dart';
-import 'package:hireny/utils/app_colors.dart';
 import 'package:hireny/utils/di/di.dart';
 import 'package:hireny/utils/theme.dart';
 

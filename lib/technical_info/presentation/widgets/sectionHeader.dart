@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hireny/technical_info/presentation/widgets/popUpTextField.dart';
 import 'package:hireny/technical_info/presentation/widgets/pop_up_form.dart';
 
-import '../../../utils/app_colors.dart';
-import '../../../utils/app_fonts.dart';
+import '../../../utils/constants/app_colors.dart';
+import '../../../utils/constants/app_fonts.dart';
 
 class sectionHeader extends StatelessWidget {
   const sectionHeader({

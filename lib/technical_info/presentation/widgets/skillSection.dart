@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hireny/technical_info/presentation/widgets/sectionHeader.dart';
 import 'package:hireny/technical_info/presentation/widgets/skillBox.dart';
-
-import '../../../utils/app_colors.dart';
+import '../../../utils/constants/app_colors.dart';
 
 class skillsSection extends StatelessWidget {
   const skillsSection({

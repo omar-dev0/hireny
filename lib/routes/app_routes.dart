@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hireny/features/profile/presentation/manager/my_courses_cubit.dart';
+import 'package:hireny/features/profile/presentation/views/course_details_view.dart';
+import 'package:hireny/features/profile/presentation/views/my_courses_view.dart';
 import 'package:hireny/routes/page_route.dart';
 import 'package:hireny/utils/di/di.dart';
 import '../features/auth/view/login/login_screen.dart';
@@ -41,6 +44,16 @@ abstract class AppRoutes {
         return MaterialPageRoute(builder: (_) => ThankYouScreen());
       case PagesRoute.salaryInsightes:
         return MaterialPageRoute(builder: (_) => SalaryInsightsScreen());
+      case PagesRoute.myCourses:
+        return MaterialPageRoute(
+          builder:
+              (context) => BlocProvider(
+            create: (_) => getIt.get<MyCoursesCubit>(),
+            child: MyCoursesView(),
+          ),
+        );
+      case PagesRoute.courseDetails:
+        return MaterialPageRoute(builder: (_) => CourseDetailsView());
       default:
         return MaterialPageRoute(
           builder:
