@@ -23,8 +23,6 @@ class aboutCourseTab extends StatelessWidget {
         Text("Requirements", style: AppFonts.mainText),
         SizedBox(height: 20),
         ScrollContainer(),
-        // Text("Course Content", style: AppFonts.mainText),
-        // Add more course content details here
       ],
     );
   }

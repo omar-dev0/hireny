@@ -5,21 +5,23 @@ import '../../../../../utils/constants/app_fonts.dart';
 
 
 class CourseInfoListView extends StatelessWidget {
-  const CourseInfoListView({
-    super.key,
-  });
+  const CourseInfoListView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = ScrollController();
+
     return Scrollbar(
-      thumbVisibility: true, // Always show the scrollbar thumb
-      thickness: 8.0, // Adjust thickness of the scrollbar thumb
+      controller: controller,
+      thumbVisibility: true,
+      thickness: 8.0,
       radius: Radius.circular(10),
       child: Padding(
         padding: const EdgeInsets.only(bottom: 8.0),
-        child: Container(
-          height: 180, // Set height for the ListView container
+        child: SizedBox(
+          height: 180,
           child: ListView.builder(
+            controller: controller,
             itemCount: 3,
             itemBuilder: (context, index) {
               return Row(

@@ -15,8 +15,8 @@ class CourseDetailsView extends StatelessWidget {
     return DefaultTabController(
       length: 4,
       child: Scaffold(
-        appBar: CustomAppBar(colored: true,), // your existing custom app bar
-        body: ListView(
+        appBar: CustomAppBar(colored: true,),
+        body: Column(
           children: [
             // Header Section
             course_header_section(),
@@ -32,8 +32,7 @@ class CourseDetailsView extends StatelessWidget {
                 Tab(text: "Reviews"),
               ],
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height,
+            Expanded(
               child: TabBarView(
                 children: [
                   aboutCourseTab(),
@@ -43,6 +42,7 @@ class CourseDetailsView extends StatelessWidget {
                 ],
               ),
             ),
+            SizedBox(height: 20,)
           ],
         ),
       ),
