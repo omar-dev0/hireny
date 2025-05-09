@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
@@ -69,6 +72,7 @@ class MyCoursesCubit extends Cubit<MyCoursesState> {
       'level': 'Intermediate',
     },
   ];
+
 
   List<Map<String, dynamic>> getMyCourses()
   {

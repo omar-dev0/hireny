@@ -6,7 +6,8 @@ abstract class PagesRoute{
   static const String errorScreen = "/ErrorScreen";
   static const String salaryInsightes = "/SalaryInsightsScreen";
   static const String thankYou = "/ThankYouScreen";
-  static const String myCourses = "/";
+  static const String myCourses = "/MyCoursesView";
   static const String courseDetails = "/CourseDetailsView";
+  static const String calender = "/";
 
 }

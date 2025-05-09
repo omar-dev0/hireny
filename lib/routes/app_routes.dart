@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hireny/features/profile/presentation/manager/my_courses_cubit.dart';
 import 'package:hireny/features/profile/presentation/views/course_details_view.dart';
 import 'package:hireny/features/profile/presentation/views/my_courses_view.dart';
+import 'package:hireny/features/profile/presentation/views/widgets/calender_view.dart';
 import 'package:hireny/routes/page_route.dart';
 import 'package:hireny/utils/di/di.dart';
 import '../features/auth/view/login/login_screen.dart';
@@ -54,6 +55,8 @@ abstract class AppRoutes {
         );
       case PagesRoute.courseDetails:
         return MaterialPageRoute(builder: (_) => CourseDetailsView());
+      case PagesRoute.calender:
+        return MaterialPageRoute(builder: (_) => CalenderView());
       default:
         return MaterialPageRoute(
           builder:
