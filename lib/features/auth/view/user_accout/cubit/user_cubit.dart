@@ -159,7 +159,7 @@ class UserCubit extends Cubit<UserStates>{
     }
     return null;
   }
-  String? validatePhoneNumber(String? value) {
+  String? validatePhoneNumber(String? value) {  
     final onlyDigitsRegex = RegExp(r'^\d+$');
     print(value);
     if (value == null || value.isEmpty) {
