@@ -8,6 +8,9 @@ import 'package:hireny/utils/di/di.dart';
 import 'package:hireny/utils/theme.dart';
 
 import 'features/admin/view/personal_profile_admin.dart';
+import 'features/organization/view/explore_job_seekers_org.dart';
+import 'features/organization/view/explore_organizations_org.dart';
+import 'features/organization/view/explore_services_org.dart';
 import 'features/organization/view/related_services_org.dart';
 import 'features/organization/view/service_details_org.dart';
 
@@ -28,12 +31,15 @@ class Hireny extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
         onGenerateRoute: AppRoutes.GeneratedRoute,
-        initialRoute: RelatedServicesOrg.routeName,
+        initialRoute: ExploreJobSeekersOrg.routeName,
         routes: {
           PersonalProfileAdmin.routeName : (_)=> PersonalProfileAdmin(),
           VerifyOrganizationAdmin.routeName : (_)=> VerifyOrganizationAdmin(),
           ServiceDetailsOrg.routeName : (_)=> ServiceDetailsOrg(),
           RelatedServicesOrg.routeName : (_)=> RelatedServicesOrg(),
+          ExploreServicesOrg.routeName : (_)=> ExploreServicesOrg(),
+          ExploreOrganizationsOrg.routeName : (_)=> ExploreOrganizationsOrg(),
+          ExploreJobSeekersOrg.routeName : (_)=> ExploreJobSeekersOrg(),
         },
       ),
     );

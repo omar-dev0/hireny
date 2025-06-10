@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hireny/utils/extensions/font_size.dart';
 
 import '../constants/app_colors.dart';
 import '../constants/app_fonts.dart';
@@ -26,7 +27,7 @@ class CustomButtom extends StatelessWidget {
 
             ),
           ),
-          child:  Text( title,style: AppFonts.secMain.copyWith(color: AppColors.white),
+          child:  Text( title,style: AppFonts.secMain.copyWith(color: AppColors.white,fontSize:16.cSp ),textAlign: TextAlign.center,
           ),
         ),
       ),

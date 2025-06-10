@@ -7,7 +7,7 @@ import '../constants/app_colors.dart';
 class DropDownListCustom extends StatefulWidget {
   String hintText;
   IconData iconData;
-  final List<String> items; // Add a parameter for the list of items
+  final List<String> items;
 
   DropDownListCustom({super.key,required this.hintText,required this.iconData,required this.items});
 
