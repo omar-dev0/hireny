@@ -1,7 +1,125 @@
+import 'dart:io';
+import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
+import 'package:hireny/features/auth/domain/modules/org/org_admin.dart';
+import 'package:hireny/features/auth/domain/modules/seeker/seeker.dart';
+import 'package:hireny/features/auth/domain/modules/user/user.dart';
+import 'package:hireny/result.dart';
 import 'package:injectable/injectable.dart';
+
+import '../../../../utils/exceptions/dio_exception.dart';
+import 'api_const.dart';
 
 @singleton
 @injectable
-class ApiManger{
+class ApiManger {
+  final Dio _dio;
 
+  ApiManger(this._dio);
+
+  Future<Result<Seeker?>?> regSeeker(
+    Seeker seeker,
+    String password,
+    File? cv,
+  ) async {
+    try {
+      final formMap = seeker.toJson()..addAll({'password': password});
+      final formData = FormData.fromMap({
+        if (cv != null) 'cv': await MultipartFile.fromFile(cv.path),
+        ...formMap,
+      });
+
+      final response = await _dio.post(ApiConst.reg, data: formData);
+
+      if (response.data == null) return null;
+
+      return Success(response: Seeker.fromJson(response.data));
+    } on DioException catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e).message;
+      if (kDebugMode) {
+        print('DioException in regSeeker: $e');
+      }
+      return Error(error: errorMessage);
+    } catch (e) {
+      if (kDebugMode) {
+        print('General Error in regSeeker: $e');
+      }
+      return Error(error: e.toString());
+    }
+  }
+
+  Future<Result<OrgAdmin?>?> regOrg(
+    OrgAdmin orgAdmin,
+    String password,
+    File? orgProf,
+  ) async {
+    try {
+      final formMap = orgAdmin.toJson()..addAll({'password': password});
+      final formData = FormData.fromMap({
+        if (orgProf != null)
+          'orgProf': await MultipartFile.fromFile(orgProf.path),
+        ...formMap,
+      });
+
+      final response = await _dio.post(ApiConst.reg, data: formData);
+
+      if (response.data == null) return null;
+
+      return Success(response: OrgAdmin.fromJson(response.data));
+    } on DioException catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e).message;
+      if (kDebugMode) {
+        print('DioException in regOrg: $e');
+      }
+      return Error(error: errorMessage);
+    } catch (e) {
+      if (kDebugMode) {
+        print('General Error in regOrg: $e');
+      }
+      return Error(error: e.toString());
+    }
+  }
+
+  Future<Result<Map<String, dynamic>>?> login(
+    String email,
+    String password,
+  ) async {
+    FormData formData = FormData.fromMap({
+      'email': email,
+      'password': password,
+    });
+    try {
+      final response = await _dio.post(ApiConst.login, data: formData);
+      return Success(response: response.data as Map<String, dynamic>);
+    } on DioException catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e).message;
+      if (kDebugMode) {
+        print('DioException in login: $e');
+      }
+      return Error(error: errorMessage);
+    } catch (e) {
+      if (kDebugMode) {
+        print('General Error in login: $e');
+      }
+    }
+    return null;
+  }
+
+  Future<Result<User?>?> getUserInfo(String token) async {
+    try {
+      final response = await _dio.get(
+        ApiConst.getUserInfo,
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
+      );
+      if (response.data == null) return null;
+      if (response.data['user']['role'] == 'seeker') {
+        return Success(response: Seeker.fromJson(response.data));
+      } else if (response.data['user']['role'] == 'orgAdmin') {
+        return Success(response: OrgAdmin.fromJson(response.data));
+      }
+    } catch (e) {
+      return Error(error: e.toString());
+    }
+    return null;
+  }
 }

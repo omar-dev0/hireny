@@ -24,11 +24,27 @@ dependencies:
   csc_picker: ^0.2.7
   dropdown_button2: ^2.3.9
   flutter_bloc: ^9.1.0
+  dio:
+  hive:
+  hive_flutter:
+
   lottie: ^3.3.1
+  pretty_dio_logger: ^1.4.0
+  animate_do: ^4.2.0
+  path_provider: ^2.1.5
+  icons_launcher: ^3.0.1
+  file_picker:
+  permission_handler:
+  dropdown_search: ^6.0.2
+  flutter_native_splash: ^2.4.6
+  fluttertoast: ^8.2.12
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   injectable_generator:
+  hive_generator:
   build_runner:
   flutter_lints: ^5.0.0
 
@@ -40,8 +56,22 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/animations/
+    - assets/country_city/
   # To add assets to your application, add an assets section, like this:
+icons_launcher:
+  image_path: "assets/images/hireny.png"
+  platforms:
+    android:
+      adaptive_foreground_image: "assets/images/hireny.png"
+      enable: true
+      adaptive_background_color: "#FFFFFF"
 
+flutter_native_splash:
+  ios: false
+  background_image: "assets/images/splash3.png"
+  android_12:
+    color: "#FFFFFF"
+    image: assets/images/icon_splash.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 

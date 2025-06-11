@@ -21,3 +21,10 @@ String? passwordValidator(String? val) {
   return null;
 }
 
+String? emptyFieldValidator(String? val) {
+  if (val!.isEmpty) {
+    return 'this field is required';
+  }
+  return null;
+}
+

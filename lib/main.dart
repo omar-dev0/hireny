@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hireny/routes/app_routes.dart';
-import 'package:hireny/routes/page_route.dart';
+import 'package:hireny/routes/app_routes.dart' as AppRoutes;
 import 'package:hireny/utils/di/di.dart';
 import 'package:hireny/utils/theme.dart';
+
+import 'config_app/app_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
+  await AppProvider.configApp();
   runApp(Hireny());
 }
 

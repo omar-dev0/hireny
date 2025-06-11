@@ -33,8 +33,8 @@ class CustomTextField extends StatefulWidget {
     this.obscuringCharacter,
     this.value,
     this.onValidate,
-    this.maxLines,
-    this.minLines,
+    this.maxLines = 1,
+    this.minLines = 1,
     this.maxLength,
     this.keyboardType,
     this.inputFormatters,
@@ -103,10 +103,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
         hintText: widget.hint,
         hintStyle: TextStyle(
-          // todo check font type
           fontFamily: "Inter",
           fontSize: 16,
-          color: AppColors.grey.withOpacity(0.5),
+          color: AppColors.grey.withValues(alpha: 0.5),
           fontWeight: FontWeight.w400,
         ),
         counterText: "",
@@ -115,14 +114,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(
-            color: AppColors.grey.withOpacity(0.5),
+            color: AppColors.grey.withValues(alpha: 0.5),
             width: 1,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(
-            color: AppColors.grey.withOpacity(0.5),
+            color: AppColors.grey.withValues(alpha: 0.5),
             width: 1,
           ),
         ),

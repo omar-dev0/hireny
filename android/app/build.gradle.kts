@@ -8,7 +8,6 @@ plugins {
 android {
     namespace = "com.example.hireny"
     compileSdk = flutter.compileSdkVersion
-//    ndkVersion = flutter.ndkVersion
     ndkVersion = "27.0.12077973"
 
     compileOptions {
@@ -43,3 +42,4 @@ android {
 flutter {
     source = "../.."
 }
+
