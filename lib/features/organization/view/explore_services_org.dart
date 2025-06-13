@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hireny/features/organization/view/widgets/bottomSheets/category_bottom_sheet.dart';
-import 'package:hireny/features/organization/view/widgets/bottomSheets/price_bottom_sheet.dart';
 import 'package:hireny/features/organization/view/widgets/explore_service_card.dart';
 import 'package:hireny/utils/app_assets.dart';
 import 'package:hireny/utils/constants/app_colors.dart';
 import 'package:hireny/utils/constants/app_fonts.dart';
 import 'package:hireny/utils/widgets/dymanic_filter_chips.dart';
 import 'package:hireny/utils/widgets/search_bar_widget.dart';
+
+import '../../../utils/constants/helper_functions.dart';
 
 class ExploreServicesOrg extends StatefulWidget {
   static String routeName = "ExploreServicesOrg";
@@ -29,8 +29,14 @@ class _ExploreServicesOrgState extends State<ExploreServicesOrg> {
   @override
   Widget build(BuildContext context) {
     final List<Function()?> onChipPressed = [
-          () => showCategorySheet(context),
-          () => showPriceSheet(context),
+          () => showDynamicBottomSheet(context: context,title: "Select your category" , items: [
+        "Commerce",
+        "Telecommunications",
+        "Hotels & Tourism",
+        "Education",
+        "Financial Services"
+      ]),
+          () => showDynamicInputBottomSheet(context: context,title: "Select  Price Range" , minHint: "Min Price", maxHint: "Max Price", buttonText: "Filter"),
     ];
     return Scaffold(
       backgroundColor: AppColors.subPrimary,
@@ -87,30 +93,4 @@ class _ExploreServicesOrgState extends State<ExploreServicesOrg> {
       ),
     );
   }
-}
-showCategorySheet(context){
-  return  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(30.r),
-        topRight: Radius.circular(30.r),
-      ),
-    ),
-    builder: (_) => CategoryBottomSheet(),
-  );
-}
-showPriceSheet(context){
-  return  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(30.r),
-        topRight: Radius.circular(30.r),
-      ),
-    ),
-    builder: (_) => PriceBottomSheet(),
-  );
 }

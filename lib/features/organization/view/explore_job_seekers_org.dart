@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hireny/features/organization/view/widgets/bottomSheets/career_level_bottom_sheet.dart';
-import 'package:hireny/features/organization/view/widgets/bottomSheets/category_bottom_sheet.dart';
-import 'package:hireny/features/organization/view/widgets/bottomSheets/employment_status_sheet.dart';
-import 'package:hireny/features/organization/view/widgets/bottomSheets/gender_bottom_sheet.dart';
 import 'package:hireny/features/organization/view/widgets/bottomSheets/location_bottom_sheet.dart';
-import 'package:hireny/features/organization/view/widgets/bottomSheets/price_bottom_sheet.dart';
-import 'package:hireny/features/organization/view/widgets/bottomSheets/size_bottom_sheet.dart';
 import 'package:hireny/features/organization/view/widgets/explore_job_seeker_card.dart';
 import 'package:hireny/features/organization/view/widgets/explore_organization_card.dart';
 import 'package:hireny/utils/constants/app_colors.dart';
 
 import '../../../utils/app_assets.dart';
 import '../../../utils/constants/app_fonts.dart';
+import '../../../utils/constants/helper_functions.dart';
 import '../../../utils/widgets/dymanic_filter_chips.dart';
+import '../../../utils/widgets/dynamic_check_box_filter_bottom_sheet.dart';
 import '../../../utils/widgets/search_bar_widget.dart';
 import 'explore_services_org.dart';
 
@@ -40,11 +36,29 @@ class _ExploreJobSeekersOrgState extends State<ExploreJobSeekersOrg> {
   Widget build(BuildContext context) {
     final List<Function()?> onChipPressed = [
           () => showLocationSheet(context),
-          () => showIndustrySheet(context),
-          () => showCareerLevelSheet(context),
-          () => showEmploymentStatusSheet(context),
-          () => showGenderSheet(context),
-          () => showAgeSheet(context),
+          () => showDynamicBottomSheet(context: context,title: "Select  category" , items: [
+            "Commerce",
+            "Telecommunications",
+            "Hotels & Tourism",
+            "Education",
+            "Financial Services"
+          ]),
+          () => showDynamicBottomSheet(context: context,title: "Select  Career Level" , items: [
+            "No-experience",
+            "Fresher",
+            "Intermediate",
+            "Expert",
+          ]),
+          () => showDynamicBottomSheet(context: context,title: "Select  Employment Statuts" , items: [
+            "Employed",
+            "Unemployed",
+            "Freelancer",
+          ]),
+          () => showDynamicBottomSheet(context: context,title: "Select  Gender" , items: [
+            "Male",
+            "Female",
+          ]),
+          () => showDynamicInputBottomSheet(context: context,title: "Select  Age" , minHint: "Min Age", maxHint: "Max Age", buttonText: "Filter"),
     ];
     return Scaffold(
       backgroundColor: AppColors.subPrimary,
@@ -99,81 +113,4 @@ class _ExploreJobSeekersOrgState extends State<ExploreJobSeekersOrg> {
     );
   }
 }
-showLocationSheet(context){
-  return  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(30.r),
-        topRight: Radius.circular(30.r),
-      ),
-    ),
-    builder: (_) => LocationBottomSheet(),
-  );
-}
-showIndustrySheet(context){
-  return  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(30.r),
-        topRight: Radius.circular(30.r),
-      ),
-    ),
-    builder: (_) => CategoryBottomSheet(),
-  );
-}
-showCareerLevelSheet(context){
-  return  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(30.r),
-        topRight: Radius.circular(30.r),
-      ),
-    ),
-    builder: (_) => CareerLevelBottomSheet(),
-  );
-}
-showEmploymentStatusSheet(context){
-  return  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(30.r),
-        topRight: Radius.circular(30.r),
-      ),
-    ),
-    builder: (_) => EmploymentStatusSheet(),
-  );
-}
-showGenderSheet(context){
-  return  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(30.r),
-        topRight: Radius.circular(30.r),
-      ),
-    ),
-    builder: (_) => GenderBottomSheet(),
-  );
-}
-showAgeSheet(context){
-  return  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(30.r),
-        topRight: Radius.circular(30.r),
-      ),
-    ),
-    builder: (_) => PriceBottomSheet(),
-  );
-}
+

@@ -1,18 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hireny/utils/widgets/custom_buttom.dart';
-import 'package:hireny/utils/widgets/custom_text_field.dart';
 
-import '../../../../../utils/constants/app_colors.dart';
-import '../../../../../utils/constants/app_fonts.dart';
+import '../constants/app_colors.dart';
+import '../constants/app_fonts.dart';
+import 'custom_buttom.dart';
+import 'custom_text_field.dart';
 
-class PriceBottomSheet extends StatelessWidget {
-  const PriceBottomSheet({super.key});
+class DynamicInputBottomSheet extends StatelessWidget {
+  final String title;
+  final String firstHint;
+  final String secondHint;
+  final String buttonText;
+
+  const DynamicInputBottomSheet({
+    super.key,
+    required this.title,
+    required this.firstHint,
+    required this.secondHint,
+    required this.buttonText,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final minController = TextEditingController();
+    final maxController = TextEditingController();
+
     return Padding(
-      padding: MediaQuery.of(context).viewInsets, // Adjust padding for the keyboard
+      padding: MediaQuery.of(context).viewInsets,
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -42,7 +56,7 @@ class PriceBottomSheet extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    "Enter Min and Max price",
+                    title,
                     style: AppFonts.secMain,
                   ),
                   const Spacer(),
@@ -53,16 +67,18 @@ class PriceBottomSheet extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 24.h),
-              CustomTextField(hint: "Min price",),
+              CustomTextField(hint: firstHint, controller: minController),
               SizedBox(height: 10.h),
-              CustomTextField(hint: "Max price",),
+              CustomTextField(hint: secondHint, controller: maxController),
               SizedBox(height: 15.h),
-              CustomButtom(title: "Filter", onPressed: (){})
-      
+              CustomButtom(
+                title: buttonText,
+                onPressed: () {},
+              ),
             ],
           ),
         ),
       ),
-    );;
+    );
   }
 }
