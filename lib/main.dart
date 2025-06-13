@@ -13,6 +13,9 @@ import 'features/organization/view/explore_organizations_org.dart';
 import 'features/organization/view/explore_services_org.dart';
 import 'features/organization/view/related_services_org.dart';
 import 'features/organization/view/service_details_org.dart';
+import 'features/seeker/view/explore_courses_seeker.dart';
+import 'features/seeker/view/explore_job_seeker.dart';
+import 'features/seeker/view/home_page_seeker.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +34,7 @@ class Hireny extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
         onGenerateRoute: AppRoutes.GeneratedRoute,
-        initialRoute: ExploreJobSeekersOrg.routeName,
+        initialRoute: HomePageSeeker.routeName,
         routes: {
           PersonalProfileAdmin.routeName : (_)=> PersonalProfileAdmin(),
           VerifyOrganizationAdmin.routeName : (_)=> VerifyOrganizationAdmin(),
@@ -40,6 +43,9 @@ class Hireny extends StatelessWidget {
           ExploreServicesOrg.routeName : (_)=> ExploreServicesOrg(),
           ExploreOrganizationsOrg.routeName : (_)=> ExploreOrganizationsOrg(),
           ExploreJobSeekersOrg.routeName : (_)=> ExploreJobSeekersOrg(),
+          ExploreCoursesSeeker.routeName : (_)=> ExploreCoursesSeeker(),
+          ExploreJobSeeker.routeName : (_)=> ExploreJobSeeker(),
+          HomePageSeeker.routeName : (_)=> HomePageSeeker(),
         },
       ),
     );
