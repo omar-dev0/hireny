@@ -54,7 +54,7 @@ class _SalaryInsightsScreenState extends State<SalaryInsightsScreen> {
                   children: [
                     Text("Find The Best Salaries in Your Field",style: AppFonts.mainText,textAlign: TextAlign.center,),
                     Text("Explore detailed salary data by job title, location, and experience to see",style: AppFonts.secMain,textAlign: TextAlign.center),
-                    Image.asset(AppAssets.salary_insights)
+                    Image.asset(AppAssets.salary_insights, width: 150.w,height: 150.h,)
                   ],
                 ),
               ),

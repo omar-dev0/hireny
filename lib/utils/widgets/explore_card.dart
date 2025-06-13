@@ -58,7 +58,7 @@ class ExploreCard extends StatelessWidget {
               SizedBox(width: 8.w),
               Text(
                   name,
-                  style: AppFonts.mainText.copyWith(fontSize: 18.sp)
+                  style: AppFonts.mainText.copyWith(fontSize: 16.sp)
               ),
             ],
           ),
