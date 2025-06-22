@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hireny/features/organization/view/widgets/bottomSheets/category_bottom_sheet.dart';
 import 'package:hireny/features/organization/view/widgets/bottomSheets/location_bottom_sheet.dart';
-import 'package:hireny/features/organization/view/widgets/bottomSheets/size_bottom_sheet.dart';
 import 'package:hireny/features/organization/view/widgets/explore_organization_card.dart';
 import 'package:hireny/utils/constants/app_colors.dart';
 
 import '../../../utils/app_assets.dart';
 import '../../../utils/constants/app_fonts.dart';
+import '../../../utils/constants/helper_functions.dart';
 import '../../../utils/widgets/dymanic_filter_chips.dart';
 import '../../../utils/widgets/search_bar_widget.dart';
+import 'explore_job_seekers_org.dart';
 import 'explore_services_org.dart';
 
 class ExploreOrganizationsOrg extends StatefulWidget {
@@ -32,8 +32,20 @@ class _ExploreOrganizationsOrgState extends State<ExploreOrganizationsOrg> {
   Widget build(BuildContext context) {
     final List<Function()?> onChipPressed = [
           () => showLocationSheet(context),
-          () => showIndustrySheet(context),
-          () => showSizeSheet(context),
+          () => showDynamicBottomSheet(context: context,title: "Select your category" , items: [
+        "Commerce",
+        "Telecommunications",
+        "Hotels & Tourism",
+        "Education",
+        "Financial Services"
+      ]),
+          () => showDynamicBottomSheet(context: context,title: "Select your Size" , items: [
+            "0 - 100",
+            "100 - 500",
+            "500 - 1000",
+            "1000 - 5000",
+            "> 5000",
+          ]),
     ];
     return Scaffold(
       backgroundColor: AppColors.subPrimary,
@@ -88,42 +100,4 @@ class _ExploreOrganizationsOrgState extends State<ExploreOrganizationsOrg> {
     );
   }
 }
-showLocationSheet(context){
-  return  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(30.r),
-        topRight: Radius.circular(30.r),
-      ),
-    ),
-    builder: (_) => LocationBottomSheet(),
-  );
-}
-showIndustrySheet(context){
-  return  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(30.r),
-        topRight: Radius.circular(30.r),
-      ),
-    ),
-    builder: (_) => CategoryBottomSheet(),
-  );
-}
-showSizeSheet(context){
-  return  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(30.r),
-        topRight: Radius.circular(30.r),
-      ),
-    ),
-    builder: (_) => SizeBottomSheet(),
-  );
-}
+

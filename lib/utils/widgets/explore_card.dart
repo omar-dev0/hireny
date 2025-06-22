@@ -5,19 +5,19 @@ import 'package:hireny/utils/widgets/custom_buttom.dart';
 
 import '../../../../utils/constants/app_colors.dart';
 
-class ExploreServiceCard extends StatelessWidget {
-  final String advertisingTitle;
+class ExploreCard extends StatelessWidget {
+  final String title;
   final String price;
-  final String companyName;
+  final String name;
   final String logoImage;
   final String requestsCount;
 
 
-  const ExploreServiceCard({
+  const ExploreCard({
     Key? key,
-    required this.advertisingTitle,
+    required this.title,
     required this.price,
-    required this.companyName,
+    required this.name,
     required this.logoImage,
     required this.requestsCount,
   }) : super(key: key);
@@ -38,15 +38,15 @@ class ExploreServiceCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            advertisingTitle,
-            style: AppFonts.mainText
+              title,
+              style: AppFonts.mainText
           ),
           SizedBox(height: 8.h),
           Text(
-            'Price: $price',
-            style: AppFonts.secMain
+              'Price: $price',
+              style: AppFonts.secMain
           ),
-           SizedBox(height: 16.h),
+          SizedBox(height: 16.h),
 
           Row(
             children: [
@@ -55,24 +55,24 @@ class ExploreServiceCard extends StatelessWidget {
                 height: 32.h,
                 width: 32.w,
               ),
-               SizedBox(width: 8.w),
+              SizedBox(width: 8.w),
               Text(
-                companyName,
-                style: AppFonts.mainText
+                  name,
+                  style: AppFonts.mainText.copyWith(fontSize: 16.sp)
               ),
             ],
           ),
-           SizedBox(height: 16.h),
+          SizedBox(height: 16.h),
           Text(
-            requestsCount,
-            style: AppFonts.secMain
+              requestsCount,
+              style: AppFonts.secMain
           ),
-           SizedBox(height: 24.h),
+          SizedBox(height: 24.h),
 
           Row(
             children: [
               Expanded(child: CustomButtom(title: "View Details", onPressed: (){})),
-               SizedBox(width: 16.w),
+              SizedBox(width: 16.w),
               Expanded(child: CustomButtom(title: "Request", onPressed: (){})),
             ],
           ),

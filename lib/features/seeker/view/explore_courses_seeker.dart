@@ -1,30 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hireny/utils/app_assets.dart';
-import 'package:hireny/utils/constants/app_colors.dart';
-import 'package:hireny/utils/constants/app_fonts.dart';
-import 'package:hireny/utils/widgets/dymanic_filter_chips.dart';
-import 'package:hireny/utils/widgets/search_bar_widget.dart';
 
+import '../../../utils/app_assets.dart';
+import '../../../utils/constants/app_colors.dart';
+import '../../../utils/constants/app_fonts.dart';
 import '../../../utils/constants/helper_functions.dart';
+import '../../../utils/widgets/dymanic_filter_chips.dart';
 import '../../../utils/widgets/explore_card.dart';
+import '../../../utils/widgets/search_bar_widget.dart';
+import '../../organization/view/widgets/explore_organization_card.dart';
 
-class ExploreServicesOrg extends StatefulWidget {
-  static String routeName = "ExploreServicesOrg";
+class ExploreCoursesSeeker extends StatefulWidget {
+  static String routeName = "ExploreCoursesSeeker";
 
-   ExploreServicesOrg({super.key});
+  const ExploreCoursesSeeker({super.key});
 
   @override
-  State<ExploreServicesOrg> createState() => _ExploreServicesOrgState();
+  State<ExploreCoursesSeeker> createState() => _ExploreCoursesSeekerState();
 }
 
-class _ExploreServicesOrgState extends State<ExploreServicesOrg> {
+class _ExploreCoursesSeekerState extends State<ExploreCoursesSeeker> {
   final List<String> chipLabels = [
-    'Category',
+    'Industry',
+    'Date Published',
     'Price',
   ];
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +35,13 @@ class _ExploreServicesOrgState extends State<ExploreServicesOrg> {
         "Hotels & Tourism",
         "Education",
         "Financial Services"
+      ]),
+          () => showDynamicBottomSheet(context: context,title: "Select Date Published" , items: [
+        "All",
+        "Last Hour",
+        "Last 24 Hours",
+        "Last 7 Days",
+        "Last 30 Days"
       ]),
           () => showDynamicInputBottomSheet(context: context,title: "Select  Price Range" , minHint: "Min Price", maxHint: "Max Price", buttonText: "Filter"),
     ];
@@ -50,13 +57,13 @@ class _ExploreServicesOrgState extends State<ExploreServicesOrg> {
                 children: [
                   SizedBox(height: 20.h,),
                   SearchBarWidget(
-                    firstSearchHint: "Enter service name",
-                    secondSearchHint: "Company Name",
+                    firstSearchHint: "Enter course name",
+                    secondSearchHint: "Course category",
                     onSearchPressed: (){},
                   ),
                   SizedBox(height: 20.h,),
-                  Text("Explore Services",style: AppFonts.mainText,),
-                  Text("Discover Services to boost your company and achieve your goals.",style: AppFonts.secMain,textAlign: TextAlign.center,),
+                  Text("Explore Courses",style: AppFonts.mainText,),
+                  Text("Discover courses to boost your skills and achieve your goals.",style: AppFonts.secMain,textAlign: TextAlign.center,),
                   SizedBox(height: 20.h,),
                   DynamicFilterChipsWidget(
                     chipLabels: chipLabels,
@@ -66,7 +73,7 @@ class _ExploreServicesOrgState extends State<ExploreServicesOrg> {
                     },
                   ),
                   SizedBox(height: 20.h,),
-                  Text("All Services (2310)",style: AppFonts.mainText,),
+                  Text("All Courses (2310)",style: AppFonts.mainText,),
                 ],
               ),
             ),
@@ -76,9 +83,9 @@ class _ExploreServicesOrgState extends State<ExploreServicesOrg> {
                 return Column(
                   children: [
                     ExploreCard(
-                      title: 'Advertising',
+                      title: 'Budgeting Made Simple',
                       price: 'Free',
-                      name: 'Google',
+                      name: 'Instructor name: John Smith',
                       logoImage: AppAssets.org_logo,
                       requestsCount: '10+ requested',
                     ),
@@ -87,8 +94,7 @@ class _ExploreServicesOrgState extends State<ExploreServicesOrg> {
                 );
               },
             )
-          ]
-
+          ],
         ),
       ),
     );
