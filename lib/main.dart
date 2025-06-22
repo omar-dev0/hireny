@@ -45,8 +45,7 @@ class Hireny extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
-        // onGenerateRoute: AppRoutes.GeneratedRoute,
-        // home: TabBar()
+        onGenerateRoute: AppRoutes.GeneratedRoute,
       ),
     );
   }

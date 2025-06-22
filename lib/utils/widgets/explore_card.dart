@@ -27,10 +27,10 @@ class ExploreCard extends StatelessWidget {
     return Container(
       padding:  EdgeInsets.symmetric(horizontal: 15.w,vertical: 10.h),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: AppColors.subPrimary,
         borderRadius: BorderRadius.circular(8.r),
         border: Border.all(
-          color: AppColors.subPrimary2,
+          color: AppColors.primary,
           width: 1.0,
         ),
       ),
@@ -66,15 +66,6 @@ class ExploreCard extends StatelessWidget {
           Text(
               requestsCount,
               style: AppFonts.secMain
-          ),
-          SizedBox(height: 24.h),
-
-          Row(
-            children: [
-              Expanded(child: CustomButtom(title: "View Details", onPressed: (){})),
-              SizedBox(width: 16.w),
-              Expanded(child: CustomButtom(title: "Request", onPressed: (){})),
-            ],
           ),
         ],
       ),

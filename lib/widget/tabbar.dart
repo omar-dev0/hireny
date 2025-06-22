@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:hireny/features/home/home.dart';
+import 'package:hireny/features/seeker/view/explore_job_seeker.dart';
+import 'package:hireny/features/seeker/view/home_page_seeker.dart';
 import 'package:hireny/routes/page_route.dart';
 import 'package:hireny/views/salary_insights/salary_insights_screen.dart';
 
+import '../features/organization/view/explore_organizations_org.dart';
+import '../features/seeker/view/explore_courses_seeker.dart';
 import '../utils/constants/app_colors.dart';
 
 class TabBarApp extends StatelessWidget {
@@ -15,25 +20,28 @@ class TabBarApp extends StatelessWidget {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: AppColors.primary,
-          title: Text("Hireny",style: Theme.of(context).textTheme.titleLarge?.copyWith(
-            color: AppColors.white,
-            fontWeight: FontWeight.w500
-          ),),
+          title: Text(
+            "Hireny",
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+              color: AppColors.white,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
           actions: [
             IconButton(
-              icon:  Icon(Icons.notifications,color: AppColors.white,),
+              icon: Icon(Icons.notifications, color: AppColors.white),
               onPressed: () {
                 // TODO: Handle notification tap
               },
             ),
             IconButton(
-              icon:  Icon(Icons.person,color: AppColors.white,),
+              icon: Icon(Icons.person, color: AppColors.white),
               onPressed: () {
                 Navigator.pushReplacementNamed(context, PagesRoute.generalInfo);
               },
             ),
           ],
-          bottom:  TabBar(
+          bottom: TabBar(
             isScrollable: true,
             labelPadding: EdgeInsets.symmetric(horizontal: 16),
             labelColor: AppColors.white,
@@ -51,12 +59,11 @@ class TabBarApp extends StatelessWidget {
         ),
         body: const TabBarView(
           children: [
-            Center(child: Text('This is Home Tab')),
-            Center(child: Text('This is Jobs Tab')),
-            Center(child: Text('This is Organizations Tab')),
-            Center(child: Text('This is Courses Tab')),
-            SalaryInsightsScreen()
-
+            Home(),
+            ExploreJobSeeker(),
+            Center(child: Text('This is org Tab')),
+            ExploreCoursesSeeker(),
+            SalaryInsightsScreen(),
           ],
         ),
       ),

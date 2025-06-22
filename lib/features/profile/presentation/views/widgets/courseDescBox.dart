@@ -16,14 +16,8 @@ class courseDescBox extends StatelessWidget {
       height: 150,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.primary.withOpacity(0.1),
-            spreadRadius: 1,
-            blurRadius: 4,
-            offset: Offset(0, 4), // Bottom shadow
-          ),
-        ],
+        color: AppColors.subPrimary,
+        border: Border.all(color: AppColors.subPrimary2,width: 1),
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 10),

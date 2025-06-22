@@ -1,17 +1,20 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hireny/features/org_profile/presentation/manager/org_profile_cubit.dart';
+import 'package:hireny/features/org_profile/presentation/ui/org_profile.dart';
 import 'package:hireny/features/organization/view/explore_job_seekers_org.dart';
 import 'package:hireny/features/profile/presentation/views/course_details_view.dart';
 import 'package:hireny/features/profile/presentation/views/widgets/calender_view.dart';
 import 'package:hireny/features/seeker/view/explore_courses_seeker.dart';
 import 'package:hireny/features/seeker/view/explore_job_seeker.dart';
+import 'package:hireny/features/view_application/presentation/manager/app_cubit.dart';
+import 'package:hireny/features/view_application/presentation/ui/view_application.dart';
 import 'package:hireny/routes/page_route.dart';
+import 'package:hireny/widget/tabbar.dart';
 import '../features/admin/view/personal_profile_admin.dart';
 import '../features/admin/view/verify_organization_admin.dart';
+import '../features/assessment/presentation/ui/assessment.dart';
 import '../features/auth/view/login/login_screen.dart';
 import '../features/auth/view/reg/reg_screen.dart';
-import '../features/auth/view/user_accout/cubit/user_cubit.dart';
-import '../features/auth/view/user_accout/general_info.dart';
-import '../features/auth/view/user_accout/widgets/general_tech_info.dart';
 import '../features/organization/view/explore_organizations_org.dart';
 import '../features/organization/view/explore_services_org.dart';
 import '../features/organization/view/related_services_org.dart';
@@ -19,6 +22,9 @@ import '../features/organization/view/service_details_org.dart';
 import '../features/profile/presentation/manager/my_courses_cubit.dart';
 import '../features/profile/presentation/views/my_courses_view.dart';
 import '../features/seeker/view/home_page_seeker.dart';
+import '../features/user_accout/cubit/user_cubit.dart';
+import '../features/user_accout/general_info.dart';
+import '../features/user_accout/widgets/general_tech_info.dart';
 import '../utils/constants/app_colors.dart';
 import '../utils/data_shared/app_shared_data.dart';
 import 'package:flutter/material.dart';
@@ -33,17 +39,16 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
 
   if (name == PagesRoute.firstPage && AppSharedData.user?.accessToken == null) {
     return MaterialPageRoute(builder: (_) => LoginScreen());
-  } else if (name == PagesRoute.firstPage &&
+  }
+  else if (name == PagesRoute.firstPage &&
       AppSharedData.user?.accessToken != null) {
-    return MaterialPageRoute(
-      builder:
-          (context) => BlocProvider(
-            create: (context) => getIt.get<UserCubit>(),
-            child: GeneralInfo(),
-          ),
-    );
+    return MaterialPageRoute(builder: (_)=>TabBarApp());
   }
 
+  if(name == PagesRoute.mainScreen)
+    {
+      return MaterialPageRoute(builder: (_)=>TabBarApp());
+    }
   if (name == PagesRoute.generalInfo) {
     return MaterialPageRoute(
       builder:
@@ -88,8 +93,30 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
     );
   }
 
-  if (name == PagesRoute.salaryInsightes) {
+  if (name == PagesRoute.salaryInsights) {
     return MaterialPageRoute(builder: (_) => SalaryInsightsScreen());
+  }
+  if (name == PagesRoute.assessment) {
+    return MaterialPageRoute(builder: (_) => Assessment());
+  }
+  if (name == PagesRoute.myApplication) {
+    return MaterialPageRoute(
+      builder:
+          (_) => BlocProvider(
+            create: (_) => getIt.get<AppCubit>(),
+            child: ViewApplication(),
+          ),
+    );
+  }
+
+  if (name == PagesRoute.orgProfile) {
+    return MaterialPageRoute(
+      builder:
+          (_) => BlocProvider(
+            create: (_) => getIt.get<OrgProfileCubit>(),
+            child: OrgProfile(),
+          ),
+    );
   }
 
   if (name == PagesRoute.reg) {
@@ -131,6 +158,8 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
   if (name == PagesRoute.homePageSeeker) {
     return MaterialPageRoute(builder: (_) => HomePageSeeker());
   }
+
+
 
   // Default case
   return MaterialPageRoute(

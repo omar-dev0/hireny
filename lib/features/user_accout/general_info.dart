@@ -19,377 +19,38 @@ class GeneralInfo extends StatefulWidget {
   State<GeneralInfo> createState() => _GeneralInfoState();
 }
 
-class _GeneralInfoState extends State<GeneralInfo> {
+class _GeneralInfoState extends State<GeneralInfo>
+    with TickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<Offset> _slideAnimation;
+  late Animation<double> _fadeAnimation;
+
   @override
-  Widget build(BuildContext context) {
-    final cubit = context.read<UserCubit>();
+  void initState() {
+    super.initState();
 
-    return BlocConsumer<UserCubit,UserStates>(
-      listener: (context,state){
-        if ( state is InitialState){
-          print("hello world");
-        }
-      } ,
-      builder: (context,state){
-        return Scaffold(
-          backgroundColor: AppColors.white,
-          drawer: SideBar(index: 0,),
-          appBar: AppBar(
-            title: const Text(
-              'Personal Info',
-              style: TextStyle(color: Colors.black),
-            ),
-            centerTitle: true,
-            backgroundColor: Colors.white,
-            iconTheme: const IconThemeData(color: AppColors.primary),
-          ),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  Center(
-                    child: Stack(
-                      children: [
-                        // image picker
-                        BlocBuilder<UserCubit, UserStates>(
-                          builder: (context, state) {
-
-                            if (cubit.selectedImage == null) {
-                              return CircleAvatar(
-                                radius: 60,
-                                backgroundImage: AssetImage(AppAssets.profileImg),
-
-                            );
-                        }
-                            return CircleAvatar(
-                              radius: 70,
-                              backgroundImage: FileImage(File(cubit.selectedImage!.path),
-                            ),
-                          );
-                        },
-                    ),
-
-                        Positioned(
-                          top: 80,
-                          left: 70,
-                          child: InkWell(
-                            onTap: () {
-                              showModalBottomSheet(
-                                context: context,
-                                builder: (context) => bottomSheet(cubit),
-                              );
-                            },
-                            child: Icon(
-                              Icons.photo_camera,
-                              size: 40,
-                              color: AppColors.primary,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 16),
-                  Form(
-                    key: cubit.formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: 'First Name ',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              TextSpan(
-                                text: '*',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.red,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        CustomTextField(
-                          controller: cubit.firstNameController,
-                          hint: "Enter your first name",
-                          keyboardType: TextInputType.name,
-                          onValidate:
-                              (value) => cubit.validateText(value, "First name"),
-                        ),
-                        // last name
-                        SizedBox(height: 16),
-                        RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: 'Last Name ',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              TextSpan(
-                                text: '*',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.red,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        CustomTextField(
-                          controller: cubit.lastNameController,
-                          hint: "Enter your last name",
-                          keyboardType: TextInputType.name,
-                          onValidate:
-                              (value) => cubit.validateText(value, "Last name"),
-                        ),
-                        // date
-                        SizedBox(height: 16),
-                        RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: 'Birth of Date',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              TextSpan(
-                                text: '*',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.red,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        // todo date checking
-                        CustomTextField(
-                          controller: cubit.birthDateController,
-                          hint: "dd/mm/yyyy",
-                          suffixWidget: Icon(Icons.calendar_month),
-                          keyboardType: TextInputType.datetime,
-                          onValidate: (value) => cubit.validateDate(value),
-                        ),
-                        SizedBox(height: 16),
-                        Text(
-                          "Email",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black,
-                          ),
-                        ),
-                        CustomTextField(
-                          controller: cubit.emailController,
-                          hint: "Enter your email",
-                          keyboardType: TextInputType.emailAddress,
-                          onValidate: (value) => cubit.validateEmail(value),
-                        ),
-                        // phone
-                        SizedBox(height: 16),
-                        Text(
-                          "Phone",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black,
-                          ),
-                        ),
-                        IntlPhoneField(
-                          initialCountryCode: 'EG',
-                          cursorColor: AppColors.primary,
-                          keyboardType: TextInputType.phone,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: const BorderSide(
-                                color: AppColors.grey,
-                                width: 1,
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: BorderSide(
-                                color: AppColors.grey.withOpacity(0.5),
-                                width: 1,
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: const BorderSide(
-                                color: AppColors.primary,
-                                width: 1,
-                              ),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              borderSide: const BorderSide(
-                                color: AppColors.red,
-                                width: 1,
-                              ),
-                            ),
-                            fillColor: Colors.white,
-                            filled: true,
-                          ),
-                          onSaved: (phone) {
-                            cubit.phoneNumber = phone?.completeNumber;
-                            print(cubit.phoneNumber);
-                          },
-
-                          validator: (phone) {
-                            print("VALIDATING: ${phone?.number}");
-                            return cubit.validatePhoneNumber(phone?.number);
-                          },
-                        ),
-                        // password
-                        SizedBox(height: 16),
-                        Text(
-                          "Password",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black,
-                          ),
-                        ),
-                        CustomTextField(
-                          controller: cubit.passwordController,
-                          hint: "Enter your password",
-                          isPassword: true,
-                          maxLines: 1,
-                          keyboardType: TextInputType.visiblePassword,
-                          onValidate: (value) => cubit.validatePassword(value),
-                        ),
-                        SizedBox(height: 8),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                        onPressed: () {
-                          // todo add nav
-                          Navigator.pushNamed(
-                            context,
-                            PagesRoute.changePassword,
-                          );
-                        },
-                        child: Text(
-                          "Change Password",
-                          style: TextStyle(
-                            color: AppColors.primary,
-                            fontWeight: FontWeight.w600,
-                            decoration: TextDecoration.underline,
-                            decorationColor: AppColors.primary,
-                            decorationThickness: 2,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                        RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: 'Gender ',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              TextSpan(
-                                text: '*',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.red,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        BlocBuilder<UserCubit, UserStates>(
-                            builder: (context, state) {
-                              return Row(
-                                children: [
-                                  Expanded(
-                                    child: RadioListTile<String>(
-                                      title: const Text('Male'),
-                                      value: 'Male',
-                                      groupValue: cubit.selectedGender,
-                                      activeColor: AppColors.primary,
-                                      onChanged: (value) => cubit.updateGender(value),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: RadioListTile<String>(
-                                      title: const Text('Female'),
-                                      value: 'Female',
-                                      groupValue: cubit.selectedGender,
-                                      activeColor: AppColors.primary,
-                                      onChanged: (value) => cubit.updateGender(value),
-                                    ),
-                                  ),
-],
-                                );
-                                  },
-                    ),
-
-
-                        SizedBox(height: 16),
-                        SizedBox(
-                          width: double.infinity,
-                          height: 50,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              if (cubit.formKey.currentState!.validate()) {
-                                cubit.formKey.currentState!.save();
-                                Navigator.pushNamed(context, PagesRoute.generalTechInfo,
-                              );
-                            }},
-
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.primary,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-),
-
-                            child: const Text(
-                              "Next",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 600),
+      vsync: this,
     );
+
+    _slideAnimation = Tween<Offset>(
+      begin: const Offset(0, 0.1),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
+
+    _fadeAnimation = Tween<double>(
+      begin: 0,
+      end: 1,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
+
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   bottomSheet(UserCubit cubit) {
@@ -424,6 +85,304 @@ class _GeneralInfoState extends State<GeneralInfo> {
           ),
         ],
       ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final cubit = context.read<UserCubit>();
+
+    return BlocConsumer<UserCubit, UserStates>(
+      listener: (context, state) {
+        if (state is InitialState) {
+          print("hello world");
+        }
+      },
+      builder: (context, state) {
+        return Scaffold(
+          backgroundColor: AppColors.white,
+          drawer: SideBar(index: 0),
+          appBar: AppBar(
+            title: const Text(
+              'Personal Info',
+              style: TextStyle(color: Colors.black),
+            ),
+            centerTitle: true,
+            backgroundColor: Colors.white,
+            iconTheme: const IconThemeData(color: AppColors.primary),
+          ),
+          body: SingleChildScrollView(
+            child: FadeTransition(
+              opacity: _fadeAnimation,
+              child: SlideTransition(
+                position: _slideAnimation,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      Center(
+                        child: Stack(
+                          children: [
+                            BlocBuilder<UserCubit, UserStates>(
+                              builder: (context, state) {
+                                return AnimatedSwitcher(
+                                  duration: Duration(milliseconds: 400),
+                                  child:
+                                      cubit.selectedImage == null
+                                          ? CircleAvatar(
+                                            key: ValueKey('default_avatar'),
+                                            radius: 60,
+                                            backgroundImage: AssetImage(
+                                              AppAssets.profileImg,
+                                            ),
+                                          )
+                                          : CircleAvatar(
+                                            key: ValueKey('picked_avatar'),
+                                            radius: 70,
+                                            backgroundImage: FileImage(
+                                              File(cubit.selectedImage!.path),
+                                            ),
+                                          ),
+                                );
+                              },
+                            ),
+                            Positioned(
+                              top: 80,
+                              left: 70,
+                              child: InkWell(
+                                onTap: () {
+                                  showModalBottomSheet(
+                                    context: context,
+                                    builder: (context) => bottomSheet(cubit),
+                                  );
+                                },
+                                child: Icon(
+                                  Icons.photo_camera,
+                                  size: 40,
+                                  color: AppColors.primary,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Form(
+                        key: cubit.formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            buildLabel('First Name'),
+                            CustomTextField(
+                              controller: cubit.firstNameController,
+                              hint: "Enter your first name",
+                              keyboardType: TextInputType.name,
+                              onValidate:
+                                  (value) =>
+                                      cubit.validateText(value, "First name"),
+                            ),
+                            const SizedBox(height: 16),
+                            buildLabel('Last Name'),
+                            CustomTextField(
+                              controller: cubit.lastNameController,
+                              hint: "Enter your last name",
+                              keyboardType: TextInputType.name,
+                              onValidate:
+                                  (value) =>
+                                      cubit.validateText(value, "Last name"),
+                            ),
+                            const SizedBox(height: 16),
+                            buildLabel('Birth of Date'),
+                            CustomTextField(
+                              controller: cubit.birthDateController,
+                              hint: "dd/mm/yyyy",
+                              suffixWidget: Icon(Icons.calendar_month),
+                              keyboardType: TextInputType.datetime,
+                              onValidate: (value) => cubit.validateDate(value),
+                            ),
+                            const SizedBox(height: 16),
+                            buildPlainLabel('Email'),
+                            CustomTextField(
+                              controller: cubit.emailController,
+                              hint: "Enter your email",
+                              keyboardType: TextInputType.emailAddress,
+                              onValidate: (value) => cubit.validateEmail(value),
+                            ),
+                            const SizedBox(height: 16),
+                            buildPlainLabel('Phone'),
+                            IntlPhoneField(
+                              initialCountryCode: 'EG',
+                              cursorColor: AppColors.primary,
+                              keyboardType: TextInputType.phone,
+                              decoration: buildInputDecoration(),
+                              onSaved:
+                                  (phone) =>
+                                      cubit.phoneNumber = phone?.completeNumber,
+                              validator:
+                                  (phone) =>
+                                      cubit.validatePhoneNumber(phone?.number),
+                            ),
+                            const SizedBox(height: 16),
+                            buildLabel('Gender'),
+                            BlocBuilder<UserCubit, UserStates>(
+                              builder: (context, state) {
+                                return Row(
+                                  children: [
+                                    Expanded(
+                                      child: RadioListTile<String>(
+                                        title: const Text('Male'),
+                                        value: 'Male',
+                                        groupValue: cubit.selectedGender,
+                                        activeColor: AppColors.primary,
+                                        onChanged:
+                                            (value) =>
+                                                cubit.updateGender(value),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: RadioListTile<String>(
+                                        title: const Text('Female'),
+                                        value: 'Female',
+                                        groupValue: cubit.selectedGender,
+                                        activeColor: AppColors.primary,
+                                        onChanged:
+                                            (value) =>
+                                                cubit.updateGender(value),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
+                            const SizedBox(height: 16),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      if (cubit.formKey.currentState!
+                                          .validate()) {
+                                        cubit.formKey.currentState!.save();
+                                        Navigator.pushNamed(
+                                          context,
+                                          PagesRoute.generalTechInfo,
+                                        );
+                                      }
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: AppColors.primary,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                    ),
+                                    child: const Text(
+                                      "Next",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 16),
+                                Expanded(
+                                  child: ElevatedButton(
+                                    onPressed: () {},
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                        side: BorderSide(
+                                          color: AppColors.primary,
+                                        ),
+                                      ),
+                                    ),
+                                    child: Text(
+                                      "ChangePassword",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.primary,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget buildLabel(String text) {
+    return RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(
+            text: '$text ',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: Colors.black,
+            ),
+          ),
+          TextSpan(
+            text: '*',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: Colors.red,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildPlainLabel(String text) {
+    return Text(
+      text,
+      style: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        color: Colors.black,
+      ),
+    );
+  }
+
+  InputDecoration buildInputDecoration() {
+    return InputDecoration(
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: const BorderSide(color: AppColors.grey, width: 1),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide(
+          color: AppColors.grey.withOpacity(0.5),
+          width: 1,
+        ),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: const BorderSide(color: AppColors.primary, width: 1),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: AppColors.red, width: 1),
+      ),
+      fillColor: Colors.white,
+      filled: true,
     );
   }
 }

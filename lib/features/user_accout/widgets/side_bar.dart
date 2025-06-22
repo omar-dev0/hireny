@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hireny/routes/page_route.dart';
 import 'package:hireny/utils/constants/app_assets.dart';
 import 'package:hireny/utils/constants/app_colors.dart';
 
@@ -63,11 +64,18 @@ class _SideBarState extends State<SideBar> {
               children: [
                 Icon(Icons.home, color: AppColors.primary, size: 35),
                 const SizedBox(width: 10),
-                Text(
-                  "Back To Home",
-                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.w500,
+                GestureDetector(
+                  onTap:
+                      () => Navigator.pushReplacementNamed(
+                        context,
+                        PagesRoute.mainScreen,
+                      ),
+                  child: Text(
+                    "Back To Home",
+                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                      color: AppColors.primary,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ],
@@ -93,15 +101,24 @@ class _SideBarState extends State<SideBar> {
                   child: Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 16,
+                        ),
                         child: Text(
                           drawerList[index],
-                          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                          style: Theme.of(
+                            context,
+                          ).textTheme.headlineSmall!.copyWith(
                             color: AppColors.primary,
-                            fontWeight: widget.index == index?FontWeight.w700:FontWeight.w500,
-                            decoration: widget.index == index
-                                ? TextDecoration.underline
-                                : TextDecoration.none,
+                            fontWeight:
+                                widget.index == index
+                                    ? FontWeight.w700
+                                    : FontWeight.w500,
+                            decoration:
+                                widget.index == index
+                                    ? TextDecoration.underline
+                                    : TextDecoration.none,
                             decorationColor: AppColors.primary,
                             decorationThickness: 2,
                           ),

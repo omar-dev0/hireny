@@ -16,38 +16,31 @@ class HomePageSeeker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-        length: 5,
-        child: Scaffold(
-          backgroundColor: AppColors.subPrimary,
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(height: 40.h,),
-              Text("Job  Seeker",style: AppFonts.mainText,),
-              TabBar(
-                  isScrollable: true,
-                  indicatorColor: Colors.black,
-                  tabs: [
-                    Tab(child: Text("Home"),),
-                    Tab(child: Text("Find Job"),),
-                    Tab(child: Text("Organizations"),),
-                    Tab(child: Text("Courses"),),
-                    Tab(child: Text("Salary Insights"),),
-                  ]
-              ),
-              Expanded(child: TabBarView(
-                  children: [
-                    ExploreJobSeeker(), //dummy Screen
-                    ExploreJobSeeker(),
-                    ExploreOrganizationsOrg(), //used this cause its the same UI
-                    ExploreCoursesSeeker(),
-                    SalaryInsightsScreen(),
-                  ])
-              )
-            ],
+    return Scaffold(
+      backgroundColor: AppColors.subPrimary,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(height: 40.h,),
+          Text("Job  Seeker",style: AppFonts.mainText,),
+          TabBar(
+              isScrollable: true,
+              indicatorColor: Colors.black,
+              tabs: [
+                Tab(child: Text("Home"),),
+                Tab(child: Text("Find Job"),),
+                Tab(child: Text("Organizations"),),
+                Tab(child: Text("Courses"),),
+                Tab(child: Text("Salary Insights"),),
+              ]
           ),
-        )
+          Expanded(child: TabBarView(
+              children: [
+
+              ])
+          )
+        ],
+      ),
     );
   }
 }

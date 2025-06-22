@@ -16,7 +16,14 @@ class course_header_section extends StatelessWidget {
         Container(
           height: 160,
           decoration: BoxDecoration(
-            color: AppColors.lightprimary,
+            color: AppColors.white,
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.primary.withOpacity(0.1),
+                spreadRadius: 1,
+                blurRadius: 4,
+                offset: Offset(0, 4), )// Bottom shadow
+            ],
             borderRadius: BorderRadius.only(
               bottomRight: Radius.circular(16),
               bottomLeft: Radius.circular(16),

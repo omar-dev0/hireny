@@ -85,12 +85,19 @@ class LoginScreen extends StatelessWidget {
           if (state is SuccessLogin) {
             Future.delayed(Duration(seconds: 2), () {
               Navigator.pop(context);
-              Navigator.pushReplacementNamed(context, PagesRoute.generalInfo);
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                PagesRoute.mainScreen,
+                (route) => false,
+              );
             });
             showDialog(context: context, builder: (context) => SuccessDialog());
           }
           if (state is FailLogin) {
-            showDialog(context: context, builder: (context) => ErrorDialog(message: state.error,));
+            showDialog(
+              context: context,
+              builder: (context) => ErrorDialog(message: state.error),
+            );
           }
         },
 

@@ -15,35 +15,40 @@ class CourseDetailsView extends StatelessWidget {
     return DefaultTabController(
       length: 4,
       child: Scaffold(
-        appBar: CustomAppBar(colored: true,),
-        body: Column(
-          children: [
-            // Header Section
-            course_header_section(),
-            // TabBar
-            TabBar(
-              labelColor: AppColors.primary,
-              unselectedLabelColor: Colors.grey,
-              indicatorColor: AppColors.primary,
-              tabs: const [
-                Tab(text: "About Course"),
-                Tab(text: "Content"),
-                Tab(text: "Instructor"),
-                Tab(text: "Reviews"),
+        backgroundColor: Colors.white,
+        body: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.all(20),
+            child: Column(
+              children: [
+                // Header Section
+                course_header_section(),
+                // TabBar
+                TabBar(
+                  labelColor: AppColors.primary,
+                  unselectedLabelColor: Colors.grey,
+                  indicatorColor: AppColors.primary,
+                  tabs: const [
+                    Tab(text: "About Course"),
+                    Tab(text: "Content"),
+                    Tab(text: "Instructor"),
+                    Tab(text: "Reviews"),
+                  ],
+                ),
+                Expanded(
+                  child: TabBarView(
+                    children: [
+                      AboutCourseTab(),
+                      course_content_tap(),
+                      _instructorTab(),
+                      ReviewsTab(),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 20),
               ],
             ),
-            Expanded(
-              child: TabBarView(
-                children: [
-                  aboutCourseTab(),
-                  course_content_tap(),
-                  _instructorTab(),
-                  reviewsTab(),
-                ],
-              ),
-            ),
-            SizedBox(height: 20,)
-          ],
+          ),
         ),
       ),
     );
@@ -54,5 +59,4 @@ class CourseDetailsView extends StatelessWidget {
       child: Text("Instructor information goes here"), // Customize as needed
     );
   }
-
 }

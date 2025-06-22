@@ -26,6 +26,7 @@ class _DropDownListCustomState extends State<DropDownListCustom> {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 15.w),
         decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20.r),
           color: AppColors.subPrimary,
           border: Border.all(
             width: 1,

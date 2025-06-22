@@ -125,18 +125,6 @@ class JobExploreCard extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 10.h),
-          Row(
-            children: [
-              Expanded(
-                child: CustomButtom(title: "View details", onPressed: (){}),
-              ),
-              SizedBox(width: 16.w),
-              Expanded(
-                child: CustomButtom(title: "Apply now", onPressed: (){}),
-              ),
-            ],
-          ),
         ],
       ),
     );
