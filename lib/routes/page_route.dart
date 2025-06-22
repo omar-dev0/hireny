@@ -2,8 +2,11 @@ abstract class PagesRoute{
   static const String generalInfo = "/generalInfo";
   static const String generalTechInfo = "/tech";
   static  String firstPage = "/";
+  // general routes
+  static const String home = "/home";
+  static const String firstPage = "/login";
   static const String errorScreen = "/ErrorScreen";
-  static const String salaryInsightes = "/SalaryInsightsScreen";
+  static const String salaryInsights = "/SalaryInsightsScreen";
   static const String thankYou = "/ThankYouScreen";
   static const String myCourses = "/MyCoursesView";
   static const String courseDetails = "/CourseDetailsView";
@@ -20,4 +23,25 @@ abstract class PagesRoute{
   static String exploreCoursesSeeker = '/ExploreCoursesSeeker';
   static String exploreJobsSeeker = '/ExploreJobsSeeker';
   static String homePageSeeker = '/HomePageSeeker';
+
+
+  // user routes
+  static const String generalInfo = "/";
+  static const String generalTechInfo = "/tech";
+  static const String myApplication = "/myApps";
+  static const String orgProfile = "/orgProfile";
+  static const String assessment = "/questions";
+  static const String changePassword = "/changePass";
+
+
+
+  // admin routes
+  static const String showCourses = "/showCourses";
+  static const String showOrg = "/showOrg";
+  static const String showAdmins = "/showAdmin";
+
+
+
+
+
 }
