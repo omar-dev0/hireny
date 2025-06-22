@@ -6,7 +6,6 @@ import 'package:hireny/utils/widgets/custom_buttom.dart';
 import 'package:hireny/utils/widgets/custom_text_field.dart';
 
 class PersonalProfileAdmin extends StatelessWidget {
-  static String routeName = "PersonalProfileAdmin";
   const PersonalProfileAdmin({super.key});
 
   @override

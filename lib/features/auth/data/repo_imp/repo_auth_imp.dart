@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:hireny/features/auth/data/data_source/auth_data_source.dart';
 import 'package:hireny/features/auth/domain/modules/org/org_admin.dart';
 import 'package:hireny/features/auth/domain/modules/seeker/seeker.dart';
@@ -36,32 +37,46 @@ class RepoAuthImp implements RepoAuth {
   }
 
   @override
-  Future<void> login(String email, String password) async {
-    var result = await dataSource.login(email, password);
-    if (result is Success) {
-      Success<Map<String, dynamic>> response =
-          result as Success<Map<String, dynamic>>;
-      String accessToken = response.response?['access'];
-      String refreshToken = response.response?['refresh'];
-      var userInfo = await getUserInfo(accessToken);
-      if (userInfo is Success) {
-        Success<User?> response = userInfo as Success<User?>;
-        AppSharedData.user = response.response;
-        AppSharedData.user?.accessToken = accessToken;
-        AppSharedData.user?.refreshToken = refreshToken;
-        if (AppSharedData.user is Seeker) {
-          Seeker seeker = AppSharedData.user as Seeker;
-          AppSharedData.rememberMe
-              ? Hive.box(CashingData.appBox).put(CashingData.user, seeker)
-              : null;
-        } else if (AppSharedData.user is OrgAdmin) {
-          OrgAdmin orgAdmin = AppSharedData.user as OrgAdmin;
-          AppSharedData.rememberMe
-              ? Hive.box(CashingData.appBox).put(CashingData.user, orgAdmin)
-              : null;
+  Future<Result<void>> login(String email, String password) async {
+    try {
+      var result = await dataSource.login(email, password);
+      if (result is Success) {
+        Success<Map<String, dynamic>> response =
+        result as Success<Map<String, dynamic>>;
+        String accessToken = response.response?['access'];
+        String refreshToken = response.response?['refresh'];
+        var userInfo = await getUserInfo(accessToken);
+        if (userInfo is Success) {
+          Success<User?> response = userInfo as Success<User?>;
+          AppSharedData.user = response.response;
+          AppSharedData.user?.accessToken = accessToken;
+          AppSharedData.user?.refreshToken = refreshToken;
+          if (AppSharedData.user is Seeker) {
+            Seeker seeker = AppSharedData.user as Seeker;
+            AppSharedData.rememberMe
+                ? Hive.box(CashingData.appBox).put(CashingData.user, seeker)
+                : null;
+            return Success();
+          } else if (AppSharedData.user is OrgAdmin) {
+            OrgAdmin orgAdmin = AppSharedData.user as OrgAdmin;
+            AppSharedData.rememberMe
+                ? Hive.box(CashingData.appBox).put(CashingData.user, orgAdmin)
+                : null;
+            return Success();
+          }
         }
       }
+      else if (result is Error)
+        {
+          return Error(error: 'some thing went wrong');
+        }
+    } on DioException catch (e) {
+      return Error(error: e.toString());
     }
+    catch(e){
+      return Error(error: e.toString());
+    }
+    return Error(error: 'error');
   }
 
   @override

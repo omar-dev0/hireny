@@ -10,7 +10,7 @@ abstract class RepoAuth {
 
   Future<Result<OrgAdmin?>?> regOrg(OrgAdmin orgAdmin, String password, File? orgProf);
 
-  Future<void> login(
+  Future<Result<void>> login(
       String email,
       String password,
       );

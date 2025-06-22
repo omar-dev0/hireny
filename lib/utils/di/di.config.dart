@@ -22,6 +22,8 @@ import '../../features/auth/domain/repo_contract/repo_contract.dart' as _i412;
 import '../../features/auth/view/login/cubit/login_vm.dart' as _i866;
 import '../../features/auth/view/reg/cubit/reg_vm.dart' as _i981;
 import '../../features/auth/view/user_accout/cubit/user_cubit.dart' as _i906;
+import '../../features/profile/presentation/manager/my_courses_cubit.dart'
+    as _i267;
 import '../dio_provider.dart' as _i177;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -37,6 +39,7 @@ extension GetItInjectableX on _i174.GetIt {
     );
     final dioProvider = _$DioProvider();
     gh.factory<_i906.UserCubit>(() => _i906.UserCubit());
+    gh.factory<_i267.MyCoursesCubit>(() => _i267.MyCoursesCubit());
     gh.lazySingleton<_i361.Dio>(() => dioProvider.dioProvider());
     gh.lazySingleton<_i528.PrettyDioLogger>(() => dioProvider.providePretty());
     gh.singleton<_i758.ApiManger>(() => _i758.ApiManger(gh<_i361.Dio>()));

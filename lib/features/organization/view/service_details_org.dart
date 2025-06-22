@@ -8,7 +8,6 @@ import 'package:hireny/utils/extensions/font_size.dart';
 import 'package:hireny/utils/widgets/custom_buttom.dart';
 
 class ServiceDetailsOrg extends StatelessWidget {
-  static String routeName = "ServiceDetailsOrg";
 
   const ServiceDetailsOrg({super.key});
 

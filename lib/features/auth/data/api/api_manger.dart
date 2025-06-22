@@ -29,6 +29,7 @@ class ApiManger {
         ...formMap,
       });
 
+
       final response = await _dio.post(ApiConst.reg, data: formData);
 
       if (response.data == null) return null;

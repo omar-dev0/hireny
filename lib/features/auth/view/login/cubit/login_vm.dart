@@ -7,6 +7,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 
+import '../../../../../result.dart';
+
 @injectable
 class LoginVm extends Cubit<LoginState> {
   TextEditingController email = TextEditingController();
@@ -52,9 +54,14 @@ class LoginVm extends Cubit<LoginState> {
     if (formKey.currentState!.validate()) {
       emit(LoadingLogin());
       try {
-        await _repoAuth.login(email.text, password.text);
-        emit(HideLoading());
-        emit(SuccessLogin());
+        Result<void> result = await _repoAuth.login(email.text, password.text);
+        if (result is Success) {
+          emit(HideLoading());
+          emit(SuccessLogin());
+        } else {
+          emit(HideLoading());
+          emit(FailLogin(error: 'email or password is wrong'));
+        }
       } catch (e) {
         emit(HideLoading());
         emit(FailLogin(error: 'email or password is wrong'));

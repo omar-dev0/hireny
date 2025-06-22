@@ -1,10 +1,24 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hireny/features/organization/view/explore_job_seekers_org.dart';
+import 'package:hireny/features/profile/presentation/views/course_details_view.dart';
+import 'package:hireny/features/profile/presentation/views/widgets/calender_view.dart';
+import 'package:hireny/features/seeker/view/explore_courses_seeker.dart';
+import 'package:hireny/features/seeker/view/explore_job_seeker.dart';
 import 'package:hireny/routes/page_route.dart';
+import '../features/admin/view/personal_profile_admin.dart';
+import '../features/admin/view/verify_organization_admin.dart';
 import '../features/auth/view/login/login_screen.dart';
 import '../features/auth/view/reg/reg_screen.dart';
 import '../features/auth/view/user_accout/cubit/user_cubit.dart';
 import '../features/auth/view/user_accout/general_info.dart';
 import '../features/auth/view/user_accout/widgets/general_tech_info.dart';
+import '../features/organization/view/explore_organizations_org.dart';
+import '../features/organization/view/explore_services_org.dart';
+import '../features/organization/view/related_services_org.dart';
+import '../features/organization/view/service_details_org.dart';
+import '../features/profile/presentation/manager/my_courses_cubit.dart';
+import '../features/profile/presentation/views/my_courses_view.dart';
+import '../features/seeker/view/home_page_seeker.dart';
 import '../utils/constants/app_colors.dart';
 import '../utils/data_shared/app_shared_data.dart';
 import 'package:flutter/material.dart';
@@ -58,6 +72,22 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
     return MaterialPageRoute(builder: (_) => ThankYouScreen());
   }
 
+  if (name == PagesRoute.courseDetails) {
+    return MaterialPageRoute(builder: (_) => CourseDetailsView());
+  }
+  if (name == PagesRoute.calender) {
+    return MaterialPageRoute(builder: (_) => CalenderView());
+  }
+  if (name == PagesRoute.myCourses) {
+    return MaterialPageRoute(
+      builder:
+          (context) => BlocProvider(
+            create: (_) => getIt.get<MyCoursesCubit>(),
+            child: MyCoursesView(),
+          ),
+    );
+  }
+
   if (name == PagesRoute.salaryInsightes) {
     return MaterialPageRoute(builder: (_) => SalaryInsightsScreen());
   }
@@ -69,6 +99,37 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
       isOrg = arg;
     }
     return MaterialPageRoute(builder: (_) => RegSeekerScreen(isOrg: isOrg));
+  }
+  if (name == PagesRoute.personalProfileAdmin) {
+    return MaterialPageRoute(builder: (_) => PersonalProfileAdmin());
+  }
+  if (name == PagesRoute.verifyOrganizationAdmin) {
+    return MaterialPageRoute(builder: (_) => VerifyOrganizationAdmin());
+  }
+  if (name == PagesRoute.serviceDetailsOrg) {
+    return MaterialPageRoute(builder: (_) => ServiceDetailsOrg());
+  }
+  if (name == PagesRoute.relatedServicesOrg) {
+    return MaterialPageRoute(builder: (_) => RelatedServicesOrg());
+  }
+
+  if (name == PagesRoute.exploreOrganizationsOrg) {
+    return MaterialPageRoute(builder: (_) => ExploreOrganizationsOrg());
+  }
+  if (name == PagesRoute.exploreJobSeekersOrg) {
+    return MaterialPageRoute(builder: (_) => ExploreJobSeekersOrg());
+  }
+  if (name == PagesRoute.exploreServicesOrg) {
+    return MaterialPageRoute(builder: (_) => ExploreServicesOrg());
+  }
+  if (name == PagesRoute.exploreCoursesSeeker) {
+    return MaterialPageRoute(builder: (_) => ExploreCoursesSeeker());
+  }
+  if (name == PagesRoute.exploreJobsSeeker) {
+    return MaterialPageRoute(builder: (_) => ExploreJobSeeker());
+  }
+  if (name == PagesRoute.homePageSeeker) {
+    return MaterialPageRoute(builder: (_) => HomePageSeeker());
   }
 
   // Default case

@@ -8,7 +8,7 @@ import '../linkes/link.dart';
 part 'user.g.dart';
 
 @HiveType(typeId: 22)
-class User {
+ class User {
   @HiveField(0)
   int? id;
   @HiveField(1)
