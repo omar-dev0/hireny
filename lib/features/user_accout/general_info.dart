@@ -26,7 +26,7 @@ class _GeneralInfoState extends State<GeneralInfo> {
 
     return Scaffold(
       backgroundColor: AppColors.white,
-      drawer: SideBar(),
+      drawer: SideBar(index: 0,),
       appBar: AppBar(
         title: const Text(
           'Personal Info',
@@ -47,24 +47,24 @@ class _GeneralInfoState extends State<GeneralInfo> {
                     // image picker
                     BlocBuilder<UserCubit, UserStates>(
                       builder: (context, state) {
-                        // Check for null before using cubit.selectedImage
                         if (cubit.selectedImage == null) {
                           return CircleAvatar(
-                            radius: 70,
+                            radius: 60,
                             backgroundImage: AssetImage(AppAssets.profileImg),
                           );
                         }
-
                         return CircleAvatar(
                           radius: 70,
-                          backgroundImage: FileImage(File(cubit.selectedImage!.path)),
+                          backgroundImage: FileImage(
+                            File(cubit.selectedImage!.path),
+                          ),
                         );
                       },
                     ),
 
                     Positioned(
-                      top: 100,
-                      left: 90,
+                      top: 80,
+                      left: 70,
                       child: InkWell(
                         onTap: () {
                           showModalBottomSheet(
@@ -261,6 +261,7 @@ class _GeneralInfoState extends State<GeneralInfo> {
                         color: Colors.black,
                       ),
                     ),
+
                     CustomTextField(
                       controller: cubit.passwordController,
                       hint: "Enter your password",
@@ -269,7 +270,30 @@ class _GeneralInfoState extends State<GeneralInfo> {
                       keyboardType: TextInputType.visiblePassword,
                       onValidate: (value) => cubit.validatePassword(value),
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: 8),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                        onPressed: () {
+                          // todo add nav
+                          Navigator.pushNamed(
+                            context,
+                            PagesRoute.changePassword,
+                          );
+                        },
+                        child: Text(
+                          "Change Password",
+                          style: TextStyle(
+                            color: AppColors.primary,
+                            fontWeight: FontWeight.w600,
+                            decoration: TextDecoration.underline,
+                            decorationColor: AppColors.primary,
+                            decorationThickness: 2,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 8),
                     RichText(
                       text: TextSpan(
                         children: [
@@ -292,34 +316,34 @@ class _GeneralInfoState extends State<GeneralInfo> {
                         ],
                       ),
                     ),
-    BlocBuilder<UserCubit, UserStates>(
-    builder: (context, state) {
-    return Row(
-      children: [
-        Expanded(
-          child: RadioListTile<String>(
-            title: const Text('Male'),
-            value: 'Male',
-            groupValue: cubit.selectedGender,
-            activeColor: AppColors.primary,
-            onChanged: (value) => cubit.updateGender(value),
-          ),
-        ),
-        Expanded(
-          child: RadioListTile<String>(
-            title: const Text('Female'),
-            value: 'Female',
-            groupValue: cubit.selectedGender,
-            activeColor: AppColors.primary,
-            onChanged: (value) => cubit.updateGender(value),
-          ),
-        ),
+                    BlocBuilder<UserCubit, UserStates>(
+                      builder: (context, state) {
+                        return Row(
+                          children: [
+                            Expanded(
+                              child: RadioListTile<String>(
+                                title: const Text('Male'),
+                                value: 'Male',
+                                groupValue: cubit.selectedGender,
+                                activeColor: AppColors.primary,
+                                onChanged: (value) => cubit.updateGender(value),
+                              ),
+                            ),
+                            Expanded(
+                              child: RadioListTile<String>(
+                                title: const Text('Female'),
+                                value: 'Female',
+                                groupValue: cubit.selectedGender,
+                                activeColor: AppColors.primary,
+                                onChanged: (value) => cubit.updateGender(value),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
 
-      ],
-    );    }),
-
-
-                    SizedBox(height: 16,),
+                    SizedBox(height: 16),
                     SizedBox(
                       width: double.infinity,
                       height: 50,
@@ -327,7 +351,10 @@ class _GeneralInfoState extends State<GeneralInfo> {
                         onPressed: () {
                           if (cubit.formKey.currentState!.validate()) {
                             cubit.formKey.currentState!.save();
-                            Navigator.pushNamed(context, PagesRoute.generalTechInfo);
+                            Navigator.pushNamed(
+                              context,
+                              PagesRoute.generalTechInfo,
+                            );
                           }
                         },
 
@@ -336,7 +363,6 @@ class _GeneralInfoState extends State<GeneralInfo> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
-
                         ),
                         child: const Text(
                           "Next",
@@ -347,7 +373,7 @@ class _GeneralInfoState extends State<GeneralInfo> {
                           ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

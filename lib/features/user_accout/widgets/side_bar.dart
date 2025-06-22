@@ -3,7 +3,8 @@ import 'package:hireny/utils/constants/app_assets.dart';
 import 'package:hireny/utils/constants/app_colors.dart';
 
 class SideBar extends StatefulWidget {
-  const SideBar({super.key});
+  final int index;
+  const SideBar({super.key, required this.index});
 
   @override
   State<SideBar> createState() => _SideBarState();
@@ -19,8 +20,6 @@ class _SideBarState extends State<SideBar> {
     "My Courses",
     "AI Tools",
   ];
-
-  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -54,12 +53,9 @@ class _SideBarState extends State<SideBar> {
               ),
             ),
           ),
-
           const SizedBox(height: 20),
-
           InkWell(
             onTap: () {
-              //todo back to home route
               Navigator.pop(context);
             },
             child: Row(
@@ -77,7 +73,6 @@ class _SideBarState extends State<SideBar> {
               ],
             ),
           ),
-
           const SizedBox(height: 20),
           Divider(
             thickness: 3,
@@ -93,7 +88,6 @@ class _SideBarState extends State<SideBar> {
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {
-
                     Navigator.pop(context);
                   },
                   child: Column(
@@ -104,11 +98,15 @@ class _SideBarState extends State<SideBar> {
                           drawerList[index],
                           style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                             color: AppColors.primary,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: widget.index == index?FontWeight.w700:FontWeight.w500,
+                            decoration: widget.index == index
+                                ? TextDecoration.underline
+                                : TextDecoration.none,
+                            decorationColor: AppColors.primary,
+                            decorationThickness: 2,
                           ),
                         ),
                       ),
-
                     ],
                   ),
                 );

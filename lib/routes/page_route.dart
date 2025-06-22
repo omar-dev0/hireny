@@ -8,10 +8,13 @@ abstract class PagesRoute{
 
 
   // user routes
-  static const String generalInfo = "/generalInfo";
+  static const String generalInfo = "/";
   static const String generalTechInfo = "/tech";
   static const String myApplication = "/myApps";
-  static const String orgProfile = "/";
+  static const String orgProfile = "/orgProfile";
+  static const String assessment = "/questions";
+  static const String changePassword = "/changePass";
+
 
 
   // admin routes

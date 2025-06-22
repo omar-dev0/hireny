@@ -42,7 +42,7 @@ class _GeneralTechInfoState extends State<GeneralTechInfo> {
         //     ),
         //   ],
       ),
-      drawer: const SideBar(),
+      drawer: const SideBar(index: 1,),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

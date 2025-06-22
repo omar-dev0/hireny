@@ -19,6 +19,10 @@ class UserCubit extends Cubit<UserStates>{
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController birthDateController = TextEditingController();
   //---------------------------
+  final resetPasswordController = TextEditingController();
+  final confirmResetPasswordController = TextEditingController();
+
+  //---------------------------
   TextEditingController titleController = TextEditingController();
   TextEditingController briefController = TextEditingController();
   String? selectedCareerLevel;
@@ -153,6 +157,16 @@ class UserCubit extends Cubit<UserStates>{
     }
     return null;
   }
+  String? validateConfirmPassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please confirm your password';
+    }
+    if (value != resetPasswordController.text) {
+      return 'Passwords do not match';
+    }
+    return null;
+  }
+
   String? validateDropList(String? value, String fieldName) {
     if (value == null || value.isEmpty) {
       return 'Please select your $fieldName';

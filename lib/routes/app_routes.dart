@@ -5,13 +5,16 @@ import 'package:hireny/features/org_profile/presentation/ui/org_profile.dart';
 import 'package:hireny/features/show_admin/presentation/manager/admin_cubit.dart';
 import 'package:hireny/features/show_admin/presentation/ui/show_admins.dart';
 import 'package:hireny/features/show_courses/presentation/ui/manager/course_cubit.dart';
+import 'package:hireny/features/user_accout/widgets/change_password.dart';
 import 'package:hireny/features/view_application/presentation/manager/app_cubit.dart';
 import 'package:hireny/features/view_application/presentation/ui/view_application.dart';
 import 'package:hireny/features/view_org/presentation/manager/org_cubit.dart';
 import 'package:hireny/features/view_org/presentation/ui/view_org.dart';
 import 'package:hireny/routes/page_route.dart';
 import 'package:hireny/utils/di/di.dart';
+import '../features/assessment/presentation/ui/assessment.dart';
 import '../features/auth/view/login/login_screen.dart';
+import '../features/manage_org_account/reviews_tab/presentation/manager/review_cubit.dart';
 import '../features/show_courses/presentation/ui/show_courses_ui.dart';
 import '../features/user_accout/cubit/user_cubit.dart';
 import '../features/user_accout/general_info.dart';
@@ -77,11 +80,22 @@ abstract class AppRoutes {
           create: (_) => getIt.get<AdminCubit>(),
           child: ShowAdmins(),
         ),);
+      case PagesRoute.assessment:
+        return MaterialPageRoute( builder:
+            (context) => BlocProvider(
+              create: (_) => ReviewCubit(),
+              child: const Assessment(),
+            ),);
       case PagesRoute.thankYou:
         return MaterialPageRoute(builder: (_) => ThankYouScreen());
       case PagesRoute.salaryInsights:
         return MaterialPageRoute(builder: (_) => SalaryInsightsScreen());
-      default:
+      case PagesRoute.changePassword:
+        return MaterialPageRoute( builder:
+            (context) => BlocProvider(
+          create: (_) => UserCubit(),
+          child: ChangePassword(),
+        ),);default:
         return MaterialPageRoute(
           builder:
               (context) => Scaffold(

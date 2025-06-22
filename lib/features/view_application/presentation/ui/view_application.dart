@@ -29,7 +29,7 @@ class _ViewApplicationState extends State<ViewApplication> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
-      drawer: SideBar(),
+      drawer: SideBar(index: 2,),
       appBar:CustomAppbar(title: "My Applications",),
       body: Padding(padding: EdgeInsets.all(16),child: Column(
       children: [
