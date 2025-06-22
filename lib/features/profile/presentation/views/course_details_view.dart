@@ -39,7 +39,7 @@ class CourseDetailsView extends StatelessWidget {
                   child: TabBarView(
                     children: [
                       AboutCourseTab(),
-                      course_content_tap(),
+                      CourseContentTap(),
                       _instructorTab(),
                       ReviewsTab(),
                     ],

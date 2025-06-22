@@ -4,8 +4,8 @@ import 'course_content.dart';
 
 
 
-class course_content_tap extends StatelessWidget {
-  const course_content_tap({super.key});
+class CourseContentTap extends StatelessWidget {
+  const CourseContentTap({super.key});
 
   @override
   Widget build(BuildContext context) {
