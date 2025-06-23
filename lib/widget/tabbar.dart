@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hireny/features/home/home.dart';
-import 'package:hireny/features/seeker/view/explore_job_seeker.dart';
-import 'package:hireny/features/seeker/view/home_page_seeker.dart';
+import 'package:hireny/features/seeker/view/screens/explore_job_seeker.dart';
+import 'package:hireny/features/seeker/view/screens/home_page_seeker.dart';
 import 'package:hireny/routes/page_route.dart';
 import 'package:hireny/views/salary_insights/salary_insights_screen.dart';
 
 import '../features/organization/view/explore_organizations_org.dart';
-import '../features/seeker/view/explore_courses_seeker.dart';
+import '../features/seeker/view/screens/courses/explore_courses_seeker.dart';
 import '../utils/constants/app_colors.dart';
 
 class TabBarApp extends StatelessWidget {

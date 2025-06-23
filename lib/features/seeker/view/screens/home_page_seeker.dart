@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hireny/utils/constants/app_colors.dart';
 
-import '../../../utils/constants/app_fonts.dart';
-import '../../../utils/widgets/search_bar_widget.dart';
-import '../../../views/salary_insights/salary_insights_screen.dart';
-import '../../organization/view/explore_organizations_org.dart';
-import 'explore_courses_seeker.dart';
+import '../../../../utils/constants/app_fonts.dart';
+import '../../../../utils/widgets/search_bar_widget.dart';
+import '../../../../views/salary_insights/salary_insights_screen.dart';
+import '../../../organization/view/explore_organizations_org.dart';
+import 'courses/explore_courses_seeker.dart';
 import 'explore_job_seeker.dart';
 
 class HomePageSeeker extends StatelessWidget {

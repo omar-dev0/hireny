@@ -28,7 +28,7 @@ class OrgRep extends StatelessWidget {
                  style: ElevatedButton.styleFrom(
                    backgroundColor: AppColors.primary,
                    shape: ContinuousRectangleBorder(
-                       borderRadius:BorderRadiusGeometry.circular(16))
+                       borderRadius:BorderRadius.circular(16))
                  ),
                 onPressed: (){},
                 child: Text("add admin",style:theme.textTheme.bodySmall?.copyWith(
@@ -41,8 +41,8 @@ class OrgRep extends StatelessWidget {
                   width: double.infinity,
                   height: 90,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadiusGeometry.circular(16),
-                    color:AppColors.subPrimary
+                      borderRadius:BorderRadius.circular(16),
+                      color:AppColors.subPrimary
                   ),child:
                 Padding(
                   padding: const EdgeInsets.all(8.0),

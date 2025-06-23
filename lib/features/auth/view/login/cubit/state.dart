@@ -1,5 +1,5 @@
 
-sealed class LoginState  {}
+abstract class LoginState  {}
 
 class InitLogin extends LoginState {}
 

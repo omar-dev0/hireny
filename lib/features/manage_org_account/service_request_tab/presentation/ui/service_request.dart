@@ -30,7 +30,7 @@ class ServiceRequest extends StatelessWidget {
                   width: double.infinity,
                   height: 90,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadiusGeometry.circular(16),
+                      borderRadius:BorderRadius.circular(16),
                       color:AppColors.subPrimary
                   ),child:
                 Padding(

@@ -26,7 +26,7 @@ class Assessment extends StatelessWidget {
               width: double.infinity,
               decoration: BoxDecoration(
                 color: AppColors.subPrimary,
-                borderRadius: BorderRadiusGeometry.circular(16)
+                  borderRadius:BorderRadius.circular(16)
               ),
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -58,7 +58,8 @@ class Assessment extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,
                       shape: ContinuousRectangleBorder(
-                          borderRadius:BorderRadiusGeometry.circular(16))
+                          borderRadius:BorderRadius.circular(16)
+                      )
                   ),
                   onPressed: () {
                     context.read<AssessmentCubit>().goToPrevStep();
@@ -72,7 +73,8 @@ class Assessment extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,
                       shape: ContinuousRectangleBorder(
-                          borderRadius:BorderRadiusGeometry.circular(16))
+                          borderRadius:BorderRadius.circular(16)
+                      )
                   ),
                   onPressed: () {
                     // # of Questions

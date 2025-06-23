@@ -30,7 +30,7 @@ class OrgAssessment extends StatelessWidget {
                   width: double.infinity,
                   height: 120,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadiusGeometry.circular(16),
+                      borderRadius:BorderRadius.circular(16),
                       color:AppColors.subPrimary
                   ),child:
                 Padding(
@@ -52,7 +52,7 @@ class OrgAssessment extends StatelessWidget {
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: AppColors.primary,
                                   shape: ContinuousRectangleBorder(
-                                      borderRadius:BorderRadiusGeometry.circular(16))
+                                      borderRadius:BorderRadius.circular(16))
                               ),
                               onPressed: (){},
                               child: Text("completed",style:theme.textTheme.labelMedium?.copyWith(

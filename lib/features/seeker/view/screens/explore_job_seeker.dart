@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hireny/routes/page_route.dart';
 
-import '../../../utils/app_assets.dart';
-import '../../../utils/constants/app_colors.dart';
-import '../../../utils/constants/app_fonts.dart';
-import '../../../utils/constants/helper_functions.dart';
-import '../../../utils/widgets/dymanic_filter_chips.dart';
-import '../../../utils/widgets/job_explore_card.dart';
-import '../../../utils/widgets/search_bar_widget.dart';
+import '../../../../utils/app_assets.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_fonts.dart';
+import '../../../../utils/constants/helper_functions.dart';
+import '../../../../utils/widgets/dymanic_filter_chips.dart';
+import '../../../../utils/widgets/job_explore_card.dart';
+import '../../../../utils/widgets/search_bar_widget.dart';
 
 class ExploreJobSeeker extends StatefulWidget {
   static String routeName = "ExploreJobSeeker";

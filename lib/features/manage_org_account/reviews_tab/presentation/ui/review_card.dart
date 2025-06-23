@@ -56,7 +56,7 @@ class ReviewCard extends StatelessWidget {
                             height: 30,
                             decoration: BoxDecoration(
                                 color: AppColors.grey.withOpacity(0.1),
-                                borderRadius: BorderRadiusGeometry.circular(16)
+                                borderRadius:BorderRadius.circular(16)
                             ),
                             child:Row(
                               mainAxisAlignment: MainAxisAlignment.center,
