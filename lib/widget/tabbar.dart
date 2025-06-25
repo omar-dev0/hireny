@@ -28,10 +28,11 @@ class TabBarApp extends StatelessWidget {
             ),
           ),
           actions: [
+
             IconButton(
               icon: Icon(Icons.notifications, color: AppColors.white),
               onPressed: () {
-                // TODO: Handle notification tap
+                Navigator.pushReplacementNamed(context, PagesRoute.orgProfile);
               },
             ),
             IconButton(

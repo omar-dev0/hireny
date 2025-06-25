@@ -5,6 +5,7 @@ import 'package:hireny/features/auth/domain/modules/org/org_admin.dart';
 import 'package:hireny/features/auth/domain/modules/seeker/seeker.dart';
 import 'package:hireny/features/auth/domain/modules/user/user.dart';
 import 'package:hireny/result.dart';
+import 'package:hireny/utils/dio_provider.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../utils/exceptions/dio_exception.dart';
@@ -15,20 +16,20 @@ import 'api_const.dart';
 class ApiManger {
   final Dio _dio;
 
+  // final DioProvider _dioProvider;
+
   ApiManger(this._dio);
 
-  Future<Result<Seeker?>?> regSeeker(
-    Seeker seeker,
-    String password,
-    File? cv,
-  ) async {
+  Future<Result<Seeker?>?> regSeeker(Seeker seeker,
+      String password,
+      File? cv,) async {
     try {
-      final formMap = seeker.toJson()..addAll({'password': password});
+      final formMap = seeker.toJson()
+        ..addAll({'password': password});
       final formData = FormData.fromMap({
         if (cv != null) 'cv': await MultipartFile.fromFile(cv.path),
         ...formMap,
       });
-
 
       final response = await _dio.post(ApiConst.reg, data: formData);
 
@@ -36,7 +37,9 @@ class ApiManger {
 
       return Success(response: Seeker.fromJson(response.data));
     } on DioException catch (e) {
-      final errorMessage = DioExceptions.fromDioError(e).message;
+      final errorMessage = DioExceptions
+          .fromDioError(e)
+          .message;
       if (kDebugMode) {
         print('DioException in regSeeker: $e');
       }
@@ -49,13 +52,12 @@ class ApiManger {
     }
   }
 
-  Future<Result<OrgAdmin?>?> regOrg(
-    OrgAdmin orgAdmin,
-    String password,
-    File? orgProf,
-  ) async {
+  Future<Result<OrgAdmin?>?> regOrg(OrgAdmin orgAdmin,
+      String password,
+      File? orgProf,) async {
     try {
-      final formMap = orgAdmin.toJson()..addAll({'password': password});
+      final formMap = orgAdmin.toJson()
+        ..addAll({'password': password});
       final formData = FormData.fromMap({
         if (orgProf != null)
           'orgProf': await MultipartFile.fromFile(orgProf.path),
@@ -68,7 +70,9 @@ class ApiManger {
 
       return Success(response: OrgAdmin.fromJson(response.data));
     } on DioException catch (e) {
-      final errorMessage = DioExceptions.fromDioError(e).message;
+      final errorMessage = DioExceptions
+          .fromDioError(e)
+          .message;
       if (kDebugMode) {
         print('DioException in regOrg: $e');
       }
@@ -81,10 +85,8 @@ class ApiManger {
     }
   }
 
-  Future<Result<Map<String, dynamic>>?> login(
-    String email,
-    String password,
-  ) async {
+  Future<Result<Map<String, dynamic>>?> login(String email,
+      String password,) async {
     FormData formData = FormData.fromMap({
       'email': email,
       'password': password,
@@ -93,7 +95,9 @@ class ApiManger {
       final response = await _dio.post(ApiConst.login, data: formData);
       return Success(response: response.data as Map<String, dynamic>);
     } on DioException catch (e) {
-      final errorMessage = DioExceptions.fromDioError(e).message;
+      final errorMessage = DioExceptions
+          .fromDioError(e)
+          .message;
       if (kDebugMode) {
         print('DioException in login: $e');
       }
@@ -105,6 +109,8 @@ class ApiManger {
     }
     return null;
   }
+
+/////////////////////// get user info
 
   Future<Result<User?>?> getUserInfo(String token) async {
     try {
@@ -122,5 +128,66 @@ class ApiManger {
       return Error(error: e.toString());
     }
     return null;
+  }
+
+/////////////////////// update user info
+  Future<Result<void>> updateSeekerInfo(String token, Seeker seeker) async {
+    try {
+      final response = await _dio.put(
+        ApiConst.updateUserInfo,
+        data: seeker.toJson(),
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            'Content-Type': 'application/json',
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        return Success(response: null);
+      } else {
+        return Error(error: "Failed to update user info");
+      }
+    } catch (e) {
+      return Error(error: e.toString());
+    }
+  }
+
+/////////////////////// change password
+  Future<Result<void>> changePassword(String token, String oldPassword, String newPassword,) async {
+    try {
+      final response = await _dio.post(
+        ApiConst.changePass,
+        data: {
+          'old_password': oldPassword,
+          'new_password': newPassword,
+        },
+        options: Options(headers: {
+          HttpHeaders.authorizationHeader: 'Bearer $token',
+          HttpHeaders.contentTypeHeader: 'application/json',
+        }),
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 204) {
+        return Success(response: null);
+      } else {
+        return Error(
+            error: "Failed to change password. Status: ${response.statusCode}");
+      }
+    } on DioException catch (e) {
+      final errorMessage = DioExceptions
+          .fromDioError(e)
+          .message;
+      if (kDebugMode) {
+        print('DioException in changePassword: $e');
+      }
+      return Error(error: errorMessage);
+    } catch (e) {
+      if (kDebugMode) {
+        print('General Error in changePassword: $e');
+      }
+      return Error(error: e.toString());
+    }
   }
 }

@@ -174,29 +174,62 @@ class _OrgProfileState extends State<OrgProfile> {
                   },
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 24),
-                      Text(
-                        "Description",
-                        style: theme.titleLarge!.copyWith(
-                          fontWeight: FontWeight.bold,
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+                  child:
+                  SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Section header with decorative element
+                        Row(
+                          children: [
+                            Container(
+                              width: 4,
+                              height: 24,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColor,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Text(
+                              "Description",
+                              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                fontWeight: FontWeight.w600,
+                                color: Theme.of(context).colorScheme.onSurface,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        "We are a leading tech recruitment platform that connects top talent with companies around the world. "
-                            "Our mission is to streamline hiring with AI-driven solutions. We value innovation, transparency, and growth.",
-                        style: theme.bodyMedium,
-                      ),
-                      const SizedBox(height: 15),
-                      CompanyInfoCard(),
-                    ],
+
+                        const SizedBox(height: 16),
+
+                        // Content with improved readability
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Text(
+                            "We are a leading tech recruitment platform that connects top talent with companies around the world. "
+                                "Our mission is to streamline hiring with AI-driven solutions. We value innovation, transparency, and growth.",
+                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              height: 1.6,
+                              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.9),
+                            ),
+                            textAlign: TextAlign.justify,
+                          ),
+                        ),
+
+                        const SizedBox(height: 24),
+
+                        // Assuming CompanyInfoCard is a custom widget
+                         CompanyInfoCard(),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ),              ],
             ),
           ),
         ),

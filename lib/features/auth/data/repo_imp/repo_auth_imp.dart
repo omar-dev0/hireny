@@ -83,4 +83,9 @@ class RepoAuthImp implements RepoAuth {
   Future<Result<User?>?> getUserInfo(String token) {
     return dataSource.getUserInfo(token);
   }
+  @override
+  Future<Result<void>> changePassword(String token, String oldPassword, String newPassword) {
+    return dataSource.changePassword(token,oldPassword,newPassword);
+
+  }
 }

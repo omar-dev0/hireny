@@ -1,55 +1,79 @@
 import 'package:flutter/material.dart';
-
-
+import 'package:animate_do/animate_do.dart';
+import 'package:hireny/routes/page_route.dart';
 import '../../utils/constants/app_assets.dart';
 import '../../utils/constants/app_colors.dart';
 
-class SideBar extends StatefulWidget {
-  const SideBar({super.key});
+class SideBarScreen extends StatelessWidget {
+  final String currentRoute;
+  const SideBarScreen({super.key, required this.currentRoute});
 
-  @override
-  State<SideBar> createState() => _SideBarState();
-}
-
-class _SideBarState extends State<SideBar> {
-  List<String> drawerList = [
-    "General Info",
-    "Technical Info",
-    "My Applications",
-    "My Assessments",
-    "My Calendar",
-    "My Courses",
-    "AI Tools",
+  final List<Map<String, dynamic>> drawerItems = const [
+    {
+      "title": "General Info",
+      "icon": Icons.info,
+      "route": PagesRoute.generalInfo,
+    },
+    {
+      "title": "Technical Info",
+      "icon": Icons.computer,
+      "route": PagesRoute.techInfo,
+    },
+    {
+      "title": "My Applications",
+      "icon": Icons.assignment_ind,
+      "route": PagesRoute.myApplication,
+    },
+    {
+      "title": "My Assessments",
+      "icon": Icons.assessment,
+      "route": PagesRoute.myAssessment,
+    },
+    {
+      "title": "My Calendar",
+      "icon": Icons.calendar_today,
+      "route": PagesRoute.calender,
+    },
+    {
+      "title": "My Courses",
+      "icon": Icons.school,
+      "route": PagesRoute.myCourses,
+    },
+    {
+      "title": "AI Tools",
+      "icon": Icons.smart_toy,
+      "route": PagesRoute.myCourses,
+    },
   ];
-
-  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
       backgroundColor: AppColors.white,
-      shape: const LinearBorder(),
       child: Column(
         children: [
-          Container(
-            alignment: Alignment.center,
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.25,
-            color: AppColors.primary,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
+          // ✅ Animated Header
+          FadeInDown(
+            duration: const Duration(milliseconds: 500),
+            child: Container(
+              width: double.infinity,
+              color: AppColors.primary,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
               child: Row(
                 children: [
                   CircleAvatar(
-                    radius: 45,
+                    radius: 30,
                     backgroundImage: AssetImage(AppAssets.profileImg),
                   ),
                   const SizedBox(width: 16),
-                  Text(
-                    "User's name",
-                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                      color: AppColors.white,
-                      fontWeight: FontWeight.w500,
+                  Expanded(
+                    child: Text(
+                      "User's Name",
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ],
@@ -57,65 +81,72 @@ class _SideBarState extends State<SideBar> {
             ),
           ),
 
-          const SizedBox(height: 20),
+          const SizedBox(height: 12),
 
-          InkWell(
-            onTap: () {
-              //todo back to home route
-              Navigator.pop(context);
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.home, color: AppColors.primary, size: 35),
-                const SizedBox(width: 10),
-                Text(
-                  "Back To Home",
-                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          const SizedBox(height: 20),
-          Divider(
-            thickness: 3,
-            color: AppColors.primary,
-            endIndent: 30,
-            indent: 30,
-          ),
-
-          // Drawer Items
+          // ✅ Animated Menu Items
           Expanded(
-            child: ListView.builder(
-              itemCount: drawerList.length,
+            child: ListView.separated(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              itemCount: drawerItems.length,
+              separatorBuilder: (_, __) => const Divider(indent: 20, endIndent: 20),
               itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () {
+                final item = drawerItems[index];
+                final bool isSelected = currentRoute == item['route'];
 
-                    Navigator.pop(context);
-                  },
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                        child: Text(
-                          drawerList[index],
-                          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                            color: AppColors.primary,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
+                return SlideInLeft(
+                  duration: Duration(milliseconds: 300 + index * 100),
+                  child: ListTile(
+                    selected: isSelected,
+                    selectedTileColor: AppColors.primary.withOpacity(0.1),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    leading: Icon(item['icon'],
+                        color: isSelected ? AppColors.primary : Colors.black54),
+                    title: Text(
+                      item['title'],
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
                       ),
-
-                    ],
+                    ),
+                    onTap: () {
+                      if (!isSelected) {
+                        Navigator.pushReplacementNamed(context, item['route']);
+                      } else {
+                        Navigator.pop(context);
+                      }
+                    },
                   ),
                 );
               },
+            ),
+          ),
+
+          const Divider(indent: 20, endIndent: 20, height: 10),
+
+          // ✅ Animated Footer
+          FadeInUp(
+            duration: const Duration(milliseconds: 700),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: InkWell(
+                borderRadius: BorderRadius.circular(8),
+                onTap: () {
+                  Navigator.popAndPushNamed(context, PagesRoute.mainScreen);
+                },
+                child: Row(
+                  children: [
+                    Icon(Icons.exit_to_app, color: AppColors.primary, size: 28),
+                    const SizedBox(width: 10),
+                    Text(
+                      "Back To Home",
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        color: AppColors.primary,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
         ],

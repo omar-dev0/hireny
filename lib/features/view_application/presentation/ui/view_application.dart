@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:hireny/features/view_application/domain/entities/application_entity.dart';
 import 'package:hireny/features/view_application/presentation/manager/app_cubit.dart';
 import 'package:hireny/features/view_application/presentation/manager/app_states.dart';
-
+import 'package:hireny/utils/widgets/custome_appbar_drawer.dart';
 import '../../../../../../utils/constants/app_colors.dart';
-import '../../../../utils/widgets/custom_appbar.dart';
-import '../../../user_accout/widgets/side_bar.dart';
+import '../../../../core/widgets/sideBar.dart';
+import '../../../../routes/page_route.dart';
+import '../../../my_assessment/presentation/ui/widgets/progress_card.dart';
 
 class ViewApplication extends StatefulWidget {
   const ViewApplication({super.key});
@@ -16,7 +18,7 @@ class ViewApplication extends StatefulWidget {
 }
 
 class _ViewApplicationState extends State<ViewApplication> {
-  late AppCubit cubit ;
+  late AppCubit cubit;
 
   @override
   void initState() {
@@ -24,113 +26,188 @@ class _ViewApplicationState extends State<ViewApplication> {
     cubit = context.read<AppCubit>();
     cubit.loadApplications();
   }
-  
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      drawer: SideBar(index: 2,),
-      appBar:CustomAppbar(title: "My Applications",),
-      body: Padding(padding: EdgeInsets.all(16),child: Column(
-      children: [
-        Expanded(child:
-        BlocBuilder<AppCubit, AppStates>(
-          builder: (context, state) {
-            if( state is LoadingState){
-              return Center(child: CircularProgressIndicator());
-            }else if(state is ErrorState){
-              return Center(child: Text(state.message ?? "An error occurred"));
+    final theme = Theme.of(context);
 
-            }else if(state is SuccessState){
-              return ListView.separated(
-                itemBuilder: (context,index)=>Container(
-                    width: double.infinity,
-                    height: 180,
-                    padding:const EdgeInsets.all(16.0) ,
-                    decoration: BoxDecoration(
-                      color: AppColors.subPrimary,
-                      borderRadius:BorderRadius.circular(16),
-                      border: Border.all(color: AppColors.primary,width: 2),
-                    ),
-                    child:Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(cubit.applications[index].applicationType,style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.primary
-                                ),),
-                                SizedBox(width: 16,),
-                                Container(
-                                  width: 100,
-                                  height: 30,
-                                  decoration: BoxDecoration(
-                                    color: cubit.applications[index].status == AppStatus.pending?AppColors.grey.withOpacity(0.7):
-                                    cubit.applications[index].status == AppStatus.rejected?AppColors.red:
-                                    cubit.applications[index].status == AppStatus.approved?AppColors.green:AppColors.primary,
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                  child:Center(child: Text(cubit.applications[index].status.name,
-                                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                                      color: AppColors.white,
-                                      fontWeight: FontWeight.bold
-                                  ),)),
+    return CustomScreen(
+      title: "My Applications",
+      drawer: const SideBarScreen(currentRoute: PagesRoute.myApplication),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            // ✅ Header Summary Stats
+            FadeInDown(
+              duration: const Duration(milliseconds: 300),
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
+                margin: const EdgeInsets.only(bottom: 16),
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 8,
+                      offset: const Offset(0, 4),
+                    )
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: const [
+                    ProgressCard(icon: Icons.assignment_turned_in, title: "Completed", value: "3"),
+                    ProgressCard(icon: Icons.access_time, title: "Pending", value: "2"),
+                    ProgressCard(icon: Icons.check_circle, title: "Approved", value: "1"),
+                    ProgressCard(icon: Icons.cancel, title: "Rejected", value: "1"),
+
+                  ],
+                ),
+              ),
+            ),
+
+            // ✅ Applications List
+            Expanded(
+              child: BlocBuilder<AppCubit, AppStates>(
+                builder: (context, state) {
+                  if (state is LoadingState) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (state is ErrorState) {
+                    return Center(child: Text(state.message ?? "An error occurred"));
+                  } else if (state is SuccessState) {
+                    return ListView.separated(
+                      itemCount: cubit.applications.length,
+                      separatorBuilder: (_, __) => const SizedBox(height: 16),
+                      itemBuilder: (context, index) {
+                        final app = cubit.applications[index];
+                        final isPending = app.status == AppStatus.pending;
+                        final isApproved = app.status == AppStatus.approved;
+                        final isRejected = app.status == AppStatus.rejected;
+
+                        final statusColor = isPending
+                            ? AppColors.grey.withOpacity(0.7)
+                            : isRejected
+                            ? AppColors.red
+                            : isApproved
+                            ? AppColors.green
+                            : AppColors.primary;
+
+                        return FadeInUp(
+                          duration: Duration(milliseconds: 300 + index * 100),
+                          child: Container(
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: AppColors.subPrimary,
+                              borderRadius: BorderRadius.circular(16),
+                              border: Border.all(color: AppColors.primary, width: 1),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppColors.black.withOpacity(0.05),
+                                  blurRadius: 10,
+                                  offset: const Offset(0, 4),
                                 )
                               ],
-                            ),
-                            SizedBox(height: 16,),
-                            Row(
-                              children: [
-                                Icon(Icons.corporate_fare,color: AppColors.primary,size: 30,),
-                                SizedBox(width: 16,),
-                                Text(cubit.applications[index].companyName,style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                    color: AppColors.primary
-                                ),),
-                                Spacer(),
-                                cubit.applications[index].status.name == AppStatus.pending.name?
-                                InkWell(
-                                  onTap: (){
-                                    cubit.deleteCourse(cubit.applications[index]);
-                                  },
-                                  child: Icon(Icons.delete,color: AppColors.primary,size: 30,)):SizedBox(),
 
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Application Type + Status
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        app.applicationType,
+                                        style: theme.textTheme.titleMedium?.copyWith(
+                                          fontWeight: FontWeight.w600,
+                                          color: AppColors.primary,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                      decoration: BoxDecoration(
+                                        color: statusColor,
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      child: Text(
+                                        app.status.name,
+                                        style: theme.textTheme.labelSmall?.copyWith(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 12),
+
+                                // Company + Delete
+                                Row(
+                                  children: [
+                                    Icon(Icons.business_center, size: 20, color: AppColors.grey.withOpacity(0.8)),
+                                    const SizedBox(width: 8),
+                                    Expanded(
+                                      child: Text(
+                                        app.companyName,
+                                        style: theme.textTheme.bodyMedium?.copyWith(
+                                          color: AppColors.black.withOpacity(0.8),
+                                        ),
+                                      ),
+                                    ),
+                                    if (isPending)
+                                      InkWell(
+                                        onTap: () => cubit.deleteCourse(app),
+                                        borderRadius: BorderRadius.circular(30),
+                                        child: const Padding(
+                                          padding: EdgeInsets.all(4.0),
+                                          child: Icon(
+                                            Icons.delete_outline,
+                                            color: AppColors.primary,
+                                            size: 24,
+                                          ),
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                                const SizedBox(height: 16),
+
+                                // Dates
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Started: ${app.appliedDate}",
+                                      style: theme.textTheme.bodySmall?.copyWith(
+                                        color: AppColors.grey.withOpacity(0.8),
+                                      ),
+                                    ),
+                                    Spacer(),
+                                    Text(
+                                      "Deadline:${app.deadlineDate}",
+                                      style: theme.textTheme.bodySmall?.copyWith(
+                                        color: AppColors.grey.withOpacity(0.8),
+                                      ),
+                                    ),
+
+                                  ],
+                                ),
                               ],
                             ),
-                            SizedBox(height:40,),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(cubit.applications[index].appliedDate,style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                                    color: AppColors.grey
-                                ),),
-                                SizedBox(width: 8,),
-                                Text(cubit.applications[index].deadlineDate,style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                                    color: AppColors.grey
-                                ),)
-                              ],)
-                          ],
-                        ),
-
-                      ],
-                    )
-                ),
-                separatorBuilder: (context,index)=>SizedBox(height: 16,),
-                itemCount: cubit.applications.length,
-
-              );
-
-            }
-            return Center(child: Text('No data available'));
-          },
-))
-
-      ],
-    ),),
+                          ),
+                        );
+                      },
+                    );
+                  }
+                  return const Center(child: Text('No data available'));
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

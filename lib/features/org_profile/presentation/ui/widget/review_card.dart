@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:animate_do/animate_do.dart';
+
 import 'package:hireny/features/org_profile/presentation/manager/org_profile_cubit.dart';
 import 'package:hireny/features/org_profile/presentation/manager/org_profile_states.dart';
 import 'package:hireny/utils/widgets/custom_text_field.dart';
-
 import '../../../../../utils/constants/app_colors.dart';
+import '../../../../../utils/constants/app_fonts.dart';
 
 class ReviewCard extends StatefulWidget {
   final OrgProfileCubit profileCubit;
+
   const ReviewCard({super.key, required this.profileCubit});
 
   @override
@@ -22,176 +25,176 @@ class _ReviewCardState extends State<ReviewCard> {
     cubit = widget.profileCubit;
     super.initState();
     cubit.loadReviews();
-    print("Calling");
   }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-
-          BlocBuilder<OrgProfileCubit, OrgProfileStates>(
-        builder: (context, state) {
-      return
-        ListView.separated(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              if (index == cubit.reviews.length) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 12,
-                          offset: Offset(0, 6),
-                        ),
-                        BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 12,
-                          offset: Offset(0, -6),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Write review",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        ),
-                        Row(children: [
-                          Expanded(
-                            child: CustomTextField(
-                              onValidate: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'This field is required';
-                                } else if (!RegExp(r'^[a-zA-Z\s]+$').hasMatch(value)) {
-                                  return 'Only alphabets are allowed';
-                                }
-                                return null;
-                              },
-                              maxLength: 300,
-                              keyboardType: TextInputType.text,
-                              minLines: 1,
-                              hint: "Write your review here",
+    return BlocBuilder<OrgProfileCubit, OrgProfileStates>(
+      builder: (context, state) {
+        return ListView.builder(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          itemCount: cubit.reviews.length + 1,
+          itemBuilder: (context, index) {
+            // Add Review Input at the end
+            if (index == cubit.reviews.length) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.subPrimary,
+                    borderRadius: BorderRadius.circular(18),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.05),
+                        blurRadius: 8,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(14),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: AppColors.white,
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Add a Review",
+                              style: AppFonts.mainText.copyWith(fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 12),
+                            CustomTextField(
+                              minLines: 3,
+                              maxLines: 5,
+                              hint: "Write your thoughts here...",
                               controller: cubit.reviewController,
                             ),
-                          ),
-                        ]),
-                        SizedBox(height: 8),
-                        SizedBox(
-                          width: double.infinity,
-                          height: 45,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.primary,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
+                            const SizedBox(height: 12),
+                            SizedBox(
+                              width: double.infinity,
+                              height: 45,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppColors.primary,
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                                ),
+                                onPressed: () {
+                                  final text = cubit.reviewController.text.trim();
+                                  if (text.isNotEmpty) {
+                                    cubit.addReview();
+                                    cubit.reviewController.clear();
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(content: Text("Review cannot be empty")),
+                                    );
+                                  }
+                                },
+                                child: const Text("Post Review", style: TextStyle(color: Colors.white)),
                               ),
-                            ),
-                            onPressed: () {
-                              // Get the review text
-                              String reviewContent = cubit.reviewController.text.trim();
-                              if (reviewContent.isNotEmpty) {
-                                cubit.addReview();
-                                print(cubit.reviewController.text);
-                                cubit.reviewController.clear();
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('Please write a review before posting')),
-                                );
-                              }
-                            },
-                            child: Text(
-                              "Post Review",
-                              style: TextStyle(color: AppColors.white),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              } else {
-                // Displaying the existing reviews
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 12,
-                          offset: Offset(0, 6),
-                        ),
-                        BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 12,
-                          offset: Offset(0, -6),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            CircleAvatar(
-                              backgroundColor: AppColors.grey.withOpacity(0.1),
-                              child: Icon(
-                                Icons.person,
-                                color: AppColors.primary,
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            Text(
-                              cubit.reviews[index].owner,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                            ),
-                            Spacer(),
-                            Text(
-                              cubit.reviews[index].publishedTime,
-                              style: TextStyle(color: AppColors.primary),
                             ),
                           ],
                         ),
-                        SizedBox(height: 16),
-                        Text(
-                          cubit.reviews[index].content,
-                          style: TextStyle(
-                            color: AppColors.grey,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
-                );
-              }
-            },
-            separatorBuilder: (context, index) => SizedBox(height: 8),
-            itemCount: cubit.reviews.length + 1,
-          );
-        },
-      ),
-        ],
-      ),
+                ),
+              );
+            }
+
+            // Review Card
+            final review = cubit.reviews[index];
+            final initials = review.owner.isNotEmpty
+                ? review.owner.trim().split(" ").map((e) => e[0]).take(2).join().toUpperCase()
+                : "U";
+
+            return FadeInUp(
+              duration: Duration(milliseconds: 300 + (index * 150)),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.subPrimary,
+                    borderRadius: BorderRadius.circular(18),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.08),
+                        blurRadius: 10,
+                        offset: const Offset(0, 6),
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(14),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: AppColors.white,
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Image.asset("assets/images/comment.png", width: 28),
+                            const SizedBox(height: 10),
+                            Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                color: AppColors.white,
+                                borderRadius: BorderRadius.circular(12),
+                                // border: Border.all(color: AppColors.grey),
+                              ),
+                              child: Text(
+                                review.content,
+                                style: AppFonts.textFieldStyle.copyWith(color: AppColors.black.withOpacity(0.8)),
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            Row(
+                              children: [
+                                CircleAvatar(
+                                  radius: 24,
+                                  backgroundColor: AppColors.primary,
+                                  child: Text(
+                                    initials,
+                                    style: AppFonts.mainText.copyWith(
+                                      color: AppColors.white,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 14),
+                                Text(
+                                  review.owner,
+                                  style: AppFonts.mainText.copyWith(fontSize: 16, color: AppColors.black),
+                                ),
+                                const Spacer(),
+                                Text(
+                                  review.publishedTime,
+                                  style: AppFonts.textFieldStyle.copyWith(
+                                    color: AppColors.grey.withOpacity(0.8),
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      },
     );
   }
 }

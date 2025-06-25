@@ -22,7 +22,8 @@ class courseBox extends StatelessWidget {
         height: 160,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            color: AppColors.lightprimary
+            color: AppColors.subPrimary,
+          border: Border.all(color: AppColors.primary,width: 1)
         ),
         child: Padding(
           padding: const EdgeInsets.only(left: 24,top: 20,right: 8),

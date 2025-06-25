@@ -16,4 +16,5 @@ abstract class RepoAuth {
       );
 
   Future<Result<User?>?> getUserInfo(String token);
-}
+  Future<Result<void>> changePassword(String token, String oldPassword, String newPassword);
+  }
