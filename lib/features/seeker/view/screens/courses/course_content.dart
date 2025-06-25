@@ -2,7 +2,9 @@
 
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hireny/features/seeker/view/cubit/course_cubit.dart';
 import 'package:hireny/utils/app_assets.dart';
 import 'package:hireny/utils/constants/app_colors.dart';
 import 'package:hireny/utils/constants/app_fonts.dart';
@@ -22,6 +24,8 @@ class CourseContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CourseCubit courseCubit = BlocProvider.of<CourseCubit>(context);
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
       child: FadeIn(

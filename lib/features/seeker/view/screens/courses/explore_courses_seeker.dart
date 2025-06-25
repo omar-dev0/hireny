@@ -1,4 +1,3 @@
-// explore_courses_seeker.dart
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +21,7 @@ class ExploreCoursesSeeker extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => courseCubit,
-      child: BlocConsumer< CourseCubit, CourseState>(
+      child: BlocConsumer<Cubit<CourseState>, CourseState>(
         listener: (context, state) {
           if (state is CourseLoading) {
             showDialog(

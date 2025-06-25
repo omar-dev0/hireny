@@ -57,7 +57,7 @@ class TabBarApp extends StatelessWidget {
             ],
           ),
         ),
-        body: const TabBarView(
+        body:  TabBarView(
           children: [
             Home(),
             ExploreJobSeeker(),
