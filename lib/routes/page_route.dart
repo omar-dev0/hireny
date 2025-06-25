@@ -32,4 +32,5 @@ abstract class PagesRoute {
   static const String showOrg = "/showOrg";
   static const String showAdmins = "/showAdmin";
   static const String mainScreen = "/main";
+  static const String jobDetailes = "/jobDetailes";
 }

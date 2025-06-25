@@ -15,8 +15,9 @@ abstract class DioProvider {
     final Dio dio = Dio();
     dio.options.headers = {
       HttpHeaders.contentTypeHeader: 'multipart/form-data',
-      if(AppSharedData.user?.accessToken != null)HttpHeaders.authorizationHeader:
-          'Bearer ${AppSharedData.user?.accessToken}',
+      if (AppSharedData.user?.accessToken != null)
+        HttpHeaders.authorizationHeader:
+            'Bearer ${AppSharedData.user?.accessToken}',
     };
     dio.options.baseUrl = ApiShared.baseUrl;
     if (kDebugMode) {

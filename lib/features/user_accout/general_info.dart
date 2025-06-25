@@ -65,7 +65,7 @@ class _GeneralInfoState extends State<GeneralInfo>
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Text(
-            "Choose profile photo",
+            "Choose course_detailes photo",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
           ),
           Row(

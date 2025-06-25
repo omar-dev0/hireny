@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hireny/result.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../result.dart';
 import '../../domain/modules/course.dart';
 import '../../domain/repo_contract/course_repository.dart';
 import 'course_states.dart';
@@ -18,7 +18,7 @@ class CourseCubit extends Cubit<CourseState> {
       final result = await courseRepository.getNotRegisteredCourses();
 
       if (result is Success<List<Course>>) {
-        emit(CourseLoaded(courses: result.response!));
+        emit(CourseLoaded(courses: result.response ?? []));
       } else if (result is Error<List<Course>>) {
         emit(CourseError(message: "An error occurred"));
       }

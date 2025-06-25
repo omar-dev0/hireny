@@ -36,7 +36,7 @@ class OrgProfileCubit extends Cubit<OrgProfileStates> {
       profileModel = await profile.call(1);
       emit(SuccessState());
     } catch (e) {
-      emit(ErrorState("Failed to load profile: ${e.toString()}"));
+      emit(ErrorState("Failed to load course_detailes: ${e.toString()}"));
     }
   }
 

@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:meta/meta.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
+
 import '../../../models/technical info.dart';
 
 part 'technical_info_state.dart';
@@ -190,7 +190,7 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
         emit(TechnicalInfoSuccess());
         print("File path: $filePath");
     }
-      // profile.cvFilePath = filePath;
+      // course_detailes.cvFilePath = filePath;
     } catch(e){
       emit(TechnicalInfoFailure(e.toString()));
       // User canceled the picker

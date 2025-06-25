@@ -16,7 +16,7 @@ dependencies:
 
   cupertino_icons: ^1.0.8
   flutter_screenutil: ^5.9.3
-  injectable:
+  injectable: ^2.5.0
   intl:
   table_calendar:
   google_fonts:

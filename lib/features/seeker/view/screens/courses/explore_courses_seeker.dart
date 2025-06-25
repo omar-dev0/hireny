@@ -1,14 +1,13 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hireny/features/seeker/view/cubit/course_cubit.dart';
 import 'package:hireny/utils/constants/dialogs/error_dialog.dart';
 import 'package:hireny/utils/constants/dialogs/loading_dialog.dart';
 import 'package:hireny/utils/di/di.dart';
 
 import '../../../../../utils/constants/helper_functions.dart';
-import '../../../../show_courses/presentation/ui/manager/course_cubit.dart';
 import '../../cubit/course_states.dart';
-import 'course_content.dart';
+import 'explore_course_screen_content.dart';
 
 class ExploreCoursesSeeker extends StatelessWidget {
   static String routeName = "ExploreCoursesSeeker";
@@ -20,8 +19,8 @@ class ExploreCoursesSeeker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => courseCubit,
-      child: BlocConsumer<Cubit<CourseState>, CourseState>(
+      create: (_) => courseCubit..fetchNotRegisteredCourses(),
+      child: BlocConsumer<CourseCubit, CourseState>(
         listener: (context, state) {
           if (state is CourseLoading) {
             showDialog(
@@ -45,17 +44,18 @@ class ExploreCoursesSeeker extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          return Scaffold(
-            backgroundColor: Colors.white,
-            body: CourseContent(
+          if (state is CourseLoading) {
+            return Center(child: CircularProgressIndicator());
+          } else {
+            return CourseContent(
               chipLabels: ['Industry', 'Date Published', 'Price'],
               onChipPressed: [
-                    () => _showCategoryBottomSheet(context),
-                    () => _showDatePublishedBottomSheet(context),
-                    () => _showPriceRangeBottomSheet(context),
+                () => _showCategoryBottomSheet(context),
+                () => _showDatePublishedBottomSheet(context),
+                () => _showPriceRangeBottomSheet(context),
               ],
-            ),
-          );
+            );
+          }
         },
       ),
     );
