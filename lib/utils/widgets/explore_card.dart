@@ -1,25 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hireny/features/seeker/domain/modules/course.dart';
 import 'package:hireny/utils/constants/app_fonts.dart';
 import 'package:hireny/utils/widgets/custom_buttom.dart';
 
 import '../../../../utils/constants/app_colors.dart';
 
 class ExploreCard extends StatelessWidget {
-  final String title;
-  final String price;
-  final String name;
+ final Course course;
   final String logoImage;
-  final String requestsCount;
+  // final String requestsCount;
 
 
   const ExploreCard({
     Key? key,
-    required this.title,
-    required this.price,
-    required this.name,
+    required this.course,
     required this.logoImage,
-    required this.requestsCount,
+    // required this.requestsCount,
   }) : super(key: key);
 
   @override
@@ -38,12 +35,12 @@ class ExploreCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-              title,
+              course.title,
               style: AppFonts.mainText
           ),
           SizedBox(height: 8.h),
           Text(
-              'Price: $price',
+              'Price: ${course.price}',
               style: AppFonts.secMain
           ),
           SizedBox(height: 16.h),
@@ -57,16 +54,21 @@ class ExploreCard extends StatelessWidget {
               ),
               SizedBox(width: 8.w),
               Text(
-                  name,
-                  style: AppFonts.mainText.copyWith(fontSize: 16.sp)
+                  "Instructor: ${course.instructorName}",
+                  style: AppFonts.mainText.copyWith(fontSize: 15.sp)
               ),
             ],
           ),
           SizedBox(height: 16.h),
           Text(
-              requestsCount,
-              style: AppFonts.secMain
+              "Instructor: ${course.description}",
+              style: AppFonts.secMain.copyWith(fontSize: 13.sp)
           ),
+          SizedBox(height: 16.h),
+          // Text(
+          //     requestsCount,
+          //     style: AppFonts.secMain
+          // ),
         ],
       ),
     );

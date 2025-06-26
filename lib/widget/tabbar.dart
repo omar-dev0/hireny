@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hireny/features/seeker/view/explore_org_for_seeker.dart';
+import 'package:hireny/features/seeker/view/screens/explore_org_seeker/explore_org_for_seeker.dart';
 import 'package:hireny/features/seeker/view/home.dart';
-import 'package:hireny/features/seeker/view/screens/explore_job_seeker.dart';
+import 'package:hireny/features/seeker/view/screens/explore_job/explore_job_seeker.dart';
 import 'package:hireny/routes/page_route.dart';
 import 'package:hireny/views/salary_insights/salary_insights_screen.dart';
 
@@ -59,7 +59,7 @@ class TabBarApp extends StatelessWidget {
         body:  TabBarView(
           children: [
             Home(),
-            const ExploreJobsForJobSeeker(),
+             ExploreJobsForJobSeeker(),
             ExploreOrgForSeeker(),
             ExploreCoursesSeeker(),
             const SalaryInsightsScreen(),

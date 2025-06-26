@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hireny/features/seeker/domain/modules/job_post.dart';
 import 'package:hireny/utils/app_assets.dart';
 import 'package:hireny/utils/constants/app_fonts.dart';
 import 'package:hireny/utils/widgets/custom_buttom.dart';
@@ -7,26 +8,10 @@ import 'package:hireny/utils/widgets/custom_buttom.dart';
 import '../../../../utils/constants/app_colors.dart';
 
 class JobExploreCard extends StatelessWidget {
-  final String title;
-  final String jobType;
-  final String salary;
-  final String companyName;
-  final String logoImage;
-  final String location;
-  final String applicantsCount;
-  final String deadline;
+  JobPost jobPost;
 
-  const JobExploreCard({
-    Key? key,
-    required this.title,
-    required this.jobType,
-    required this.salary,
-    required this.companyName,
-    required this.logoImage,
-    required this.location,
-    required this.applicantsCount,
-    required this.deadline,
-  }) : super(key: key);
+   JobExploreCard({
+    required this.jobPost}) ;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +29,7 @@ class JobExploreCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            title,
+            jobPost.jobTitle,
             style: AppFonts.mainText.copyWith(fontSize: 18.sp),
           ),
           SizedBox(height: 16.h),
@@ -55,7 +40,7 @@ class JobExploreCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(4.r),
             ),
             child: Text(
-              jobType.toUpperCase(),
+              jobPost.jobType.toUpperCase(),
               style: AppFonts.secMain.copyWith(
                 fontSize: 12.sp,
                 color: AppColors.white,
@@ -64,7 +49,7 @@ class JobExploreCard extends StatelessWidget {
           ),
           SizedBox(height: 10.h),
           Text(
-            "Salary: $salary",
+            "Salary: ${jobPost.minSalary} ${jobPost.currency} - ${jobPost.maxSalary} ${jobPost.currency}",
             style: AppFonts.secMain.copyWith(color: AppColors.grey),
           ),
           SizedBox(height: 10.h),
@@ -80,7 +65,7 @@ class JobExploreCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    companyName,
+                    jobPost.companyName,
                     style: AppFonts.mainText.copyWith(fontSize: 16.sp),
                   ),
                   SizedBox(height: 4.h),
@@ -89,7 +74,7 @@ class JobExploreCard extends StatelessWidget {
                       Icon(Icons.location_on, size: 16.sp, color: AppColors.grey),
                       SizedBox(width: 4.w),
                       Text(
-                        location,
+                        jobPost.country,
                         style: AppFonts.secMain.copyWith(color: AppColors.grey),
                       ),
                     ],
@@ -104,7 +89,7 @@ class JobExploreCard extends StatelessWidget {
               Icon(Icons.people, size: 16.sp, color: AppColors.grey),
               SizedBox(width: 4.w),
               Text(
-                applicantsCount,
+                jobPost.totalApplications.toString(),
                 style: AppFonts.secMain.copyWith(color: AppColors.grey),
               ),
             ],
@@ -120,7 +105,7 @@ class JobExploreCard extends StatelessWidget {
               ),
               SizedBox(width: 4.w),
               Text(
-                deadline,
+                jobPost.deadline,
                 style: AppFonts.secMain.copyWith(color: AppColors.grey),
               ),
             ],

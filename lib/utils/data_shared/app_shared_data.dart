@@ -1,9 +1,15 @@
 import 'package:hireny/features/auth/domain/modules/user/user.dart';
+import 'package:hireny/features/seeker/domain/modules/course.dart';
+
+import '../../features/seeker/domain/modules/job_post.dart';
 
 abstract class AppSharedData {
   static User? user;
   static Map<String, List<String>> countryCityData = {};
   static List<String> nationalities = [];
+  static List<Course> courses = [];
+  static List<JobPost> jobPosts = []; // ← New field
+
 
   static List<String> careerLevels = [
     "Undergraduate",

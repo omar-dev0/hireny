@@ -75,13 +75,13 @@ class _ExploreServicesOrgState extends State<ExploreServicesOrg> {
               itemBuilder: (context, index) {
                 return Column(
                   children: [
-                    ExploreCard(
-                      title: 'Advertising',
-                      price: 'Free',
-                      name: 'Google',
-                      logoImage: AppAssets.org_logo,
-                      requestsCount: '10+ requested',
-                    ),
+                    // ExploreCard(
+                    //   title: 'Advertising',
+                    //   price: 'Free',
+                    //   name: 'Google',
+                    //   logoImage: AppAssets.org_logo,
+                    //   // requestsCount: '10+ requested',
+                    // ),
                     SizedBox(height: 15.h),
                   ],
                 );

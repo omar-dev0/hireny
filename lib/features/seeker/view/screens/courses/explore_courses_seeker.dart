@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hireny/features/seeker/view/cubit/course_cubit.dart';
 import 'package:hireny/utils/constants/dialogs/error_dialog.dart';
 import 'package:hireny/utils/constants/dialogs/loading_dialog.dart';
 import 'package:hireny/utils/di/di.dart';
 
 import '../../../../../utils/constants/helper_functions.dart';
-import '../../cubit/course_states.dart';
+import 'cubit/course_cubit.dart';
+import 'cubit/course_states.dart';
 import 'explore_course_screen_content.dart';
 
 class ExploreCoursesSeeker extends StatelessWidget {
@@ -39,8 +39,6 @@ class ExploreCoursesSeeker extends StatelessWidget {
           }
 
           if (state is CourseLoaded) {
-            // You can trigger any action here after load
-            // e.g., show filter suggestion, etc.
           }
         },
         builder: (context, state) {

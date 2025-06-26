@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:animate_do/animate_do.dart';
 
 import 'package:hireny/features/auth/domain/modules/seeker/seeker.dart';
+import 'package:hireny/features/seeker/view/screens/explore_job/cubit/explore_job_cubit.dart';
 import 'package:hireny/utils/app_assets.dart';
 import 'package:hireny/utils/constants/app_fonts.dart';
 import 'package:hireny/utils/data_shared/app_shared_data.dart';
 import 'package:hireny/utils/widgets/job_explore_card.dart';
 
 import '../../../utils/constants/app_colors.dart';
+import '../../../utils/widgets/custom_search_bar.dart';
+import '../domain/modules/job_post.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -45,35 +49,16 @@ class _HomeState extends State<Home> {
           ),
           SliverToBoxAdapter(child: SizedBox(height: 20.h)),
 
-          // 👇 Animated Search Field
+          //👇 Animated Search Field
           SliverToBoxAdapter(
             child: FadeInDown(
               duration: Duration(milliseconds: 500),
-              child: Container(
-                margin: EdgeInsets.symmetric(vertical: 10.h),
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(15.r),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
-                      blurRadius: 10,
-                      offset: Offset(0, 4),
-                    ),
-                  ],
-                ),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Search for jobs...',
-                    hintStyle: TextStyle(color: Colors.grey.shade500),
-                    prefixIcon: Icon(Icons.search, color: AppColors.primary),
-                    border: InputBorder.none,
-                  ),
-                  onChanged: (value) {
-                    // Implement search logic here
-                  },
-                ),
+              child: CustomSearchBar(
+                hintText: "Search for Jobs",
+                onSearchChanged: (value) {
+                  // Trigger filtering in Cubit
+                  context.read<JobPostCubit>().filterJobPosts(value);
+                },
               ),
             ),
           ),
@@ -108,14 +93,25 @@ class _HomeState extends State<Home> {
                   child: InkWell(
                     onTap: () {},
                     child: JobExploreCard(
-                      title: 'Google',
-                      jobType: 'Part Time',
-                      salary: '2000\$',
-                      companyName: 'Google',
-                      logoImage: AppAssets.google,
-                      location: 'Egypt',
-                      applicantsCount: '30',
-                      deadline: '20/20/2020',
+                      jobPost: JobPost(
+                        id: 1,
+                        jobTitle: "Software Engineer",
+                        minSalary: "3000.00",
+                        maxSalary: "5000.00",
+                        jobDescription: "We are looking for a skilled Software Engineer to join our team. You will be responsible for developing and maintaining internal tools and systems.",
+                        jobRequirements: "Bachelor's degree in Computer Science or related field. Experience with Flutter and REST APIs is a plus.",
+                        educationLevel: "Bachelor's Degree",
+                        deadline: "2025-07-15T23:59:59Z",
+                        country: "Egypt",
+                        city: "Cairo",
+                        category: ["Information Technology", "Software Development"],
+                        currency: "USD",
+                        companyName: "Tech Solutions Inc.",
+                        companyLogo: "https://example.com/company-logo.png",
+                        totalApplications: 45,
+                        createdAt: "2025-06-24T18:54:45.818426Z",
+                        jobType: "Full-time",
+                      ),
                     ),
                   ),
                 ),

@@ -1,4 +1,4 @@
-import '../../domain/modules/course.dart';
+import '../../../../domain/modules/course.dart';
 
 abstract class CourseState {}
 

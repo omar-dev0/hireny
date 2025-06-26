@@ -1,55 +1,51 @@
-// /features/course/presentation/ui/explore_course_screen_content.dart
-
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hireny/utils/app_assets.dart';
-import 'package:hireny/utils/constants/app_colors.dart';
-import 'package:hireny/utils/constants/app_fonts.dart';
-import 'package:hireny/utils/widgets/custom_search_bar.dart';
-import 'package:hireny/utils/widgets/dymanic_filter_chips.dart';
-import 'package:hireny/utils/widgets/explore_card.dart';
-import 'package:hireny/utils/widgets/search_bar_widget.dart';
 
-import 'cubit/course_cubit.dart';
-import 'cubit/course_states.dart';
+import '../../../../../utils/constants/app_fonts.dart';
+import '../../../../../utils/widgets/custom_search_bar.dart';
+import '../../../../../utils/widgets/dymanic_filter_chips.dart';
+import '../../../../../utils/widgets/job_explore_card.dart';
 
-class CourseContent extends StatelessWidget {
+import 'cubit/explore_job_cubit.dart';
+import 'cubit/explore_job_states.dart';
+
+class JobContent extends StatelessWidget {
   final List<String> chipLabels;
   final List<Function()?> onChipPressed;
 
-  const CourseContent({
-    super.key,
+  const JobContent({
+    Key? key,
     required this.chipLabels,
     required this.onChipPressed,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final cubit = BlocProvider.of<CourseCubit>(context);
-
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
       child: FadeIn(
         duration: Duration(milliseconds: 500),
         child: CustomScrollView(
           slivers: [
+            // Header Section
             SliverToBoxAdapter(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(height: 20.h),
                   CustomSearchBar(
-                    hintText: "Search for Courses",
+                    hintText: "Search for Jobs",
                     onSearchChanged: (value) {
-                      cubit.filterCourses(value);
+                      // Trigger filtering in Cubit
+                      context.read<JobPostCubit>().filterJobPosts(value);
                     },
                   ),
                   SizedBox(height: 20.h),
-                  Text("Explore Courses", style: AppFonts.mainText),
+                  Text("Job Search", style: AppFonts.mainText),
                   Text(
-                    "Discover courses to boost your skills and achieve your goals.",
+                    "Search for your desired job matching your skills",
                     style: AppFonts.secMain,
                     textAlign: TextAlign.center,
                   ),
@@ -62,32 +58,29 @@ class CourseContent extends StatelessWidget {
                     },
                   ),
                   SizedBox(height: 24.h),
-                  Text("All Courses", style: AppFonts.mainText),
+                  Text("All Jobs", style: AppFonts.mainText),
                   SizedBox(height: 15.h),
                 ],
               ),
             ),
 
-            BlocBuilder<CourseCubit, CourseState>(
+            // Jobs List
+            BlocBuilder<JobPostCubit, JobPostState>(
               builder: (context, state) {
-                if (state is CourseLoaded && state.courses.isNotEmpty) {
+                if (state is JobPostLoaded && state.jobPosts.isNotEmpty) {
                   return SliverList.builder(
-                    itemCount: state.courses.length,
+                    itemCount: state.jobPosts.length,
                     itemBuilder: (context, index) {
-                      final course = state.courses[index];
+                      final jobPost = state.jobPosts[index];
                       return Column(
                         children: [
                           FadeInUp(
                             duration: Duration(milliseconds: 300 + index * 100),
                             child: InkWell(
                               onTap: () {
-                                // Navigate to course details
+                                // Navigate to job details
                               },
-                              child: ExploreCard(
-                                course: course,
-                                logoImage: AppAssets.org_logo,
-                                // requestsCount: "3",
-                              ),
+                              child: JobExploreCard(jobPost: jobPost),
                             ),
                           ),
                           SizedBox(height: 15.h),
@@ -95,17 +88,17 @@ class CourseContent extends StatelessWidget {
                       );
                     },
                   );
-                } else if (state is CourseLoaded && state.courses.isEmpty) {
+                } else if (state is JobPostLoaded && state.jobPosts.isEmpty) {
                   return SliverToBoxAdapter(
                     child: Center(
-                      child: Text("No courses found.", style: AppFonts.secMain),
+                      child: Text("No jobs found.", style: AppFonts.secMain),
                     ),
                   );
                 } else {
                   return SliverToBoxAdapter(child: Container());
                 }
               },
-            )
+            ),
           ],
         ),
       ),

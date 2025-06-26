@@ -4,7 +4,7 @@ import 'package:hireny/features/org_profile/presentation/manager/org_profile_cub
 import 'package:hireny/features/org_profile/presentation/ui/org_profile.dart';
 import 'package:hireny/features/organization/view/explore_job_seekers_org.dart';
 import 'package:hireny/features/seeker/view/screens/courses/explore_courses_seeker.dart';
-import 'package:hireny/features/seeker/view/screens/explore_job_seeker.dart';
+import 'package:hireny/features/seeker/view/screens/explore_job/explore_job_seeker.dart';
 import 'package:hireny/features/view_application/presentation/manager/app_cubit.dart';
 import 'package:hireny/features/view_application/presentation/ui/view_application.dart';
 import 'package:hireny/routes/page_route.dart';

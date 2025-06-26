@@ -8,14 +8,15 @@ import '../../../../result.dart';
 import '../../../../utils/data_shared/app_shared_data.dart';
 import '../../../../utils/exceptions/dio_exception.dart';
 import '../../domain/modules/course.dart';
-import 'course_consts.dart';
+import '../../domain/modules/job_post.dart';
+import 'seeker_consts.dart';
 
 @singleton
 @injectable
-class CourseApi {
+class SeekerApi{
   final Dio _dio;
 
-  CourseApi(this._dio);
+  SeekerApi(this._dio);
   Future<Result<List<Course>>> getNotRegisteredCourses() async {
     try {
       _dio.options.headers = {
@@ -23,7 +24,7 @@ class CourseApi {
         HttpHeaders.authorizationHeader:
             'Bearer ${AppSharedData.user?.accessToken}',
       };
-      final response = await _dio.get(CourseConst.getNotRegisteredCourses);
+      final response = await _dio.get(SeekerConst.getNotRegisteredCourses);
 
       if (response.statusCode == 200 && response.data != null) {
         final List<Course> courses =
@@ -44,6 +45,38 @@ class CourseApi {
     } catch (e) {
       if (kDebugMode) {
         print('General error in getNotRegisteredCourses: $e');
+      }
+      return Error(error: e.toString());
+    }
+  }
+  Future<Result<List<JobPost>>> getNotAppliedJobPosts() async {
+    try {
+      _dio.options.headers = {
+        HttpHeaders.contentTypeHeader: 'multipart/form-data',
+        HttpHeaders.authorizationHeader: 'Bearer ${AppSharedData.user?.accessToken}',
+      };
+
+      final response = await _dio.get(SeekerConst.getNotAppliedJobPosts);
+
+      if (response.statusCode == 200 && response.data != null) {
+        final List<JobPost> jobPosts =
+        (response.data as List)
+            .map((item) => JobPost.fromJson(item))
+            .toList();
+
+        return Success(response: jobPosts);
+      } else {
+        return Error(error: 'Failed to load job posts');
+      }
+    } on DioException catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e).message;
+      if (kDebugMode) {
+        print('DioException in getNotAppliedJobPosts: $e');
+      }
+      return Error(error: errorMessage);
+    } catch (e) {
+      if (kDebugMode) {
+        print('General error in getNotAppliedJobPosts: $e');
       }
       return Error(error: e.toString());
     }
