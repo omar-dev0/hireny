@@ -23,7 +23,7 @@ class ServiceDetailsOrg extends StatelessWidget {
             children: [
               SizedBox(height: 40.h,),
               Text("Service Details",style: AppFonts.mainText,),
-              Text("Explore detailed job descriptions, required skills, and application steps to find your perfect fit.",style: AppFonts.secMain,),
+              Text("Explore detailed job descriptions, required skills.json, and application steps to find your perfect fit.",style: AppFonts.secMain,),
               SizedBox(height: 25.h,),
               Row(
                 children: [

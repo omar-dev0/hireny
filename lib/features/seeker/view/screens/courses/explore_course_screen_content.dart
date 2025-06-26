@@ -49,7 +49,7 @@ class CourseContent extends StatelessWidget {
                   SizedBox(height: 20.h),
                   Text("Explore Courses", style: AppFonts.mainText),
                   Text(
-                    "Discover courses to boost your skills and achieve your goals.",
+                    "Discover courses to boost your skills.json and achieve your goals.",
                     style: AppFonts.secMain,
                     textAlign: TextAlign.center,
                   ),

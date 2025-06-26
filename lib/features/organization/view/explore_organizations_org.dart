@@ -71,7 +71,7 @@ class _ExploreOrganizationsOrgState extends State<ExploreOrganizationsOrg> {
                   SizedBox(height: 20.h),
                   Text("Explore Organizations", style: AppFonts.mainText),
                   Text(
-                    "Discover courses to boost your skills and achieve your goals.",
+                    "Discover courses to boost your skills.json and achieve your goals.",
                     style: AppFonts.secMain,
                     textAlign: TextAlign.center,
                   ),

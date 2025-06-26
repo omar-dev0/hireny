@@ -23,6 +23,7 @@ abstract class AppAssets{
   static const String loginImage = '${imagePath}login_image.png';
   static const String hireny = '${imagePath}hireny.png';
   static const String successAnimation = '${animations}success.json';
+  static const String moneyAnimation = '${animations}money.json';
 
   static String errorAnimation = '${animations}error.json';
 

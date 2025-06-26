@@ -14,48 +14,44 @@ class ExploreCoursesSeeker extends StatelessWidget {
 
   ExploreCoursesSeeker({super.key});
 
-  final CourseCubit courseCubit = getIt.get<CourseCubit>();
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => courseCubit..fetchNotRegisteredCourses(),
-      child: BlocConsumer<CourseCubit, CourseState>(
-        listener: (context, state) {
-          if (state is CourseLoading) {
-            showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (_) => LoadingDialog(),
-            );
-          }
+    return BlocConsumer<CourseCubit, CourseState>(
+      listener: (context, state) {
+        if (state is CourseLoading) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) => LoadingDialog(),
+          );
+        }
 
-          if (state is CourseError) {
-            Navigator.pop(context); // Dismiss loading dialog if any
-            showDialog(
-              context: context,
-              builder: (_) => ErrorDialog(message: state.message),
-            );
-          }
+        if (state is CourseError) {
+          Navigator.pop(context); // Dismiss loading dialog if any
+          showDialog(
+            context: context,
+            builder: (_) => ErrorDialog(message: state.message),
+          );
+        }
 
-          if (state is CourseLoaded) {
-          }
-        },
-        builder: (context, state) {
-          if (state is CourseLoading) {
-            return Center(child: CircularProgressIndicator());
-          } else {
-            return CourseContent(
-              chipLabels: ['Industry', 'Date Published', 'Price'],
-              onChipPressed: [
-                () => _showCategoryBottomSheet(context),
-                () => _showDatePublishedBottomSheet(context),
-                () => _showPriceRangeBottomSheet(context),
-              ],
-            );
-          }
-        },
-      ),
+        if (state is CourseLoaded) {
+        }
+      },
+      builder: (context, state) {
+        if (state is CourseLoading) {
+          return Center(child: CircularProgressIndicator());
+        } else {
+          return CourseContent(
+            chipLabels: ['Industry', 'Date Published', 'Price'],
+            onChipPressed: [
+              () => _showCategoryBottomSheet(context),
+              () => _showDatePublishedBottomSheet(context),
+              () => _showPriceRangeBottomSheet(context),
+            ],
+          );
+        }
+      },
     );
   }
 

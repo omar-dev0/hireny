@@ -78,7 +78,7 @@ class _ExploreJobSeekersOrgState extends State<ExploreJobSeekersOrg> {
                   ),
                   SizedBox(height: 20.h,),
                   Text("Explore Job Seekers",style: AppFonts.mainText,),
-                  Text("Discover courses to boost your skills and achieve your goals.",style: AppFonts.secMain,textAlign: TextAlign.center,),
+                  Text("Discover courses to boost your skills.json and achieve your goals.",style: AppFonts.secMain,textAlign: TextAlign.center,),
                   SizedBox(height: 20.h,),
                   DynamicFilterChipsWidget(
                     chipLabels: chipLabels,

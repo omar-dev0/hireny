@@ -13,7 +13,7 @@ import 'seeker_consts.dart';
 
 @singleton
 @injectable
-class SeekerApi{
+class SeekerApi {
   final Dio _dio;
 
   SeekerApi(this._dio);
@@ -49,20 +49,22 @@ class SeekerApi{
       return Error(error: e.toString());
     }
   }
+
   Future<Result<List<JobPost>>> getNotAppliedJobPosts() async {
     try {
       _dio.options.headers = {
         HttpHeaders.contentTypeHeader: 'multipart/form-data',
-        HttpHeaders.authorizationHeader: 'Bearer ${AppSharedData.user?.accessToken}',
+        HttpHeaders.authorizationHeader:
+            'Bearer ${AppSharedData.user?.accessToken}',
       };
 
       final response = await _dio.get(SeekerConst.getNotAppliedJobPosts);
 
       if (response.statusCode == 200 && response.data != null) {
         final List<JobPost> jobPosts =
-        (response.data as List)
-            .map((item) => JobPost.fromJson(item))
-            .toList();
+            (response.data as List)
+                .map((item) => JobPost.fromJson(item))
+                .toList();
 
         return Success(response: jobPosts);
       } else {
@@ -80,5 +82,37 @@ class SeekerApi{
       }
       return Error(error: e.toString());
     }
+  }
+
+  Future<Result<num>?> showInsight(Map<String, String> data) async {
+    try {
+      _dio.options.headers = {
+        HttpHeaders.contentTypeHeader: 'multipart/form-data',
+        HttpHeaders.authorizationHeader:
+            'Bearer ${AppSharedData.user?.accessToken}',
+      };
+      FormData formData = FormData.fromMap(data);
+      var response = await _dio.post(
+        SeekerConst.salaryInsightes,
+        data: formData,
+      );
+      if (response.statusCode == 200) {
+        return Success(
+          response: response.data['predicted_salary_usd_per_month'],
+        );
+      }
+    } on DioException catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e).message;
+      if (kDebugMode) {
+        print('DioException in showInsight: $e');
+      }
+      return Error(error: errorMessage);
+    } catch (e) {
+      if (kDebugMode) {
+        print('General error in showInsight: $e');
+      }
+      return Error(error: e.toString());
+    }
+    return null;
   }
 }

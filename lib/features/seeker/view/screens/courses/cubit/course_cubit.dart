@@ -37,10 +37,13 @@ class CourseCubit extends Cubit<CourseState> {
       return;
     }
 
-    final filteredList = AppSharedData.courses
-        .where((course) =>
-        course.title.toLowerCase().contains(query.toLowerCase()))
-        .toList();
+    final filteredList =
+        AppSharedData.courses
+            .where(
+              (course) =>
+                  course.title.toLowerCase().contains(query.toLowerCase()),
+            )
+            .toList();
 
     emit(CourseLoaded(courses: filteredList));
   }

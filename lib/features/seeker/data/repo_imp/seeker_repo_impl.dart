@@ -1,4 +1,3 @@
-
 import 'package:hireny/features/seeker/domain/modules/job_post.dart';
 import 'package:hireny/result.dart';
 import 'package:injectable/injectable.dart';
@@ -18,8 +17,14 @@ class SeekerRepoImpl implements SeekerRepository {
   Future<Result<List<Course>>> getNotRegisteredCourses() {
     return _dataSource.getNotRegisteredCourses();
   }
+
   @override
   Future<Result<List<JobPost>>> getNotAppliedJobPosts() {
     return _dataSource.getNotAppliedJobPosts();
+  }
+
+  @override
+  Future<Result<num>?> showInsight(Map<String, String> data) {
+    return _dataSource.showInsight(data);
   }
 }

@@ -5,4 +5,5 @@ import '../modules/course.dart';
 abstract class SeekerRepository {
   Future<Result<List<Course>>> getNotRegisteredCourses();
   Future<Result<List<JobPost>>> getNotAppliedJobPosts();
+  Future<Result<num>?> showInsight(Map<String, String> data);
 }

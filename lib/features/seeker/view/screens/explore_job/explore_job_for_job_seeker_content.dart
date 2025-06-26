@@ -45,7 +45,7 @@ class JobContent extends StatelessWidget {
                   SizedBox(height: 20.h),
                   Text("Job Search", style: AppFonts.mainText),
                   Text(
-                    "Search for your desired job matching your skills",
+                    "Search for your desired job matching your skills.json",
                     style: AppFonts.secMain,
                     textAlign: TextAlign.center,
                   ),

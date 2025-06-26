@@ -8,17 +8,16 @@ abstract class AppSharedData {
   static Map<String, List<String>> countryCityData = {};
   static List<String> nationalities = [];
   static List<Course> courses = [];
+  static List<String> countries = [];
+  static List<String> jobs = [];
   static List<JobPost> jobPosts = []; // ← New field
 
-
   static List<String> careerLevels = [
-    "Undergraduate",
-    "Fresh Graduate / Entry-Level",
-    "Junior",
-    "Mid-Level",
-    "Senior",
-    "Lead / Tech Lead",
-    "Software Architect / Engineering Manager",
+    "Entry Level",
+    "Early Career",
+    "Mid Career",
+    "Experienced",
+    "Late Career",
   ];
   static List<String> employmentStatus = [
     "Full-Time",
@@ -59,18 +58,20 @@ abstract class AppSharedData {
     "Telecommunications",
     "Textiles",
     "Waste Management",
-    "Wholesale & Distribution"
+    "Wholesale & Distribution",
   ];
-static List<String> organizationSizes = [
-  "Self-employed",
-  "1-10",
-  "11-50",
-  "51-200",
-  "201-500",
-  "501-1,000",
-  "1,001-5,000",
-  "5,001-10,000",
-  "10,001+"
-];
-static bool rememberMe = true;
+  static List<String> organizationSizes = [
+    "Self-employed",
+    "1-10",
+    "11-50",
+    "51-200",
+    "201-500",
+    "501-1,000",
+    "1,001-5,000",
+    "5,001-10,000",
+    "10,001+",
+  ];
+  static bool rememberMe = true;
+
+  static List<String> skills = [];
 }

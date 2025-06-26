@@ -20,7 +20,13 @@ class SeekerDataSourceImpl implements SeekerDataSource {
   Future<Result<List<Course>>> getNotRegisteredCourses() async {
     return seekerApi.getNotRegisteredCourses();
   }
+  @override
   Future<Result<List<JobPost>>> getNotAppliedJobPosts() async {
     return seekerApi.getNotAppliedJobPosts();
+  }
+
+  @override
+  Future<Result<num>?> showInsight(Map<String, String> data) {
+    return seekerApi.showInsight(data);
   }
 }

@@ -52,6 +52,8 @@ import '../../features/seeker/view/screens/explore_job/cubit/explore_job_cubit.d
     as _i401;
 import '../../features/seeker/view/screens/job_detailes/cubit/job_detailes_cubit.dart'
     as _i704;
+import '../../features/seeker/view/screens/salary_insights/cubit/salary_cubit.dart'
+    as _i627;
 import '../../features/show_admin/data/data_sources/admin_data_interface.dart'
     as _i5;
 import '../../features/show_admin/data/data_sources/admin_local_data_source.dart'
@@ -105,9 +107,9 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     final dioProvider = _$DioProvider();
+    gh.factory<_i488.UserCubit>(() => _i488.UserCubit());
     gh.factory<_i743.MyCoursesCubit>(() => _i743.MyCoursesCubit());
     gh.factory<_i704.JobDetailesCubit>(() => _i704.JobDetailesCubit());
-    gh.factory<_i488.UserCubit>(() => _i488.UserCubit());
     gh.lazySingleton<_i361.Dio>(() => dioProvider.dioProvider());
     gh.lazySingleton<_i528.PrettyDioLogger>(() => dioProvider.providePretty());
     gh.lazySingleton<_i5.AdminDataInterface>(
@@ -136,10 +138,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i640.DeleteAdmin(adminRepo: gh<_i656.AdminRepoInterface>()));
     gh.factory<_i894.GetAdmins>(
         () => _i894.GetAdmins(adminRepo: gh<_i656.AdminRepoInterface>()));
-    gh.factory<_i37.DeleteApp>(
-        () => _i37.DeleteApp(appRepo: gh<_i346.AppRepoInterface>()));
     gh.factory<_i636.ShowApp>(
         () => _i636.ShowApp(appRepo: gh<_i346.AppRepoInterface>()));
+    gh.factory<_i37.DeleteApp>(
+        () => _i37.DeleteApp(appRepo: gh<_i346.AppRepoInterface>()));
     gh.factory<_i981.RegSeekerVm>(
         () => _i981.RegSeekerVm(gh<_i412.RepoAuth>()));
     gh.factory<_i598.ShowOrg>(
@@ -157,14 +159,14 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i81.VerifyOrg>(),
           gh<_i598.ShowOrg>(),
         ));
+    gh.factory<_i754.GetReviews>(
+        () => _i754.GetReviews(profileRepo: gh<_i886.OrgProfileRepo>()));
     gh.factory<_i1064.AddReview>(
         () => _i1064.AddReview(profileRepo: gh<_i886.OrgProfileRepo>()));
     gh.factory<_i431.GetOrgProfile>(
         () => _i431.GetOrgProfile(profileRepo: gh<_i886.OrgProfileRepo>()));
     gh.factory<_i512.GetPosts>(
         () => _i512.GetPosts(profileRepo: gh<_i886.OrgProfileRepo>()));
-    gh.factory<_i754.GetReviews>(
-        () => _i754.GetReviews(profileRepo: gh<_i886.OrgProfileRepo>()));
     gh.factory<_i889.CourseCubit>(
         () => _i889.CourseCubit(gh<_i386.SeekerRepository>()));
     gh.factory<_i5.OrgProfileCubit>(() => _i5.OrgProfileCubit(
@@ -177,6 +179,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i37.DeleteApp>(),
           gh<_i636.ShowApp>(),
         ));
+    gh.factory<_i627.SalaryCubit>(
+        () => _i627.SalaryCubit(gh<_i386.SeekerRepository>()));
     gh.factory<_i401.JobPostCubit>(
         () => _i401.JobPostCubit(gh<_i386.SeekerRepository>()));
     return this;

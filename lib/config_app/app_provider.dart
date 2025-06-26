@@ -15,7 +15,14 @@ abstract class AppProvider {
   static late Box appBox;
   static Future<void> configApp() async {
     await Hive.initFlutter();
-    Future.wait([loadCountryCityData(), loadNationalities()]);
+    Future.wait([
+      loadCountryCityData(),
+      loadNationalities(),
+      locateCountries(),
+      loadJobs(),
+      loadIndustry(),
+      loadSkills(),
+    ]);
     Hive.registerAdapter(UserAdapter());
     Hive.registerAdapter(SeekerAdapter());
     Hive.registerAdapter(OrgAdminAdapter());
@@ -35,6 +42,16 @@ abstract class AppProvider {
     );
   }
 
+  static Future<void> locateCountries() async {
+    String jsonString = await rootBundle.loadString(
+      'assets/country_city/countries.json',
+    );
+    Map<String, dynamic> raw = jsonDecode(jsonString);
+
+    AppSharedData.countries =
+        List<String>.from(raw['countries']).cast<String>();
+  }
+
   static Future<void> loadNationalities() async {
     String jsonString = await rootBundle.loadString(
       'assets/country_city/nationalities.json',
@@ -42,5 +59,29 @@ abstract class AppProvider {
     Map<String, dynamic> raw = jsonDecode(jsonString);
     AppSharedData.nationalities =
         List<String>.from(raw['nationalities']).cast<String>();
+  }
+
+  static Future<void> loadJobs() async {
+    String jsonString = await rootBundle.loadString('assets/jsons/jobs.json');
+    Map<String, dynamic> raw = jsonDecode(jsonString);
+    AppSharedData.jobs = List<String>.from(raw['jobs']).cast<String>();
+  }
+
+  static Future<void> loadIndustry() async {
+    String jsonString = await rootBundle.loadString(
+      'assets/jsons/industry.json',
+    );
+    Map<String, dynamic> raw = jsonDecode(jsonString);
+    AppSharedData.industries =
+        List<String>.from(raw['industries']).cast<String>();
+  }
+
+  static Future<void> loadSkills() async {
+    String jsonString = await rootBundle.loadString(
+      'assets/jsons/skills.json',
+    );
+    Map<String, dynamic> raw = jsonDecode(jsonString);
+    AppSharedData.skills =
+        List<String>.from(raw['skills']).cast<String>();
   }
 }

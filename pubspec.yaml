@@ -59,6 +59,7 @@ flutter:
     - assets/icons/
     - assets/animations/
     - assets/country_city/
+    - assets/jsons/
   # To add assets to your application, add an assets section, like this:
 icons_launcher:
   image_path: "assets/images/hireny.png"

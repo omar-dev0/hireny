@@ -5,6 +5,7 @@ import 'package:hireny/features/org_profile/presentation/ui/org_profile.dart';
 import 'package:hireny/features/organization/view/explore_job_seekers_org.dart';
 import 'package:hireny/features/seeker/view/screens/courses/explore_courses_seeker.dart';
 import 'package:hireny/features/seeker/view/screens/explore_job/explore_job_seeker.dart';
+import 'package:hireny/features/seeker/view/screens/salary_insights/salary_insights_screen.dart';
 import 'package:hireny/features/view_application/presentation/manager/app_cubit.dart';
 import 'package:hireny/features/view_application/presentation/ui/view_application.dart';
 import 'package:hireny/routes/page_route.dart';
@@ -31,24 +32,20 @@ import '../utils/constants/app_colors.dart';
 import '../utils/data_shared/app_shared_data.dart';
 import '../utils/di/di.dart';
 import '../views/error/error_screen.dart';
-import '../views/salary_insights/salary_insights_screen.dart';
-import '../views/thank_you/thank_you_screen.dart';
 
 Route<dynamic> GeneratedRoute(RouteSettings settings) {
   final name = settings.name;
 
   if (name == PagesRoute.firstPage && AppSharedData.user?.accessToken == null) {
     return MaterialPageRoute(builder: (_) => LoginScreen());
-  }
-  else if (name == PagesRoute.firstPage &&
+  } else if (name == PagesRoute.firstPage &&
       AppSharedData.user?.accessToken != null) {
-    return MaterialPageRoute(builder: (_)=>TabBarApp());
+    return MaterialPageRoute(builder: (_) => TabBarApp());
   }
 
-  if(name == PagesRoute.mainScreen)
-    {
-      return MaterialPageRoute(builder: (_)=>TabBarApp());
-    }
+  if (name == PagesRoute.mainScreen) {
+    return MaterialPageRoute(builder: (_) => TabBarApp());
+  }
   if (name == PagesRoute.generalInfo) {
     return MaterialPageRoute(
       builder:
@@ -71,10 +68,6 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
 
   if (name == PagesRoute.errorScreen) {
     return MaterialPageRoute(builder: (context) => ErrorScreen());
-  }
-
-  if (name == PagesRoute.thankYou) {
-    return MaterialPageRoute(builder: (_) => ThankYouScreen());
   }
 
   if (name == PagesRoute.courseDetails) {
@@ -155,12 +148,9 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
   if (name == PagesRoute.exploreJobsSeeker) {
     return MaterialPageRoute(builder: (_) => ExploreJobsForJobSeeker());
   }
-  if(name == PagesRoute.jobDetailes)
-    {
-      return MaterialPageRoute(builder: (_) => JobDetailesScreen());
-    }
-
-
+  if (name == PagesRoute.jobDetailes) {
+    return MaterialPageRoute(builder: (_) => JobDetailesScreen());
+  }
 
   // Default case
   return MaterialPageRoute(

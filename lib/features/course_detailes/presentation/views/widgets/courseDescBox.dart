@@ -35,7 +35,7 @@ class courseDescBox extends StatelessWidget {
                           " fundamentals, machine learning, deep learning, "
                           "and data visualization. It covers tools like Python, R,"
                           " TensorFlow, and SQL while emphasizing hands-on projects."
-                          " Ideal for aspiring data scientists, it helps build practical skills and"
+                          " Ideal for aspiring data scientists, it helps build practical skills.json and"
                           " a strong portfolio for real-world applications.",
                       softWrap: true,
                       style: AppFonts.textFieldStyle,
