@@ -3,4 +3,7 @@ abstract class SeekerConst {
       '/api/courses/get-not-registered-courses/';
   static const String getNotAppliedJobPosts = '/api/posts/jobs/not-applied';
   static const String salaryInsightes = '/api/AI_models/salary_insights/';
+  static const String getJobPostDetails = '/api/posts/jobs/';
+  static const String getAllOrganizations = '/api/auth/get-all-organizations/';
+  static const String getCourseDetails = '/api/courses/get-course-details/';
 }

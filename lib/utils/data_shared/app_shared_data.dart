@@ -2,6 +2,7 @@ import 'package:hireny/features/auth/domain/modules/user/user.dart';
 import 'package:hireny/features/seeker/domain/modules/course.dart';
 
 import '../../features/seeker/domain/modules/job_post.dart';
+import '../../features/seeker/domain/modules/org_post.dart';
 
 abstract class AppSharedData {
   static User? user;
@@ -10,7 +11,8 @@ abstract class AppSharedData {
   static List<Course> courses = [];
   static List<String> countries = [];
   static List<String> jobs = [];
-  static List<JobPost> jobPosts = []; // ← New field
+  static List<JobPost> jobPosts = [];
+  static List<OrgPost> orgPosts = [];
 
   static List<String> careerLevels = [
     "Entry Level",
@@ -75,3 +77,4 @@ abstract class AppSharedData {
 
   static List<String> skills = [];
 }
+

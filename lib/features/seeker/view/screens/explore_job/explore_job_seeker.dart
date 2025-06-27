@@ -38,7 +38,7 @@ class ExploreJobsForJobSeeker extends StatelessWidget {
       },
       builder: (context, state) {
         if (state is JobPostLoading) {
-          return Center(child: CircularProgressIndicator());
+          return LoadingDialog();
         } else {
           return JobContent(
             chipLabels: [

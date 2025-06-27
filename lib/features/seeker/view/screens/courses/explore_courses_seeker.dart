@@ -28,7 +28,7 @@ class ExploreCoursesSeeker extends StatelessWidget {
         }
 
         if (state is CourseError) {
-          Navigator.pop(context); // Dismiss loading dialog if any
+          Navigator.pop(context);
           showDialog(
             context: context,
             builder: (_) => ErrorDialog(message: state.message),
@@ -40,7 +40,7 @@ class ExploreCoursesSeeker extends StatelessWidget {
       },
       builder: (context, state) {
         if (state is CourseLoading) {
-          return Center(child: CircularProgressIndicator());
+          return LoadingDialog();
         } else {
           return CourseContent(
             chipLabels: ['Industry', 'Date Published', 'Price'],

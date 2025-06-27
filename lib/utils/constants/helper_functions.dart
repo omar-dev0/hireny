@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 
 import '../../features/organization/view/widgets/bottomSheets/location_bottom_sheet.dart';
 import '../widgets/dynamic_check_box_filter_bottom_sheet.dart';
@@ -62,4 +63,8 @@ void showLocationSheet(context){
     ),
     builder: (_) => LocationBottomSheet(),
   );
+}
+String formatDate(String isoDate) {
+  final date = DateTime.parse(isoDate);
+  return '${DateFormat('MMM d, yyyy').format(date)}';
 }

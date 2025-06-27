@@ -12,6 +12,7 @@ import 'package:hireny/utils/widgets/dymanic_filter_chips.dart';
 import 'package:hireny/utils/widgets/explore_card.dart';
 import 'package:hireny/utils/widgets/search_bar_widget.dart';
 
+import '../../../../../routes/page_route.dart';
 import 'cubit/course_cubit.dart';
 import 'cubit/course_states.dart';
 
@@ -81,7 +82,7 @@ class CourseContent extends StatelessWidget {
                             duration: Duration(milliseconds: 300 + index * 100),
                             child: InkWell(
                               onTap: () {
-                                // Navigate to course details
+                                Navigator.pushNamed(context, PagesRoute.courseDetailes);
                               },
                               child: ExploreCard(
                                 course: course,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hireny/features/seeker/view/screens/courses/cubit/course_cubit.dart';
 import 'package:hireny/features/seeker/view/screens/explore_job/cubit/explore_job_cubit.dart';
+import 'package:hireny/features/seeker/view/screens/explore_org_seeker/cubit/explore_org_for_seeker_cubit.dart';
 import 'package:hireny/features/seeker/view/screens/explore_org_seeker/explore_org_for_seeker.dart';
 import 'package:hireny/features/seeker/view/home.dart';
 import 'package:hireny/features/seeker/view/screens/explore_job/explore_job_seeker.dart';
@@ -29,6 +30,10 @@ class TabBarApp extends StatelessWidget {
         BlocProvider(
           create:
               (context) => getIt.get<JobPostCubit>()..fetchNotAppliedJobPosts(),
+        ),
+        BlocProvider(
+          create:
+              (context) => getIt.get<OrgPostCubit>()..fetchAllOrganizations(),
         ),
         BlocProvider(create: (context) => getIt.get<SalaryCubit>()),
       ],

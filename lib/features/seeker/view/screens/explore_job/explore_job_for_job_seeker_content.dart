@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../routes/page_route.dart';
 import '../../../../../utils/constants/app_fonts.dart';
 import '../../../../../utils/widgets/custom_search_bar.dart';
 import '../../../../../utils/widgets/dymanic_filter_chips.dart';
@@ -29,7 +30,6 @@ class JobContent extends StatelessWidget {
         duration: Duration(milliseconds: 500),
         child: CustomScrollView(
           slivers: [
-            // Header Section
             SliverToBoxAdapter(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -78,8 +78,12 @@ class JobContent extends StatelessWidget {
                             duration: Duration(milliseconds: 300 + index * 100),
                             child: InkWell(
                               onTap: () {
-                                // Navigate to job details
-                              },
+                                Navigator.pushNamed(
+                                  context,
+                                  PagesRoute.jobDetailes,
+                                  arguments: jobPost.id,
+                                );
+                                },
                               child: JobExploreCard(jobPost: jobPost),
                             ),
                           ),

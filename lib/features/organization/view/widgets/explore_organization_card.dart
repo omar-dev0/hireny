@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hireny/features/seeker/domain/modules/org_post.dart';
 import 'package:hireny/utils/constants/app_fonts.dart';
+import '../../../../utils/app_assets.dart';
 import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/data_shared/shared_const_api.dart';
+import '../../../seeker/domain/modules/org_post.dart';
 
 class ExploreOrganizationCard extends StatelessWidget {
-  final String size;
-  final String companyName;
-  final String logoImage;
-  final String location;
+  final OrgPost orgPost;
 
   const ExploreOrganizationCard({
     Key? key,
-    required this.size,
-    required this.companyName,
-    required this.logoImage,
-    required this.location,
+    required this.orgPost
   }) : super(key: key);
 
   @override
@@ -36,13 +34,22 @@ class ExploreOrganizationCard extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          CircleAvatar(
-            backgroundImage: AssetImage(logoImage),
-            radius: 26.r,
+          // CircleAvatar(
+          //   backgroundImage: AssetImage(logoImage),
+          //   radius: 26.r,
+          // ),
+          Image.network(
+            '${ApiShared.baseUrl}${orgPost.photo}',
+            width: MediaQuery.sizeOf(context).width * .2,
+            height: MediaQuery.sizeOf(context).height * .1,
+            fit: BoxFit.cover,
+            errorBuilder: (_, __, ___) {
+              return Image.asset(AppAssets.org_logo); // Fallback to placeholder if image fails to load
+            },
           ),
           SizedBox(height: 10.h),
           Text(
-            companyName,
+            orgPost.name,
             style: AppFonts.mainText.copyWith(fontSize: 16.sp),
             textAlign: TextAlign.center,
             maxLines: 1,
@@ -60,7 +67,18 @@ class ExploreOrganizationCard extends StatelessWidget {
               children: [
                 Icon(Icons.home_work_rounded, size: 14.sp, color: AppColors.grey),
                 SizedBox(width: 4.w),
-                Text(size, style: AppFonts.secMain.copyWith(fontSize: 12.sp)),
+                Expanded(
+                  child: Text(
+                    orgPost.industry,
+                    style: AppFonts.secMain.copyWith(fontSize: 12.sp),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                // FittedBox(
+                //   fit: BoxFit.scaleDown,
+                //     child: Text(orgPost.industry, style: AppFonts.secMain.copyWith(fontSize: 12.sp),maxLines: 2,
+                //     )),
               ],
             ),
           ),
@@ -72,7 +90,7 @@ class ExploreOrganizationCard extends StatelessWidget {
               SizedBox(width: 4.w),
               Flexible(
                 child: Text(
-                  location,
+                  orgPost.country,
                   style: AppFonts.secMain.copyWith(fontSize: 12.sp),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,

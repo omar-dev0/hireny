@@ -4,9 +4,10 @@ import 'package:hireny/utils/constants/app_colors.dart';
 import 'package:hireny/utils/extensions/font_size.dart';
 
 class RequiredSkills extends StatelessWidget {
-  const RequiredSkills({super.key});
+  final List<String> skills;
 
-  final List<String> skills = const [
+  const RequiredSkills({super.key, required this.skills});
+  final List<String> skillsList = const [
     'Flutter',
     'Firebase',
     'REST API',

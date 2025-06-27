@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hireny/features/seeker/view/screens/job_detailes/widgets/icon_element.dart';
 import 'package:hireny/features/seeker/view/screens/job_detailes/widgets/job_description_section.dart';
 import 'package:hireny/features/seeker/view/screens/job_detailes/widgets/related_jobs.dart';
 import 'package:hireny/features/seeker/view/screens/job_detailes/widgets/required_skills.dart';
@@ -9,11 +8,15 @@ import 'package:hireny/utils/app_assets.dart';
 import 'package:hireny/utils/constants/app_colors.dart';
 import 'package:hireny/utils/extensions/font_size.dart';
 import 'package:hireny/utils/widgets/custom_buttom.dart';
-
 import '../../../../../utils/constants/app_fonts.dart';
+import '../../../../../utils/data_shared/shared_const_api.dart';
+import '../../../../seeker/view/screens/job_detailes/widgets/icon_element.dart';
+import '../../../domain/modules/job_details.dart';
 
 class JobDetailesContent extends StatelessWidget {
-  const JobDetailesContent({super.key});
+  final JobDetailsModel? job;
+
+  const JobDetailesContent({super.key, required this.job});
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +36,22 @@ class JobDetailesContent extends StatelessWidget {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(10),
-                          child: Image.asset(
-                            AppAssets.google,
+
+                          child: Image.network(
+                            '${ApiShared.baseUrl}${job?.companyLogo}',
                             width: MediaQuery.sizeOf(context).width * .2,
                             height: MediaQuery.sizeOf(context).height * .1,
+                            fit: BoxFit.cover,
+                            errorBuilder: (_, __, ___) {
+                              return Image.asset(AppAssets.org_logo); // Fallback to placeholder if image fails to load
+                            },
                           ),
+                          // Image.asset(
+                          //   //url : ${ApiShared.baseurl}${job.companyLogo}
+                          //   AppAssets.org_logo,
+                          //   width: MediaQuery.sizeOf(context).width * .2,
+                          //   height: MediaQuery.sizeOf(context).height * .1,
+                          // ),
                         ),
                         SizedBox(width: 10.w),
                         Expanded(
@@ -45,18 +59,16 @@ class JobDetailesContent extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Flutter Developer',
+                                job?.jobTitle ?? "null",
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
-                                style: AppFonts.mainText.copyWith(
-                                  fontSize: 20.sp,
-                                ),
+                                style: AppFonts.mainText.copyWith(fontSize: 20.sp),
                               ),
                               SizedBox(height: 10.h),
                               Row(
                                 children: [
                                   Text(
-                                    'Google Group',
+                                    job?.companyName ?? "null",
                                     style: TextStyle(
                                       color: Colors.grey,
                                       fontSize: 13.cSp,
@@ -123,11 +135,11 @@ class JobDetailesContent extends StatelessWidget {
                               Icons.wallet_travel_rounded,
                               color: AppColors.primary,
                             ),
-                            label: 'Software - Programming',
+                            label: job?.category.join(", ") ?? "null",
                           ),
                           IconElement(
                             icon: Icon(Icons.timer, color: AppColors.primary),
-                            label: 'Full Time',
+                            label: job?.jobType ?? "null",
                           ),
                         ],
                       ),
@@ -140,14 +152,14 @@ class JobDetailesContent extends StatelessWidget {
                               Icons.account_balance_wallet_rounded,
                               color: AppColors.primary,
                             ),
-                            label: '4000 - 5000 \$',
+                            label: '${job?.minSalary} - ${job?.maxSalary} ${job?.currency}',
                           ),
                           IconElement(
                             icon: Icon(
                               Icons.location_on_rounded,
                               color: AppColors.primary,
                             ),
-                            label: 'New-York, USA',
+                            label: '${job?.country}, ${job?.city}',
                           ),
                         ],
                       ),
@@ -172,56 +184,38 @@ class JobDetailesContent extends StatelessWidget {
                   labelColor: AppColors.primary,
                   unselectedLabelColor: Colors.grey,
                   tabs: [
-                    Padding(padding: const EdgeInsets.all(8.0),
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                        'Job Description',
-                        style: TextStyle(fontSize: 13),
-                      ),
-                    )),
-
-                    Padding(padding: const EdgeInsets.all(8.0),
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                        'Requirements',
-                        style: TextStyle(fontSize: 13),
-                      ),
-                    )),
-                    Padding(padding: const EdgeInsets.all(8.0),
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                        'Required Skills',
-                        style: TextStyle(fontSize: 13),
-                      ),
-                    )),
-                    Padding(padding: const EdgeInsets.all(8.0),
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                        'Related Jobs',
-                        style: TextStyle(fontSize: 13),
-                      ),
-                    )),
-
+                    _buildTab("Job Description"),
+                    _buildTab("Requirements"),
+                    _buildTab("Required Skills"),
+                    _buildTab("Related Jobs"),
                   ],
                 ),
                 Expanded(
-                    child: TabBarView(
-                        children: [
-                          JobDesc(),
-                          Requerment(),
-                          RequiredSkills(),
-                          RelatedJobs(),
-                        ]
-                    )
+                  child: TabBarView(
+                    children: [
+                      JobDesc(description: job?.jobDescription ?? "null"),
+                      Requerment(requirements: job?.jobRequirements ?? "null"),
+                      RequiredSkills(skills: job?.requiredSkills ?? []),
+                      RelatedJobs(),
+                    ],
+                  ),
                 ),
-
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTab(String title) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Text(
+          title,
+          style: TextStyle(fontSize: 13),
         ),
       ),
     );

@@ -24,6 +24,8 @@ import '../features/organization/view/explore_organizations_org.dart';
 import '../features/organization/view/explore_services_org.dart';
 import '../features/organization/view/related_services_org.dart';
 import '../features/organization/view/service_details_org.dart';
+import '../features/seeker/view/screens/course_details/course_screen_seeker_details.dart';
+import '../features/seeker/view/screens/job_detailes/cubit/job_detailes_cubit.dart';
 import '../features/seeker/view/screens/job_detailes/job_detailes_screen.dart';
 import '../features/user_accout/cubit/user_cubit.dart';
 import '../features/user_accout/general_info.dart';
@@ -148,8 +150,25 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
   if (name == PagesRoute.exploreJobsSeeker) {
     return MaterialPageRoute(builder: (_) => ExploreJobsForJobSeeker());
   }
+  if (name == PagesRoute.courseDetailes) {
+    return MaterialPageRoute(builder: (_) => courseScreenSeekerDetails());
+  }
   if (name == PagesRoute.jobDetailes) {
-    return MaterialPageRoute(builder: (_) => JobDetailesScreen());
+    final jobId = settings.arguments as int?;
+
+    if (jobId != null) {
+      return MaterialPageRoute(
+        builder: (_) => BlocProvider(
+          create: (context) => getIt.get<JobDetailsCubit>()..fetchJobDetails(jobId),
+          child: JobDetailesScreen(jobId: jobId),
+        ),
+      );
+    } else {
+      // Fallback if no jobId is provided
+      return MaterialPageRoute(
+        builder: (_) => ErrorScreen(),
+      );
+    }
   }
 
   // Default case

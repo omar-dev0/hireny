@@ -2,12 +2,14 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:hireny/features/seeker/domain/modules/org_post.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../result.dart';
 import '../../../../utils/data_shared/app_shared_data.dart';
 import '../../../../utils/exceptions/dio_exception.dart';
 import '../../domain/modules/course.dart';
+import '../../domain/modules/job_details.dart';
 import '../../domain/modules/job_post.dart';
 import 'seeker_consts.dart';
 
@@ -49,7 +51,6 @@ class SeekerApi {
       return Error(error: e.toString());
     }
   }
-
   Future<Result<List<JobPost>>> getNotAppliedJobPosts() async {
     try {
       _dio.options.headers = {
@@ -83,7 +84,6 @@ class SeekerApi {
       return Error(error: e.toString());
     }
   }
-
   Future<Result<num>?> showInsight(Map<String, String> data) async {
     try {
       _dio.options.headers = {
@@ -114,5 +114,93 @@ class SeekerApi {
       return Error(error: e.toString());
     }
     return null;
+  }
+  Future<Result<JobDetailsModel>> getJobPostDetails(int jobId) async {
+    try {
+      _dio.options.headers = {
+        HttpHeaders.contentTypeHeader: 'multipart/form-data',
+        HttpHeaders.authorizationHeader: 'Bearer ${AppSharedData.user?.accessToken}',
+      };
+
+      final response = await _dio.get('${SeekerConst.getJobPostDetails}$jobId');
+
+      if (response.statusCode == 200 && response.data != null) {
+        final jobDetails = JobDetailsModel.fromJson(response.data);
+
+        return Success(response: jobDetails);
+      } else {
+        return Error(error: 'Failed to load job details');
+      }
+    } on DioException catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e).message;
+      if (kDebugMode) {
+        print('DioException in getJobPostDetails: $e');
+      }
+      return Error(error: errorMessage);
+    } catch (e) {
+      if (kDebugMode) {
+        print('General error in getJobPostDetails: $e');
+      }
+      return Error(error: e.toString());
+    }
+  }
+  Future<Result<List<OrgPost>>> getAllOrganizations() async {
+    try {
+      _dio.options.headers = {
+        HttpHeaders.contentTypeHeader: 'multipart/form-data',
+        HttpHeaders.authorizationHeader: 'Bearer ${AppSharedData.user?.accessToken}',
+      };
+
+      final response = await _dio.get(SeekerConst.getAllOrganizations);
+
+      if (response.statusCode == 200 && response.data != null) {
+        final List<OrgPost> organizations = (response.data as List)
+            .map((item) => OrgPost.fromJson(item))
+            .toList();
+
+        return Success(response: organizations);
+      } else {
+        return Error(error: 'Failed to load organizations');
+      }
+    } on DioException catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e).message;
+      if (kDebugMode) {
+        print('DioException in getAllOrganizations: $e');
+      }
+      return Error(error: errorMessage);
+    } catch (e) {
+      if (kDebugMode) {
+        print('General error in getAllOrganizations: $e');
+      }
+      return Error(error: e.toString());
+    }
+  }
+  Future<Result<Course>> getCourseDetails(int courseId) async {
+    try {
+      _dio.options.headers = {
+        HttpHeaders.contentTypeHeader: 'multipart/form-data',
+        HttpHeaders.authorizationHeader: 'Bearer ${AppSharedData.user?.accessToken}',
+      };
+
+      final response = await _dio.get('${SeekerConst.getCourseDetails}$courseId');
+
+      if (response.statusCode == 200 && response.data != null) {
+        final course = Course.fromJson(response.data);
+        return Success(response: course);
+      } else {
+        return Error(error: 'Failed to load course details');
+      }
+    } on DioException catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e).message;
+      if (kDebugMode) {
+        print('DioException in getCourseDetails: $e');
+      }
+      return Error(error: errorMessage);
+    } catch (e) {
+      if (kDebugMode) {
+        print('General error in getCourseDetails: $e');
+      }
+      return Error(error: e.toString());
+    }
   }
 }

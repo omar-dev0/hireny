@@ -6,6 +6,8 @@ import 'package:hireny/utils/constants/app_fonts.dart';
 import 'package:hireny/utils/widgets/custom_buttom.dart';
 
 import '../../../../utils/constants/app_colors.dart';
+import '../constants/helper_functions.dart';
+import '../data_shared/shared_const_api.dart';
 
 class JobExploreCard extends StatelessWidget {
   JobPost jobPost;
@@ -55,10 +57,14 @@ class JobExploreCard extends StatelessWidget {
           SizedBox(height: 10.h),
           Row(
             children: [
-              Image.asset(
-                AppAssets.org_logo,
-                height: 32.h,
-                width: 32.w,
+              Image.network(
+                '${ApiShared.baseUrl}${jobPost.companyLogo}',
+                width: MediaQuery.sizeOf(context).width * .2,
+                height: MediaQuery.sizeOf(context).height * .1,
+                fit: BoxFit.cover,
+                errorBuilder: (_, __, ___) {
+                  return Image.asset(AppAssets.org_logo); // Fallback to placeholder if image fails to load
+                },
               ),
               SizedBox(width: 8.w),
               Column(
@@ -105,7 +111,8 @@ class JobExploreCard extends StatelessWidget {
               ),
               SizedBox(width: 4.w),
               Text(
-                jobPost.deadline,
+                formatDate(jobPost.deadline,), // <-- Format the date here
+
                 style: AppFonts.secMain.copyWith(color: AppColors.grey),
               ),
             ],

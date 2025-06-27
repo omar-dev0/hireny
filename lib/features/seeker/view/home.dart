@@ -5,11 +5,14 @@ import 'package:animate_do/animate_do.dart';
 
 import 'package:hireny/features/auth/domain/modules/seeker/seeker.dart';
 import 'package:hireny/features/seeker/view/screens/explore_job/cubit/explore_job_cubit.dart';
+import 'package:hireny/features/seeker/view/screens/explore_job/cubit/explore_job_states.dart';
 import 'package:hireny/utils/app_assets.dart';
 import 'package:hireny/utils/constants/app_fonts.dart';
+import 'package:hireny/utils/constants/dialogs/loading_dialog.dart';
 import 'package:hireny/utils/data_shared/app_shared_data.dart';
 import 'package:hireny/utils/widgets/job_explore_card.dart';
 
+import '../../../routes/page_route.dart';
 import '../../../utils/constants/app_colors.dart';
 import '../../../utils/widgets/custom_search_bar.dart';
 import '../domain/modules/job_post.dart';
@@ -34,92 +37,96 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20),
-      child: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: FadeInUp(
-              child: Image.asset(
-                'assets/images/main_screen.png',
-                width: MediaQuery.sizeOf(context).width * 0.8,
-                height: MediaQuery.sizeOf(context).height * 0.2,
-              ),
-            ),
-          ),
-          SliverToBoxAdapter(child: SizedBox(height: 20.h)),
+    return BlocBuilder<JobPostCubit, JobPostState>(
+      builder: (context, state) {
+        List<JobPost> jobPosts = [];
 
-          //👇 Animated Search Field
-          SliverToBoxAdapter(
-            child: FadeInDown(
-              duration: Duration(milliseconds: 500),
-              child: CustomSearchBar(
-                hintText: "Search for Jobs",
-                onSearchChanged: (value) {
-                  // Trigger filtering in Cubit
-                  context.read<JobPostCubit>().filterJobPosts(value);
-                },
-              ),
-            ),
-          ),
+        if (state is JobPostLoading) {
+          return LoadingDialog();
+        }
+        if (state is JobPostLoaded && state.jobPosts.isNotEmpty) {
+          jobPosts = state.jobPosts.take(5).toList();
+        } else {
+          jobPosts = AppSharedData.jobPosts.take(5).toList(); // Fallback to cached jobs
+        }
 
-          SliverToBoxAdapter(child: SizedBox(height: 20.h)),
-
-          SliverToBoxAdapter(
-            child: Text(
-              'Featured Jobs',
-              textAlign: TextAlign.center,
-              style: AppFonts.mainText,
-            ),
-          ),
-          SliverToBoxAdapter(child: SizedBox(height: 20.h)),
-          SliverToBoxAdapter(
-            child: Text(
-              'Choose jobs from the top employers and apply for the same.',
-              textAlign: TextAlign.center,
-              style: TextStyle(color: AppColors.grey),
-            ),
-          ),
-          SliverToBoxAdapter(child: SizedBox(height: 20.h)),
-
-          // 👇 Animated Job Cards
-          SliverList(
-            delegate: SliverChildBuilderDelegate((context, index) {
-              return FadeInUp(
-                delay: Duration(milliseconds: 100 * index),
-                duration: Duration(milliseconds: 600),
-                child: Padding(
-                  padding: EdgeInsets.only(bottom: 20.h),
-                  child: InkWell(
-                    onTap: () {},
-                    child: JobExploreCard(
-                      jobPost: JobPost(
-                        id: 1,
-                        jobTitle: "Software Engineer",
-                        minSalary: "3000.00",
-                        maxSalary: "5000.00",
-                        jobDescription: "We are looking for a skilled Software Engineer to join our team. You will be responsible for developing and maintaining internal tools and systems.",
-                        jobRequirements: "Bachelor's degree in Computer Science or related field. Experience with Flutter and REST APIs is a plus.",
-                        educationLevel: "Bachelor's Degree",
-                        deadline: "2025-07-15T23:59:59Z",
-                        country: "Egypt",
-                        city: "Cairo",
-                        category: ["Information Technology", "Software Development"],
-                        currency: "USD",
-                        companyName: "Tech Solutions Inc.",
-                        companyLogo: "https://example.com/company-logo.png",
-                        totalApplications: 45,
-                        createdAt: "2025-06-24T18:54:45.818426Z",
-                        jobType: "Full-time",
-                      ),
-                    ),
+        return Padding(
+          padding: const EdgeInsets.all(20),
+          child: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: FadeInUp(
+                  child: Image.asset(
+                    'assets/images/main_screen.png',
+                    width: MediaQuery.sizeOf(context).width * 0.8,
+                    height: MediaQuery.sizeOf(context).height * 0.2,
                   ),
                 ),
-              );
-            }, childCount: 10),
+              ),
+              SliverToBoxAdapter(child: SizedBox(height: 20.h)),
+
+              //👇 Animated Search Field
+              SliverToBoxAdapter(
+                child: FadeInDown(
+                  duration: Duration(milliseconds: 500),
+                  child: CustomSearchBar(
+                    hintText: "Search for Jobs",
+                    onSearchChanged: (value) {
+                      context.read<JobPostCubit>().filterJobPosts(value);
+                    },
+                  ),
+                ),
+              ),
+
+              SliverToBoxAdapter(child: SizedBox(height: 20.h)),
+
+              SliverToBoxAdapter(
+                child: Text(
+                  'Featured Jobs',
+                  textAlign: TextAlign.center,
+                  style: AppFonts.mainText,
+                ),
+              ),
+              SliverToBoxAdapter(child: SizedBox(height: 20.h)),
+              SliverToBoxAdapter(
+                child: Text(
+                  'Choose jobs from the top employers and apply for the same.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: AppColors.grey),
+                ),
+              ),
+              SliverToBoxAdapter(child: SizedBox(height: 20.h)),
+
+              //👇 Animated Job Cards
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                    final jobPost = jobPosts[index];
+                    return FadeInUp(
+                      delay: Duration(milliseconds: 100 * index),
+                      duration: Duration(milliseconds: 600),
+                      child: Padding(
+                        padding: EdgeInsets.only(bottom: 20.h),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              PagesRoute.jobDetailes,
+                              arguments: jobPost.id,
+                            );
+                          },
+                          child: JobExploreCard(jobPost: jobPost),
+                        ),
+                      ),
+                    );
+                  },
+                  childCount: jobPosts.length,
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

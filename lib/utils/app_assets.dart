@@ -27,4 +27,5 @@ abstract class AppAssets{
 
   static String errorAnimation = '${animations}error.json';
 
+
 }

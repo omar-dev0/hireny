@@ -5,11 +5,12 @@ import '../../../../../../utils/constants/app_colors.dart';
 import 'bullet_point.dart';
 
 class Requerment extends StatelessWidget {
-  const Requerment({super.key});
+  final String requirements;
 
+  const Requerment({super.key, required this.requirements});
   @override
   Widget build(BuildContext context) {
-    final requirements = [
+    final requirementsList = [
       'Education: Bachelor\'s degree in Business Administration, Marketing, or a related field.',
       'Experience: 3–5 years of experience in sales or account management, preferably in the corporate sector.',
       'Technical Skills: Proficiency in CRM tools and a good understanding of corporate solutions.',
@@ -32,7 +33,7 @@ class Requerment extends StatelessWidget {
                   backgroundColor: AppColors.primary,
                   child: Icon(Icons.check, color: Colors.white, size: 20),
                 ),
-                label: requirements[index],
+                label: requirements,
               ),
             );
           }),

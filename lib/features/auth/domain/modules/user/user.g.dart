@@ -17,6 +17,7 @@ class UserAdapter extends TypeAdapter<User> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return User(
+      id: fields[0] as int?,
       firstName: fields[1] as String?,
       lastName: fields[2] as String?,
       email: fields[3] as String?,
@@ -28,7 +29,6 @@ class UserAdapter extends TypeAdapter<User> {
       updatesToEmail: fields[9] as bool?,
       photo: fields[10] as String?,
     )
-      ..id = fields[0] as int?
       ..accessToken = fields[11] as String?
       ..refreshToken = fields[12] as String?;
   }

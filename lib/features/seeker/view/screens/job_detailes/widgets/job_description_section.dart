@@ -4,8 +4,9 @@ import 'package:animate_do/animate_do.dart';
 import 'bullet_point.dart';
 
 class JobDesc extends StatelessWidget {
-  const JobDesc({super.key});
+  final String description;
 
+  const JobDesc({super.key, required this.description});
   @override
   Widget build(BuildContext context) {
     final bulletTexts = [
@@ -24,7 +25,7 @@ class JobDesc extends StatelessWidget {
           children: List.generate(bulletTexts.length, (index) {
             return FadeInUp(
               delay: Duration(milliseconds: 100 * index),
-              child: BulletPoint(label: bulletTexts[index]),
+              child: BulletPoint(label: description),
             );
           }),
         ),

@@ -45,6 +45,7 @@ part 'user.g.dart';
   String? refreshToken;
 
   User({
+    this.id,
     this.firstName,
     this.lastName,
     this.email,
@@ -75,5 +76,14 @@ part 'user.g.dart';
     final dir = await getTemporaryDirectory();
     final file = File('${dir.path}/$fileName');
     return await file.writeAsBytes(bytes);
+  }
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['id'],
+      firstName: json['firstName'] ?? '',
+      lastName: json['lastName'] ?? '',
+      email: json['email'] ?? '',
+      role: json['role'] ?? '',
+    );
   }
 }

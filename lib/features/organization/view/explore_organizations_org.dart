@@ -9,6 +9,8 @@ import '../../../utils/constants/app_fonts.dart';
 import '../../../utils/constants/helper_functions.dart';
 import '../../../utils/widgets/dymanic_filter_chips.dart';
 import '../../../utils/widgets/search_bar_widget.dart';
+import '../../auth/domain/modules/user/user.dart';
+import '../../seeker/domain/modules/org_post.dart';
 
 class ExploreOrganizationsOrg extends StatefulWidget {
   static String routeName = "ExploreOrganizationsOrg";
@@ -99,10 +101,30 @@ class _ExploreOrganizationsOrgState extends State<ExploreOrganizationsOrg> {
                         print('Tapped organization index $index');
                       },
                       child: ExploreOrganizationCard(
-                        companyName: 'Google',
-                        logoImage: AppAssets.org_logo,
-                        size: "Software",
-                        location: "USA",
+                       orgPost: OrgPost(
+                         id: 5,
+                         name: "Tech Solutions Inc.",
+                         phone: "+201234567890",
+                         country: "Egypt",
+                         city: "Cairo",
+                         ceoName: "Ahmed Ibrahim",
+                         establishmentYear: 2010,
+                         industry: "Information Technology",
+                         organizationSize: "51-200",
+                         updatesToEmail: true,
+                         verificationStatus: true,
+                         photo: AppAssets.org_logo,
+                         createdAt: "2025-06-09T18:02:14.059188Z",
+                         updatedAt: "2025-06-25T21:08:57.274667Z",
+                         user: User.fromJson({
+                           'id': 18,
+                           'firstName': 'test',
+                           'lastName': 'user',
+                           'email': 'test@example.com',
+                           'role': 'orgAdmin',
+                         }),
+                         proof: "/media/docs/proof.pdf",
+                       ),
                       ),
                     );
                   },
