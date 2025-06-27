@@ -61,12 +61,12 @@ class Technicalbody extends StatelessWidget {
                 SizedBox(height: 20),
                 ElasticIn(
                   duration: Duration(milliseconds: 900),
-                  child: skillsSection(title: "Skills"),
+                  child: SkillsSection(title: "Skills"),
                 ),
                 SizedBox(height: 20),
                 ElasticIn(
                   duration: Duration(milliseconds: 1000),
-                  child: skillsSection(title: "Languages"),
+                  child: SkillsSection(title: "Languages"),
                 ),
                 SizedBox(height: 20),
                 // todo upload file & check if null

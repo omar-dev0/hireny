@@ -27,5 +27,11 @@ class TechDataSource implements TechDataSourceInterface {
   Future<Result<void>> deleteItem(String id,int deleteID){
     return techApiManager.deleteTechInfo(id, deleteID);
   }
+
+  @override
+  Future<Result<void>> updateTechInfo(String id, dynamic data,int updateID) {
+    return techApiManager.updateTechInfo(id, data,updateID);
+
+  }
 }
 

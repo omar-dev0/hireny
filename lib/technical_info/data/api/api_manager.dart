@@ -26,10 +26,17 @@ class TechApiManager {
     UrlConstants.addEdu,
     UrlConstants.addExperience,
   ];
+  List<String> updateApi = [
+    "",
+    UrlConstants.updateCourse,
+    UrlConstants.updateCertificate,
+    UrlConstants.updateEdu,
+    UrlConstants.updateExperience,
+  ];
 
 
 
-
+ /// get
   Future<Result<TechInfoResponse>> getTechInfo(String token) async {
     try {
       final response = await _dio.get(
@@ -89,5 +96,21 @@ class TechApiManager {
     }
   }
   /// update
+  Future<Result<void>> updateTechInfo(String id,dynamic data,int updateID) async {
+    try {
+      final response = await _dio.put(
+          "${updateApi[updateID]}/$id/",
+          data: data.toJson(),
+          options: Options(headers: {'Authorization': 'Bearer $token','Content-Type': 'application/json'},),
+      );
+      if (response.statusCode == 200 || response.statusCode == 204) {
+        return Success();
+      } else {
+        return Error(error: "Failed to update: ${response.statusCode}");
+      }
+    } catch (e) {
+      return Error(error: "Error update : $e");
+    }
+  }
 
 }

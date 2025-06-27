@@ -93,6 +93,7 @@ import '../../technical_info/domain/repo/tech_repo.dart' as _i854;
 import '../../technical_info/domain/usecases/delete_tech_info.dart' as _i377;
 import '../../technical_info/domain/usecases/get_tech_info.dart' as _i394;
 import '../../technical_info/domain/usecases/tech_usecase.dart' as _i883;
+import '../../technical_info/domain/usecases/update_tech_info.dart' as _i120;
 import '../../technical_info/presentation/manager/technical_info_cubit.dart'
     as _i953;
 import '../dio_provider.dart' as _i177;
@@ -190,15 +191,19 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i37.DeleteApp>(),
           gh<_i636.ShowApp>(),
         ));
-    gh.factory<_i883.AddTechInfo>(() => _i883.AddTechInfo(gh<_i854.TechRepoInterface>()));
+    gh.factory<_i883.AddTechInfo>(
+        () => _i883.AddTechInfo(gh<_i854.TechRepoInterface>()));
     gh.factory<_i394.GetTechInfo>(
         () => _i394.GetTechInfo(gh<_i854.TechRepoInterface>()));
     gh.factory<_i377.DeleteTechInfo>(
         () => _i377.DeleteTechInfo(gh<_i854.TechRepoInterface>()));
+    gh.factory<_i120.UpdateTechInfo>(
+        () => _i120.UpdateTechInfo(gh<_i854.TechRepoInterface>()));
     gh.factory<_i953.TechnicalInfoCubit>(() => _i953.TechnicalInfoCubit(
           gh<_i883.AddTechInfo>(),
           gh<_i394.GetTechInfo>(),
           gh<_i377.DeleteTechInfo>(),
+          gh<_i120.UpdateTechInfo>(),
         ));
     return this;
   }

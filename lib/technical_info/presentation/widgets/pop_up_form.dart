@@ -5,7 +5,8 @@ import 'package:hireny/technical_info/presentation/widgets/popUpButtons.dart';
 import '../../../utils/constants/app_colors.dart';
 import '../manager/technical_info_cubit.dart';
 // form without fields
-void popUpForm(BuildContext context, Function()? onPressed, String title) {
+void popUpForm(BuildContext context, Function()? onPressed, String title,
+    {bool updateFlag = false}) {
   final techCubit = BlocProvider.of<TechnicalInfoCubit>(context);
 
   techCubit.setFlagByTitle(title);
@@ -32,9 +33,16 @@ void popUpForm(BuildContext context, Function()? onPressed, String title) {
                       popUpButtons(
                         onPressed: () {
                           if (techCubit.formKey.currentState!.validate()) {
-                            techCubit.addTechInfo();
-                            onPressed?.call();
-                            Navigator.pop(dialogContext);
+                            if(updateFlag){
+                              techCubit.addTechInfo();
+                              onPressed?.call();
+                              Navigator.pop(dialogContext);
+                            }else{
+                              techCubit.addTechInfo();
+                              onPressed?.call();
+                              Navigator.pop(dialogContext);
+                            }
+
                           }
                         },
                       ),

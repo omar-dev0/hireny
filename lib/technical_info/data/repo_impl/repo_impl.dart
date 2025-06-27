@@ -27,5 +27,11 @@ class TechRepoImpl implements TechRepoInterface {
     return dataSource.deleteItem(id,deleteID);
   }
 
+  @override
+  Future<Result<void>> updateTechInfo(String id,dynamic data ,int updateID) {
+    return dataSource.updateTechInfo(id,data, updateID);
+
+  }
+
 
 }
