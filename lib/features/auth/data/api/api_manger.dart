@@ -16,8 +16,6 @@ import 'api_const.dart';
 class ApiManger {
   final Dio _dio;
 
-  // final DioProvider _dioProvider;
-
   ApiManger(this._dio);
 
   Future<Result<Seeker?>?> regSeeker(Seeker seeker,

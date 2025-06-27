@@ -7,10 +7,12 @@ import '../../../utils/constants/app_fonts.dart';
 
 class sectionHeader extends StatelessWidget {
   const sectionHeader({
-    super.key, required this.title,
+    super.key, required this.title,required this.onAddPressed,
   });
 
   final String title;
+  final VoidCallback onAddPressed;
+
 
   @override
   Widget build(BuildContext context) {

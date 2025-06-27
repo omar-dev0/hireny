@@ -104,7 +104,7 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
   if (name == PagesRoute.assessment) {
     return MaterialPageRoute(builder: (_) => Assessment());
   }if (name == PagesRoute.techInfo) {
-    return MaterialPageRoute(builder: (_) => const technicalInfoView(),
+    return MaterialPageRoute(builder: (_) => const TechnicalInfoView(),
 
     );
   }

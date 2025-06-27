@@ -91,8 +91,7 @@ class UserCubit extends Cubit<UserStates> {
         lastNameController.text = user.lastName ?? '';
         emailController.text = user.email ?? '';
         // problem -> country code + phone num
-        phoneController.text ='${user.phone?.substring(3)}' ?? '';
-        print(phoneNumber);
+        phoneController.text =user.phone ?? '';
         country = user.country;
         city = user.city;
 
@@ -294,7 +293,6 @@ class UserCubit extends Cubit<UserStates> {
 
   String? validatePhoneNumber(String? value) {
     final onlyDigitsRegex = RegExp(r'^\d+$');
-    print(value);
     if (value == null || value.isEmpty) {
       return 'Phone number is required';
     } else if (!onlyDigitsRegex.hasMatch(value)) {

@@ -84,6 +84,17 @@ import '../../features/view_org/domain/repositories/org_repo.dart' as _i442;
 import '../../features/view_org/domain/usecases/show_org.dart' as _i879;
 import '../../features/view_org/domain/usecases/verify_org.dart' as _i658;
 import '../../features/view_org/presentation/manager/org_cubit.dart' as _i647;
+import '../../technical_info/data/api/api_manager.dart' as _i409;
+import '../../technical_info/data/data_source/tech_data_source.dart' as _i411;
+import '../../technical_info/data/data_source/tech_remote_data_source.dart'
+    as _i136;
+import '../../technical_info/data/repo_impl/repo_impl.dart' as _i557;
+import '../../technical_info/domain/repo/tech_repo.dart' as _i854;
+import '../../technical_info/domain/usecases/delete_tech_info.dart' as _i377;
+import '../../technical_info/domain/usecases/get_tech_info.dart' as _i394;
+import '../../technical_info/domain/usecases/tech_usecase.dart' as _i883;
+import '../../technical_info/presentation/manager/technical_info_cubit.dart'
+    as _i953;
 import '../dio_provider.dart' as _i177;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -107,6 +118,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i944.OrgProfileLocalDataSource());
     gh.lazySingleton<_i867.AppDataInterface>(() => _i284.LocalAppData());
     gh.singleton<_i758.ApiManger>(() => _i758.ApiManger(gh<_i361.Dio>()));
+    gh.singleton<_i409.TechApiManager>(
+        () => _i409.TechApiManager(gh<_i361.Dio>()));
     gh.lazySingleton<_i742.OrgDataInterface>(() => _i348.LocalOrgData());
     gh.factory<_i656.AdminRepoInterface>(
         () => _i587.AdminRepoImpl(gh<_i5.AdminDataInterface>()));
@@ -115,6 +128,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i821.AppRepoImpl(gh<_i867.AppDataInterface>()));
     gh.factory<_i630.CourseRepo>(
         () => _i248.CourseRepoImpl(gh<_i234.CourseDataInterface>()));
+    gh.lazySingleton<_i411.TechDataSourceInterface>(
+        () => _i136.TechDataSource(gh<_i409.TechApiManager>()));
     gh.factory<_i364.AuthDataSource>(
         () => _i591.DataSourcAuthImp(gh<_i758.ApiManger>()));
     gh.factory<_i442.OrgRepo>(
@@ -147,6 +162,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i879.ShowOrg(orgRepo: gh<_i442.OrgRepo>()));
     gh.factory<_i658.VerifyOrg>(
         () => _i658.VerifyOrg(orgRepo: gh<_i442.OrgRepo>()));
+    gh.lazySingleton<_i854.TechRepoInterface>(
+        () => _i557.TechRepoImpl(gh<_i411.TechDataSourceInterface>()));
     gh.factory<_i647.OrgCubit>(() => _i647.OrgCubit(
           gh<_i658.VerifyOrg>(),
           gh<_i879.ShowOrg>(),
@@ -172,6 +189,16 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i610.AppCubit>(() => _i610.AppCubit(
           gh<_i37.DeleteApp>(),
           gh<_i636.ShowApp>(),
+        ));
+    gh.factory<_i883.AddEdu>(() => _i883.AddEdu(gh<_i854.TechRepoInterface>()));
+    gh.factory<_i394.GetTechInfo>(
+        () => _i394.GetTechInfo(gh<_i854.TechRepoInterface>()));
+    gh.factory<_i377.DeleteTechInfo>(
+        () => _i377.DeleteTechInfo(gh<_i854.TechRepoInterface>()));
+    gh.factory<_i953.TechnicalInfoCubit>(() => _i953.TechnicalInfoCubit(
+          gh<_i883.AddEdu>(),
+          gh<_i394.GetTechInfo>(),
+          gh<_i377.DeleteTechInfo>(),
         ));
     return this;
   }

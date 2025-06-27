@@ -7,62 +7,71 @@ class FormTextPart extends StatelessWidget {
   final TextEditingController emailController;
   final TextEditingController startingYear;
   final TextEditingController endingYear;
+  final TextEditingController descriptionController; // NEW
+  final GlobalKey<FormState> formKey;
 
-  FormTextPart({
+  const FormTextPart({
     super.key,
     required this.nameController,
     required this.emailController,
     required this.startingYear,
     required this.endingYear,
+    required this.descriptionController, // NEW
     required this.formKey,
   });
-
-  final GlobalKey<FormState> formKey; // this can be moved to the parent if needed
 
   @override
   Widget build(BuildContext context) {
     return Form(
       key: formKey,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-        child: Column(
-          children: [
-            Text('Enter Your Info', style: Theme.of(context).textTheme.titleLarge),
-            const SizedBox(height: 20),
-            Popuptextfield(
-              controller: nameController,
-              title: "Job Name",
-              validator: (value) => value == null || value.isEmpty ? 'Enter job name' : null,
-            ),
-            const SizedBox(height: 20),
-            Popuptextfield(
-              controller: emailController,
-              title: "Company Name",
-              validator: (value) => value == null || value.isEmpty ? 'Enter company name' : null,
-            ),
-            const SizedBox(height: 20),
-            Row(
-              children: [
-                Flexible(
-                  child: Popuptextfield(
-                    controller: startingYear,
-                    title: 'Starting Year',
-                    validator: (value) => value == null || value.isEmpty ? 'Enter start year' : null,
-                  ),
-                ),
-                const SizedBox(width: 15),
-                Flexible(
-                  child: Popuptextfield(
-                    controller: endingYear,
-                    title: 'End At',
-                    validator: (value) => value == null || value.isEmpty ? 'Enter end year' : null,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+      child: Column(
+        children: [
+          TextFormField(
+            controller: nameController,
+            decoration: const InputDecoration(labelText: 'Title'),
+            validator: (val) => val == null || val.isEmpty ? 'Required' : null,
+          ),
+          const SizedBox(height: 10),
+          TextFormField(
+            controller: emailController,
+            decoration: const InputDecoration(labelText: 'Company Name'),
+            validator: (val) => val == null || val.isEmpty ? 'Required' : null,
+          ),
+          const SizedBox(height: 10),
+          TextFormField(
+            controller: startingYear,
+            readOnly: true,
+            decoration: const InputDecoration(labelText: 'Start Date'),
+            onTap: () => _pickDate(context, startingYear),
+          ),
+          const SizedBox(height: 10),
+          TextFormField(
+            controller: endingYear,
+            readOnly: true,
+            decoration: const InputDecoration(labelText: 'End Date'),
+            onTap: () => _pickDate(context, endingYear),
+          ),
+          const SizedBox(height: 10),
+          TextFormField(
+            controller: descriptionController,
+            decoration: const InputDecoration(labelText: 'Description'),
+            maxLines: 3,
+            validator: (val) => val == null || val.isEmpty ? 'Required' : null,
+          ),
+        ],
       ),
     );
+  }
+
+  void _pickDate(BuildContext context, TextEditingController controller) async {
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1980),
+      lastDate: DateTime(2100),
+    );
+    if (picked != null) {
+      controller.text = picked.toIso8601String().split('T').first;
+    }
   }
 }

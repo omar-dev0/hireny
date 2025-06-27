@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:hireny/features/auth/view/profile/widgets/image_picker.dart';
+import 'package:hireny/features/auth/view/profile/widgets/image_picker.dart';
 import 'package:hireny/utils/widgets/custom_text_field.dart';
 import 'package:hireny/utils/widgets/custome_appbar_drawer.dart';
 import 'package:image_picker/image_picker.dart';
@@ -32,95 +34,8 @@ class _GeneralInfoState extends State<GeneralInfo> {
     });
   }
 
-  Widget _buildImagePickerBottomSheet(UserCubit cubit) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            blurRadius: 20,
-            offset: const Offset(0, -5),
-          ),
-        ],
-      ),
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 60,
-            height: 5,
-            margin: const EdgeInsets.only(bottom: 16),
-            decoration: BoxDecoration(
-              color: Colors.grey.shade300,
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-          Text(
-            "Choose Profile Photo",
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 24),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildImagePickerOption(
-                icon: Icons.photo_library_rounded,
-                label: "Gallery",
-                onTap: () => cubit.onPickImage(ImageSource.gallery),
-              ),
-              _buildImagePickerOption(
-                icon: Icons.camera_alt_rounded,
-                label: "Camera",
-                onTap: () => cubit.onPickImage(ImageSource.camera),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-        ],
-      ),
-    );
-  }
 
-  Widget _buildImagePickerOption({
-    required IconData icon,
-    required String label,
-    required VoidCallback onTap,
-  }) {
-    return FadeInUp(
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(16),
-        child: Container(
-          width: 120,
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(
-              color: Theme.of(context).primaryColor.withOpacity(0.2),
-            ),
-          ),
-          child: Column(
-            children: [
-              Icon(icon, size: 36, color: Theme.of(context).primaryColor),
-              const SizedBox(height: 8),
-              Text(
-                label,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Theme.of(context).primaryColor,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -153,6 +68,7 @@ class _GeneralInfoState extends State<GeneralInfo> {
         }
       },
       builder: (context, state) {
+        final cubit = context.read<UserCubit>();
         return CustomScreen(
           title: "General Info",
           drawer: SideBarScreen(currentRoute: PagesRoute.generalInfo),
@@ -161,82 +77,59 @@ class _GeneralInfoState extends State<GeneralInfo> {
             child: Column(
               children: [
                 // Profile Picture Section
-                FadeInDown(
-                  duration: const Duration(milliseconds: 400),
-                  child: Center(
-                    child: Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        BlocBuilder<UserCubit, UserStates>(
-                          builder: (context, state) {
-                            final selected = cubit.selectedImage;
-                            final validFile = selected != null &&
-                                File(selected.path).existsSync();
+            FadeInDown(
+            duration: const Duration(milliseconds: 400),
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                BlocBuilder<UserCubit, UserStates>(
+                  builder: (context, state) {
+                    final selected = cubit.selectedImage;
+                    final validFile = selected != null && File(selected.path).existsSync();
 
-                            return AnimatedSwitcher(
-                              duration: const Duration(milliseconds: 400),
-                              child: validFile
-                                  ? CircleAvatar(
-                                key: const ValueKey('picked_avatar'),
-                                radius: 60,
-                                backgroundColor:
-                                Theme.of(context).primaryColor.withOpacity(0.1),
-                                backgroundImage: FileImage(
-                                  File(selected.path),
-                                ),
-                              )
-                                  : CircleAvatar(
-                                key: const ValueKey('default_avatar'),
-                                radius: 60,
-                                backgroundColor:
-                                Theme.of(context).primaryColor.withOpacity(0.1),
-                                child: Icon(
-                                  Icons.person,
-                                  size: 50,
-                                  color: Theme.of(context).primaryColor,
-                                ),
-                              ),
-                            );
-                          },
+                    return AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 400),
+                      child: validFile
+                          ? CircleAvatar(
+                        key: const ValueKey('picked_avatar'),
+                        radius: 60,
+                        backgroundImage: FileImage(File(selected.path)),
+                      )
+                          : CircleAvatar(
+                        key: const ValueKey('default_avatar'),
+                        radius: 60,
+                        child: Icon(Icons.person, size: 50),
+                      ),
+                    );
+                  },
+                ),   Positioned(
+                  bottom: -5,
+                  right: -5,
+                  child: GestureDetector(
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        backgroundColor: Colors.transparent,
+                        isScrollControlled: true,
+                        builder: (context) => BlocProvider.value(
+                          value: cubit,
+                          child: const ImagePickerBottomSheet(),
                         ),
-                        Positioned(
-                          bottom: -5,
-                          right: -5,
-                          child: GestureDetector(
-                            onTap: () {
-                              showModalBottomSheet(
-                                context: context,
-                                backgroundColor: Colors.transparent,
-                                isScrollControlled: true,
-                                builder: (context) =>
-                                    _buildImagePickerBottomSheet(cubit),
-                              );
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).primaryColor,
-                                shape: BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.1),
-                                    blurRadius: 10,
-                                    offset: const Offset(0, 4),
-                                  ),
-                                ],
-                              ),
-                              child: const Icon(
-                                Icons.edit,
-                                size: 20,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(Icons.edit, size: 20, color: Colors.white),
                     ),
                   ),
                 ),
+              ],
+            ),
+            ),
                 const SizedBox(height: 24),
 
                 // Form Section
@@ -285,6 +178,7 @@ class _GeneralInfoState extends State<GeneralInfo> {
                             const SizedBox(height: 16),
 
                             // Birth Date
+                            // todo try to sp
                             FadeInRight(
                               delay: const Duration(milliseconds: 300),
                               child: GestureDetector(
@@ -330,6 +224,7 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                 ),
                               ),
                             ),
+
                             const SizedBox(height: 16),
 
                             // Email
@@ -339,9 +234,10 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                 label: "Email",
                                 controller: cubit.emailController,
                                 hint: "Enter your email",
-                                prefixIcon: Icon(Icons.email_outlined),
+                                prefixIcon: Icon(Icons.email_outlined,color:AppColors.grey.withValues(alpha: 0.5)),
                                 keyboardType: TextInputType.emailAddress,
                                 onValidate: (value) => cubit.validateEmail(value),
+                                enabled: false,
                               ),
                             ),
                             const SizedBox(height: 16),
@@ -349,44 +245,13 @@ class _GeneralInfoState extends State<GeneralInfo> {
                             // Phone Field
                             FadeInRight(
                               delay: const Duration(milliseconds: 500),
-                              child: IntlPhoneField(
-                                initialCountryCode: 'EG',
+                              child: CustomTextField(
+                                label: "Phone Number",
                                 controller: cubit.phoneController,
-                                cursorColor: Theme.of(context).primaryColor,
+                                hint: "+20XXXXXXXXX",
+                                prefixIcon: Icon(Icons.phone_outlined, color: AppColors.grey.withAlpha(120)),
                                 keyboardType: TextInputType.phone,
-                                dropdownIconPosition: IconPosition.trailing,
-                                dropdownIcon: const Icon(Icons.arrow_drop_down),
-                                decoration: InputDecoration(
-                                  labelText: "Phone Number",
-                                  prefixIcon: const Icon(Icons.phone_outlined),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                    borderSide: BorderSide(
-                                      color: Colors.grey.shade400,
-                                      width: 1,
-                                    ),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                    borderSide: BorderSide(
-                                      color: Colors.grey.shade400,
-                                      width: 1,
-                                    ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                    borderSide: BorderSide(
-                                      color: Theme.of(context).primaryColor,
-                                      width: 2,
-                                    ),
-                                  ),
-                                  filled: true,
-                                  fillColor: Colors.grey.shade50,
-                                ),
-                                onSaved: (phone) =>
-                                cubit.phoneNumber = phone?.completeNumber,
-                                validator: (phone) =>
-                                    cubit.validatePhoneNumber(phone?.number),
+                                onValidate: (value) => cubit.validatePhoneNumber(value),
                               ),
                             ),
                             const SizedBox(height: 16),
@@ -724,4 +589,93 @@ class _GeneralInfoState extends State<GeneralInfo> {
       },
     );
   }
+  Widget _buildImagePickerOption({
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+  }) {
+    return FadeInUp(
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(16),
+        child: Container(
+          width: 120,
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: Theme.of(context).primaryColor.withOpacity(0.2),
+            ),
+          ),
+          child: Column(
+            children: [
+              Icon(icon, size: 36, color: Theme.of(context).primaryColor),
+              const SizedBox(height: 8),
+              Text(
+                label,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: Theme.of(context).primaryColor,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+  Widget _buildImagePickerBottomSheet(UserCubit cubit) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 20,
+            offset: const Offset(0, -5),
+          ),
+        ],
+      ),
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: 60,
+            height: 5,
+            margin: const EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade300,
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          Text(
+            "Choose Profile Photo",
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 24),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildImagePickerOption(
+                icon: Icons.photo_library_rounded,
+                label: "Gallery",
+                onTap: () => cubit.onPickImage(ImageSource.gallery),
+              ),
+              _buildImagePickerOption(
+                icon: Icons.camera_alt_rounded,
+                label: "Camera",
+                onTap: () => cubit.onPickImage(ImageSource.camera),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+        ],
+      ),
+    );
+  }
+
 }

@@ -15,9 +15,9 @@ class Technicalbody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<TechnicalInfoCubit, TechnicalInfoState>(
       builder: (context, state) {
-        List<ExperienceModel> ExpData = BlocProvider.of<TechnicalInfoCubit>(context).experiences ?? [];
+        final cubit = BlocProvider.of<TechnicalInfoCubit>(context);
 
-        if (ExpData.isNotEmpty) {
+        if (cubit.checkEmptyList()) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
             child: ListView(
@@ -27,7 +27,7 @@ class Technicalbody extends StatelessWidget {
                   child: Section(
                     title: "My Experience",
                     img: AppAssets.experienceImg,
-                    data: ExpData,
+                    data: cubit.experiences,
                   ),
                 ),
                 SizedBox(height: 20),
@@ -36,7 +36,8 @@ class Technicalbody extends StatelessWidget {
                   child: Section(
                     title: "My Education",
                     img: AppAssets.eduImg,
-                    data: ExpData,
+                    data: cubit.education,
+
                   ),
                 ),
                 SizedBox(height: 20),
@@ -45,7 +46,7 @@ class Technicalbody extends StatelessWidget {
                   child: Section(
                     title: "My Courses",
                     img: AppAssets.courseImg,
-                    data: ExpData,
+                    data: cubit.courses,
                   ),
                 ),
                 SizedBox(height: 20),
@@ -54,7 +55,7 @@ class Technicalbody extends StatelessWidget {
                   child: Section(
                     title: "My Certificate",
                     img: AppAssets.courseImg,
-                    data: ExpData,
+                    data: cubit.certificates,
                   ),
                 ),
                 SizedBox(height: 20),
@@ -68,6 +69,7 @@ class Technicalbody extends StatelessWidget {
                   child: skillsSection(title: "Languages"),
                 ),
                 SizedBox(height: 20),
+                // todo upload file & check if null
                 BounceInUp(
                   duration: Duration(milliseconds: 1100),
                   child: CVSection(),
