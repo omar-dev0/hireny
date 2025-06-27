@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hireny/features/auth/view/login/cubit/login_vm.dart';
 import 'package:hireny/features/auth/view/widgets/choice_widget.dart';
+import 'package:hireny/routes/page_route.dart';
 import 'package:hireny/utils/app_assets.dart';
 import 'package:hireny/utils/constants/app_colors.dart';
 import 'package:hireny/utils/constants/app_fonts.dart';
@@ -87,7 +88,12 @@ class _LoginContentState extends State<LoginContent> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                context,
+                                PagesRoute.verifyEmail,
+                              );
+                            },
                             child: Text(
                               Lang.forgetPassword,
                               style: AppFonts.secMain.copyWith(
@@ -121,8 +127,8 @@ class _LoginContentState extends State<LoginContent> {
                         duration: const Duration(milliseconds: 500),
                         child: CustomButtom(
                           title: Lang.login,
-                          onPressed: () async{
-                           await loginVm.login();
+                          onPressed: () async {
+                            await loginVm.login();
                           },
                         ),
                       ),

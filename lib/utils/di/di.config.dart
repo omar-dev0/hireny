@@ -19,6 +19,8 @@ import '../../features/auth/data/data_source_imp/auth_data_source_imp.dart'
     as _i591;
 import '../../features/auth/data/repo_imp/repo_auth_imp.dart' as _i951;
 import '../../features/auth/domain/repo_contract/repo_contract.dart' as _i412;
+import '../../features/auth/view/forget_password/cubit/forget_password_vm.dart'
+    as _i413;
 import '../../features/auth/view/login/cubit/login_vm.dart' as _i866;
 import '../../features/auth/view/reg/cubit/reg_vm.dart' as _i981;
 import '../../features/course_detailes/presentation/manager/my_courses_cubit.dart'
@@ -135,6 +137,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i91.OrgProfileRepoImpl(gh<_i30.OrgProfileDataInterface>()));
     gh.factory<_i412.RepoAuth>(
         () => _i951.RepoAuthImp(gh<_i364.AuthDataSource>()));
+    gh.factory<_i413.ForgetPasswordVM>(
+        () => _i413.ForgetPasswordVM(gh<_i412.RepoAuth>()));
     gh.factory<_i640.DeleteAdmin>(
         () => _i640.DeleteAdmin(adminRepo: gh<_i656.AdminRepoInterface>()));
     gh.factory<_i894.GetAdmins>(

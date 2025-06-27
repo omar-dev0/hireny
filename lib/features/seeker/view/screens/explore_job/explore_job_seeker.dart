@@ -11,10 +11,8 @@ import 'cubit/explore_job_states.dart';
 import 'explore_job_for_job_seeker_content.dart';
 
 class ExploreJobsForJobSeeker extends StatelessWidget {
-  static String routeName = "ExploreJobSeeker";
 
-   ExploreJobsForJobSeeker({super.key});
-
+  ExploreJobsForJobSeeker({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -51,34 +49,28 @@ class ExploreJobsForJobSeeker extends StatelessWidget {
               'Salary',
             ],
             onChipPressed: [
-                  () => _showLocationBottomSheet(context),
-                  () => showDynamicBottomSheet(
+              () => _showLocationBottomSheet(context),
+              () => showDynamicBottomSheet(
                 context: context,
                 title: "Select your category",
-                items: [
-                  "Commerce",
-                  "Telecommunications",
-                  "Hotels & Tourism",
-                  "Education",
-                  "Financial Services",
-                ],
+                items: AppSharedData.categories,
               ),
-                  () => showDynamicBottomSheet(
+              () => showDynamicBottomSheet(
                 context: context,
                 title: "Select Job Type",
-                items: ["Full Time", "Part Time", "Freelance", "Seasonal", "Fixed-Price"],
+                items: AppSharedData.employmentStatus,
               ),
-                  () => showDynamicBottomSheet(
+              () => showDynamicBottomSheet(
                 context: context,
                 title: "Select Job Location",
-                items: ["On-Site", "Remote", "Hybrid"],
+                items: AppSharedData.jobLocationTypes,
               ),
-                  () => showDynamicBottomSheet(
+              () => showDynamicBottomSheet(
                 context: context,
                 title: "Select Experience Level",
-                items: ["No-experience", "Fresher", "Intermediate", "Expert"],
+                items: AppSharedData.careerLevels,
               ),
-                  () => showDynamicBottomSheet(
+              () => showDynamicBottomSheet(
                 context: context,
                 title: "Select Date Posted",
                 items: [
@@ -89,7 +81,7 @@ class ExploreJobsForJobSeeker extends StatelessWidget {
                   "Last 30 Days",
                 ],
               ),
-                  () => showDynamicInputBottomSheet(
+              () => showDynamicInputBottomSheet(
                 context: context,
                 title: "Select Salary Range",
                 minHint: "Min Salary",
@@ -107,7 +99,7 @@ class ExploreJobsForJobSeeker extends StatelessWidget {
     showDynamicBottomSheet(
       context: context,
       title: "Select Location",
-      items: AppSharedData.countryCityData.keys.toList(),
+      items: AppSharedData.countries,
     );
   }
 }

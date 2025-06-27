@@ -38,5 +38,20 @@ class DataSourcAuthImp implements AuthDataSource {
     return apiManger.getUserInfo(token);
   }
 
+  @override
+  Future<Result<void>?> sendOtp(String email) {
+    return apiManger.sendOtp(email);
+  }
+
+  @override
+  Future<Result<void>?> verifyOtp(String email, String otp) {
+    return apiManger.verifyOtp(email, otp);
+  }
+
+  @override
+  Future<Result<void>?> resetPassword(String email, String newPassword) {
+    return apiManger.resetPassword(email, newPassword);
+  }
+
 
 }

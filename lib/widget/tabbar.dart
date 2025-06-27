@@ -12,7 +12,6 @@ import 'package:hireny/routes/page_route.dart';
 import 'package:hireny/utils/di/di.dart';
 
 import '../features/seeker/view/screens/courses/explore_courses_seeker.dart';
-import '../features/seeker/view/screens/salary_insights/salary_insights_screen_content.dart';
 import '../utils/constants/app_colors.dart';
 
 class TabBarApp extends StatelessWidget {
@@ -36,6 +35,7 @@ class TabBarApp extends StatelessWidget {
               (context) => getIt.get<OrgPostCubit>()..fetchAllOrganizations(),
         ),
         BlocProvider(create: (context) => getIt.get<SalaryCubit>()),
+        BlocProvider(create: (context)=>getIt.get<OrgPostCubit>()..fetchAllOrganizations()),
       ],
       child: DefaultTabController(
         length: 5,

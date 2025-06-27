@@ -16,4 +16,10 @@ abstract class RepoAuth {
       );
 
   Future<Result<User?>?> getUserInfo(String token);
+
+  Future<Result<void>?> sendOtp(String email) ;
+
+  Future<Result<void>?> verifyOtp(String email, String otp);
+
+  Future<Result<void>?> resetPassword(String email, String newPassword);
 }

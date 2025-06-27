@@ -35,4 +35,7 @@ abstract class PagesRoute {
   //seeker
   static const String jobDetailes = "/jobDetailes";
   static const String courseDetailes = "/courseDetailes";
+  static const String otpScreen = "/otpScreen";
+  static const String verifyEmail = "/verifyEmail";
+  static const String resetPassword = "/resetPassword";
 }

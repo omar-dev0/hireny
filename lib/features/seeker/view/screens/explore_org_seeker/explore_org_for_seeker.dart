@@ -15,51 +15,46 @@ class ExploreOrgForSeeker extends StatelessWidget {
 
    ExploreOrgForSeeker({super.key});
 
-  final OrgPostCubit _orgPostCubit = getIt.get<OrgPostCubit>();
-
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => _orgPostCubit..fetchAllOrganizations(),
-      child: BlocConsumer<OrgPostCubit, OrgPostState>(
-        listener: (context, state) {
-          if (state is OrgPostLoading) {
-            showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (_) => LoadingDialog(),
-            );
-          }
-
-          if (state is OrgPostError) {
-            Navigator.pop(context);
-            showDialog(
-              context: context,
-              builder: (_) => ErrorDialog(message: state.message),
-            );
-          }
-
-        },
-        builder: (context, state) {
-            if (state is OrgPostLoading ) {
-            return LoadingDialog();
-          }
-
-          return Scaffold(
-            backgroundColor: AppColors.subPrimary,
-            body: state is OrgPostLoading && AppSharedData.orgPosts.isEmpty
-                ? Center(child: CircularProgressIndicator())
-                : ExploreOrgForSeekerContent(
-              chipLabels: ['Location', 'Industry', 'Size'],
-              onChipPressed: [
-                    () => _showLocationBottomSheet(context),
-                    () => _showCategoryBottomSheet(context),
-                    () => _showOrganizationSizeBottomSheet(context),
-              ],
-            ),
+    return BlocConsumer<OrgPostCubit, OrgPostState>(
+      listener: (context, state) {
+        if (state is OrgPostLoading) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) => LoadingDialog(),
           );
-        },
-      ),
+        }
+
+        if (state is OrgPostError) {
+          Navigator.pop(context);
+          showDialog(
+            context: context,
+            builder: (_) => ErrorDialog(message: state.message),
+          );
+        }
+
+      },
+      builder: (context, state) {
+          if (state is OrgPostLoading ) {
+          return LoadingDialog();
+        }
+
+        return Scaffold(
+          backgroundColor: AppColors.subPrimary,
+          body: state is OrgPostLoading && AppSharedData.orgPosts.isEmpty
+              ? Center(child: CircularProgressIndicator())
+              : ExploreOrgForSeekerContent(
+            chipLabels: ['Location', 'Industry', 'Size'],
+            onChipPressed: [
+                  () => _showLocationBottomSheet(context),
+                  () => _showCategoryBottomSheet(context),
+                  () => _showOrganizationSizeBottomSheet(context),
+            ],
+          ),
+        );
+      },
     );
   }
 

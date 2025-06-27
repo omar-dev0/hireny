@@ -203,4 +203,5 @@ class SeekerApi {
       return Error(error: e.toString());
     }
   }
+
 }

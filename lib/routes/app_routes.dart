@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hireny/features/auth/view/forget_password/reset_password/reset_password.dart';
+import 'package:hireny/features/auth/view/forget_password/verift_email_screen.dart';
 import 'package:hireny/features/org_profile/presentation/manager/org_profile_cubit.dart';
 import 'package:hireny/features/org_profile/presentation/ui/org_profile.dart';
 import 'package:hireny/features/organization/view/explore_job_seekers_org.dart';
@@ -14,6 +16,7 @@ import 'package:hireny/widget/tabbar.dart';
 import '../features/admin/view/personal_profile_admin.dart';
 import '../features/admin/view/verify_organization_admin.dart';
 import '../features/assessment/presentation/ui/assessment.dart';
+import '../features/auth/view/forget_password/verfy_otp/verfy_otp.dart';
 import '../features/auth/view/login/login_screen.dart';
 import '../features/auth/view/reg/reg_screen.dart';
 import '../features/course_detailes/presentation/manager/my_courses_cubit.dart';
@@ -169,6 +172,19 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
         builder: (_) => ErrorScreen(),
       );
     }
+  }
+  if (name == PagesRoute.verifyEmail) {
+    return MaterialPageRoute(builder: (_) => VeriftEmailScreen());
+  }
+  if (name == PagesRoute.otpScreen) {
+    return MaterialPageRoute(
+      builder: (_) => VerfyOtp(email: settings.arguments as String),
+    );
+  }
+  if (name == PagesRoute.resetPassword) {
+    return MaterialPageRoute(
+      builder: (_) => ResetPassword(email: settings.arguments as String),
+    );
   }
 
   // Default case

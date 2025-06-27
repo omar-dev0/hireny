@@ -83,4 +83,19 @@ class RepoAuthImp implements RepoAuth {
   Future<Result<User?>?> getUserInfo(String token) {
     return dataSource.getUserInfo(token);
   }
+
+  @override
+  Future<Result<void>?> sendOtp(String email) {
+    return dataSource.sendOtp(email);
+  }
+
+  @override
+  Future<Result<void>?> verifyOtp(String email, String otp) {
+    return dataSource.verifyOtp(email, otp);
+  }
+
+  @override
+  Future<Result<void>?> resetPassword(String email, String newPassword) {
+    return dataSource.resetPassword(email, newPassword);
+  }
 }

@@ -22,6 +22,8 @@ abstract class AppProvider {
       loadJobs(),
       loadIndustry(),
       loadSkills(),
+      loadCategories(),
+      loadLang(),
     ]);
     Hive.registerAdapter(UserAdapter());
     Hive.registerAdapter(SeekerAdapter());
@@ -83,5 +85,22 @@ abstract class AppProvider {
     Map<String, dynamic> raw = jsonDecode(jsonString);
     AppSharedData.skills =
         List<String>.from(raw['skills']).cast<String>();
+  }
+  static Future<void> loadCategories() async {
+    String jsonString = await rootBundle.loadString(
+      'assets/jsons/category.json',
+    );
+    Map<String, dynamic> raw = jsonDecode(jsonString);
+    AppSharedData.categories =
+        List<String>.from(raw['categories']).cast<String>();
+    print(AppSharedData.categories.first);
+  }
+  static Future<void> loadLang() async {
+    String jsonString = await rootBundle.loadString(
+      'assets/jsons/lang.json',
+    );
+    Map<String, dynamic> raw = jsonDecode(jsonString);
+    AppSharedData.lang =
+        List<String>.from(raw['lang']).cast<String>();
   }
 }

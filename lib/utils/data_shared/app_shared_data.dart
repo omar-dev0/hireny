@@ -22,13 +22,18 @@ abstract class AppSharedData {
     "Late Career",
   ];
   static List<String> employmentStatus = [
-    "Full-Time",
-    "Part-Time",
-    "Freelancer",
-    "Unemployed",
     "Student",
+    "Fresh Graduate",
     "Intern",
-    "Looking for Opportunities",
+    "Trainee",
+    "Employee",
+    "Unemployed",
+    "Contractor",
+    "Freelancer",
+    "Part-Time Employee",
+    "Temporary Employee",
+    "Retired",
+    "Volunteer",
   ];
   static List<String> industries = [
     "Agriculture",
@@ -76,5 +81,46 @@ abstract class AppSharedData {
   static bool rememberMe = true;
 
   static List<String> skills = [];
-}
 
+  static List<String> jobLocationTypes = ["On-Site", "Remote", "Hybrid"];
+
+  static List<String> categories = [];
+
+  static List<String> lang = [];
+
+  static List<String> educationLevels = [
+    "No Formal Education",
+    "Primary School",
+    "Middle School / Junior High School",
+    "High School Incomplete",
+    "High School Diploma / Secondary School",
+    "Vocational Training / Technical Certificate",
+    "Associate'S Degree",
+    "Diploma",
+    "Bachelor'S Degree",
+    "Postgraduate Diploma / Higher Diploma",
+    "Master'S Degree",
+    "Professional Degree (Md, Jd, Pharmd, Etc.)",
+    "Doctorate / Phd",
+    "Post-Doctoral Studies",
+    "Some College, No Degree",
+    "Currently Studying",
+    "Other / Not Specified",
+  ];
+
+  static List<String> coursesLen = [
+    "Less Than 1 Hour",
+    "1–5 Hours",
+    "6–10 Hours",
+    "11–20 Hours",
+    "21–30 Hours",
+    "31–50 Hours",
+    "51–75 Hours",
+    "76–100 Hours",
+    "101–150 Hours",
+    "151–200 Hours",
+    "More Than 200 Hours",
+    "Self-Paced",
+    "Other",
+  ];
+}

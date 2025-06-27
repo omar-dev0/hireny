@@ -29,7 +29,6 @@ class ApiManger {
         ...formMap,
       });
 
-
       final response = await _dio.post(ApiConst.reg, data: formData);
 
       if (response.data == null) return null;
@@ -122,5 +121,56 @@ class ApiManger {
       return Error(error: e.toString());
     }
     return null;
+  }
+
+  Future<Result<void>?> sendOtp(String email) async {
+    try {
+      final FormData data = FormData.fromMap({'email': email});
+      var response = await _dio.post(ApiConst.verifyEmail, data: data);
+      if (response.statusCode == 200) {
+        return Success();
+      }
+    } on DioException catch (e) {
+      return Error(error: 'some thing went wrong try latter');
+    } catch (e) {
+      return Error(error: 'some thing went wrong try latter');
+    }
+    return null;
+  }
+
+  Future<Result<void>?> verifyOtp(String email, String otp) async {
+    try {
+      final FormData data = FormData.fromMap({'email': email, 'otp': otp});
+      var response = await _dio.post(ApiConst.verifyOtp, data: data);
+      if (response.statusCode == 200) {
+        return Success();
+      } else {
+        return Error(error: 'some thing went wrong try latter');
+      }
+    } on DioException catch (e) {
+      return Error(error: 'some thing went wrong try latter');
+    } catch (e) {
+      return Error(error: 'some thing went wrong try latter');
+    }
+    return null;
+  }
+
+  Future<Result<void>?> resetPassword(String email, String newPassword) async {
+    try {
+      final FormData data = FormData.fromMap({
+        'email': email,
+        'new_password': newPassword,
+      });
+      var response = await _dio.post(ApiConst.resetPassword, data: data);
+      if (response.statusCode == 200) {
+        return Success();
+      } else {
+        return Error(error: 'some thing went wrong try latter');
+      }
+    } on DioException catch (e) {
+      return Error(error: 'some thing went wrong try latter');
+    } catch (e) {
+      return Error(error: 'some thing went wrong try latter');
+    }
   }
 }

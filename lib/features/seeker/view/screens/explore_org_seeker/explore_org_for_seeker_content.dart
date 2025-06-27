@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hireny/routes/page_route.dart';
 import 'package:hireny/utils/app_assets.dart';
 import 'package:hireny/utils/constants/app_colors.dart';
 import 'package:hireny/utils/constants/app_fonts.dart';
@@ -55,7 +56,6 @@ class ExploreOrgForSeekerContent extends StatelessWidget {
                     chipLabels: chipLabels,
                     onChipPressed: onChipPressed,
                     onSelectionChanged: (Set<int> selectedIndices) {
-                      print("Selected chips: $selectedIndices");
                     },
                   ),
                 ),
@@ -85,7 +85,7 @@ class ExploreOrgForSeekerContent extends StatelessWidget {
                         duration: Duration(milliseconds: 500),
                         child: InkWell(
                           onTap: () {
-                            print('Tapped organization index $index');
+                            Navigator.pushNamed(context, PagesRoute.orgProfile);
                           },
                           child: ExploreOrganizationCard(
                             orgPost: orgPost,
