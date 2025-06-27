@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hireny/features/auth/domain/modules/linkes/link.dart';
 import 'package:hireny/features/auth/domain/repo_contract/repo_contract.dart';
 import 'package:hireny/features/auth/view/profile/cubit/user_states.dart';
 import 'package:hireny/result.dart';
@@ -74,7 +75,7 @@ class UserCubit extends Cubit<UserStates> {
 
   // get user info
   Future<User?> getUserInfo() async {
-    String? token =AppSharedData.user?.accessToken;
+    String? token = AppSharedData.user?.accessToken;
     emit(LoadingState());
     final result = await _repoAuth.getUserInfo(token!);
 
@@ -91,7 +92,7 @@ class UserCubit extends Cubit<UserStates> {
         lastNameController.text = user.lastName ?? '';
         emailController.text = user.email ?? '';
         // problem -> country code + phone num
-        phoneController.text =user.phone ?? '';
+        phoneController.text = user.phone ?? '';
         country = user.country;
         city = user.city;
 
@@ -108,18 +109,13 @@ class UserCubit extends Cubit<UserStates> {
             fieldPairs.add({
               'type': type,
               'link': TextEditingController(text: url),
-
             });
           }
-            for (var pair in fieldPairs) {
-              final type = pair['type'];
-              final url = pair['link'];
-              print('Link Type: $type, URL: $url');
-
+          for (var pair in fieldPairs) {
+            final type = pair['type'];
+            final url = pair['link'];
+            print('Link Type: $type, URL: $url');
           }
-
-
-
         }
         emit(SuccessUpdatedState());
         return user;
@@ -133,6 +129,7 @@ class UserCubit extends Cubit<UserStates> {
         return null;
     }
   }
+
   // change password
   Future<void> changePassword() async {
     if (!formKey.currentState!.validate()) return;
@@ -149,7 +146,11 @@ class UserCubit extends Cubit<UserStates> {
     final token = AppSharedData.user?.accessToken;
 
     emit(LoadingState());
-    final result = await _repoAuth.changePassword(token!, oldPassword, newPassword);
+    final result = await _repoAuth.changePassword(
+      token!,
+      oldPassword,
+      newPassword,
+    );
     switch (result) {
       case Success():
         emit(SuccessUpdatedState());
@@ -158,9 +159,7 @@ class UserCubit extends Cubit<UserStates> {
         emit(ErrorUpdatedState("Old password is incorrect"));
         break;
     }
-      }
-
-
+  }
 
   // image picker logic
   Future onPickImage(ImageSource source) async {
@@ -173,7 +172,6 @@ class UserCubit extends Cubit<UserStates> {
       emit(ErrorUpdatedState("Failed to pick image"));
     }
   }
-
 
   // updated gender
   void updateGender(String? gender) {
@@ -311,5 +309,26 @@ class UserCubit extends Cubit<UserStates> {
       return 'Please enter a valid URL';
     }
     return null;
+  }
+
+  void loadData() {
+    //link list
+    if (AppSharedData.user is Seeker) {
+      final seeker = AppSharedData.user as Seeker;
+      firstNameController.text = seeker.firstName ?? '';
+      lastNameController.text = seeker.lastName ?? '';
+      emailController.text = seeker.email ?? '';
+      selectedGender = seeker.gender;
+      titleController.text = seeker.title ?? '';
+      briefController.text = seeker.brief ?? '';
+      selectedCareerLevel = seeker.careerLevel;
+      selectedEmploymentStatus = seeker.employmentStatus;
+      birthDateController.text = seeker.dob ?? '';
+      phoneController.text = seeker.phone ?? '';
+      city = seeker.city;
+      country = seeker.country;
+      selectedGender = seeker.gender;
+      briefController.text = seeker.brief ?? '';
+    }
   }
 }

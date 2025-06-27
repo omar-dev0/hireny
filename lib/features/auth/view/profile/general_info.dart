@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:hireny/features/auth/domain/modules/seeker/seeker.dart';
 import 'package:hireny/features/auth/view/profile/widgets/image_picker.dart';
 import 'package:hireny/features/auth/view/profile/widgets/image_picker.dart';
 import 'package:hireny/utils/widgets/custom_text_field.dart';
@@ -27,19 +28,7 @@ class GeneralInfo extends StatefulWidget {
 
 class _GeneralInfoState extends State<GeneralInfo> {
   @override
-  void initState() {
-    super.initState();
-    Future.microtask(() {
-      context.read<UserCubit>().getUserInfo();
-    });
-  }
-
-
-
-
-  @override
   Widget build(BuildContext context) {
-    final cubit = context.read<UserCubit>();
     final theme = Theme.of(context);
 
     return BlocConsumer<UserCubit, UserStates>(

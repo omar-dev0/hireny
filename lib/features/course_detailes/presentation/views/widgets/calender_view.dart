@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hireny/features/profile/presentation/views/widgets/customAppBar.dart';
 import 'package:hireny/routes/page_route.dart';
 import 'package:hireny/utils/constants/app_colors.dart';
 import 'package:hireny/utils/constants/app_fonts.dart';

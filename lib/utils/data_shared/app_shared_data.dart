@@ -68,15 +68,17 @@ abstract class AppSharedData {
     "Wholesale & Distribution",
   ];
   static List<String> organizationSizes = [
-    "Self-employed",
-    "1-10",
-    "11-50",
-    "51-200",
-    "201-500",
-    "501-1,000",
-    "1,001-5,000",
-    "5,001-10,000",
-    "10,001+",
+    "Self-Employed",
+    "1-10 Employees",
+    "11-50 Employees",
+    "51-100 Employees",
+    "101-200 Employees",
+    "201-500 Employees",
+    "501-1000 Employees",
+    "1001-5000 Employees",
+    "5001-10000 Employees",
+    "10001+ Employees",
+    "Other",
   ];
   static bool rememberMe = true;
 

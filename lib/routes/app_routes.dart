@@ -6,9 +6,14 @@ import 'package:hireny/features/my_assessment/presentation/ui/my_assessment.dart
 import 'package:hireny/features/org_profile/presentation/manager/org_profile_cubit.dart';
 import 'package:hireny/features/org_profile/presentation/ui/org_profile.dart';
 import 'package:hireny/features/organization/view/explore_job_seekers_org.dart';
+import 'package:hireny/features/profile/presentation/manager/my_courses_cubit.dart';
+import 'package:hireny/features/profile/presentation/views/my_courses_view.dart';
+import 'package:hireny/features/seeker/view/screens/courses/cubit/course_cubit.dart';
 import 'package:hireny/features/seeker/view/screens/courses/explore_courses_seeker.dart';
 import 'package:hireny/features/seeker/view/screens/explore_job/explore_job_seeker.dart';
 import 'package:hireny/features/seeker/view/screens/salary_insights/salary_insights_screen.dart';
+import 'package:hireny/features/show_courses/presentation/ui/manager/seeker_course_cubit.dart';
+import 'package:hireny/features/show_courses/presentation/ui/show_courses_ui.dart';
 import 'package:hireny/features/view_application/presentation/manager/app_cubit.dart';
 import 'package:hireny/features/view_application/presentation/ui/view_application.dart';
 import 'package:hireny/routes/page_route.dart';
@@ -25,9 +30,7 @@ import '../features/auth/view/profile/general_info.dart';
 import '../features/auth/view/profile/widgets/change_password.dart';
 import '../features/auth/view/profile/widgets/general_tech_info.dart';
 import '../features/auth/view/reg/reg_screen.dart';
-import '../features/course_detailes/presentation/manager/my_courses_cubit.dart';
 import '../features/course_detailes/presentation/views/course_details_view.dart';
-import '../features/course_detailes/presentation/views/my_courses_view.dart';
 import '../features/course_detailes/presentation/views/widgets/calender_view.dart';
 import '../features/organization/view/explore_organizations_org.dart';
 import '../features/organization/view/explore_services_org.dart';
@@ -59,7 +62,7 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
     return MaterialPageRoute(
       builder:
           (context) => BlocProvider(
-            create: (context) => getIt.get<UserCubit>(),
+            create: (context) => getIt.get<UserCubit>()..loadData(),
             child: GeneralInfo(),
           ),
     );
@@ -88,7 +91,7 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
   if (name == PagesRoute.myCourses) {
     return MaterialPageRoute(
       builder:
-          (context) => BlocProvider(
+          (_) => BlocProvider(
             create: (_) => getIt.get<MyCoursesCubit>(),
             child: MyCoursesView(),
           ),
@@ -100,18 +103,17 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
   }
   if (name == PagesRoute.assessment) {
     return MaterialPageRoute(builder: (_) => Assessment());
-  }if (name == PagesRoute.techInfo) {
-    return MaterialPageRoute(builder: (_) => const TechnicalInfoView(),
-
-    );
+  }
+  if (name == PagesRoute.techInfo) {
+    return MaterialPageRoute(builder: (_) => const TechnicalInfoView());
   }
   if (name == PagesRoute.changePassword) {
     return MaterialPageRoute(
       builder:
           (context) => BlocProvider(
-        create: (context) => getIt.get<UserCubit>(),
-        child: ChangePassword(),
-      ),
+            create: (context) => getIt.get<UserCubit>(),
+            child: ChangePassword(),
+          ),
     );
   }
   if (name == PagesRoute.myApplication) {
@@ -123,7 +125,7 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
           ),
     );
   }
-    // if (name == PagesRoute.myAssessment) {
+  // if (name == PagesRoute.myAssessment) {
   //   return MaterialPageRoute(
   //     builder:
   //         (_) => BlocProvider(
@@ -136,7 +138,7 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
     return MaterialPageRoute(builder: (_) => MyAssessment());
   }
 
-    if (name == PagesRoute.orgProfile) {
+  if (name == PagesRoute.orgProfile) {
     return MaterialPageRoute(
       builder:
           (_) => BlocProvider(
@@ -190,16 +192,17 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
 
     if (jobId != null) {
       return MaterialPageRoute(
-        builder: (_) => BlocProvider(
-          create: (context) => getIt.get<JobDetailsCubit>()..fetchJobDetails(jobId),
-          child: JobDetailesScreen(jobId: jobId),
-        ),
+        builder:
+            (_) => BlocProvider(
+              create:
+                  (context) =>
+                      getIt.get<JobDetailsCubit>()..fetchJobDetails(jobId),
+              child: JobDetailesScreen(jobId: jobId),
+            ),
       );
     } else {
       // Fallback if no jobId is provided
-      return MaterialPageRoute(
-        builder: (_) => ErrorScreen(),
-      );
+      return MaterialPageRoute(builder: (_) => ErrorScreen());
     }
   }
   if (name == PagesRoute.verifyEmail) {
