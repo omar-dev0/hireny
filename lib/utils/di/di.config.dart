@@ -190,13 +190,13 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i37.DeleteApp>(),
           gh<_i636.ShowApp>(),
         ));
-    gh.factory<_i883.AddEdu>(() => _i883.AddEdu(gh<_i854.TechRepoInterface>()));
+    gh.factory<_i883.AddTechInfo>(() => _i883.AddTechInfo(gh<_i854.TechRepoInterface>()));
     gh.factory<_i394.GetTechInfo>(
         () => _i394.GetTechInfo(gh<_i854.TechRepoInterface>()));
     gh.factory<_i377.DeleteTechInfo>(
         () => _i377.DeleteTechInfo(gh<_i854.TechRepoInterface>()));
     gh.factory<_i953.TechnicalInfoCubit>(() => _i953.TechnicalInfoCubit(
-          gh<_i883.AddEdu>(),
+          gh<_i883.AddTechInfo>(),
           gh<_i394.GetTechInfo>(),
           gh<_i377.DeleteTechInfo>(),
         ));

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hireny/models/technical%20info.dart';
 import 'package:hireny/technical_info/presentation/widgets/sectionHeader.dart';
 
+import '../manager/technical_info_cubit.dart';
 import 'InfoBox.dart';
 
 class Section extends StatelessWidget {
@@ -14,7 +16,9 @@ class Section extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        sectionHeader(title: title, onAddPressed: () {  },),
+        sectionHeader(title: title, onAddPressed: () {
+
+        },),
         SizedBox(
           height: 320,
           child: ListView.separated(

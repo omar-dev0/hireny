@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hireny/technical_info/presentation/widgets/popUpEXPForm.dart';
+import 'package:hireny/technical_info/presentation/widgets/pop_up_form.dart';
 
 import '../../../utils/constants/app_colors.dart';
 import '../../../utils/constants/app_fonts.dart';
@@ -93,7 +93,7 @@ class InfoBox extends StatelessWidget {
                           onPressed: () {
                             popUpForm(context, () {
                               // handle update
-                            });
+                            },title);
                           },
                           icon: Icon(Icons.edit),
                         ),

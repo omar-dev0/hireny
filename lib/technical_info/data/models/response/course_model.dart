@@ -6,7 +6,7 @@ class CourseModel {
   final String description;
   final String createdAt;
   final String updatedAt;
-  final int user;
+  final int? user;
 
   CourseModel({
     required this.id,

@@ -7,7 +7,7 @@ class Educations {
   final String description;
   final String createdAt;
   final String updatedAt;
-  final int user;
+  final int? user;
 
   Educations({
     required this.id,

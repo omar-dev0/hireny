@@ -1,13 +1,19 @@
-// class CertificateEntity {
-//   final String name;
-//   final String institution;
-//   final String dateIssued;
-//   final String description;
-//
-//   CertificateEntity({
-//     required this.name,
-//     required this.institution,
-//     required this.dateIssued,
-//     required this.description,
-//   });
-// }
+class CertificateEntity {
+  final int id;
+  final String certificateName;
+  final String institutionName;
+  final String dateIssued;
+  final String description;
+
+
+  CertificateEntity({
+    required this.id,
+    required this.certificateName,
+    required this.institutionName,
+    required this.dateIssued,
+    required this.description,
+
+  });
+
+
+}

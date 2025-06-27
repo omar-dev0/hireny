@@ -1,20 +1,12 @@
-class CertificateModel {
-  final int id;
-  final String certificateName;
-  final String institutionName;
-  final String dateIssued;
-  final String description;
+import 'package:hireny/technical_info/domain/entities/certificate_entity.dart';
+
+class CertificateModel extends CertificateEntity {
   final String createdAt;
   final String updatedAt;
 
   CertificateModel({
-    required this.id,
-    required this.certificateName,
-    required this.institutionName,
-    required this.dateIssued,
-    required this.description,
     required this.createdAt,
-    required this.updatedAt,
+    required this.updatedAt, required super.id, required super.certificateName, required super.institutionName, required super.dateIssued, required super.description,
   });
 
   factory CertificateModel.fromJson(Map<String, dynamic> json) {

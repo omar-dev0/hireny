@@ -23,16 +23,9 @@ class TechnicalInfoView extends StatelessWidget {
         create: (_) => getIt<TechnicalInfoCubit>()..getTechInfo(),
         child: BlocListener<TechnicalInfoCubit, TechnicalInfoState>(
           listener: (context, state) {
-            if (state is TechnicalInfoLoading) {
-              showDialog(
-                context: context,
-                barrierDismissible: false,
-                builder: (_) => LoadingDialog(),
-              );
-            }
 
             if (state is TechnicalInfoSuccessDeleted ||state is TechnicalInfoSuccessUpdated) {
-              Navigator.pop(context);
+              // Navigator.pop(context);
               showDialog(
                 context: context,
                 barrierDismissible: false,
@@ -41,15 +34,10 @@ class TechnicalInfoView extends StatelessWidget {
 
               Future.delayed(const Duration(seconds: 2), () {
                 Navigator.pop(context);
-                // Navigator.pushNamedAndRemoveUntil(
-                //   context,
-                //   PagesRoute.techInfo,
-                //       (route) => false,
-                // );
               });
             }
             if (state is TechnicalInfoFailure) {
-              Navigator.pop(context);
+              // Navigator.pop(context);
               showDialog(
                 context: context,
                 builder: (_) {
@@ -57,11 +45,6 @@ class TechnicalInfoView extends StatelessWidget {
                   return ErrorDialog(message: state.message);
                 }
               );
-              Future.delayed(const Duration(seconds: 3), () {
-                if (Navigator.canPop(context)) {
-                  Navigator.pop(context);
-                }
-              });
             }
           },
           child: Technicalbody(),

@@ -13,8 +13,8 @@ class TechRepoImpl implements TechRepoInterface {
   TechRepoImpl(this.dataSource);
 
   @override
-  Future<Result<void>> addEdu(Educations model) {
-    return dataSource.addEdu(model);
+  Future<Result<void>> addTechInfo(dynamic obj, int addID) {
+    return dataSource.addTechInfo(obj,addID);
   }
 
   @override

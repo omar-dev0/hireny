@@ -8,7 +8,7 @@ class ExperienceModel {
   final String description;
   final String createdAt;
   final String updatedAt;
-  final int user;
+  final int? user;
 
   ExperienceModel({
     required this.id,

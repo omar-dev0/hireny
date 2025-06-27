@@ -11,8 +11,7 @@ import '../models/response/education_model.dart';
 
 class TechApiManager {
   final Dio _dio;
-  String? token = AppSharedData.user?.accessToken;
-  TechApiManager(this._dio);
+  String? token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxMDcwODYwLCJpYXQiOjE3NTEwMjc2NjAsImp0aSI6Ijg5MDk5MWJkYmIwZjQyNmY4ZThmMmU5MGVmZTFkZDg4IiwidXNlcl9pZCI6MjksImlkIjoyOSwiZmlyc3ROYW1lIjoidGVzdCIsImxhc3ROYW1lIjoidGVzdCIsImVtYWlsIjoiZmx1dHRlclRlc3QxMjNAZ21haWwuY29tIiwicm9sZSI6InNlZWtlciIsInBob3RvIjoiL21lZGlhL3Bob3Rvcy9kZWZhdWx0LnBuZyJ9.-7DaZkJKmp2MROE02jQxbYYg1vwViTHP_JJDo2PchGA";TechApiManager(this._dio);
   List<String> deleteApi = [
     "",
     UrlConstants.deleteCourse,
@@ -54,23 +53,21 @@ class TechApiManager {
     }
   }
   /// Add
-  Future<Result<void>> addTechInfo(Educations model) async {
+  Future<Result<void>> addTechInfo(dynamic obj , int addID) async {
     try {
+      print(obj);
       final response = await _dio.post(
-        UrlConstants.addEdu,
-        data: model.toJson(),
+        addApi[addID],
+        data: obj.toJson(),
+        options: Options(headers: {'Authorization': 'Bearer $token','Content-Type': 'application/json'},),
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        print('Education added successfully');
-        return Success(); 
+        return Success();
       } else {
-        final errorMessage = 'Failed to add education: ${response.statusCode}';
-        print(errorMessage);
         return Error();
       }
     } catch (e) {
-      print('Error adding education: $e');
       return Error();
     }
   }
@@ -79,11 +76,10 @@ class TechApiManager {
     try {
       final response = await _dio.delete(
         "${deleteApi[deleteID]}/$id/",
-        options: Options(headers: {'Authorization': ' Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxMDIwNjA1LCJpYXQiOjE3NTA5Nzc0MDUsImp0aSI6ImNhNzhlMmRlYjZhOTQ5OGM5NjQ4N2ExOWE5OWE1ODUxIiwidXNlcl9pZCI6MzAsImlkIjozMCwiZmlyc3ROYW1lIjoidGVzdCIsImxhc3ROYW1lIjoidGVzdCIsImVtYWlsIjoiZmx1dHRlclRlc3QxMjNAZ21haWwuY29tIiwicm9sZSI6InNlZWtlciIsInBob3RvIjoiL21lZGlhL3Bob3Rvcy9kZWZhdWx0LnBuZyJ9.dKuGaGPzZau9MWz5hLxffK1FdE8di3rwrVaBORkblv0'}),
-      );
+        options: Options(headers: {'Authorization': ' Bearer $token'}));
 
       if (response.statusCode == 200 || response.statusCode == 204) {
-        print("Certificate deleted successfully");
+        // print("Certificate deleted successfully");
         return Success();
       } else {
         return Error(error: "Failed to delete certificate: ${response.statusCode}");

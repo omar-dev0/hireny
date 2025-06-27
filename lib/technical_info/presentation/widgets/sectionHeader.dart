@@ -24,7 +24,8 @@ class sectionHeader extends StatelessWidget {
           Align(alignment:Alignment.centerLeft,child: Text(title,style: AppFonts.textFieldStyle.copyWith(fontSize: 22),)),
           ElevatedButton(
               onPressed: (){
-                popUpForm(context,(){});
+                  popUpForm(context,(){},title
+                  );
               },
               style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primary,
