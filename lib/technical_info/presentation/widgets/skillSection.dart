@@ -14,7 +14,7 @@ class skillsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        sectionHeader(title: title),
+        sectionHeader(title: title, onAddPressed: () {  },),
         SizedBox(height: 15,),
         Container(
             decoration: BoxDecoration(

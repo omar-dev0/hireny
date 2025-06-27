@@ -1,28 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hireny/models/technical%20info.dart';
 import 'package:hireny/technical_info/presentation/widgets/sectionHeader.dart';
 
+import '../manager/technical_info_cubit.dart';
 import 'InfoBox.dart';
 
 class Section extends StatelessWidget {
-  const Section({super.key, required this.title, required this.img, required this.data});
+  const Section({super.key, required this.title, required this.img, required this.data,});
   final String title;
   final String img;
-  final List<TechnicalInfo> data;
+  final List<dynamic> data;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        sectionHeader(title: title,),
+        sectionHeader(title: title, onAddPressed: () {
+
+        },),
         SizedBox(
           height: 320,
-          child: ListView.builder(
+          child: ListView.separated(
             shrinkWrap: true,
-            itemCount: 2,
+            scrollDirection: Axis.horizontal,
+            itemCount: data.length,
             itemBuilder: (context, index) {
-              return InfoBox(isExp: true,img: img,info: data[0],);
-            },
+              return InfoBox(img: img,info: data[index]);
+            }, separatorBuilder: (BuildContext context, int index)=>SizedBox(width: 16,),
           ),
         ),
       ],

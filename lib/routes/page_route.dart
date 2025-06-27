@@ -9,6 +9,7 @@ abstract class PagesRoute {
   static const String myCourses = "/MyCoursesView";
   static const String courseDetails = "/CourseDetailsView";
   static const String calender = "/calander";
+  static const String drawer = "/drawer";
 
   static const String reg = "/reg";
   static String personalProfileAdmin = "/PersonalProfileAdmin";
@@ -24,8 +25,11 @@ abstract class PagesRoute {
   static String assessment = '/Assessment';
   // user routes
   static const String myApplication = "/myApps";
+  static const String myAssessment = "/myAssessments";
   static const String orgProfile = "/orgProfile";
   static const String changePassword = "/changePass";
+  static const String techInfo = "/techInfo";
+
 
   // admin routes
   static const String showCourses = "/showCourses";

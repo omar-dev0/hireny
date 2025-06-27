@@ -38,7 +38,8 @@ class CustomDropDown extends StatelessWidget {
           labelStyle: const TextStyle(color: AppColors.grey),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
-            borderSide: BorderSide(color: AppColors.grey),
+            borderSide: BorderSide(color: AppColors.grey.withValues(alpha: 0.5),
+            ),
           ),
         ),
       ),

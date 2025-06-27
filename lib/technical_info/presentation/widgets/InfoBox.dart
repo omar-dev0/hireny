@@ -1,102 +1,119 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hireny/models/technical%20info.dart';
-import 'package:hireny/technical_info/presentation/widgets/popUpEXPForm.dart';
+import 'package:hireny/technical_info/presentation/widgets/pop_up_form.dart';
 
-import '../../../utils/constants/app_assets.dart';
 import '../../../utils/constants/app_colors.dart';
 import '../../../utils/constants/app_fonts.dart';
+import '../../data/models/response/certificate_model.dart';
+import '../../data/models/response/course_model.dart';
+import '../../data/models/response/education_model.dart';
+import '../../data/models/response/experience_model.dart';
 import '../manager/technical_info_cubit.dart';
 
 
 class InfoBox extends StatelessWidget {
   const InfoBox({
-    super.key, required this.isExp, required this.img, required this.info,
+    super.key, required this.img, required this.info,
   });
-  final bool isExp;
   final String img;
-  final TechnicalInfo info;
+  // final int id;
+  final dynamic info;
 
   @override
+  @override
   Widget build(BuildContext context) {
+    String title = "";
+    String organization = "";
+    String startDate = "";
+    String endDate = "";
+    // String itemID = "";
+
+    // Safely extract values based on the object type
+    if (info is ExperienceModel) {
+      title = info.jobTitle;
+      organization = info.companyName;
+      startDate = info.fromDate;
+      endDate = info.toDate;
+    } else if (info is Educations) {
+      title = info.degree;
+      organization = info.institutionName;
+      startDate = info.fromDate;
+      endDate = info.toDate;
+    } else if (info is CourseModel) {
+      title = info.courseName;
+      organization = info.institutionName;
+      startDate = info.dateCompleted;
+      endDate = "";
+    } else if (info is CertificateModel) {
+      title = info.certificateName;
+      organization = info.institutionName;
+      startDate = info.dateIssued;
+      endDate = "";
+    } else {
+      title = "Unknown";
+      organization = "Unknown";
+    }
+
     return Column(
-      children:[
-        SizedBox(height: 20,),
+      children: [
+        SizedBox(height: 20),
         Container(
           decoration: BoxDecoration(
-              color: AppColors.lightGrey,
-              borderRadius: BorderRadius.circular(12)
+            color: AppColors.subPrimary.withOpacity(0.5),
+            border: Border.all(color: AppColors.primary),
+            borderRadius: BorderRadius.circular(12),
           ),
           height: 180,
-          child:
-          Padding(
+          child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Row(
               children: [
-                SizedBox(
-                    width:65,
-                    height: 80,
-                    child: Image.asset(img)
-                ),
-                SizedBox(width: 35,),
+                Container(width: 65, height: 60, decoration: BoxDecoration(
+                  border: Border.all(color: AppColors.primary),
+                  borderRadius: BorderRadius.circular(16),
+                  image: DecorationImage(image: AssetImage(img))
+                ), ),
+                SizedBox(width: 35),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Visibility(
-                      visible:isExp,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 160,bottom: 10,top: 4),
-                        child: Container(
-                          width: 90,
-                          height: 30,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(6),
-                            color: AppColors.primary,
-
-                          ),
-                          child: Center(child: Text("InternShip",style: TextStyle(color: AppColors.white
-                          ),)),
-                        ),
-                      ),
-                    ),
-                    Text(info.title,style: AppFonts.textFieldStyle.copyWith(fontSize: 20),),
-                    SizedBox(height: 10,),
-                    Text(info.organization,style: AppFonts.secMain,),
-                    SizedBox(height: 5,),
+                    Text(title, style: AppFonts.textFieldStyle.copyWith(fontSize: 20)),
+                    SizedBox(height: 10),
+                    Text(organization, style: AppFonts.secMain),
+                    SizedBox(height: 5),
                     Row(
                       children: [
-                        Text("${info.startDate} - ${info.endDate}",style: AppFonts.hintStyle.copyWith(fontSize: 16),),
-                        SizedBox(width: 60,),
-                        IconButton(onPressed: ()
-                        {
-                          popUpForm(context,
-                              () {
-                                //   if (_formKey.currentState!.validate()) {
-                                //     // All fields are valid
-                                //     Navigator.pop(context);
-                                //     print(_nameController.value);
-                                //
-                                // }
-                              }
-                          );
+                        Text(
+                          endDate.isNotEmpty ? "$startDate - $endDate" : startDate,
+                          style: AppFonts.hintStyle.copyWith(fontSize: 16),
+                        ),
+                        SizedBox(width: 60),
+                        IconButton(
+                          onPressed: () {
+                            popUpForm(context, () {
+                              // handle update
+                            },title);
+                          },
+                          icon: Icon(Icons.edit),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            // make sure info has an id property
+                            context.read<TechnicalInfoCubit>().deleteItem(info.id.toString(), info);
 
-                        }, icon: Icon(Icons.edit)),
-                        IconButton(onPressed: ()
-                        {
-                          context.read<TechnicalInfoCubit>().deleteEXperience(id: 1);
-
-                        }, icon: Icon(Icons.delete))
+                          },
+                          icon: Icon(Icons.delete),
+                        ),
                       ],
-                    )
-
+                    ),
                   ],
                 )
               ],
             ),
           ),
         )
-      ] ,
+      ],
     );
   }
 }

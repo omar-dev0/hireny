@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hireny/features/auth/view/forget_password/reset_password/reset_password.dart';
 import 'package:hireny/features/auth/view/forget_password/verift_email_screen.dart';
+import 'package:hireny/features/my_assessment/presentation/ui/my_assessment.dart';
 import 'package:hireny/features/org_profile/presentation/manager/org_profile_cubit.dart';
 import 'package:hireny/features/org_profile/presentation/ui/org_profile.dart';
 import 'package:hireny/features/organization/view/explore_job_seekers_org.dart';
@@ -12,12 +13,17 @@ import 'package:hireny/features/view_application/presentation/manager/app_cubit.
 import 'package:hireny/features/view_application/presentation/ui/view_application.dart';
 import 'package:hireny/routes/page_route.dart';
 import 'package:hireny/widget/tabbar.dart';
+import '../core/widgets/sideBar.dart';
 
 import '../features/admin/view/personal_profile_admin.dart';
 import '../features/admin/view/verify_organization_admin.dart';
 import '../features/assessment/presentation/ui/assessment.dart';
 import '../features/auth/view/forget_password/verfy_otp/verfy_otp.dart';
 import '../features/auth/view/login/login_screen.dart';
+import '../features/auth/view/profile/cubit/user_cubit.dart';
+import '../features/auth/view/profile/general_info.dart';
+import '../features/auth/view/profile/widgets/change_password.dart';
+import '../features/auth/view/profile/widgets/general_tech_info.dart';
 import '../features/auth/view/reg/reg_screen.dart';
 import '../features/course_detailes/presentation/manager/my_courses_cubit.dart';
 import '../features/course_detailes/presentation/views/course_details_view.dart';
@@ -30,9 +36,7 @@ import '../features/organization/view/service_details_org.dart';
 import '../features/seeker/view/screens/course_details/course_screen_seeker_details.dart';
 import '../features/seeker/view/screens/job_detailes/cubit/job_detailes_cubit.dart';
 import '../features/seeker/view/screens/job_detailes/job_detailes_screen.dart';
-import '../features/user_accout/cubit/user_cubit.dart';
-import '../features/user_accout/general_info.dart';
-import '../features/user_accout/widgets/general_tech_info.dart';
+import '../technical_info/presentation/technical_view.dart';
 import '../utils/constants/app_colors.dart';
 import '../utils/data_shared/app_shared_data.dart';
 import '../utils/di/di.dart';
@@ -96,6 +100,19 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
   }
   if (name == PagesRoute.assessment) {
     return MaterialPageRoute(builder: (_) => Assessment());
+  }if (name == PagesRoute.techInfo) {
+    return MaterialPageRoute(builder: (_) => const TechnicalInfoView(),
+
+    );
+  }
+  if (name == PagesRoute.changePassword) {
+    return MaterialPageRoute(
+      builder:
+          (context) => BlocProvider(
+        create: (context) => getIt.get<UserCubit>(),
+        child: ChangePassword(),
+      ),
+    );
   }
   if (name == PagesRoute.myApplication) {
     return MaterialPageRoute(
@@ -106,8 +123,20 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
           ),
     );
   }
+    // if (name == PagesRoute.myAssessment) {
+  //   return MaterialPageRoute(
+  //     builder:
+  //         (_) => BlocProvider(
+  //       create: (_) => getIt.get<AppCubit>(),
+  //       child: MyAssessment(),
+  //     ),
+  //   );
 
-  if (name == PagesRoute.orgProfile) {
+  if (name == PagesRoute.myAssessment) {
+    return MaterialPageRoute(builder: (_) => MyAssessment());
+  }
+
+    if (name == PagesRoute.orgProfile) {
     return MaterialPageRoute(
       builder:
           (_) => BlocProvider(

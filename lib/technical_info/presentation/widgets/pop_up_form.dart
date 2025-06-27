@@ -1,41 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hireny/technical_info/presentation/widgets/form_add_info.dart';
 import 'package:hireny/technical_info/presentation/widgets/popUpButtons.dart';
-import 'FormTextPart.dart';
+import '../../../utils/constants/app_colors.dart';
+import '../manager/technical_info_cubit.dart';
+// form without fields
+void popUpForm(BuildContext context, Function()? onPressed, String title) {
+  final techCubit = BlocProvider.of<TechnicalInfoCubit>(context);
 
-
-void popUpForm(BuildContext context,Function()? onPressed) {
-  final _nameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _startingYear = TextEditingController();
-  final _endingYear = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
-
+  techCubit.setFlagByTitle(title);
   showDialog(
     context: context,
-    builder: (BuildContext context) {
-      return Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SingleChildScrollView(
-            child: Container(
-              width: 600,
-              height: 340,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                FormTextPart(
-                    nameController: _nameController,
-                    emailController: _emailController,
-                    startingYear: _startingYear,
-                    endingYear: _endingYear,
-                    formKey: _formKey,
+    builder: (dialogContext) {
+      return BlocProvider.value(
+        value: techCubit,
+        child: Dialog(
+          backgroundColor: AppColors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SingleChildScrollView(
+              child: SizedBox(
+                width: 600,
+                height: 460,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      FormAddInfo(),
+                      const SizedBox(height: 30),
+                      popUpButtons(
+                        onPressed: () {
+                          if (techCubit.formKey.currentState!.validate()) {
+                            techCubit.addTechInfo();
+                            onPressed?.call();
+                            Navigator.pop(dialogContext);
+                          }
+                        },
+                      ),
+                    ],
+                  ),
                 ),
-                  const SizedBox(height: 30),
-                  popUpButtons(onPressed: onPressed,),
-                ],
               ),
             ),
           ),

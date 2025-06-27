@@ -53,5 +53,11 @@ class DataSourcAuthImp implements AuthDataSource {
     return apiManger.resetPassword(email, newPassword);
   }
 
+  @override
+  Future<Result<void>> changePassword(String token, String oldPassword, String newPassword) {
+    return apiManger.changePassword(token,oldPassword,newPassword);
+
+  }
+
 
 }
