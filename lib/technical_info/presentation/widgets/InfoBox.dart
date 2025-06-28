@@ -91,15 +91,38 @@ class InfoBox extends StatelessWidget {
                         SizedBox(width: 60),
                         IconButton(
                           onPressed: () {
+                            final cubit = context.read<TechnicalInfoCubit>();
+
+                            // Set values before showing the form
+                            cubit.titleController.text = title;
+                            cubit.institutionController.text = organization;
+                            cubit.startDateController.text = startDate;
+                            cubit.endDateController.text = endDate;
+                            cubit.descriptionController.text = info.description ?? "";
+
+                            // For experience job types and titles
+                            if (info is ExperienceModel) {
+                              cubit.selectedJobTitle = info.jobTitle;
+                              cubit.selectedJobType = info.jobType;
+                            }
+
+                            // Set flags correctly for validation in update
+                            cubit.setFormFlags(
+                              certificate: info is CertificateModel,
+                              course: info is CourseModel,
+                              education: info is Educations,
+                              experience: info is ExperienceModel,
+                            );
+
+                            // Now show the popup
                             popUpForm(context, () {
-                              // handle update
-                            },title);
+                              cubit.updateTechInfo(info.id.toString(), info);
+                            }, title,updateFlag: true);
                           },
                           icon: Icon(Icons.edit),
                         ),
                         IconButton(
                           onPressed: () {
-                            // make sure info has an id property
                             context.read<TechnicalInfoCubit>().deleteItem(info.id.toString(), info);
 
                           },

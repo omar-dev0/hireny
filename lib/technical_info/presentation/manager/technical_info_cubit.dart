@@ -6,6 +6,7 @@ import 'package:hireny/technical_info/data/models/response/skill_model.dart';
 import 'package:hireny/technical_info/domain/usecases/delete_tech_info.dart';
 import 'package:hireny/technical_info/domain/usecases/get_tech_info.dart';
 import 'package:hireny/technical_info/domain/usecases/tech_usecase.dart';
+import 'package:hireny/technical_info/domain/usecases/update_tech_info.dart';
 import 'package:hireny/utils/data_shared/app_shared_data.dart';
 import 'package:injectable/injectable.dart';
 import 'package:file_picker/file_picker.dart';
@@ -23,9 +24,10 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
   final AddTechInfo _addEdu;
   final DeleteTechInfo _deleteTechInfo;
   final GetTechInfo _getTechInfo;
+  final UpdateTechInfo _updateTechInfo;
 
   @factoryMethod
-  TechnicalInfoCubit(this._addEdu, this._getTechInfo, this._deleteTechInfo)
+  TechnicalInfoCubit(this._addEdu, this._getTechInfo, this._deleteTechInfo, this._updateTechInfo)
       : super(TechnicalInfoInitial());
 
   bool isCourse = false;
@@ -42,6 +44,7 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
 
   String? selectedJobType;
   String? selectedJobTitle;
+
 
   final List<ExperienceModel> experiences = [];
   final List<Educations> education = [];
@@ -74,7 +77,7 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
     isEducation = education;
     isExperience = experience;
   }
-
+/// get
   Future<Result<TechInfoResponse>> getTechInfo() async {
     String? token = AppSharedData.user?.accessToken;
     emit(TechnicalInfoLoading());
@@ -90,12 +93,7 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
         } else {
           emit(TechnicalInfoInitial());
         }
-        education.clear();
-        certificates.clear();
-        courses.clear();
-        experiences.clear();
-        languages.clear();
-        skills.clear();
+
         response!.educations.forEach(education.add);
         response.certificates.forEach(certificates.add);
         response.courses.forEach(courses.add);
@@ -114,7 +112,7 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
         throw UnimplementedError();
     }
   }
-
+/// add
   Future<Result<void>> addTechInfo() async {
     emit(TechnicalInfoLoading());
 
@@ -175,10 +173,7 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
       }
 
       addID = _getID(dataToSend);
-      if (addID == -1 || dataToSend == null) {
-        emit(TechnicalInfoFailure("Invalid form type selected."));
-        return Error(error: "Invalid form type selected.");
-      }
+
 
       final result = await _addEdu.call(dataToSend, addID);
 
@@ -196,7 +191,7 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
       return Error(error: error);
     }
   }
-
+/// delete
   Future<Result<void>> deleteItem(String id, dynamic type) async {
     int deleteID = _getID(type);
 
@@ -220,7 +215,82 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
       return Error(error: e.toString());
     }
   }
+/// update
+  Future<Result<void>> updateTechInfo(String itemID, dynamic data) async {
+    emit(TechnicalInfoLoading());
 
+    try {
+      dynamic dataToSend;
+      int updateID = _getID(data);
+
+
+      // Build the correct updated data model
+      if (data is CertificateModel) {
+        dataToSend = CertificateModel(
+          id: data.id,
+          certificateName: titleController.text,
+          institutionName: institutionController.text,
+          dateIssued: startDateController.text,
+          description: descriptionController.text,
+          createdAt: data.createdAt,
+          updatedAt: DateTime.now().toIso8601String(),
+        ).toJson();
+      } else if (data is CourseModel) {
+        dataToSend = CourseModel(
+          id: data.id,
+          courseName: titleController.text,
+          institutionName: institutionController.text,
+          dateCompleted: startDateController.text,
+          description: descriptionController.text,
+          createdAt: data.createdAt,
+          updatedAt: DateTime.now().toIso8601String(),
+          user: AppSharedData.user?.id,
+        ).toJson();
+      } else if (data is Educations) {
+        dataToSend = Educations(
+          id: data.id,
+          institutionName: institutionController.text,
+          degree: titleController.text,
+          fromDate: startDateController.text,
+          toDate: endDateController.text,
+          description: descriptionController.text,
+          createdAt: data.createdAt,
+          updatedAt: DateTime.now().toIso8601String(),
+          user: AppSharedData.user?.id,
+        ).toJson();
+      } else if (data is ExperienceModel) {
+        dataToSend = ExperienceModel(
+          id: data.id,
+          companyName: institutionController.text,
+          jobTitle: selectedJobTitle ?? '',
+          jobType: selectedJobType ?? '',
+          fromDate: startDateController.text,
+          toDate: endDateController.text,
+          description: descriptionController.text,
+          createdAt: data.createdAt,
+          updatedAt: DateTime.now().toIso8601String(),
+          user: AppSharedData.user?.id,
+        ).toJson();
+      }
+      updateID = _getID(data);
+
+      final result = await _updateTechInfo.call(itemID, dataToSend, updateID);
+
+      if (result is Success<void>) {
+        await getTechInfo();
+        emit(TechnicalInfoSuccess());
+      } else if (result is Error<void>) {
+        print(result.error);
+        emit(TechnicalInfoFailure(result.error));
+      }
+
+      return result;
+    } catch (e) {
+      final error = "Exception occurred while updating tech info: $e";
+      emit(TechnicalInfoFailure(error));
+      return Error(error: error);
+    }
+  }
   int _getID(dynamic type) {
     if (type is CertificateModel) return 2;
     if (type is Educations) return 3;
@@ -230,7 +300,7 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
   }
 
   void setFlagByTitle(String title) {
-    isCourse = false;
+  isCourse = false;
     isCertificate = false;
     isEducation = false;
     isExperience = false;

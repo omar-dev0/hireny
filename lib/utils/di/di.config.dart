@@ -121,6 +121,7 @@ import '../../technical_info/domain/repo/tech_repo.dart' as _i854;
 import '../../technical_info/domain/usecases/delete_tech_info.dart' as _i377;
 import '../../technical_info/domain/usecases/get_tech_info.dart' as _i394;
 import '../../technical_info/domain/usecases/tech_usecase.dart' as _i883;
+import '../../technical_info/domain/usecases/update_tech_info.dart' as _i120;
 import '../../technical_info/presentation/manager/technical_info_cubit.dart'
     as _i953;
 import '../dio_provider.dart' as _i177;
@@ -175,14 +176,14 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i640.DeleteAdmin(adminRepo: gh<_i656.AdminRepoInterface>()));
     gh.factory<_i894.GetAdmins>(
         () => _i894.GetAdmins(adminRepo: gh<_i656.AdminRepoInterface>()));
-    gh.factory<_i636.ShowApp>(
-        () => _i636.ShowApp(appRepo: gh<_i346.AppRepoInterface>()));
     gh.factory<_i37.DeleteApp>(
         () => _i37.DeleteApp(appRepo: gh<_i346.AppRepoInterface>()));
-    gh.factory<_i714.ShowCourses>(
-        () => _i714.ShowCourses(courseRepo: gh<_i630.CourseRepo>()));
+    gh.factory<_i636.ShowApp>(
+        () => _i636.ShowApp(appRepo: gh<_i346.AppRepoInterface>()));
     gh.factory<_i327.DeleteCourse>(
         () => _i327.DeleteCourse(courseRepo: gh<_i630.CourseRepo>()));
+    gh.factory<_i714.ShowCourses>(
+        () => _i714.ShowCourses(courseRepo: gh<_i630.CourseRepo>()));
     gh.factory<_i981.RegSeekerVm>(
         () => _i981.RegSeekerVm(gh<_i412.RepoAuth>()));
     gh.factory<_i598.ShowOrg>(
@@ -193,8 +194,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i894.GetAdmins>(),
           gh<_i640.DeleteAdmin>(),
         ));
-    gh.factory<_i609.UserCubit>(() => _i609.UserCubit(gh<_i412.RepoAuth>()));
     gh.factory<_i866.LoginVm>(() => _i866.LoginVm(gh<_i412.RepoAuth>()));
+    gh.factory<_i609.UserCubit>(() => _i609.UserCubit(gh<_i412.RepoAuth>()));
     gh.factory<_i386.SeekerRepository>(
         () => _i475.SeekerRepoImpl(gh<_i946.SeekerDataSource>()));
     gh.factory<_i215.OrgCubit>(() => _i215.OrgCubit(
@@ -203,14 +204,14 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.lazySingleton<_i854.TechRepoInterface>(
         () => _i557.TechRepoImpl(gh<_i411.TechDataSourceInterface>()));
-    gh.factory<_i754.GetReviews>(
-        () => _i754.GetReviews(profileRepo: gh<_i886.OrgProfileRepo>()));
     gh.factory<_i1064.AddReview>(
         () => _i1064.AddReview(profileRepo: gh<_i886.OrgProfileRepo>()));
     gh.factory<_i431.GetOrgProfile>(
         () => _i431.GetOrgProfile(profileRepo: gh<_i886.OrgProfileRepo>()));
     gh.factory<_i512.GetPosts>(
         () => _i512.GetPosts(profileRepo: gh<_i886.OrgProfileRepo>()));
+    gh.factory<_i754.GetReviews>(
+        () => _i754.GetReviews(profileRepo: gh<_i886.OrgProfileRepo>()));
     gh.factory<_i583.SeekerCoursesCubit>(() => _i583.SeekerCoursesCubit(
           gh<_i327.DeleteCourse>(),
           gh<_i714.ShowCourses>(),
@@ -229,24 +230,27 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i938.CourseDetailsCubit>(
         () => _i938.CourseDetailsCubit(gh<_i386.SeekerRepository>()));
+    gh.factory<_i123.OrgPostCubit>(
+        () => _i123.OrgPostCubit(gh<_i386.SeekerRepository>()));
     gh.factory<_i704.JobDetailsCubit>(
         () => _i704.JobDetailsCubit(gh<_i386.SeekerRepository>()));
     gh.factory<_i627.SalaryCubit>(
         () => _i627.SalaryCubit(gh<_i386.SeekerRepository>()));
-    gh.factory<_i123.OrgPostCubit>(
-        () => _i123.OrgPostCubit(gh<_i386.SeekerRepository>()));
     gh.factory<_i401.JobPostCubit>(
         () => _i401.JobPostCubit(gh<_i386.SeekerRepository>()));
     gh.factory<_i377.DeleteTechInfo>(
         () => _i377.DeleteTechInfo(gh<_i854.TechRepoInterface>()));
-    gh.factory<_i883.AddTechInfo>(
-        () => _i883.AddTechInfo(gh<_i854.TechRepoInterface>()));
     gh.factory<_i394.GetTechInfo>(
         () => _i394.GetTechInfo(gh<_i854.TechRepoInterface>()));
+    gh.factory<_i883.AddTechInfo>(
+        () => _i883.AddTechInfo(gh<_i854.TechRepoInterface>()));
+    gh.factory<_i120.UpdateTechInfo>(
+        () => _i120.UpdateTechInfo(gh<_i854.TechRepoInterface>()));
     gh.factory<_i953.TechnicalInfoCubit>(() => _i953.TechnicalInfoCubit(
           gh<_i883.AddTechInfo>(),
           gh<_i394.GetTechInfo>(),
           gh<_i377.DeleteTechInfo>(),
+          gh<_i120.UpdateTechInfo>(),
         ));
     return this;
   }
