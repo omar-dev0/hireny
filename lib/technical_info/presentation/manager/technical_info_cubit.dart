@@ -77,6 +77,7 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
     isEducation = education;
     isExperience = experience;
   }
+
 /// get
   Future<Result<TechInfoResponse>> getTechInfo() async {
     String? token = AppSharedData.user?.accessToken;
@@ -115,7 +116,6 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
 /// add
   Future<Result<void>> addTechInfo() async {
     emit(TechnicalInfoLoading());
-
     try {
       dynamic dataToSend;
       int addID = -1;
@@ -223,8 +223,6 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
       dynamic dataToSend;
       int updateID = _getID(data);
 
-
-      // Build the correct updated data model
       if (data is CertificateModel) {
         dataToSend = CertificateModel(
           id: data.id,
@@ -271,8 +269,11 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
           updatedAt: DateTime.now().toIso8601String(),
           user: AppSharedData.user?.id,
         ).toJson();
+      } else {
+        final error = "❌ Invalid form type selected for update.";
+        emit(TechnicalInfoFailure(error));
+        return Error(error: error);
       }
-      updateID = _getID(data);
 
       final result = await _updateTechInfo.call(itemID, dataToSend, updateID);
 

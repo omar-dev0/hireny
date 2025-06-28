@@ -9,14 +9,10 @@ class CourseRepoImpl implements CourseRepo {
 
   CourseRepoImpl(this.dataSource);
 
-  @override
-  Future<CourseEntity> deleteCourse(CourseEntity courseData) async {
-    return await dataSource.deleteCourse(courseData);
-  }
 
   @override
-  Future<List<CourseEntity>> showCourses() async {
-   return await dataSource.showCourses();
+  Future<void> showCourses()  {
+   return  dataSource.showCourses();
   }
 
 }

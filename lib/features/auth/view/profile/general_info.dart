@@ -420,7 +420,7 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                         ),
                                       ),
                                       TextButton.icon(
-                                        onPressed: cubit.addFieldPair,
+                                        onPressed:(){},
                                         icon: Icon(
                                           Icons.add_circle_outline,
                                           color: Theme.of(context).primaryColor,
@@ -437,37 +437,32 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                   ...List.generate(
                                     cubit.getLen(),
                                         (index) => Column(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Row(
                                           children: [
+                                            // Dropdown for Link Type
                                             Expanded(
                                               flex: 2,
                                               child: CustomDropDown(
                                                 label: "Link Type",
                                                 items: cubit.linkTypes,
-                                                selectItem: cubit.fieldPairs[index]
-                                                ['type'],
+                                                selectItem: cubit.fieldPairs[index]['type'],
                                                 onChanged: (val) {
-                                                  cubit.fieldPairs[index]
-                                                  ['type'] = val;
+                                                  cubit.fieldPairs[index]['type'] = val;
                                                 },
                                               ),
                                             ),
+
                                             const SizedBox(width: 16),
                                             Expanded(
                                               flex: 3,
                                               child: CustomTextField(
-                                                controller: TextEditingController(
-                                                    text: cubit.fieldPairs[index]
-                                                    ['value']),
+                                                controller: cubit.fieldPairs[index]['value'],
                                                 label: "URL",
                                                 hint: "https://example.com",
-                                                keyboardType:
-                                                TextInputType.url,
-                                                onValidate: (val) =>
-                                                    cubit.validateLink(val),
+                                                keyboardType: TextInputType.url,
+                                                onValidate: (val) => cubit.validateLink(val),
                                               ),
                                             ),
                                           ],
@@ -476,12 +471,8 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                           Align(
                                             alignment: Alignment.centerRight,
                                             child: IconButton(
-                                              icon: const Icon(
-                                                Icons.delete_outline,
-                                                color: Colors.red,
-                                              ),
-                                              onPressed: () =>
-                                                  cubit.removeFieldPair(index),
+                                              icon: const Icon(Icons.delete_outline, color: Colors.red),
+                                              onPressed: () => cubit.removeFieldPair(index),
                                             ),
                                           ),
                                         const SizedBox(height: 12),

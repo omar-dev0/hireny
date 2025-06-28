@@ -1,5 +1,7 @@
 abstract class UrlConstants {
   static const String getTechInfo = '/api/techical-info/technical-info/';
+  static const String getSkills = '/api/constants/get_all_skills/';
+  static const String getJobs = '/api/constants/get_all_jobs';
 
   /// add
   static const String addEdu = '/api/techical-info/education/add/';

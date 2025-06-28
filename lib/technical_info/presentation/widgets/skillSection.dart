@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hireny/technical_info/presentation/widgets/pop_up_List.dart';
 import 'package:hireny/technical_info/presentation/widgets/sectionHeader.dart';
 import 'package:hireny/technical_info/presentation/widgets/skillBox.dart';
 import '../../../utils/constants/app_colors.dart';
@@ -21,8 +22,8 @@ class SkillsSection extends StatelessWidget {
         sectionHeader(
           title: title,
           onAddPressed: () {
-            // Add skill action
-          },
+            showSkillSearchDialog(context,skills,)
+            ;          },
         ),
         const SizedBox(height: 15),
         Container(

@@ -6,7 +6,7 @@ class ShowCourses{
   CourseRepo courseRepo;
 
   ShowCourses({required this.courseRepo});
-  Future<List<CourseEntity>>call() async {
-    return await courseRepo.showCourses();
+  Future<void>call()  {
+    return courseRepo.showCourses();
   }
 }

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hireny/features/show_courses/data/models/seeker_courses_registered.dart';
 import 'package:hireny/routes/page_route.dart';
 
-import '../../../../../utils/constants/app_colors.dart';
-import '../../../../../utils/constants/app_fonts.dart';
-import '../../../../../utils/widgets/custom_buttom.dart';
+import '../../../../../../utils/constants/app_colors.dart';
+import '../../../../../../utils/constants/app_fonts.dart';
+import '../../../../../../utils/widgets/custom_buttom.dart';
 
 
 class courseBox extends StatelessWidget {
@@ -12,7 +11,7 @@ class courseBox extends StatelessWidget {
     super.key, required this.course,
   });
 
-  final RegisteredCourses course;
+  final Map<String,dynamic> course;
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +30,13 @@ class courseBox extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(course.title,
+              Text(course['name'],
                 style: AppFonts.secMain.copyWith(color: Colors.black,fontWeight: FontWeight.w600,fontSize:20),
                 maxLines: 1,
                   overflow: TextOverflow.ellipsis
               ),
               SizedBox(height: 10,),
-              Text("${course.lessons.length} Sections . ${course.totalDuration} hours",style: AppFonts.hintStyle,),
+              Text("${course['sections']} Sections . ${course['hours']} hours",style: AppFonts.hintStyle,),
               SizedBox(height: 10,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -46,7 +45,7 @@ class courseBox extends StatelessWidget {
                     children: [
                       Icon(Icons.check_circle,color: AppColors.primary,),
                       SizedBox(width: 5,),
-                      Text("${course.instructor}",style: AppFonts.hintStyle,),
+                      Text("${course['level']}",style: AppFonts.hintStyle,),
                     ],
                   ),
                   SizedBox(

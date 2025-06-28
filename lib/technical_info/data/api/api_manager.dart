@@ -17,6 +17,7 @@ import '../models/response/skill_model.dart';
 
 class TechApiManager {
   final Dio _dio;
+
   String? token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxMTYyNjM0LCJpYXQiOjE3NTExMTk0MzQsImp0aSI6ImM4MTlmZTk3MzY2YTRiZDFhMjUxMzk1MTNkMjNlYmJhIiwidXNlcl9pZCI6MjksImlkIjoyOSwiZmlyc3ROYW1lIjoidGVzdCIsImxhc3ROYW1lIjoidGVzdCIsImVtYWlsIjoiZmx1dHRlclRlc3QxMjNAZ21haWwuY29tIiwicm9sZSI6InNlZWtlciIsInBob3RvIjoiL21lZGlhL3Bob3Rvcy9kZWZhdWx0LnBuZyJ9.nuLv7o_OPQxKm0cT2EXahVkWpxx4ocYb22eYdUGsYTw";
   List<String> deleteApi = [
     "",
@@ -41,6 +42,26 @@ class TechApiManager {
   ];
 
   TechApiManager(this._dio);
+
+  @PostConstruct()
+  Future<void> init() async {
+    await getConstants();
+  }
+  /// get constants
+  Future<void> getConstants() async {
+    final skillsResponse = await _dio.get(
+      UrlConstants.getSkills,
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    );
+
+    final jobsResponse = await _dio.get(
+      UrlConstants.getJobs,
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    );
+
+    AppSharedData.skills = List<String>.from(skillsResponse.data);
+    AppSharedData.jobs = List<String>.from(jobsResponse.data);
+  }
 
  /// get
   Future<Result<TechInfoResponse>> getTechInfo(String token) async {
@@ -192,14 +213,12 @@ class TechApiManager {
     }
   }
   /// update
-  Future<Result<void>> updateTechInfo(String id, Map<String, dynamic> data, int updateID) async {
+  Future<Result<void>> updateTechInfo(String itemID, dynamic data, int updateID) async {
     try {
-      print("🧪 Updating item with ID: $id");
-      print("🧪 Data to send: $data");
 
       final response = await _dio.put(
-        "${updateApi[updateID]}/$id/",
-        data: data, // ✅ Already a Map, do NOT call toJson()
+        "${updateApi[updateID]}/$itemID/",
+        data: data.tojson(),
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',
@@ -207,59 +226,41 @@ class TechApiManager {
           },
         ),
       );
-
-      print("🧪 Response status: ${response.statusCode}");
-      print("🧪 Response data: ${response.data}");
-
-      // Parse returned updated object
-      final updatedJson = response.data;
-
       String? key;
       dynamic updatedModel;
 
       if (updateApi[updateID].contains("Certificate")) {
         key = "certificates";
-        updatedModel = CertificateModel.fromJson(updatedJson);
+        updatedModel = CertificateModel.fromJson(response.data);
       } else if (updateApi[updateID].contains("Course")) {
         key = "courses";
-        updatedModel = CourseModel.fromJson(updatedJson);
+        updatedModel = CourseModel.fromJson(response.data);
       } else if (updateApi[updateID].contains("Edu")) {
         key = "educations";
-        updatedModel = Educations.fromJson(updatedJson);
+        updatedModel = Educations.fromJson(response.data);
       } else if (updateApi[updateID].contains("Experience")) {
         key = "experiences";
-        updatedModel = ExperienceModel.fromJson(updatedJson);
+        updatedModel = ExperienceModel.fromJson(response.data);
       } else if (updateApi[updateID].contains("Lang")) {
         key = "languages";
-        updatedModel = LanguageModel.fromJson(updatedJson);
+        updatedModel = LanguageModel.fromJson(response.data);
       } else if (updateApi[updateID].contains("Skills")) {
         key = "skills";
-        updatedModel = SkillModel.fromJson(updatedJson);
+        updatedModel = SkillModel.fromJson(response.data);
       }
 
-      if (key != null) {
         final list = AppSharedData.techInfo?[key];
-        final index = list?.indexWhere((item) => item.id.toString() == id);
-
-        if (index != null && index != -1) {
-          print("✅ Found $key item at index $index. Updating...");
-          list![index] = updatedModel;
-        } else {
-          print("⚠️ Item not found in AppSharedData for $key with id $id");
-        }
-      }
-
+        final index = list?.indexWhere((item) => item.id.toString() == itemID);
+       list![index!] = updatedModel;
+      AppSharedData.techInfo![key!] = list;
+      
       if (response.statusCode == 200 || response.statusCode == 204) {
-        print("✅ Update successful for ID $id.");
         return Success();
       } else {
-        print("❌ Failed update with status: ${response.statusCode}");
         return Error(error: "Failed to update: ${response.statusCode}");
       }
     } catch (e) {
-      print("❌ Exception during update: $e");
       return Error(error: "Error update : $e");
     }
   }
-
 }

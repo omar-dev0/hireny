@@ -6,19 +6,14 @@ import 'package:hireny/features/my_assessment/presentation/ui/my_assessment.dart
 import 'package:hireny/features/org_profile/presentation/manager/org_profile_cubit.dart';
 import 'package:hireny/features/org_profile/presentation/ui/org_profile.dart';
 import 'package:hireny/features/organization/view/explore_job_seekers_org.dart';
-import 'package:hireny/features/profile/presentation/manager/my_courses_cubit.dart';
-import 'package:hireny/features/profile/presentation/views/my_courses_view.dart';
-import 'package:hireny/features/seeker/view/screens/courses/cubit/course_cubit.dart';
+
 import 'package:hireny/features/seeker/view/screens/courses/explore_courses_seeker.dart';
 import 'package:hireny/features/seeker/view/screens/explore_job/explore_job_seeker.dart';
 import 'package:hireny/features/seeker/view/screens/salary_insights/salary_insights_screen.dart';
-import 'package:hireny/features/show_courses/presentation/ui/manager/seeker_course_cubit.dart';
-import 'package:hireny/features/show_courses/presentation/ui/show_courses_ui.dart';
 import 'package:hireny/features/view_application/presentation/manager/app_cubit.dart';
 import 'package:hireny/features/view_application/presentation/ui/view_application.dart';
 import 'package:hireny/routes/page_route.dart';
 import 'package:hireny/widget/tabbar.dart';
-import '../core/widgets/sideBar.dart';
 
 import '../features/admin/view/personal_profile_admin.dart';
 import '../features/admin/view/verify_organization_admin.dart';
@@ -39,6 +34,8 @@ import '../features/organization/view/service_details_org.dart';
 import '../features/seeker/view/screens/course_details/course_screen_seeker_details.dart';
 import '../features/seeker/view/screens/job_detailes/cubit/job_detailes_cubit.dart';
 import '../features/seeker/view/screens/job_detailes/job_detailes_screen.dart';
+import '../features/show_courses/presentation/ui/manager/seeker_course_cubit.dart';
+import '../features/show_courses/presentation/ui/views/my_courses_view.dart';
 import '../technical_info/presentation/technical_view.dart';
 import '../utils/constants/app_colors.dart';
 import '../utils/data_shared/app_shared_data.dart';
@@ -92,7 +89,7 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
     return MaterialPageRoute(
       builder:
           (_) => BlocProvider(
-            create: (_) => getIt.get<MyCoursesCubit>(),
+            create: (_) => getIt.get<SeekerCoursesCubit>(),
             child: MyCoursesView(),
           ),
     );

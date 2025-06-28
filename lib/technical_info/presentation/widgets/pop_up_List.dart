@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
-void showSkillSearchDialog(BuildContext context, List<String> allSkills, Function(String) onSkillSelected) {
+import '../../../utils/constants/app_colors.dart';
+
+void showSkillSearchDialog(BuildContext context, List<String> items) {
   showDialog(
     context: context,
     builder: (context) {
       TextEditingController searchController = TextEditingController();
-      List<String> filteredSkills = List.from(allSkills);
-
+      List<String> filteredSkills = List.from(items);
       return StatefulBuilder(
         builder: (context, setState) {
           return AlertDialog(
+            backgroundColor: AppColors.white,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            title: const Text("Search Skills"),
+            title: const Text("Search"),
             content: SizedBox(
               width: double.maxFinite,
               child: Column(
@@ -25,7 +27,7 @@ void showSkillSearchDialog(BuildContext context, List<String> allSkills, Functio
                     ),
                     onChanged: (value) {
                       setState(() {
-                        filteredSkills = allSkills
+                        filteredSkills = items
                             .where((skill) => skill.toLowerCase().contains(value.toLowerCase()))
                             .toList();
                       });
@@ -40,7 +42,7 @@ void showSkillSearchDialog(BuildContext context, List<String> allSkills, Functio
                         return ListTile(
                           title: Text(filteredSkills[index]),
                           onTap: () {
-                            onSkillSelected(filteredSkills[index]);
+                            // onSkillSelected(filteredSkills[index]);
                             Navigator.pop(context); // close popup
                           },
                         );

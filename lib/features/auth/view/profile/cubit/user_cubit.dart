@@ -103,19 +103,13 @@ class UserCubit extends Cubit<UserStates> {
           selectedCareerLevel = user.careerLevel;
           selectedEmploymentStatus = user.employmentStatus;
           birthDateController.text = user.dob ?? '';
-          for (var link in user.links ?? []) {
-            final type = link['type']?.toString() ?? '';
-            final url = link['url']?.toString() ?? '';
+          for (UserLink? link in user.links) {
             fieldPairs.add({
-              'type': type,
-              'link': TextEditingController(text: url),
+              'type': link?.type,
+              'value': TextEditingController(text: link?.url ?? ''),
             });
           }
-          for (var pair in fieldPairs) {
-            final type = pair['type'];
-            final url = pair['link'];
-            print('Link Type: $type, URL: $url');
-          }
+
         }
         emit(SuccessUpdatedState());
         return user;
@@ -196,15 +190,14 @@ class UserCubit extends Cubit<UserStates> {
 
   void addFieldPair() {
     fieldPairs.add({
-      'linkType': TextEditingController(),
-      'link': TextEditingController(),
+      'type': null,
+      'value': TextEditingController(),
     });
     emit(SuccessUpdatedState());
   }
 
   void removeFieldPair(int index) {
-    fieldPairs[index]['linkType']?.dispose();
-    fieldPairs[index]['link']?.dispose();
+    fieldPairs[index]['value']?.dispose();
     fieldPairs.removeAt(index);
     emit(SuccessUpdatedState());
   }

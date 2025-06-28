@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hireny/technical_info/presentation/widgets/popUpTextField.dart';
+import 'package:hireny/technical_info/presentation/widgets/pop_up_List.dart';
 import 'package:hireny/technical_info/presentation/widgets/pop_up_form.dart';
+import 'package:hireny/utils/data_shared/app_shared_data.dart';
 
 import '../../../utils/constants/app_colors.dart';
 import '../../../utils/constants/app_fonts.dart';
@@ -23,8 +25,17 @@ class sectionHeader extends StatelessWidget {
         children: [
           Align(alignment:Alignment.centerLeft,child: Text(title,style: AppFonts.textFieldStyle.copyWith(fontSize: 22),)),
           ElevatedButton(
+
               onPressed: (){
+                if(title=="Languages" ){
+                  showSkillSearchDialog(context,AppSharedData.lang);
+
+                }else if(title =="Skills"){
+                  showSkillSearchDialog(context,AppSharedData.lang);
+                }else{
                   popUpForm(context,(){},title);
+
+                }
               },
               style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primary,
