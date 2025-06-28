@@ -1,5 +1,3 @@
-// /features/course/presentation/ui/explore_course_screen_content.dart
-
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -55,11 +53,25 @@ class CourseContent extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 20.h),
-                  DynamicFilterChipsWidget(
-                    chipLabels: chipLabels,
-                    onChipPressed: onChipPressed,
-                    onSelectionChanged: (Set<int> selectedIndices) {
-                      print("Selected chips: $selectedIndices");
+                  BlocBuilder<CourseCubit, CourseState>(
+                    builder: (context, state) {
+                      // Determine which chips are 'selected' based on the cubit's filter state
+                      Set<int> selectedChips = {};
+                      if (cubit.selectedCategoryIndices.isNotEmpty) {
+                        selectedChips.add(chipLabels.indexOf('Category'));
+                      }
+                      if (cubit.selectedDateFilter != 'All') {
+                        selectedChips.add(chipLabels.indexOf('Date Published'));
+                      }
+                      if (cubit.minPriceFilter != null || cubit.maxPriceFilter != null) {
+                        selectedChips.add(chipLabels.indexOf('Price'));
+                      }
+
+                      return DynamicFilterChipsWidget(
+                        chipLabels: chipLabels,
+                        onChipPressed: onChipPressed,
+                        selectedChipIndices: selectedChips,
+                      );
                     },
                   ),
                   SizedBox(height: 24.h),
@@ -113,3 +125,4 @@ class CourseContent extends StatelessWidget {
     );
   }
 }
+

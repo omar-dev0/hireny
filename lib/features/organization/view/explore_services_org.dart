@@ -21,7 +21,7 @@ class ExploreServicesOrg extends StatefulWidget {
 class _ExploreServicesOrgState extends State<ExploreServicesOrg> {
   final List<String> chipLabels = [
     'Category',
-    'Price',
+    // 'Price',
   ];
 
 
@@ -29,14 +29,20 @@ class _ExploreServicesOrgState extends State<ExploreServicesOrg> {
   @override
   Widget build(BuildContext context) {
     final List<Function()?> onChipPressed = [
-          () => showDynamicBottomSheet(context: context,title: "Select your category" , items: [
+          () => showDynamicBottomSheet(context: context,title: "Select your category"
+              ,
+              onSelectedIndicesChanged: (selectedIndices) {
+
+              }
+              ,
+              items: [
         "Commerce",
         "Telecommunications",
         "Hotels & Tourism",
         "Education",
         "Financial Services"
       ]),
-          () => showDynamicInputBottomSheet(context: context,title: "Select  Price Range" , minHint: "Min Price", maxHint: "Max Price", buttonText: "Filter"),
+          // () => showDynamicInputBottomSheet(context: context,title: "Select  Price Range" , minHint: "Min Price", maxHint: "Max Price", buttonText: "Filter"),
     ];
     return Scaffold(
       backgroundColor: AppColors.subPrimary,
@@ -58,13 +64,13 @@ class _ExploreServicesOrgState extends State<ExploreServicesOrg> {
                   Text("Explore Services",style: AppFonts.mainText,),
                   Text("Discover Services to boost your company and achieve your goals.",style: AppFonts.secMain,textAlign: TextAlign.center,),
                   SizedBox(height: 20.h,),
-                  DynamicFilterChipsWidget(
-                    chipLabels: chipLabels,
-                    onChipPressed: onChipPressed,
-                    onSelectionChanged: (Set<int> selectedIndices) {
-                      print("Selected chips: $selectedIndices");
-                    },
-                  ),
+                  // DynamicFilterChipsWidget(
+                  //   chipLabels: chipLabels,
+                  //   onChipPressed: onChipPressed,
+                  //   onSelectionChanged: (Set<int> selectedIndices) {
+                  //     print("Selected chips: $selectedIndices");
+                  //   },
+                  // ),
                   SizedBox(height: 20.h,),
                   Text("All Services (2310)",style: AppFonts.mainText,),
                 ],

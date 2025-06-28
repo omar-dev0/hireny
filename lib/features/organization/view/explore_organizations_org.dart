@@ -41,7 +41,11 @@ class _ExploreOrganizationsOrgState extends State<ExploreOrganizationsOrg> {
             "Hotels & Tourism",
             "Education",
             "Financial Services"
-          ]),
+          ],
+              onSelectedIndicesChanged: (selectedIndices) {
+
+              }
+          ),
           () => showDynamicBottomSheet(
           context: context,
           title: "Select your Size",
@@ -51,7 +55,11 @@ class _ExploreOrganizationsOrgState extends State<ExploreOrganizationsOrg> {
             "500 - 1000",
             "1000 - 5000",
             "> 5000",
-          ]),
+          ],
+              onSelectedIndicesChanged: (selectedIndices) {
+
+              }
+          ),
     ];
 
     return Scaffold(
@@ -78,13 +86,13 @@ class _ExploreOrganizationsOrgState extends State<ExploreOrganizationsOrg> {
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 20.h),
-                  DynamicFilterChipsWidget(
-                    chipLabels: chipLabels,
-                    onChipPressed: onChipPressed,
-                    onSelectionChanged: (Set<int> selectedIndices) {
-                      print("Selected chips: $selectedIndices");
-                    },
-                  ),
+                  // DynamicFilterChipsWidget(
+                  //   chipLabels: chipLabels,
+                  //   onChipPressed: onChipPressed,
+                  //   onSelectionChanged: (Set<int> selectedIndices) {
+                  //     print("Selected chips: $selectedIndices");
+                  //   },
+                  // ),
                   SizedBox(height: 20.h),
                   Text("All Organizations (2310)", style: AppFonts.mainText),
                   SizedBox(height: 15.h),

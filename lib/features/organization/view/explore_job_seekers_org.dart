@@ -42,23 +42,40 @@ class _ExploreJobSeekersOrgState extends State<ExploreJobSeekersOrg> {
             "Hotels & Tourism",
             "Education",
             "Financial Services"
-          ]),
+          ],
+              onSelectedIndicesChanged: (selectedIndices) {
+
+              }
+          ),
           () => showDynamicBottomSheet(context: context,title: "Select  Career Level" , items: [
             "No-experience",
             "Fresher",
             "Intermediate",
             "Expert",
-          ]),
+          ],
+              onSelectedIndicesChanged: (selectedIndices) {
+
+              }
+          ),
           () => showDynamicBottomSheet(context: context,title: "Select  Employment Statuts" , items: [
             "Employed",
             "Unemployed",
             "Freelancer",
-          ]),
-          () => showDynamicBottomSheet(context: context,title: "Select  Gender" , items: [
+          ],
+              onSelectedIndicesChanged: (selectedIndices) {
+
+              }
+          ),
+          () => showDynamicBottomSheet(context: context,title: "Select  Gender"
+              , items: [
             "Male",
             "Female",
-          ]),
-          () => showDynamicInputBottomSheet(context: context,title: "Select  Age" , minHint: "Min Age", maxHint: "Max Age", buttonText: "Filter"),
+          ],
+              onSelectedIndicesChanged: (selectedIndices) {
+
+              }
+          ),
+          // () => showDynamicInputBottomSheet(context: context,title: "Select  Age" , minHint: "Min Age", maxHint: "Max Age", buttonText: "Filter"),
     ];
     return Scaffold(
       backgroundColor: AppColors.subPrimary,
@@ -80,13 +97,13 @@ class _ExploreJobSeekersOrgState extends State<ExploreJobSeekersOrg> {
                   Text("Explore Job Seekers",style: AppFonts.mainText,),
                   Text("Discover courses to boost your skills.json and achieve your goals.",style: AppFonts.secMain,textAlign: TextAlign.center,),
                   SizedBox(height: 20.h,),
-                  DynamicFilterChipsWidget(
-                    chipLabels: chipLabels,
-                    onChipPressed: onChipPressed,
-                    onSelectionChanged: (Set<int> selectedIndices) {
-                      print("Selected chips: $selectedIndices");
-                    },
-                  ),
+                  // DynamicFilterChipsWidget(
+                  //   chipLabels: chipLabels,
+                  //   onChipPressed: onChipPressed,
+                  //   onSelectionChanged: (Set<int> selectedIndices) {
+                  //     print("Selected chips: $selectedIndices");
+                  //   },
+                  // ),
                   SizedBox(height: 20.h,),
                   Text("All Job Seekers (2310)",style: AppFonts.mainText,),
                 ],

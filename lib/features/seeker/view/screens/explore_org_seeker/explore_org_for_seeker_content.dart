@@ -25,6 +25,8 @@ class ExploreOrgForSeekerContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = BlocProvider.of<OrgPostCubit>(context);
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
       child: CustomScrollView(
@@ -50,14 +52,29 @@ class ExploreOrgForSeekerContent extends StatelessWidget {
                 SizedBox(height: 20.h),
 
                 /// Animated Filter Chips
-                FadeInLeft(
-                  duration: Duration(milliseconds: 600),
-                  child: DynamicFilterChipsWidget(
-                    chipLabels: chipLabels,
-                    onChipPressed: onChipPressed,
-                    onSelectionChanged: (Set<int> selectedIndices) {
-                    },
-                  ),
+                BlocBuilder<OrgPostCubit, OrgPostState>(
+                  builder: (context, state) {
+                    Set<int> selectedChips = {};
+                    // Determine which chips are 'selected' based on the cubit's filter state
+                    if (cubit.selectedLocationIndices.isNotEmpty) {
+                      selectedChips.add(chipLabels.indexOf('Location'));
+                    }
+                    if (cubit.selectedIndustryIndices.isNotEmpty) {
+                      selectedChips.add(chipLabels.indexOf('Industry'));
+                    }
+                    if (cubit.selectedSizeIndices.isNotEmpty) {
+                      selectedChips.add(chipLabels.indexOf('Size'));
+                    }
+                    if (cubit.selectedDateFilter != 'All') {
+                      selectedChips.add(chipLabels.indexOf('Date Posted'));
+                    }
+
+                    return DynamicFilterChipsWidget(
+                      chipLabels: chipLabels,
+                      onChipPressed: onChipPressed,
+                      selectedChipIndices: selectedChips,
+                    );
+                  },
                 ),
                 SizedBox(height: 20.h),
 
@@ -117,3 +134,4 @@ class ExploreOrgForSeekerContent extends StatelessWidget {
     );
   }
 }
+
