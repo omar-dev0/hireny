@@ -23,7 +23,9 @@ class _ExploreCoursesSeekerState extends State<ExploreCoursesSeeker> {
   @override
   void initState() {
     super.initState();
-    context.read<CourseCubit>().fetchNotRegisteredCourses();
+    if (AppSharedData.courses.isEmpty) {
+      context.read<CourseCubit>().fetchNotRegisteredCourses();
+    }
   }
 
   @override
@@ -32,9 +34,12 @@ class _ExploreCoursesSeekerState extends State<ExploreCoursesSeeker> {
       builder: (context, state) {
         if (state is CourseLoading) {
           return LoadingDialog();
-        } else if (state is CourseError) {
+        }
+        if (state is CourseLoading && AppSharedData.jobPosts.isEmpty) {
+          return LoadingDialog();
+        } else if (state is CourseError && AppSharedData.jobPosts.isEmpty) {
           return ErrorDialog(message: state.message,);
-        } else if (state is CourseLoaded) {
+        } else  {
           return CourseContent(
             chipLabels: ["Category", "Date Published", "Price"],
             onChipPressed: [
@@ -42,12 +47,6 @@ class _ExploreCoursesSeekerState extends State<ExploreCoursesSeeker> {
                   () => _showDatePublishedBottomSheet(context),
                   () => _showPriceRangeBottomSheet(context),
             ],
-          );
-        } else {
-          return const Scaffold(
-            body: Center(
-              child: Text("Initial State"),
-            ),
           );
         }
       },

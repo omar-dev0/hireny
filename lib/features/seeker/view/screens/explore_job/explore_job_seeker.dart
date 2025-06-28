@@ -31,20 +31,15 @@ class _ExploreJobsForJobSeekerState extends State<ExploreJobsForJobSeeker> {
   Widget build(BuildContext context) {
     return BlocBuilder<JobPostCubit, JobPostState>(
       builder: (context, state) {
-        if (state is JobPostLoading && AppSharedData.jobPosts.isEmpty) {
+        if (state is JobPostLoading) {
           // Show a simple loading indicator if no data is loaded yet
-          return const Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
+          return LoadingDialog();
+        }if (state is JobPostLoading && AppSharedData.jobPosts.isEmpty) {
+          // Show a simple loading indicator if no data is loaded yet
+          return LoadingDialog();
         } else if (state is JobPostError && AppSharedData.jobPosts.isEmpty) {
           // Show an error message if there's an error and no data
-          return Scaffold(
-            body: Center(
-              child: Text("Error loading job posts: ${state.message}"),
-            ),
-          );
+          return   ErrorDialog(message: state.message,);
         } else {
           // Always return JobContent once data is available or after initial load
           return JobContent(

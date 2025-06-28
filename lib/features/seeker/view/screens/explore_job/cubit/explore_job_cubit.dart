@@ -109,8 +109,8 @@ class JobPostCubit extends Cubit<JobPostState> {
     // Apply category filter
     Set<int> selectedCategoryIndices = _currentFilters['category'];
     if (selectedCategoryIndices.isNotEmpty) {
-      final List<String> allCategories = AppSharedData.categories;
-      final List<String> selectedCategories = selectedCategoryIndices.map((i) => allCategories[i]).toList();
+      final List<String> allCategories = AppSharedData.industries;
+      final List<String> selectedCategories = selectedCategoryIndices.map((i) => allCategories[i].toLowerCase()).toList();
       filteredList = filteredList
           .where((jobPost) =>
           jobPost.category.any((cat) => selectedCategories.contains(cat.toLowerCase())))

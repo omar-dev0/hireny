@@ -88,7 +88,7 @@ class OrgPostCubit extends Cubit<OrgPostState> {
     Set<int> selectedIndustryIndices = _currentFilters['industry'];
     if (selectedIndustryIndices.isNotEmpty) {
       final List<String> allIndustries = AppSharedData.industries;
-      final List<String> selectedIndustries = selectedIndustryIndices.map((i) => allIndustries[i]).toList();
+      final List<String> selectedIndustries = selectedIndustryIndices.map((i) => allIndustries[i].toLowerCase()).toList();
       filteredList = filteredList
           .where((orgPost) =>
           selectedIndustries.contains(orgPost.industry.toLowerCase()))

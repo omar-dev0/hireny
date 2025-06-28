@@ -8,7 +8,6 @@ import '../../../../domain/repo_contract/seeker_repository.dart';
 import 'course_states.dart';
 
 @injectable
-@injectable
 class CourseCubit extends Cubit<CourseState> {
   final SeekerRepository courseRepository;
 
@@ -76,8 +75,8 @@ class CourseCubit extends Cubit<CourseState> {
     // Apply category filter
     Set<int> selectedCategoryIndices = _currentFilters['category'];
     if (selectedCategoryIndices.isNotEmpty) {
-      final List<String> allIndustries = AppSharedData.industries;
-      final List<String> selectedCategories = selectedCategoryIndices.map((i) => allIndustries[i]).toList();
+      final List<String> allCategories = AppSharedData.industries;
+      final List<String> selectedCategories = selectedCategoryIndices.map((i) => allCategories[i].toLowerCase()).toList();
       filteredList = filteredList
           .where((course) =>
           course.category.any((cat) => selectedCategories.contains(cat.toLowerCase())))

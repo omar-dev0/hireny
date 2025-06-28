@@ -32,6 +32,9 @@ class _ExploreOrgForSeekerState extends State<ExploreOrgForSeeker> {
   Widget build(BuildContext context) {
     return BlocBuilder<OrgPostCubit, OrgPostState>(
       builder: (context, state) {
+        if (state is OrgPostLoading) {
+          return LoadingDialog();
+        }
         if (state is OrgPostLoading && AppSharedData.orgPosts.isEmpty) {
           // Show a simple loading indicator if no data is loaded yet
           return LoadingDialog();
