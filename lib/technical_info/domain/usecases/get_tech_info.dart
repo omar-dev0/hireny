@@ -8,8 +8,8 @@ class GetTechInfo {
   final TechRepoInterface techRepo;
   GetTechInfo(this.techRepo);
 
-  Future<Result<TechInfoResponse>> call(String id) async {
-    return await techRepo.getTechInfo(id);
+  Future<Result<TechInfoResponse>> call(String id)  {
+    return  techRepo.getTechInfo(id);
   }
 
 }

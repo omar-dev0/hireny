@@ -34,11 +34,10 @@ void popUpForm(BuildContext context, Function()? onPressed, String title,
                         onPressed: () {
                           if (techCubit.formKey.currentState!.validate()) {
                             if(updateFlag){
-                              techCubit.addTechInfo();
                               onPressed?.call();
                               Navigator.pop(dialogContext);
                             }else{
-                              techCubit.addTechInfo();
+                              // techCubit.addTechInfo();
                               onPressed?.call();
                               Navigator.pop(dialogContext);
                             }

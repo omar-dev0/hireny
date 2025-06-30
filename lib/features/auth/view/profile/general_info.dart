@@ -205,7 +205,7 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                   child: CustomTextField(
                                     label: "Birth Date",
                                     controller: cubit.birthDateController,
-                                    hint: "dd/mm/yyyy",
+                                    hint: "yyyy/mm/dd",
                                     prefixIcon: Icon(Icons.calendar_today_outlined),
                                     onValidate: (value) =>
                                         cubit.validateDate(value),

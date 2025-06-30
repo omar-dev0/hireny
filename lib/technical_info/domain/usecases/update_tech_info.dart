@@ -8,8 +8,8 @@ class UpdateTechInfo {
 
   UpdateTechInfo(this.techRepo);
 
-  Future<Result<void>> call(String id,dynamic data,int updateID) async {
-    return await techRepo.updateTechInfo(id,data,updateID);
+  Future<Result<void>> call(String id,dynamic data,int updateID)  {
+    return  techRepo.updateTechInfo(id,data,updateID);
   }
 
 }

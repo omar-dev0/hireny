@@ -16,9 +16,7 @@ class Section extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        sectionHeader(title: title, onAddPressed: () {
-
-        },),
+        sectionHeader(title: title),
         SizedBox(
           height: 320,
           child: ListView.separated(

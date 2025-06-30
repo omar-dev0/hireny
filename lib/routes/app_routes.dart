@@ -13,6 +13,7 @@ import 'package:hireny/features/seeker/view/screens/salary_insights/salary_insig
 import 'package:hireny/features/view_application/presentation/manager/app_cubit.dart';
 import 'package:hireny/features/view_application/presentation/ui/view_application.dart';
 import 'package:hireny/routes/page_route.dart';
+import 'package:hireny/technical_info/presentation/manager/technical_info_cubit.dart';
 import 'package:hireny/widget/tabbar.dart';
 
 import '../features/admin/view/personal_profile_admin.dart';
@@ -104,6 +105,15 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
   if (name == PagesRoute.techInfo) {
     return MaterialPageRoute(builder: (_) => const TechnicalInfoView());
   }
+  // if (name == PagesRoute.techInfo) {
+  //   return MaterialPageRoute(
+  //     builder:
+  //         (context) => BlocProvider(
+  //       create: (context) => getIt.get<TechnicalInfoCubit>(),
+  //       child: TechnicalInfoView(),
+  //     ),
+  //   );
+  // }
   if (name == PagesRoute.changePassword) {
     return MaterialPageRoute(
       builder:

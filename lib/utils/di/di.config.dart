@@ -145,12 +145,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i867.AppDataInterface>(() => _i284.LocalAppData());
     gh.singleton<_i758.ApiManger>(() => _i758.ApiManger(gh<_i361.Dio>()));
     gh.singleton<_i514.SeekerApi>(() => _i514.SeekerApi(gh<_i361.Dio>()));
-    gh.singletonAsync<_i409.TechApiManager>(() {
-      final i = _i409.TechApiManager(gh<_i361.Dio>());
-      return i.init().then((_) => i);
-    });
     gh.singleton<_i451.CoursesApiManager>(
         () => _i451.CoursesApiManager(gh<_i361.Dio>()));
+    gh.singleton<_i409.TechApiManager>(
+        () => _i409.TechApiManager(gh<_i361.Dio>()));
     gh.factory<_i656.AdminRepoInterface>(
         () => _i587.AdminRepoImpl(gh<_i5.AdminDataInterface>()));
     gh.factory<_i346.AppRepoInterface>(
@@ -159,8 +157,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i886.SeekerDataSourceImpl(gh<_i514.SeekerApi>()));
     gh.factory<_i648.OrgRepo>(
         () => _i564.OrgRepoImpl(gh<_i925.OrgDataInterface>()));
-    gh.lazySingletonAsync<_i411.TechDataSourceInterface>(() async =>
-        _i136.TechDataSource(await getAsync<_i409.TechApiManager>()));
+    gh.lazySingleton<_i411.TechDataSourceInterface>(
+        () => _i136.TechDataSource(gh<_i409.TechApiManager>()));
     gh.factory<_i364.AuthDataSource>(
         () => _i591.DataSourcAuthImp(gh<_i758.ApiManger>()));
     gh.factory<_i886.OrgProfileRepo>(
@@ -199,8 +197,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i81.VerifyOrg>(),
           gh<_i598.ShowOrg>(),
         ));
-    gh.lazySingletonAsync<_i854.TechRepoInterface>(() async =>
-        _i557.TechRepoImpl(await getAsync<_i411.TechDataSourceInterface>()));
+    gh.lazySingleton<_i854.TechRepoInterface>(
+        () => _i557.TechRepoImpl(gh<_i411.TechDataSourceInterface>()));
     gh.factory<_i1064.AddReview>(
         () => _i1064.AddReview(profileRepo: gh<_i886.OrgProfileRepo>()));
     gh.factory<_i431.GetOrgProfile>(
@@ -233,23 +231,22 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i714.ShowCourses(courseRepo: gh<_i630.CourseRepo>()));
     gh.factory<_i401.JobPostCubit>(
         () => _i401.JobPostCubit(gh<_i386.SeekerRepository>()));
-    gh.factoryAsync<_i377.DeleteTechInfo>(() async =>
-        _i377.DeleteTechInfo(await getAsync<_i854.TechRepoInterface>()));
-    gh.factoryAsync<_i394.GetTechInfo>(() async =>
-        _i394.GetTechInfo(await getAsync<_i854.TechRepoInterface>()));
-    gh.factoryAsync<_i883.AddTechInfo>(() async =>
-        _i883.AddTechInfo(await getAsync<_i854.TechRepoInterface>()));
-    gh.factoryAsync<_i120.UpdateTechInfo>(() async =>
-        _i120.UpdateTechInfo(await getAsync<_i854.TechRepoInterface>()));
+    gh.factory<_i377.DeleteTechInfo>(
+        () => _i377.DeleteTechInfo(gh<_i854.TechRepoInterface>()));
+    gh.factory<_i394.GetTechInfo>(
+        () => _i394.GetTechInfo(gh<_i854.TechRepoInterface>()));
+    gh.factory<_i883.AddTechInfo>(
+        () => _i883.AddTechInfo(gh<_i854.TechRepoInterface>()));
+    gh.factory<_i120.UpdateTechInfo>(
+        () => _i120.UpdateTechInfo(gh<_i854.TechRepoInterface>()));
     gh.factory<_i583.SeekerCoursesCubit>(
         () => _i583.SeekerCoursesCubit(gh<_i714.ShowCourses>()));
-    gh.factoryAsync<_i953.TechnicalInfoCubit>(
-        () async => _i953.TechnicalInfoCubit(
-              await getAsync<_i883.AddTechInfo>(),
-              await getAsync<_i394.GetTechInfo>(),
-              await getAsync<_i377.DeleteTechInfo>(),
-              await getAsync<_i120.UpdateTechInfo>(),
-            ));
+    gh.factory<_i953.TechnicalInfoCubit>(() => _i953.TechnicalInfoCubit(
+          gh<_i883.AddTechInfo>(),
+          gh<_i394.GetTechInfo>(),
+          gh<_i377.DeleteTechInfo>(),
+          gh<_i120.UpdateTechInfo>(),
+        ));
     return this;
   }
 }

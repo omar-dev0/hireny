@@ -44,6 +44,9 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
 
   String? selectedJobType;
   String? selectedJobTitle;
+  String? selectedSkill;
+  String? selectedLang;
+
 
 
   final List<ExperienceModel> experiences = [];
@@ -114,12 +117,11 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
     }
   }
 /// add
-  Future<Result<void>> addTechInfo() async {
+  Future<Result<void>> addTechInfo({isLang = false,isSkill = false}) async {
     emit(TechnicalInfoLoading());
     try {
       dynamic dataToSend;
       int addID = -1;
-
       if (isCertificate) {
         isCertificate = false;
         dataToSend = CertificateModel(
@@ -132,6 +134,7 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
           updatedAt: DateTime.now().toIso8601String(),
         );
       } else if (isCourse) {
+
         isCourse = false;
         dataToSend = CourseModel(
           id: courses.isNotEmpty ? courses.last.id + 1 : 1,
@@ -170,6 +173,25 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
           updatedAt: DateTime.now().toIso8601String(),
           user: AppSharedData.user?.id,
         );
+      }else if(isSkill){
+        print(isSkill);
+        dataToSend  = SkillModel(id: AppSharedData.skills.length,
+            skillName: selectedSkill!,
+          createdAt: DateTime.now().toIso8601String(),
+          updatedAt: DateTime.now().toIso8601String(),
+          user: AppSharedData.user!.id,
+        );
+        
+      }
+      else if(isLang){
+        dataToSend  = LanguageModel(
+          id: AppSharedData.lang.length,
+          languageName: selectedLang!,
+          createdAt: DateTime.now().toIso8601String(),
+          updatedAt: DateTime.now().toIso8601String(),
+          user: AppSharedData.user!.id,
+        );
+
       }
 
       addID = _getID(dataToSend);
@@ -194,7 +216,6 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
 /// delete
   Future<Result<void>> deleteItem(String id, dynamic type) async {
     int deleteID = _getID(type);
-
     try {
       emit(TechnicalInfoLoading());
 
@@ -202,7 +223,7 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
 
       if (result is Success<void>) {
         await getTechInfo();
-        emit(TechnicalInfoSuccess()); // Ensure UI updates even if same data
+        emit(TechnicalInfoSuccess());
         return result;
       } else if (result is Error<void>) {
         emit(TechnicalInfoFailure(result.error));
@@ -293,12 +314,15 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
     }
   }
   int _getID(dynamic type) {
+    if (type is SkillModel) return 5;
+    if (type is LanguageModel) return 6;
+    if (type is CourseModel) return 1;
     if (type is CertificateModel) return 2;
     if (type is Educations) return 3;
     if (type is ExperienceModel) return 4;
-    if (type is CourseModel) return 1;
-    return -1;
+    return 0;
   }
+
 
   void setFlagByTitle(String title) {
   isCourse = false;
