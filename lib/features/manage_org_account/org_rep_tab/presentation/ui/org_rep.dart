@@ -1,78 +1,111 @@
 import 'package:flutter/material.dart';
-
+import 'package:hireny/core/widgets/sideBar.dart';
+import 'package:hireny/routes/page_route.dart';
 import '../../../../../utils/constants/app_colors.dart';
+import '../../../../../utils/widgets/custome_appbar_drawer.dart';
 
 class OrgRep extends StatelessWidget {
   const OrgRep({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        title: Text("Organization representatives",style:theme.textTheme.titleLarge?.copyWith(
-          color: AppColors.primary
-        ),),
-        centerTitle:true,
-      ),
-      // todo drawer color
-      drawer: Center(),
-      body:Padding(
-        padding: const EdgeInsets.all(8.0),
+    final theme = Theme.of(context);
+
+    return CustomScreen(
+      title: 'Organization Representatives',
+      drawer: SideBarScreen(currentRoute: PagesRoute.orgRep),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            SizedBox(child: ElevatedButton(
-                 style: ElevatedButton.styleFrom(
-                   backgroundColor: AppColors.primary,
-                   shape: ContinuousRectangleBorder(
-                       borderRadius:BorderRadius.circular(16))
-                 ),
-                onPressed: (){},
-                child: Text("add admin",style:theme.textTheme.bodySmall?.copyWith(
-                  color: AppColors.white,
-                  fontWeight: FontWeight.w500
-                ),)),),
-            SizedBox(height: 16,),
-            Expanded(child: ListView.separated(
-                itemBuilder: (context,index)=>Container(
-                  width: double.infinity,
-                  height: 90,
+            Align(
+              alignment: Alignment.centerRight,
+              child: ElevatedButton.icon(
+                onPressed: () {},
+                icon: const Icon(Icons.person_add_alt_1, color: Colors.white),
+                label: Text(
+                  "Add Admin",
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primary,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+
+            Expanded(
+              child: GridView.builder(
+                itemCount: 4,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
+                  childAspectRatio: 0.9,
+                ),
+                itemBuilder: (context, index) => Container(
                   decoration: BoxDecoration(
-                      borderRadius:BorderRadius.circular(16),
-                      color:AppColors.subPrimary
-                  ),child:
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                    color: AppColors.subPrimary,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: AppColors.primary, width: 1),
+                  ),
+                  padding: const EdgeInsets.all(12),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                        Text("Ganna Ahmed",style:theme.textTheme.bodyLarge,),
-                        Icon(Icons.delete,color: AppColors.red,),
-                      ],),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("email@gmail.com",style:theme.textTheme.bodySmall,),
+                      /// Avatar
+                      CircleAvatar(
+                        radius: 28,
+                        backgroundColor: AppColors.primary.withOpacity(0.1),
+                        child: const Icon(Icons.person, color: AppColors.primary, size: 28),
+                      ),
+                      const SizedBox(height: 8),
 
-                        ],),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                        Text("join date : 2022-10-2",style:theme.textTheme.bodySmall,),
+                      /// Name
+                      Text(
+                        "Admin ${index + 1}",
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const Spacer(),
 
-                      ],)
+                      /// Action Buttons
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.edit, size: 18, color: AppColors.primary),
+                            onPressed: () {},
+                            tooltip: 'Edit',
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.delete, size: 18, color: AppColors.red),
+                            onPressed: () {},
+                            tooltip: 'Delete',
+                          ),
+                        ],
+                      ),
+
+                      /// Join Date
+                      const SizedBox(height: 4),
+                      Text(
+                        "Joined: 2022-10-0${index + 1}",
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: AppColors.grey.withOpacity(0.8),
+                        ),
+                      ),
                     ],
                   ),
                 ),
-                ),
-                separatorBuilder: (context,index)=>SizedBox(height: 8,),
-                itemCount: 3)),
+              ),
+            ),
           ],
         ),
       ),

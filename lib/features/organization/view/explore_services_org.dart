@@ -7,6 +7,7 @@ import 'package:hireny/utils/widgets/dymanic_filter_chips.dart';
 import 'package:hireny/utils/widgets/search_bar_widget.dart';
 
 import '../../../utils/constants/helper_functions.dart';
+import '../../../utils/widgets/custom_search_bar.dart';
 import '../../../utils/widgets/explore_card.dart';
 
 class ExploreServicesOrg extends StatefulWidget {
@@ -49,10 +50,10 @@ class _ExploreServicesOrgState extends State<ExploreServicesOrg> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(height: 20.h,),
-                  SearchBarWidget(
-                    firstSearchHint: "Enter service name",
-                    secondSearchHint: "Company Name",
-                    onSearchPressed: (){},
+                  CustomSearchBar(
+                    hintText: "Search for service",
+                    onSearchChanged: (value) {
+                    },
                   ),
                   SizedBox(height: 20.h,),
                   Text("Explore Services",style: AppFonts.mainText,),

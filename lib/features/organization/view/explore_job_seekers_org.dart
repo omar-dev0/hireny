@@ -8,6 +8,7 @@ import 'package:hireny/utils/constants/app_colors.dart';
 import '../../../utils/app_assets.dart';
 import '../../../utils/constants/app_fonts.dart';
 import '../../../utils/constants/helper_functions.dart';
+import '../../../utils/widgets/custom_search_bar.dart';
 import '../../../utils/widgets/dymanic_filter_chips.dart';
 import '../../../utils/widgets/dynamic_check_box_filter_bottom_sheet.dart';
 import '../../../utils/widgets/search_bar_widget.dart';
@@ -71,11 +72,12 @@ class _ExploreJobSeekersOrgState extends State<ExploreJobSeekersOrg> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(height: 20.h,),
-                  SearchBarWidget(
-                    firstSearchHint: "Enter service name",
-                    secondSearchHint: "Job Seeker",
-                    onSearchPressed: (){},
+                  CustomSearchBar(
+                    hintText: "Search for job seeker",
+                    onSearchChanged: (value) {
+                    },
                   ),
+
                   SizedBox(height: 20.h,),
                   Text("Explore Job Seekers",style: AppFonts.mainText,),
                   Text("Discover courses to boost your skills.json and achieve your goals.",style: AppFonts.secMain,textAlign: TextAlign.center,),

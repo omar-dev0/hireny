@@ -20,15 +20,17 @@ class ServicePost extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.primary),
-          onPressed: () => Navigator.pop(context),
+        automaticallyImplyLeading: false,
+        title: Text(
+          "Post a service",
+          style: Theme.of(context).textTheme.labelLarge?.copyWith(
+              color: AppColors.white
+          ),
         ),
-        backgroundColor: AppColors.white,
-        elevation: 0,
-        title: Text("Post a Service", style: theme.textTheme.titleLarge),
         centerTitle: true,
+        backgroundColor: AppColors.white,
       ),
+
       body: BlocBuilder<ServiceOrgCubit, ServiceOrgStates>(
         builder: (context, state) {
           final cubit = context.read<ServiceOrgCubit>();
@@ -53,7 +55,8 @@ class ServicePost extends StatelessWidget {
                     controller: cubit.titleController,
                     hint: "Enter service title",
                     keyboardType: TextInputType.text,
-                    onValidate: (val) => val == null || val.isEmpty ? 'Required' : null,
+                    onValidate:
+                        (val) => val == null || val.isEmpty ? 'Required' : null,
                   ),
                   SizedBox(height: spacing),
 
@@ -62,7 +65,8 @@ class ServicePost extends StatelessWidget {
                     controller: cubit.currencyController,
                     hint: "Enter currency",
                     keyboardType: TextInputType.text,
-                    onValidate: (val) => val == null || val.isEmpty ? 'Required' : null,
+                    onValidate:
+                        (val) => val == null || val.isEmpty ? 'Required' : null,
                   ),
                   SizedBox(height: spacing),
 
@@ -71,7 +75,8 @@ class ServicePost extends StatelessWidget {
                     controller: cubit.priceController,
                     hint: "Enter service price",
                     keyboardType: TextInputType.number,
-                    onValidate: (val) => val == null || val.isEmpty ? 'Required' : null,
+                    onValidate:
+                        (val) => val == null || val.isEmpty ? 'Required' : null,
                   ),
                   SizedBox(height: spacing),
 
@@ -89,7 +94,10 @@ class ServicePost extends StatelessWidget {
                         child: CustomDropDown(
                           label: "Country",
                           selectItem: cubit.selectedCountry,
-                          items: AppSharedData.countryCityData.keys.toList().cast<String>(),
+                          items:
+                              AppSharedData.countryCityData.keys
+                                  .toList()
+                                  .cast<String>(),
                           onChanged: cubit.setCountry,
                         ),
                       ),
@@ -98,7 +106,10 @@ class ServicePost extends StatelessWidget {
                         child: CustomDropDown(
                           label: "City",
                           selectItem: cubit.selectedCity,
-                          items: AppSharedData.countryCityData[cubit.selectedCountry] ?? [],
+                          items:
+                              AppSharedData.countryCityData[cubit
+                                  .selectedCountry] ??
+                              [],
                           onChanged: cubit.setCity,
                         ),
                       ),
@@ -112,7 +123,8 @@ class ServicePost extends StatelessWidget {
                     hint: "Enter service description",
                     maxLines: 6,
                     keyboardType: TextInputType.multiline,
-                    onValidate: (val) => val == null || val.isEmpty ? 'Required' : null,
+                    onValidate:
+                        (val) => val == null || val.isEmpty ? 'Required' : null,
                   ),
                   SizedBox(height: spacing * 1.5),
 
@@ -120,14 +132,21 @@ class ServicePost extends StatelessWidget {
                     children: [
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: () => cubit.submitForm(context),
+                          onPressed: () {
+                            cubit.submitForm(context);
+                            Navigator.pop(context);
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.primary,
-                            padding: EdgeInsets.symmetric(vertical: screen.height * 0.02),
+                            padding: EdgeInsets.symmetric(
+                              vertical: screen.height * 0.02,
+                            ),
                           ),
                           child: Text(
                             "Post",
-                            style: theme.textTheme.labelLarge?.copyWith(color: Colors.white),
+                            style: theme.textTheme.labelLarge?.copyWith(
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
@@ -136,9 +155,14 @@ class ServicePost extends StatelessWidget {
                         child: OutlinedButton(
                           onPressed: () => Navigator.pop(context),
                           style: OutlinedButton.styleFrom(
-                            padding: EdgeInsets.symmetric(vertical: screen.height * 0.02),
+                            padding: EdgeInsets.symmetric(
+                              vertical: screen.height * 0.02,
+                            ),
                           ),
-                          child: Text("Cancel", style: theme.textTheme.labelLarge),
+                          child: Text(
+                            "Cancel",
+                            style: theme.textTheme.labelLarge,
+                          ),
                         ),
                       ),
                     ],

@@ -30,6 +30,17 @@ abstract class PagesRoute {
   static const String changePassword = "/changePass";
   static const String techInfo = "/techInfo";
 
+  //org
+  static const String orgRep = "/orgRep";
+  static const String orgReviewForOrg = "/orgReview";
+  static const String orgServiceRequest = "/orgRequests";
+  static const String orgAssessment = "/orgAssessment";
+  static const String orgAccount = "/orgAccount";
+  static const String orgServicePost = "/servicePost";
+  static const String servicePostDetails = "/serviceDetails";
+  static const String orgServices = "/orgServices";
+
+
 
   // admin routes
   static const String showCourses = "/showCourses";

@@ -1,90 +1,101 @@
 import 'package:flutter/material.dart';
-
+import 'package:hireny/core/widgets/sideBar.dart';
+import 'package:hireny/features/manage_org_account/reviews_tab/presentation/ui/widget/review_dialog.dart';
+import 'package:hireny/utils/widgets/custome_appbar_drawer.dart';
+import '../../../../../routes/page_route.dart';
 import '../../../../../utils/constants/app_colors.dart';
+import '../../../../../utils/constants/app_fonts.dart';
 
 class ReviewCard extends StatelessWidget {
   const ReviewCard({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        title: Text("Reviews",style:theme.textTheme.titleLarge?.copyWith(
-            color: AppColors.primary
-        ),),
-        centerTitle:true,
-      ),
-      body:  ListView.separated(
-          itemBuilder: (context,index)=>Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-                width: double.infinity,
-                height: 250,
-                decoration: BoxDecoration(
-                  color: AppColors.subPrimary,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 8,
-                      offset: Offset(0, 4),
-                    ),
-                  ],
-                ),
+    final theme = Theme.of(context);
 
-                child:
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
+    return CustomScreen(
+        title: "Reviews",
+        drawer: const SideBarScreen(currentRoute: PagesRoute.orgReviewForOrg),
+        body: ListView.separated(
+            padding: const EdgeInsets.all(16),
+            itemCount: 3,
+            separatorBuilder: (context, index) => const SizedBox(height: 16),
+            itemBuilder: (context, index) {
+              final fullComment = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. '
+                  'It has survived not only five centuries, but also the leap into electronic typesetting. '
+                  'Lorem Ipsum is simply dummy text of the printing and typesetting industry. '
+                  'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ';
+
+              return GestureDetector(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (ctx) => ReviewDialog(comment: fullComment, personName: 'person name' , ),
+                  );
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.lightPurple,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.08),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16, vertical: 16),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Image.asset("assets/images/comment.png", width: 30),
+                      const SizedBox(height: 12),
+
+                      /// This still shows short preview
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: AppColors.lightGrey,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: Colors.grey.shade300),
+                        ),
+                        child: Text(
+                          fullComment,
+                          style: AppFonts.textFieldStyle,
+                          maxLines: 4, // preview only
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+
+                      const SizedBox(height: 20),
+
                       Row(
                         children: [
                           CircleAvatar(
-                            backgroundColor: AppColors.white,
-                            child: Icon(Icons.corporate_fare_outlined,color: AppColors.primary,),
+                            radius: 24,
+                            backgroundColor: AppColors.primary,
+                            child: Text(
+                              'CP',
+                              style: AppFonts.mainText.copyWith(
+                                color: AppColors.white,
+                                fontSize: 18,
+                              ),
+                            ),
                           ),
-                          SizedBox(width: 8,),
-                          Text("company",style:theme.textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.w500
-                          )),
-                          SizedBox(width: 16,),
-                          Container(
-                            width: 80,
-                            height: 30,
-                            decoration: BoxDecoration(
-                                color: AppColors.grey.withOpacity(0.1),
-                                borderRadius:BorderRadius.circular(16)
-                            ),
-                            child:Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text("20m",style:theme.textTheme.titleSmall?.copyWith(
-                                  color: AppColors.grey
-                                )),
-                                SizedBox(width: 8,),
-                                Icon(Icons.schedule,color: AppColors.grey,)
-                              ],
-                            ),
-                          )
-
+                          const SizedBox(width: 16),
+                          Text(
+                            'Company Name',
+                            style: AppFonts.mainText.copyWith(fontSize: 16),
+                          ),
                         ],
                       ),
-                      SizedBox(height: 16,),
-                      Text("Lorem Ipsum is simply dummy text of the printing and"
-                          " typesetting industry. Lorem Ipsum has been the industry's"
-                          " standard dummy text ever since the 1500s, when "
-                          "an unknown printer took a galley of type and scrambled "
-                        ,style: theme.textTheme.bodyLarge,)
                     ],
                   ),
-                )
-            ),
-          ),
-          separatorBuilder: (context,index)=>SizedBox(height: 16,),
-          itemCount: 3),
-    );
+                ),
+              );
+            }));
   }
 }

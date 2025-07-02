@@ -4,8 +4,8 @@ import 'package:hireny/core/widgets/sideBar.dart';
 import 'package:hireny/features/services/presentation/ui/widgets/service_card_org.dart';
 import 'package:hireny/routes/page_route.dart';
 import 'package:hireny/utils/constants/app_fonts.dart';
+import 'package:hireny/utils/constants/app_colors.dart';
 import 'package:hireny/utils/widgets/custome_appbar_drawer.dart';
-
 
 class ServicesView extends StatelessWidget {
   const ServicesView({super.key});
@@ -43,68 +43,8 @@ class ServicesView extends StatelessWidget {
           'https://i.pravatar.cc/40?img=18',
         ],
       },
-      {
-        'name': 'UI/UX Audit',
-        'price': '\$300',
-        'company': 'UX Experts',
-        'companyLogo': 'https://i.pravatar.cc/40?img=19',
-        'profiles': [
-          'https://i.pravatar.cc/40?img=20',
-          'https://i.pravatar.cc/40?img=21',
-        ],
-      },
-      {
-        'name': 'Mobile App Design',
-        'price': '\$750',
-        'company': 'Design Studio',
-        'companyLogo': 'https://i.pravatar.cc/40?img=10',
-        'profiles': [
-          'https://i.pravatar.cc/40?img=11',
-          'https://i.pravatar.cc/40?img=12',
-          'https://i.pravatar.cc/40?img=13',
-        ],
-      },{
-        'name': 'Mobile App Design',
-        'price': '\$750',
-        'company': 'Design Studio',
-        'companyLogo': 'https://i.pravatar.cc/40?img=10',
-        'profiles': [
-          'https://i.pravatar.cc/40?img=11',
-          'https://i.pravatar.cc/40?img=12',
-          'https://i.pravatar.cc/40?img=13',
-        ],
-      },{
-        'name': 'Mobile App Design',
-        'price': '\$750',
-        'company': 'Design Studio',
-        'companyLogo': 'https://i.pravatar.cc/40?img=10',
-        'profiles': [
-          'https://i.pravatar.cc/40?img=11',
-          'https://i.pravatar.cc/40?img=12',
-          'https://i.pravatar.cc/40?img=13',
-        ],
-      },{
-        'name': 'Mobile App Design',
-        'price': '\$750',
-        'company': 'Design Studio',
-        'companyLogo': 'https://i.pravatar.cc/40?img=10',
-        'profiles': [
-          'https://i.pravatar.cc/40?img=11',
-          'https://i.pravatar.cc/40?img=12',
-          'https://i.pravatar.cc/40?img=13',
-        ],
-      },{
-        'name': 'Mobile App Design',
-        'price': '\$750',
-        'company': 'Design Studio',
-        'companyLogo': 'https://i.pravatar.cc/40?img=10',
-        'profiles': [
-          'https://i.pravatar.cc/40?img=11',
-          'https://i.pravatar.cc/40?img=12',
-          'https://i.pravatar.cc/40?img=13',
-        ],
-      },
     ];
+
     return CustomScreen(
       title: "Services",
       drawer: SideBarScreen(currentRoute: PagesRoute.myCourses),
@@ -115,7 +55,6 @@ class ServicesView extends StatelessWidget {
           children: [
             const SizedBox(height: 16),
 
-            /// 🏷 Title
             FadeInDown(
               duration: const Duration(milliseconds: 600),
               child: Text(
@@ -123,6 +62,27 @@ class ServicesView extends StatelessWidget {
                 style: AppFonts.mainText,
               ),
             ),
+            const SizedBox(height: 16),
+
+            Align(
+              alignment: Alignment.centerRight,
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.pushNamed(context, PagesRoute.orgServicePost);
+                },
+                icon: const Icon(Icons.add, size: 18),
+                label: const Text("Add New Post"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primary,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                ),
+              ),
+            ),
+
 
             const SizedBox(height: 12),
 
@@ -142,7 +102,9 @@ class ServicesView extends StatelessWidget {
                   return FadeInUp(
                     duration: Duration(milliseconds: 400 + index * 100),
                     child: InkWell(
-                      onTap: (){},
+                      onTap: () {
+                        Navigator.pushNamed(context, PagesRoute.servicePostDetails);
+                      },
                       child: ServiceCardOrg(
                         name: service['name'] ?? '',
                         price: service['price'] ?? '',

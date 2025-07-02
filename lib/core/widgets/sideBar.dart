@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:hireny/routes/page_route.dart';
-import '../../utils/constants/app_assets.dart';
-import '../../utils/constants/app_colors.dart';
+import 'package:hireny/utils/constants/app_assets.dart';
+import 'package:hireny/utils/constants/app_colors.dart';
+import 'package:hireny/utils/data_shared/app_shared_data.dart';
+import '../../features/auth/domain/modules/seeker/seeker.dart';
 
 class SideBarScreen extends StatelessWidget {
   final String currentRoute;
   const SideBarScreen({super.key, required this.currentRoute});
 
-  final List<Map<String, dynamic>> drawerItems = const [
+  bool get isSeeker => AppSharedData.user is Seeker;
+
+  List<Map<String, dynamic>> get drawerItems => isSeeker
+      ? [
     {
       "title": "General Info",
       "icon": Icons.info,
@@ -42,7 +47,44 @@ class SideBarScreen extends StatelessWidget {
     {
       "title": "AI Tools",
       "icon": Icons.smart_toy,
-      "route": PagesRoute.myCourses,
+      // "route": PagesRoute.aiTools,
+    },
+  ]
+      : [
+    {
+      "title": "General Info",
+      "icon": Icons.info,
+      "route": PagesRoute.generalInfo,
+    },
+    {
+      "title": "Representatives",
+      "icon": Icons.apartment,
+      "route": PagesRoute.orgRep,
+    },
+    {
+      "title": "Assessments",
+      "icon": Icons.assessment,
+      "route": PagesRoute.orgAssessment,
+    },
+    {
+      "title": "Service posts",
+      "icon": Icons.post_add,
+      "route": PagesRoute.orgServices,
+    },
+    {
+      "title": "Service Requests",
+      "icon": Icons.miscellaneous_services,
+      "route": PagesRoute.orgServiceRequest,
+    },
+    {
+      "title": "Reviews",
+      "icon": Icons.reviews,
+      "route": PagesRoute.orgReviewForOrg,
+    },
+    {
+      "title": "Calendar",
+      "icon": Icons.calendar_today,
+      "route": PagesRoute.calender,
     },
   ];
 
@@ -52,7 +94,7 @@ class SideBarScreen extends StatelessWidget {
       backgroundColor: AppColors.white,
       child: Column(
         children: [
-          // ✅ Animated Header
+          /// ✅ Animated Header
           FadeInDown(
             duration: const Duration(milliseconds: 500),
             child: Container(
@@ -68,7 +110,7 @@ class SideBarScreen extends StatelessWidget {
                   const SizedBox(width: 16),
                   Expanded(
                     child: Text(
-                      "User's Name",
+                      isSeeker ? "Seeker Name" : "Organization Name",
                       style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -83,12 +125,13 @@ class SideBarScreen extends StatelessWidget {
 
           const SizedBox(height: 12),
 
-          // ✅ Animated Menu Items
+          /// ✅ Animated Menu Items
           Expanded(
             child: ListView.separated(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               itemCount: drawerItems.length,
-              separatorBuilder: (_, __) => const Divider(indent: 20, endIndent: 20),
+              separatorBuilder: (_, __) =>
+              const Divider(indent: 20, endIndent: 20),
               itemBuilder: (context, index) {
                 final item = drawerItems[index];
                 final bool isSelected = currentRoute == item['route'];
@@ -98,9 +141,13 @@ class SideBarScreen extends StatelessWidget {
                   child: ListTile(
                     selected: isSelected,
                     selectedTileColor: AppColors.primary.withOpacity(0.1),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    leading: Icon(item['icon'],
-                        color: isSelected ? AppColors.primary : Colors.black54),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    leading: Icon(
+                      item['icon'],
+                      color: isSelected ? AppColors.primary : Colors.black54,
+                    ),
                     title: Text(
                       item['title'],
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
@@ -110,7 +157,8 @@ class SideBarScreen extends StatelessWidget {
                     ),
                     onTap: () {
                       if (!isSelected) {
-                        Navigator.pushReplacementNamed(context, item['route']);
+                        Navigator.pushReplacementNamed(
+                            context, item['route']);
                       } else {
                         Navigator.pop(context);
                       }
@@ -123,7 +171,7 @@ class SideBarScreen extends StatelessWidget {
 
           const Divider(indent: 20, endIndent: 20, height: 10),
 
-          // ✅ Animated Footer
+          /// ✅ Footer (Back To Home)
           FadeInUp(
             duration: const Duration(milliseconds: 700),
             child: Padding(
@@ -135,7 +183,8 @@ class SideBarScreen extends StatelessWidget {
                 },
                 child: Row(
                   children: [
-                    Icon(Icons.exit_to_app, color: AppColors.primary, size: 28),
+                    Icon(Icons.exit_to_app,
+                        color: AppColors.primary, size: 28),
                     const SizedBox(width: 10),
                     Text(
                       "Back To Home",

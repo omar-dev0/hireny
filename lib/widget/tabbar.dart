@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hireny/features/organization/view/explore_organizations_org.dart';
+import 'package:hireny/features/organization/view/explore_services_org.dart';
 import 'package:hireny/features/seeker/view/screens/courses/cubit/course_cubit.dart';
 import 'package:hireny/features/seeker/view/screens/explore_job/cubit/explore_job_cubit.dart';
 import 'package:hireny/features/seeker/view/screens/explore_org_seeker/cubit/explore_org_for_seeker_cubit.dart';
@@ -9,8 +11,11 @@ import 'package:hireny/features/seeker/view/screens/explore_job/explore_job_seek
 import 'package:hireny/features/seeker/view/screens/salary_insights/cubit/salary_cubit.dart';
 import 'package:hireny/features/seeker/view/screens/salary_insights/salary_insights_screen.dart';
 import 'package:hireny/routes/page_route.dart';
+import 'package:hireny/utils/data_shared/app_shared_data.dart';
 import 'package:hireny/utils/di/di.dart';
 
+import '../features/auth/domain/modules/seeker/seeker.dart';
+import '../features/organization/view/explore_job_seekers_org.dart';
 import '../features/seeker/view/screens/courses/explore_courses_seeker.dart';
 import '../utils/constants/app_colors.dart';
 
@@ -37,8 +42,9 @@ class TabBarApp extends StatelessWidget {
         BlocProvider(create: (context) => getIt.get<SalaryCubit>()),
         BlocProvider(create: (context)=>getIt.get<OrgPostCubit>()..fetchAllOrganizations()),
       ],
-      child: DefaultTabController(
-        length: 5,
+      child:
+      DefaultTabController(
+        length: AppSharedData.user is Seeker? 5 : 4,
         child: Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
@@ -60,36 +66,63 @@ class TabBarApp extends StatelessWidget {
               IconButton(
                 icon: Icon(Icons.person, color: AppColors.white),
                 onPressed: () {
+                  AppSharedData.user is Seeker?
+
                   Navigator.pushReplacementNamed(
                     context,
                     PagesRoute.generalInfo,
+                  ):
+                  Navigator.pushReplacementNamed(
+                    context,
+                    PagesRoute.orgAccount,
                   );
                 },
               ),
             ],
             bottom: TabBar(
-              isScrollable: true,
-              labelPadding: EdgeInsets.symmetric(horizontal: 16),
+              isScrollable: AppSharedData.user is Seeker,
+              labelPadding: AppSharedData.user is Seeker
+                  ? const EdgeInsets.symmetric(horizontal: 16)
+                  : EdgeInsets.zero,
               labelColor: AppColors.white,
-              tabAlignment: TabAlignment.start,
-              unselectedLabelColor: AppColors.white,
-              indicatorColor: AppColors.white,
-              tabs: [
+              unselectedLabelColor: AppColors.white.withOpacity(0.7),
+              indicatorColor: Colors.white,
+              indicatorWeight: 3,
+              indicatorPadding: const EdgeInsets.symmetric(horizontal: 8),
+              tabs: (AppSharedData.user is Seeker)
+                  ? const [
                 Tab(text: 'Home'),
                 Tab(text: 'Jobs'),
                 Tab(text: 'Organizations'),
                 Tab(text: 'Courses'),
                 Tab(text: 'Insights'),
+              ]
+                  : const [
+                Tab(text: 'Home'),
+                Tab(text: 'Seekers'),
+                Tab(text: 'Services'),
+                Tab(text: 'Organizations'),
               ],
             ),
+
           ),
-          body: TabBarView(
+          body:              AppSharedData.user is Seeker?
+            TabBarView(
+
             children: [
               Home(),
               ExploreJobsForJobSeeker(),
               ExploreOrgForSeeker(),
               ExploreCoursesSeeker(),
               SalaryInsightsScreen(),
+            ],
+          ):TabBarView(
+
+            children: [
+              Home(),
+              ExploreJobSeekersOrg(),
+              ExploreServicesOrg(),
+              ExploreOrganizationsOrg(),
             ],
           ),
         ),

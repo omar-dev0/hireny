@@ -29,11 +29,11 @@ class Hireny extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
 
-        home: BlocProvider(
-          create: (_) =>getIt.get<ServiceOrgCubit>(),
-          child: ServicePost(),
-        ),
-        // onGenerateRoute: AppRoutes.GeneratedRoute,
+        // home: BlocProvider(
+        //   create: (_) =>getIt.get<ServiceOrgCubit>(),
+        //   child: ServicePost(),
+        // ),
+        onGenerateRoute: AppRoutes.GeneratedRoute,
       ),
     );
   }

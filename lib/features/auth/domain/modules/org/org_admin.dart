@@ -61,7 +61,15 @@ class OrgAdmin extends User {
     role: json['role'],
     country: json['country'],
     city: json['city'],
-    links: (jsonDecode(json['links']) as List).map((e) => UserLink.fromJson(e)).toList(),
+    links: json['links'] is String
+        ? (jsonDecode(json['links']) as List?)
+        ?.map((e) => UserLink.fromJson(e as Map<String, dynamic>))
+        .toList()
+        : json['links'] is List
+        ? (json['links'] as List)
+        .map((e) => UserLink.fromJson(e as Map<String, dynamic>))
+        .toList()
+        : null,
     updatesToEmail: json['updatesToEmail'],
     photo: json['photo'],
     companyName: json['name'],

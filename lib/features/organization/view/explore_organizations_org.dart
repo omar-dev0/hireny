@@ -7,6 +7,7 @@ import 'package:hireny/utils/constants/app_colors.dart';
 import '../../../utils/app_assets.dart';
 import '../../../utils/constants/app_fonts.dart';
 import '../../../utils/constants/helper_functions.dart';
+import '../../../utils/widgets/custom_search_bar.dart';
 import '../../../utils/widgets/dymanic_filter_chips.dart';
 import '../../../utils/widgets/search_bar_widget.dart';
 import '../../auth/domain/modules/user/user.dart';
@@ -65,10 +66,10 @@ class _ExploreOrganizationsOrgState extends State<ExploreOrganizationsOrg> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(height: 20.h),
-                  SearchBarWidget(
-                    firstSearchHint: "Enter service name",
-                    secondSearchHint: "Organization name",
-                    onSearchPressed: () {},
+                  CustomSearchBar(
+                    hintText: "Search for organization",
+                    onSearchChanged: (value) {
+                    },
                   ),
                   SizedBox(height: 20.h),
                   Text("Explore Organizations", style: AppFonts.mainText),
