@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -6,8 +7,11 @@ import 'package:hireny/features/auth/domain/modules/seeker/seeker.dart';
 import 'package:hireny/features/auth/domain/modules/user/user.dart';
 import 'package:hireny/result.dart';
 import 'package:hireny/utils/dio_provider.dart';
+import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../../utils/data_shared/app_shared_data.dart';
+import '../../../../utils/data_shared/data_const.dart';
 import '../../../../utils/exceptions/dio_exception.dart';
 import 'api_const.dart';
 
@@ -180,28 +184,62 @@ class ApiManger {
   }
 
 /////////////////////// update user info
-  Future<Result<void>> updateSeekerInfo(String token, Seeker seeker) async {
+  Future<Result<void>> updateUserInfo(Seeker seeker) async {
+    final token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxNDA3NzE1LCJpYXQiOjE3NTEzOTE1MTUsImp0aSI6ImIzOWU3MTYzMzliODRlZWQ4MDU4MTA5ZDNlN2JjNTM1IiwidXNlcl9pZCI6NSwiaWQiOjUsImZpcnN0TmFtZSI6IlRlc3N0IiwibGFzdE5hbWUiOiJ0ZXN0IiwiZW1haWwiOiJmbHV0dHRlclRlc3QxMkBnbWFpbC5jb20iLCJyb2xlIjoic2Vla2VyIiwicGhvdG8iOiIvbWVkaWEvcGhvdG9zL2RlZmF1bHQuanBnIn0.WEF209t-oAA2JzUWLrhb0suU9Ifu_agFpcqMmE8jfKE";
+    if (token == null) return Error(error: "Missing token");
     try {
+      final formData = FormData.fromMap({
+        'firstName': seeker.firstName,
+        'lastName': seeker.lastName,
+        'dob': seeker.dob,
+        'gender': seeker.gender,
+        'title': seeker.title,
+        'nationality': seeker.nationality,
+        'careerLevel': seeker.careerLevel,
+        'employmentStatus': seeker.employmentStatus,
+        'brief': seeker.brief,
+        'country': seeker.country,
+        'city': seeker.city,
+        'immediateStart': seeker.immediateStart.toString(),
+        'updatesToEmail': seeker.updatesToEmail.toString(),
+        'links': jsonEncode(seeker.links), // Must be a List<Map<String, dynamic>>
+        if (seeker.cv != null)
+          'cv': await MultipartFile.fromFile(seeker.cv!, filename: seeker.cv!.split('/').last),
+        if (seeker.photo != null)
+          'photo': await MultipartFile.fromFile(seeker.photo!, filename: seeker.photo!.split('/').last),
+      });
+
       final response = await _dio.put(
         ApiConst.updateUserInfo,
-        data: seeker.toJson(),
+        data: formData,
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',
-            'Content-Type': 'application/json',
           },
         ),
       );
 
       if (response.statusCode == 200) {
-        return Success(response: null);
+        // ✅ Parse updated user from response
+        final updatedUser = Seeker.fromJson(response.data);
+
+        // ✅ Store in memory
+        AppSharedData.user = updatedUser;
+
+        // ✅ Save to Hive if rememberMe is true
+        if (AppSharedData.rememberMe) {
+          Hive.box(CashingData.appBox).put(CashingData.user, updatedUser);
+        }
+
+        return Success();
       } else {
-        return Error(error: "Failed to update user info");
+        return Error(error: "Failed to update user info. Status: ${response.statusCode}");
       }
     } catch (e) {
       return Error(error: e.toString());
     }
   }
+
 
 /////////////////////// change password
   Future<Result<void>> changePassword(String token, String oldPassword, String newPassword,) async {

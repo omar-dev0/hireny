@@ -88,6 +88,10 @@ class RepoAuthImp implements RepoAuth {
     return dataSource.changePassword(token,oldPassword,newPassword);
 
   }
+  @override
+  Future<Result<void>> updateUserInfo(Seeker seeker) {
+    return dataSource.updateUserInfo(seeker);
+  }
 
   @override
   Future<Result<void>?> sendOtp(String email) {

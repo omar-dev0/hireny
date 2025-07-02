@@ -16,8 +16,7 @@ import '../models/response/skill_model.dart';
 @injectable
 class TechApiManager {
   final Dio _dio;
-  String? token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxMzU0NzgwLCJpYXQiOjE3NTEzMTE1ODAsImp0aSI6ImQyN2FkNDliYmFhMDRlNDQ5ZTNlNTgxN2JlOTUwNmM1IiwidXNlcl9pZCI6MiwiaWQiOjIsImZpcnN0TmFtZSI6InRlc3QiLCJsYXN0TmFtZSI6InRlc3QiLCJlbWFpbCI6ImZsdXR0ZXJUZXN0MTIzQGdtYWlsLmNvbSIsInJvbGUiOiJzZWVrZXIiLCJwaG90byI6Ii9tZWRpYS9waG90b3MvZGVmYXVsdC5wbmcifQ.uuOfsMb5p3_QsaRkRZD1epllckH-1Uaauwc-bylIZVY'; //"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxMzA5NDI5LCJpYXQiOjE3NTEyNjYyMjksImp0aSI6IjkzYjc0YmMzMTJmZDQ1NjA5MThjMDMxZTU4ZTZhM2E5IiwidXNlcl9pZCI6MiwiaWQiOjIsImZpcnN0TmFtZSI6InRlc3QiLCJsYXN0TmFtZSI6InRlc3QiLCJlbWFpbCI6ImZsdXR0ZXJUZXN0MTIzQGdtYWlsLmNvbSIsInJvbGUiOiJzZWVrZXIiLCJwaG90byI6Ii9tZWRpYS9waG90b3MvZGVmYXVsdC5wbmcifQ.DDuJ4c4rBnAtV-IAHvpSaqTfq9Q_ZXYBAcflVJq_Eo4";
+  String? token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxMzU0NzgwLCJpYXQiOjE3NTEzMTE1ODAsImp0aSI6ImQyN2FkNDliYmFhMDRlNDQ5ZTNlNTgxN2JlOTUwNmM1IiwidXNlcl9pZCI6MiwiaWQiOjIsImZpcnN0TmFtZSI6InRlc3QiLCJsYXN0TmFtZSI6InRlc3QiLCJlbWFpbCI6ImZsdXR0ZXJUZXN0MTIzQGdtYWlsLmNvbSIsInJvbGUiOiJzZWVrZXIiLCJwaG90byI6Ii9tZWRpYS9waG90b3MvZGVmYXVsdC5wbmcifQ.uuOfsMb5p3_QsaRkRZD1epllckH-1Uaauwc-bylIZVY';
   List<String> deleteApi = [
     "",
     UrlConstants.deleteCourse,
@@ -290,10 +289,8 @@ class TechApiManager {
         key = "experiences";
         updatedModel = ExperienceModel.fromJson(response.data);
       }
-      // Step 3: Check if key and list exist before updating
       final list = AppSharedData.techInfo?[key];
-      print("📦 list for key [$key]: $list");
-      print("data type ${data.runtimeType}");
+
       if (list == null) {
         return Error(error: "❌ No list found for key: $key");
       }

@@ -83,7 +83,7 @@ class Seeker extends User {
     brief: json['brief'],
     country: json['country'],
     city: json['city'],
-    links: (json['links'] as List?)?.map((e) => UserLink.fromJson(e)).toList(),
+    links: (jsonDecode(json['links']) as List).map((e) => UserLink.fromJson(e)).toList(),
     immediateStart: json['immediateStart'],
     updatesToEmail: json['updatesToEmail'],
   );

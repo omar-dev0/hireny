@@ -1,5 +1,6 @@
 import 'package:hireny/features/auth/domain/modules/user/user.dart';
 import 'package:hireny/features/seeker/domain/modules/course.dart';
+import 'package:hireny/features/services/domain/models/response/service_post_response.dart';
 import 'package:hireny/features/show_courses/data/models/seeker_courses_registered.dart';
 
 import '../../features/seeker/domain/modules/job_post.dart';
@@ -11,7 +12,8 @@ abstract class AppSharedData {
   static List<String> nationalities = [];
   static List<Course> courses = [];
   static List<String> countries = [];
-  static List<String> jobs = []; // ==============>>> 5597
+  static List<String> jobs = [];
+  static List<ServiceResponse> servicesOrg = [];
   static List<JobPost> jobPosts = [];
   static List<OrgPost> orgPosts = [];
   static List<String> jobTitle = [

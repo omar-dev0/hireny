@@ -59,6 +59,20 @@ import '../../features/seeker/view/screens/job_detailes/cubit/job_detailes_cubit
     as _i704;
 import '../../features/seeker/view/screens/salary_insights/cubit/salary_cubit.dart'
     as _i627;
+import '../../features/services/data/data_source/service_org_data_source.dart'
+    as _i618;
+import '../../features/services/data/data_source/service_org_data_source_interface.dart'
+    as _i387;
+import '../../features/services/data/repo_impl/service_org_repo_impl.dart'
+    as _i472;
+import '../../features/services/data/service_api/service_api_manager.dart'
+    as _i341;
+import '../../features/services/domain/repo/service_org_repo_interface.dart'
+    as _i154;
+import '../../features/services/domain/usecases/add_service_org_post.dart'
+    as _i607;
+import '../../features/services/presentation/manager/service_org_cubit.dart'
+    as _i896;
 import '../../features/show_admin/data/data_sources/admin_data_interface.dart'
     as _i5;
 import '../../features/show_admin/data/data_sources/admin_local_data_source.dart'
@@ -145,14 +159,20 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i867.AppDataInterface>(() => _i284.LocalAppData());
     gh.singleton<_i758.ApiManger>(() => _i758.ApiManger(gh<_i361.Dio>()));
     gh.singleton<_i514.SeekerApi>(() => _i514.SeekerApi(gh<_i361.Dio>()));
+    gh.singleton<_i341.ServiceApiManager>(
+        () => _i341.ServiceApiManager(gh<_i361.Dio>()));
     gh.singleton<_i451.CoursesApiManager>(
         () => _i451.CoursesApiManager(gh<_i361.Dio>()));
     gh.singleton<_i409.TechApiManager>(
         () => _i409.TechApiManager(gh<_i361.Dio>()));
+    gh.lazySingleton<_i387.ServiceOrgDataSourceInterface>(
+        () => _i618.ServiceOrgDataSource(gh<_i341.ServiceApiManager>()));
     gh.factory<_i656.AdminRepoInterface>(
         () => _i587.AdminRepoImpl(gh<_i5.AdminDataInterface>()));
     gh.factory<_i346.AppRepoInterface>(
         () => _i821.AppRepoImpl(gh<_i867.AppDataInterface>()));
+    gh.lazySingleton<_i154.ServiceOrgRepoInterface>(() =>
+        _i472.ServiceOrgRepoImpl(gh<_i387.ServiceOrgDataSourceInterface>()));
     gh.factory<_i946.SeekerDataSource>(
         () => _i886.SeekerDataSourceImpl(gh<_i514.SeekerApi>()));
     gh.factory<_i648.OrgRepo>(
@@ -177,6 +197,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i37.DeleteApp(appRepo: gh<_i346.AppRepoInterface>()));
     gh.factory<_i636.ShowApp>(
         () => _i636.ShowApp(appRepo: gh<_i346.AppRepoInterface>()));
+    gh.factory<_i607.AddServiceOrgPost>(
+        () => _i607.AddServiceOrgPost(gh<_i154.ServiceOrgRepoInterface>()));
+    gh.factory<_i896.ServiceOrgCubit>(
+        () => _i896.ServiceOrgCubit(gh<_i607.AddServiceOrgPost>()));
     gh.factory<_i981.RegSeekerVm>(
         () => _i981.RegSeekerVm(gh<_i412.RepoAuth>()));
     gh.factory<_i598.ShowOrg>(

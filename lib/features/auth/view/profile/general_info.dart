@@ -40,7 +40,7 @@ class _GeneralInfoState extends State<GeneralInfo> {
             builder: (_) => const LoadingDialog(),
           );
         } else if (state is SuccessUpdatedState || state is ErrorUpdatedState) {
-          Navigator.of(context, rootNavigator: true).pop();
+          // Navigator.of(context, rootNavigator: true).pop();
         }
 
         if (state is ErrorUpdatedState) {
@@ -70,6 +70,7 @@ class _GeneralInfoState extends State<GeneralInfo> {
             duration: const Duration(milliseconds: 400),
             child: Stack(
               clipBehavior: Clip.none,
+
               children: [
                 BlocBuilder<UserCubit, UserStates>(
                   builder: (context, state) {
@@ -198,7 +199,11 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                   );
                                   if (pickedDate != null) {
                                     cubit.birthDateController.text =
-                                    "${pickedDate.day.toString().padLeft(2, '0')}/${pickedDate.month.toString().padLeft(2, '0')}/${pickedDate.year}";
+                                    "${pickedDate.year.toString().padLeft(4, '0')}-"
+                                        "${pickedDate.month.toString().padLeft(2, '0')}-"
+                                        "${pickedDate.day.toString().padLeft(2, '0')}";
+                                  } else{
+                                    print(pickedDate);
                                   }
                                 },
                                 child: AbsorbPointer(
@@ -365,7 +370,7 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                       Expanded(
                                         child: CustomDropDown(
                                           label: "Career Level",
-                                          items: cubit.careerLevels,
+                                          items: AppSharedData.careerLevels ,//cubit.careerLevels,
                                           selectItem: cubit.selectedCareerLevel,
                                           onChanged: cubit.setCareerLevel,
                                         ),
@@ -374,7 +379,7 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                       Expanded(
                                         child: CustomDropDown(
                                           label: "Employment Status",
-                                          items: cubit.employmentStatusList,
+                                          items: AppSharedData.employmentStatus,//cubit.employmentStatusList,
                                           selectItem:
                                           cubit.selectedEmploymentStatus,
                                           onChanged: cubit.setEmploymentStatus,
@@ -409,9 +414,9 @@ class _GeneralInfoState extends State<GeneralInfo> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  // title
                                   Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         "Social Links",
@@ -420,7 +425,9 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                         ),
                                       ),
                                       TextButton.icon(
-                                        onPressed:(){},
+                                        onPressed: () {
+                                          cubit.addFieldPair();
+                                        },
                                         icon: Icon(
                                           Icons.add_circle_outline,
                                           color: Theme.of(context).primaryColor,
@@ -428,20 +435,19 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                         label: Text(
                                           "Add Link",
                                           style: TextStyle(
-                                              color:
-                                              Theme.of(context).primaryColor),
+                                            color: Theme.of(context).primaryColor,
+                                          ),
                                         ),
                                       ),
                                     ],
                                   ),
                                   ...List.generate(
-                                    cubit.getLen(),
+                                    cubit.fieldPairs.length,
                                         (index) => Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Row(
                                           children: [
-                                            // Dropdown for Link Type
                                             Expanded(
                                               flex: 2,
                                               child: CustomDropDown(
@@ -450,11 +456,12 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                                 selectItem: cubit.fieldPairs[index]['type'],
                                                 onChanged: (val) {
                                                   cubit.fieldPairs[index]['type'] = val;
+                                                  // cubit.emitUpdated(); // Ensure UI reflects change
                                                 },
                                               ),
                                             ),
-
                                             const SizedBox(width: 16),
+                                            // Text Field for URL
                                             Expanded(
                                               flex: 3,
                                               child: CustomTextField(
@@ -467,7 +474,7 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                             ),
                                           ],
                                         ),
-                                        if (cubit.getLen() > 1)
+                                        if (cubit.linksLen > 1)
                                           Align(
                                             alignment: Alignment.centerRight,
                                             child: IconButton(
@@ -491,10 +498,11 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                 children: [
                                   Expanded(
                                     child: ElevatedButton(
-                                      onPressed: () {
+                                      onPressed: () async{
                                         if (cubit.formKey.currentState!
                                             .validate()) {
-                                          cubit.formKey.currentState!.save();
+                                           cubit.formKey.currentState!.save();
+                                           await cubit.updateUserInfo();
                                           Navigator.pushNamed(
                                             context,
                                             PagesRoute.generalTechInfo,

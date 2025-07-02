@@ -30,6 +30,7 @@ class UserCubit extends Cubit<UserStates> {
 
   String? city;
   String? country;
+  int linksLen = 0;
   //---------------------------
   final resetPasswordController = TextEditingController();
   final confirmResetPasswordController = TextEditingController();
@@ -42,28 +43,6 @@ class UserCubit extends Cubit<UserStates> {
   String? selectedEmploymentStatus;
   int counter = 1;
   final List<String> linkTypes = ['GitHub', 'LinkedIn', 'Behance'];
-  final List<String> careerLevels = [
-    'Internship',
-    'Entry Level',
-    'Junior',
-    'Mid Level',
-    'Senior',
-    'Lead',
-    'Manager',
-    'Director',
-    'Executive',
-  ];
-  final List<String> employmentStatusList = [
-    'Employed',
-    'Unemployed',
-    'Self-Employed',
-    'Freelancer',
-    'Student',
-    'Intern',
-    'Looking for Opportunities',
-    'Not Looking for Opportunities',
-    'Retired',
-  ];
   final List<Map<String, dynamic>> fieldPairs = [];
 
   String? phoneNumber;
@@ -73,58 +52,98 @@ class UserCubit extends Cubit<UserStates> {
   String? selectedGender;
   String? selectedLinkType;
 
-  // get user info
-  Future<User?> getUserInfo() async {
-    String? token = AppSharedData.user?.accessToken;
-    emit(LoadingState());
-    final result = await _repoAuth.getUserInfo(token!);
+  /// get user info
+  void loadData() {
+    // Ensure the user is a Seeker
+    if (AppSharedData.user is Seeker) {
+      final seeker = AppSharedData.user as Seeker;
 
-    switch (result) {
-      case Success<User?>():
-        final user = result.response;
+      // Fill basic profile fields
+      firstNameController.text = seeker.firstName ?? '';
+      lastNameController.text = seeker.lastName ?? '';
+      emailController.text = seeker.email ?? '';
+      phoneController.text = seeker.phone ?? '';
+      selectedGender = seeker.gender;
+      titleController.text = seeker.title ?? '';
+      briefController.text = seeker.brief ?? '';
+      selectedCareerLevel = seeker.careerLevel;
+      selectedEmploymentStatus = seeker.employmentStatus;
+      birthDateController.text = seeker.dob ?? '';
+      city = seeker.city;
+      country = seeker.country;
 
-        if (user == null) {
-          emit(ErrorUpdatedState("User data is null"));
-          return null;
-        }
+      // ✅ Clear and load social links
+      fieldPairs.clear();
+      for (UserLink? link in seeker.links) {
+        print('🔗 Link added -> type: ${link?.type}, url: ${link?.url}');
+        fieldPairs.add({
+          'type': link?.type,
+          'value': TextEditingController(text: link?.url ?? ''),
+        });
+      }
 
-        firstNameController.text = user.firstName ?? '';
-        lastNameController.text = user.lastName ?? '';
-        emailController.text = user.email ?? '';
-        // problem -> country code + phone num
-        phoneController.text = user.phone ?? '';
-        country = user.country;
-        city = user.city;
-
-        if (user is Seeker) {
-          selectedGender = user.gender;
-          titleController.text = user.title ?? '';
-          briefController.text = user.brief ?? '';
-          selectedCareerLevel = user.careerLevel;
-          selectedEmploymentStatus = user.employmentStatus;
-          birthDateController.text = user.dob ?? '';
-          for (UserLink? link in user.links) {
-            fieldPairs.add({
-              'type': link?.type,
-              'value': TextEditingController(text: link?.url ?? ''),
-            });
-          }
-
-        }
-        emit(SuccessUpdatedState());
-        return user;
-
-      case Error<User?>():
-        emit(ErrorUpdatedState(result.error ?? "Failed to fetch user info"));
-        return null;
-
-      default:
-        emit(ErrorUpdatedState("Unknown error occurred"));
-        return null;
+      emit(SuccessUpdatedState()); // optional: update UI if needed
     }
   }
 
-  // change password
+  /// update user info
+  Future<void> updateUserInfo() async {
+    // Form validation
+    if (!formKey.currentState!.validate()) return;
+
+    emit(LoadingState());
+
+    final String? token = AppSharedData.user?.accessToken;
+    if (token == null) {
+      emit(ErrorUpdatedState("Missing token"));
+      return;
+    }
+
+    // ✅ Map social links
+    final List<UserLink> links = fieldPairs.map((pair) {
+      final type = pair['type'];
+      final controller = pair['value'] as TextEditingController?;
+      return UserLink(
+        type: type ?? '',
+        url: controller?.text.trim() ?? '',
+      );
+    }).toList();
+
+    // ✅ Create updated Seeker model
+    final seeker = Seeker(
+      firstName: firstNameController.text.trim(),
+      lastName: lastNameController.text.trim(),
+      dob: birthDateController.text.trim(),
+      gender: selectedGender,
+      title: titleController.text.trim(),
+      nationality: country,
+      careerLevel: selectedCareerLevel,
+      employmentStatus: selectedEmploymentStatus,
+      brief: briefController.text.trim(),
+      country: country,
+      city: city,
+      immediateStart: true,
+      updatesToEmail: true,
+      links: links,
+      photo: null,
+      cv: null,
+    );
+
+    // ✅ Call update API
+    final result = await _repoAuth.updateUserInfo(seeker);
+
+
+    switch (result) {
+      case Success():
+        emit(SuccessUpdatedState());
+        break;
+      case Error():
+        emit(ErrorUpdatedState(result.error ?? "Update failed"));
+        break;
+    }
+  }
+
+  /// change password
   Future<void> changePassword() async {
     if (!formKey.currentState!.validate()) return;
 
@@ -155,7 +174,7 @@ class UserCubit extends Cubit<UserStates> {
     }
   }
 
-  // image picker logic
+  /// image picker logic
   Future onPickImage(ImageSource source) async {
     ImagePicker imgPicker = ImagePicker();
     var image = await imgPicker.pickImage(source: source);
@@ -167,10 +186,11 @@ class UserCubit extends Cubit<UserStates> {
     }
   }
 
-  // updated gender
+  /// updated gender
   void updateGender(String? gender) {
     selectedGender = gender;
     emit(SuccessUpdatedState());
+
   }
 
   void setEmploymentStatus(String? value) {
@@ -202,9 +222,7 @@ class UserCubit extends Cubit<UserStates> {
     emit(SuccessUpdatedState());
   }
 
-  int getLen() {
-    return fieldPairs.length;
-  }
+
 
   // validations
   String? validateText(String? value, String fieldName) {
@@ -217,19 +235,41 @@ class UserCubit extends Cubit<UserStates> {
     }
     return null;
   }
-
+// todo check why not validate correctly
   String? validateDate(String? value) {
-    final dateRegex = RegExp(
-      r'^([0-2][0-9]|(3)[0-1])/(0[1-9]|1[0-2])/([0-9]{4})$',
-    );
+    final parts = value?.split('-');
+    final year = int.parse(parts![0]);
+    final month = int.parse(parts[1]);
+    final day = int.parse(parts[2]);
+
+
+    final parsedDate = DateTime(year, month, day);
+    print("✅ Parsed Date: $parsedDate");
+    print("✅ Parsed Date: ${parsedDate.runtimeType}");
+
+    final dateRegex = RegExp(r'^(20\d{2})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$');
+
     if (value == null || value.isEmpty) {
-      return 'Please enter birth of date';
+      return 'Date is required';
     }
+
     if (!dateRegex.hasMatch(value)) {
-      return 'Enter a valid date (DD/MM/YYYY)';
+      return 'Enter a valid date in yyyy-mm-dd format';
     }
+
+    try {
+
+
+      if (parsedDate.year != year || parsedDate.month != month || parsedDate.day != day) {
+        return 'Invalid date';
+      }
+    } catch (e) {
+      return 'Invalid date format';
+    }
+
     return null;
   }
+
 
   String? validateEmail(String? value) {
     final emailRegex = RegExp(r'^[\w-]+@([\w-]+\.)+[\w-]{2,4}$');
@@ -304,24 +344,4 @@ class UserCubit extends Cubit<UserStates> {
     return null;
   }
 
-  void loadData() {
-    //link list
-    if (AppSharedData.user is Seeker) {
-      final seeker = AppSharedData.user as Seeker;
-      firstNameController.text = seeker.firstName ?? '';
-      lastNameController.text = seeker.lastName ?? '';
-      emailController.text = seeker.email ?? '';
-      selectedGender = seeker.gender;
-      titleController.text = seeker.title ?? '';
-      briefController.text = seeker.brief ?? '';
-      selectedCareerLevel = seeker.careerLevel;
-      selectedEmploymentStatus = seeker.employmentStatus;
-      birthDateController.text = seeker.dob ?? '';
-      phoneController.text = seeker.phone ?? '';
-      city = seeker.city;
-      country = seeker.country;
-      selectedGender = seeker.gender;
-      briefController.text = seeker.brief ?? '';
-    }
-  }
 }

@@ -17,6 +17,9 @@ abstract class RepoAuth {
 
   Future<Result<User?>?> getUserInfo(String token);
   Future<Result<void>> changePassword(String token, String oldPassword, String newPassword);
+
+  Future<Result<void>> updateUserInfo(Seeker seeker);
+
   Future<Result<void>?> sendOtp(String email) ;
 
   Future<Result<void>?> verifyOtp(String email, String otp);

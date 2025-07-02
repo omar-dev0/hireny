@@ -24,7 +24,6 @@ import '../features/auth/view/login/login_screen.dart';
 import '../features/auth/view/profile/cubit/user_cubit.dart';
 import '../features/auth/view/profile/general_info.dart';
 import '../features/auth/view/profile/widgets/change_password.dart';
-import '../features/auth/view/profile/widgets/general_tech_info.dart';
 import '../features/auth/view/reg/reg_screen.dart';
 import '../features/course_detailes/presentation/views/course_details_view.dart';
 import '../features/course_detailes/presentation/views/widgets/calender_view.dart';
@@ -62,16 +61,6 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
           (context) => BlocProvider(
             create: (context) => getIt.get<UserCubit>()..loadData(),
             child: GeneralInfo(),
-          ),
-    );
-  }
-
-  if (name == PagesRoute.generalTechInfo) {
-    return MaterialPageRoute(
-      builder:
-          (context) => BlocProvider(
-            create: (_) => getIt.get<UserCubit>(),
-            child: GeneralTechInfo(),
           ),
     );
   }

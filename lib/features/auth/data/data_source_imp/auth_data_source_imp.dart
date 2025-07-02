@@ -59,5 +59,10 @@ class DataSourcAuthImp implements AuthDataSource {
 
   }
 
+  @override
+  Future<Result<void>> updateUserInfo(Seeker seeker) {
+    return apiManger.updateUserInfo(seeker);
+  }
+
 
 }
