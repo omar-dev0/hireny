@@ -37,6 +37,7 @@ import '../features/organization/view/explore_services_org.dart';
 import '../features/organization/view/related_services_org.dart';
 import '../features/organization/view/service_details_org.dart';
 import '../features/seeker/view/screens/course_details/course_screen_seeker_details.dart';
+import '../features/seeker/view/screens/course_details/cubit/course_details_cubit.dart';
 import '../features/seeker/view/screens/job_detailes/cubit/job_detailes_cubit.dart';
 import '../features/seeker/view/screens/job_detailes/job_detailes_screen.dart';
 import '../technical_info/presentation/technical_view.dart';
@@ -82,9 +83,9 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
     return MaterialPageRoute(builder: (context) => ErrorScreen());
   }
 
-  if (name == PagesRoute.courseDetails) {
-    return MaterialPageRoute(builder: (_) => CourseDetailsView());
-  }
+  // if (name == PagesRoute.courseDetails) {
+  //   return MaterialPageRoute(builder: (_) => CourseDetailsView());
+  // }
   if (name == PagesRoute.calender) {
     return MaterialPageRoute(builder: (_) => CalenderView());
   }
@@ -185,7 +186,19 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
     return MaterialPageRoute(builder: (_) => ExploreJobsForJobSeeker());
   }
   if (name == PagesRoute.courseDetailes) {
-    return MaterialPageRoute(builder: (_) => courseScreenSeekerDetails());
+    final args = settings.arguments as Map<String, int>?;
+    final courseId = args?['courseId'];
+
+    if (courseId != null) {
+      return MaterialPageRoute(
+        builder: (_) => BlocProvider(
+          create: (context) => getIt<CourseDetailsCubit>()..fetchCourseDetails(courseId),
+          child: courseScreenSeekerDetails(courseId: courseId),
+        ),
+      );
+    } else {
+      return MaterialPageRoute(builder: (_) => ErrorScreen());
+    }
   }
   if (name == PagesRoute.jobDetailes) {
     final jobId = settings.arguments as int?;

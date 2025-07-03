@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:hireny/features/seeker/domain/modules/course.dart';
 
 import '../../../../../utils/constants/app_colors.dart';
 import 'course_info_listView.dart';
 
 
 class ScrollContainer extends StatelessWidget {
-  const ScrollContainer({
+  Course? course;
+   ScrollContainer({
+     required this.course,
     super.key,
   });
 

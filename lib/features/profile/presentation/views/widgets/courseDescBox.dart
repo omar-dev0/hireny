@@ -5,7 +5,9 @@ import '../../../../../utils/constants/app_fonts.dart';
 
 
 class courseDescBox extends StatelessWidget {
-  const courseDescBox({
+  String desc;
+   courseDescBox({
+     required this.desc,
     super.key,
   });
 

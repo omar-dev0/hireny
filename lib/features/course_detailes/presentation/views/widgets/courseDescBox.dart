@@ -5,7 +5,10 @@ import '../../../../../utils/constants/app_fonts.dart';
 
 
 class courseDescBox extends StatelessWidget {
-  const courseDescBox({
+  String? desc;
+   courseDescBox({
+    required this.desc
+     ,
     super.key,
   });
 
@@ -30,13 +33,7 @@ class courseDescBox extends StatelessWidget {
                   children: [
                     SizedBox(height: 3,),
                     Text(
-                      "The Complete Data Science Bootcamp 2025 is a comprehensive,"
-                          " beginner-to-advanced course designed to teach data science"
-                          " fundamentals, machine learning, deep learning, "
-                          "and data visualization. It covers tools like Python, R,"
-                          " TensorFlow, and SQL while emphasizing hands-on projects."
-                          " Ideal for aspiring data scientists, it helps build practical skills.json and"
-                          " a strong portfolio for real-world applications.",
+                      desc!,
                       softWrap: true,
                       style: AppFonts.textFieldStyle,
 

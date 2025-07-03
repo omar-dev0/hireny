@@ -94,8 +94,12 @@ class CourseContent extends StatelessWidget {
                             duration: Duration(milliseconds: 300 + index * 100),
                             child: InkWell(
                               onTap: () {
-                                Navigator.pushNamed(context, PagesRoute.courseDetailes);
-                              },
+                                Navigator.pushNamed(
+                                  context,
+                                  PagesRoute.courseDetailes,
+                                  arguments: {'courseId': course.id}, // assuming 'id' is the field
+                                );
+                                },
                               child: ExploreCard(
                                 course: course,
                                 logoImage: AppAssets.org_logo,
