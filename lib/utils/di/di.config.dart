@@ -39,6 +39,20 @@ import '../../features/org_profile/domain/usecases/get_posts.dart' as _i512;
 import '../../features/org_profile/domain/usecases/get_reviews.dart' as _i754;
 import '../../features/org_profile/presentation/manager/org_profile_cubit.dart'
     as _i5;
+import '../../features/organization/data/api/org_api.dart' as _i511;
+import '../../features/organization/data/data_source/org_data_source.dart'
+    as _i401;
+import '../../features/organization/data/data_source_imp/org_data_source_impl.dart'
+    as _i336;
+import '../../features/organization/data/repo_imp/org_repo_impl.dart' as _i764;
+import '../../features/organization/domain/repo_contract/org_repository.dart'
+    as _i185;
+import '../../features/organization/view/screens/explore_orgs/cubit/explore_organizations_org_cubit.dart'
+    as _i529;
+import '../../features/organization/view/screens/explore_seekers/cubit/explore_seekers_cubit.dart'
+    as _i369;
+import '../../features/organization/view/screens/explore_services/cubit/explore_services_cubit.dart'
+    as _i735;
 import '../../features/seeker/data/api/seeker_api.dart' as _i514;
 import '../../features/seeker/data/data_source/seeker_data_source.dart'
     as _i946;
@@ -158,6 +172,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i925.OrgDataInterface>(() => _i342.LocalOrgData());
     gh.lazySingleton<_i867.AppDataInterface>(() => _i284.LocalAppData());
     gh.singleton<_i758.ApiManger>(() => _i758.ApiManger(gh<_i361.Dio>()));
+    gh.singleton<_i511.OrgApi>(() => _i511.OrgApi(gh<_i361.Dio>()));
     gh.singleton<_i514.SeekerApi>(() => _i514.SeekerApi(gh<_i361.Dio>()));
     gh.singleton<_i341.ServiceApiManager>(
         () => _i341.ServiceApiManager(gh<_i361.Dio>()));
@@ -199,6 +214,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i636.ShowApp(appRepo: gh<_i346.AppRepoInterface>()));
     gh.factory<_i607.AddServiceOrgPost>(
         () => _i607.AddServiceOrgPost(gh<_i154.ServiceOrgRepoInterface>()));
+    gh.factory<_i401.OrgDataSource>(
+        () => _i336.OrgDataSourceImpl(gh<_i511.OrgApi>()));
     gh.factory<_i896.ServiceOrgCubit>(
         () => _i896.ServiceOrgCubit(gh<_i607.AddServiceOrgPost>()));
     gh.factory<_i981.RegSeekerVm>(
@@ -251,10 +268,18 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i704.JobDetailsCubit(gh<_i386.SeekerRepository>()));
     gh.factory<_i627.SalaryCubit>(
         () => _i627.SalaryCubit(gh<_i386.SeekerRepository>()));
+    gh.factory<_i185.OrgRepository>(
+        () => _i764.OrgRepoImpl(gh<_i401.OrgDataSource>()));
     gh.factory<_i714.ShowCourses>(
         () => _i714.ShowCourses(courseRepo: gh<_i630.CourseRepo>()));
     gh.factory<_i401.JobPostCubit>(
         () => _i401.JobPostCubit(gh<_i386.SeekerRepository>()));
+    gh.factory<_i369.ExploreSeekersCubit>(
+        () => _i369.ExploreSeekersCubit(gh<_i185.OrgRepository>()));
+    gh.factory<_i735.ExploreServicesCubit>(
+        () => _i735.ExploreServicesCubit(gh<_i185.OrgRepository>()));
+    gh.factory<_i529.ExploreOrganizationsOrgCubit>(
+        () => _i529.ExploreOrganizationsOrgCubit(gh<_i185.OrgRepository>()));
     gh.factory<_i377.DeleteTechInfo>(
         () => _i377.DeleteTechInfo(gh<_i854.TechRepoInterface>()));
     gh.factory<_i394.GetTechInfo>(

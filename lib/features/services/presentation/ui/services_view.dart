@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+  import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:hireny/core/widgets/sideBar.dart';
 import 'package:hireny/features/services/presentation/ui/widgets/service_card_org.dart';

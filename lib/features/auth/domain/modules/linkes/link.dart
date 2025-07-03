@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:hive/hive.dart';
 part 'link.g.dart';
 
@@ -20,5 +22,16 @@ class UserLink {
       'type': type,
       'url': url,
     };
+  }
+  /// Decode JSON string into List<UserLink>
+  static List<UserLink> decode(String linksJson) {
+    final parsed = jsonDecode(linksJson).cast<Map<String, dynamic>>();
+    return parsed.map<UserLink>((json) => UserLink.fromJson(json)).toList();
+  }
+
+  /// Encode List<UserLink> into JSON string
+  static String encode(List<UserLink>? links) {
+    if (links == null || links.isEmpty) return '[]';
+    return jsonEncode(links.map((link) => link.toJson()).toList());
   }
 }

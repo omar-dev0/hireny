@@ -41,6 +41,8 @@ dependencies:
   flutter_native_splash: ^2.4.6
   fluttertoast: ^8.2.12
   flutter_otp_text_field: ^1.5.1+1
+  flutter_local_notifications: ^19.3.0
+  web_socket_channel: ^3.0.3
 
 dev_dependencies:
   flutter_test:
