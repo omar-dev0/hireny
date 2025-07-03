@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hireny/features/auth/view/forget_password/reset_password/reset_password.dart';
 import 'package:hireny/features/auth/view/forget_password/verift_email_screen.dart';
-import 'package:hireny/features/my_assessment/presentation/ui/my_assessment.dart';
+import 'package:hireny/features/auth/view/profile/ai_tools/ai-screen.dart';
+import 'package:hireny/features/calender/ui/calender_screen.dart';
+import 'package:hireny/features/my_assessment/presentation/ui/my_assessment_content.dart';
+import 'package:hireny/features/my_assessment/presentation/ui/my_assessment_screen.dart';
 import 'package:hireny/features/org_profile/presentation/manager/org_profile_cubit.dart';
 import 'package:hireny/features/org_profile/presentation/ui/org_profile.dart';
 import 'package:hireny/features/organization/view/explore_job_seekers_org.dart';
@@ -30,8 +33,8 @@ import '../features/auth/view/profile/general_info.dart';
 import '../features/auth/view/profile/widgets/change_password.dart';
 import '../features/auth/view/profile/widgets/general_tech_info.dart';
 import '../features/auth/view/reg/reg_screen.dart';
+import '../features/calender/ui/calender_screen_content.dart';
 import '../features/course_detailes/presentation/views/course_details_view.dart';
-import '../features/course_detailes/presentation/views/widgets/calender_view.dart';
 import '../features/organization/view/explore_organizations_org.dart';
 import '../features/organization/view/explore_services_org.dart';
 import '../features/organization/view/related_services_org.dart';
@@ -86,7 +89,7 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
     return MaterialPageRoute(builder: (_) => CourseDetailsView());
   }
   if (name == PagesRoute.calender) {
-    return MaterialPageRoute(builder: (_) => CalenderView());
+    return MaterialPageRoute(builder: (_) => CalenderScreen());
   }
   if (name == PagesRoute.myCourses) {
     return MaterialPageRoute(
@@ -97,7 +100,9 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
           ),
     );
   }
-
+  if (name == PagesRoute.aiTools) {
+    return MaterialPageRoute(builder: (_) => AiScreen());
+  }
   if (name == PagesRoute.salaryInsights) {
     return MaterialPageRoute(builder: (_) => SalaryInsightsScreen());
   }
@@ -135,7 +140,7 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
   //   );
 
   if (name == PagesRoute.myAssessment) {
-    return MaterialPageRoute(builder: (_) => MyAssessment());
+    return MaterialPageRoute(builder: (_) => MyAssessmentScreen());
   }
 
   if (name == PagesRoute.orgProfile) {

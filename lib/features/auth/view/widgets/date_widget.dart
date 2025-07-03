@@ -8,26 +8,18 @@ import '../../../../utils/constants/app_fonts.dart';
 class DateWidget extends StatelessWidget {
   final String? content;
   final String? label;
-  const DateWidget({super.key , this.content ,  this.label});
+  const DateWidget({super.key, this.content, this.label});
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label ?? "",
-          style: AppFonts.mainText.copyWith(
-            fontSize: 16.cSp,
-          ),
-        ),
+        Text(label ?? "", style: AppFonts.mainText.copyWith(fontSize: 16.cSp)),
         SizedBox(height: 6.cSp),
         Container(
           width: double.infinity,
-          padding: EdgeInsets.symmetric(
-            horizontal: 10.w,
-            vertical: 10.h,
-          ),
+          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
           height: 50.h,
           decoration: BoxDecoration(
             color: AppColors.white,

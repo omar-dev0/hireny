@@ -1,6 +1,1 @@
-enum FormType {
-  certificate,
-  course,
-  education,
-  experience,
-}
+enum FormType { certificate, course, education, experience }

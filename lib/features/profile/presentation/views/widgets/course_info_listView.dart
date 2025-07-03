@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../../../utils/constants/app_colors.dart';
 import '../../../../../utils/constants/app_fonts.dart';
 
-
 class CourseInfoListView extends StatelessWidget {
   const CourseInfoListView({super.key});
 

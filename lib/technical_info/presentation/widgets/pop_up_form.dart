@@ -4,6 +4,7 @@ import 'package:hireny/technical_info/presentation/widgets/form_add_info.dart';
 import 'package:hireny/technical_info/presentation/widgets/popUpButtons.dart';
 import '../../../utils/constants/app_colors.dart';
 import '../manager/technical_info_cubit.dart';
+
 // form without fields
 void popUpForm(BuildContext context, Function()? onPressed, String title) {
   final techCubit = BlocProvider.of<TechnicalInfoCubit>(context);
@@ -16,7 +17,9 @@ void popUpForm(BuildContext context, Function()? onPressed, String title) {
         value: techCubit,
         child: Dialog(
           backgroundColor: AppColors.white,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: SingleChildScrollView(

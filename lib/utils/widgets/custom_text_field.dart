@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class CustomTextField extends StatefulWidget {
-
-
   final TextEditingController? controller;
   final bool? isPassword;
   final String? hint;
@@ -15,6 +13,7 @@ class CustomTextField extends StatefulWidget {
   final String? obscuringCharacter, value;
   final String? Function(String?)? onValidate;
   final TextInputType? keyboardType;
+  final String? Function(String?)? onChange;
   final List<TextInputFormatter>? inputFormatters;
   final Widget? suffixWidget, prefixIcon;
   final IconData? icon;
@@ -38,6 +37,7 @@ class CustomTextField extends StatefulWidget {
     this.maxLength,
     this.keyboardType,
     this.inputFormatters,
+    this.onChange,
     this.suffixWidget,
     this.icon,
     this.prefixIcon,
@@ -50,14 +50,12 @@ class CustomTextField extends StatefulWidget {
     ),
     this.hintColor = Colors.white,
   });
-  
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
-
   bool obscureText = true;
 
   @override
@@ -74,9 +72,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
       keyboardType: widget.keyboardType,
       inputFormatters: widget.inputFormatters,
       enabled: widget.enabled,
-      style: widget.textStyle ??
+      style:
+          widget.textStyle ??
           theme.textTheme.bodyMedium?.copyWith(
-              color: AppColors.grey , fontWeight: FontWeight.w500),
+            color: AppColors.grey,
+            fontWeight: FontWeight.w500,
+          ),
       cursorColor: theme.primaryColor,
       decoration: InputDecoration(
         labelText: widget.label,
@@ -84,21 +85,22 @@ class _CustomTextFieldState extends State<CustomTextField> {
           color: AppColors.grey,
           fontWeight: FontWeight.w500,
         ),
-        suffixIcon: widget.isPassword ?? false
-            ? InkWell(
-          onTap: () {
-            setState(() {
-              obscureText = !obscureText;
-            });
-          },
-          child: Icon(
-            obscureText
-                ? Icons.visibility_outlined
-                : Icons.visibility_off_outlined,
-            color: Colors.grey,
-          ),
-        )
-            : widget.suffixWidget,
+        suffixIcon:
+            widget.isPassword ?? false
+                ? InkWell(
+                  onTap: () {
+                    setState(() {
+                      obscureText = !obscureText;
+                    });
+                  },
+                  child: Icon(
+                    obscureText
+                        ? Icons.visibility_outlined
+                        : Icons.visibility_off_outlined,
+                    color: Colors.grey,
+                  ),
+                )
+                : widget.suffixWidget,
         prefixIcon: widget.prefixIcon,
 
         hintText: widget.hint,
@@ -113,39 +115,25 @@ class _CustomTextFieldState extends State<CustomTextField> {
         filled: true,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(
-            color: AppColors.grey,
-            width: 1,
-          ),
+          borderSide: BorderSide(color: AppColors.grey, width: 1),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(
-            color: AppColors.grey,
-            width: 1,
-          ),
+          borderSide: BorderSide(color: AppColors.grey, width: 1),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(
-            color: AppColors.primary,
-            width: 1,
-          ),
+          borderSide: const BorderSide(color: AppColors.primary, width: 1),
         ),
 
-        errorStyle: const TextStyle(
-          color: AppColors.red,
-          fontSize: 12,
-        ),
+        errorStyle: const TextStyle(color: AppColors.red, fontSize: 12),
         errorMaxLines: 6,
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(
-            color: AppColors.red,
-            width: 1,
-          ),
+          borderSide: const BorderSide(color: AppColors.red, width: 1),
         ),
       ),
+      onChanged: widget.onChange,
     );
   }
 }

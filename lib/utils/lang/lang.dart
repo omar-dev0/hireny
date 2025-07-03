@@ -43,7 +43,8 @@ abstract class Lang {
   static String regeForm = "Registration form";
   static String regTitle =
       "Register to apply for jobs of your choice all over the world";
-  static String regOrgTitle = 'Register to Post your job openings and connect with top talent from around the world.';
+  static String regOrgTitle =
+      'Register to Post your job openings and connect with top talent from around the world.';
   static String firstNameHint = 'Enter your first name';
   static String lastNameHint = 'Enter your last name';
   static String emailHintReg = 'Enter your email';
@@ -64,35 +65,47 @@ abstract class Lang {
   static String cityHint = "City";
 
   static String upload = "Upload";
-  static const String connectionTimeout = "Connection timeout. Please try again later.";
-  static const String sendTimeout = "Request sending timeout. Please try again.";
+  static const String connectionTimeout =
+      "Connection timeout. Please try again later.";
+  static const String sendTimeout =
+      "Request sending timeout. Please try again.";
   static const String receiveTimeout = "Server took too long to respond.";
   static const String requestCancelled = "Request was cancelled.";
   static const String unexpectedError = "An unexpected error occurred:";
   static const String genericError = "Something went wrong. Please try again.";
 
-  static const String otpExpiredOrIncorrect = "OTP has expired or is incorrect.";
-  static const String unauthorized = "You are not authorized to perform this action.";
+  static const String otpExpiredOrIncorrect =
+      "OTP has expired or is incorrect.";
+  static const String unauthorized =
+      "You are not authorized to perform this action.";
   static const String forbidden = "Access to this resource is forbidden.";
   static const String notFound = "Requested resource was not found.";
   static const String emailIncorrect = "The email address provided is invalid.";
   static const String emailExists = "This email is already in use.";
-  static const String internalServerError = "Internal server error. Please try again later.";
+  static const String internalServerError =
+      "Internal server error. Please try again later.";
   static const String badGateway = "Bad gateway. Please try again later.";
-  static const String serviceUnavailable = "Service is currently unavailable. Please try again later.";
+  static const String serviceUnavailable =
+      "Service is currently unavailable. Please try again later.";
   static const String invalidStatusCode = "Received invalid status code:";
-  static String sendMeEmail = "Send me important updates & promotions via email";
+  static String sendMeEmail =
+      "Send me important updates & promotions via email";
   static String readyToImmediatelyWork = "Ready to start immediately";
   static String alreadyHaveAccount = "Already have account";
   static String notValidDate = "Date can not be empty";
   static const String validateGenderEmpty = "Gender must not be empty.";
-  static const String validateNationalityEmpty = "Nationality must not be empty.";
+  static const String validateNationalityEmpty =
+      "Nationality must not be empty.";
   static const String validateTitleEmpty = "Title must not be empty.";
   static const String validateCountryEmpty = "Country must not be empty.";
   static const String validateCityEmpty = "City must not be empty.";
-  static const String validateCareerLevelEmpty = "Career Level must not be empty.";
-  static const String validateEmploymentStatusEmpty = "Employment Status must not be empty.";
+  static const String validateCareerLevelEmpty =
+      "Career Level must not be empty.";
+  static const String validateEmploymentStatusEmpty =
+      "Employment Status must not be empty.";
   static const String validateFileEmpty = "File must not be empty.";
-  static const String validateIndustryEmpty = "Industry must not be empty."; // Corrected "Indestry" to "Industry"
-  static const String validateOrgSizeEmpty = "Organization Size must not be empty.";
+  static const String validateIndustryEmpty =
+      "Industry must not be empty."; // Corrected "Indestry" to "Industry"
+  static const String validateOrgSizeEmpty =
+      "Organization Size must not be empty.";
 }

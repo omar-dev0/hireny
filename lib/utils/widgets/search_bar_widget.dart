@@ -10,7 +10,12 @@ class SearchBarWidget extends StatelessWidget {
   final String firstSearchHint;
   final String secondSearchHint;
 
-   SearchBarWidget({Key? key,required this.onSearchPressed, required this.firstSearchHint, required this.secondSearchHint}) : super(key: key);
+  SearchBarWidget({
+    Key? key,
+    required this.onSearchPressed,
+    required this.firstSearchHint,
+    required this.secondSearchHint,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,17 +29,18 @@ class SearchBarWidget extends StatelessWidget {
             color: Colors.grey.withOpacity(0.5),
             spreadRadius: 2,
             blurRadius: 5,
-            offset: Offset(0, 3),)
-        ]
+            offset: Offset(0, 3),
+          ),
+        ],
       ),
       padding: EdgeInsets.all(16.r),
       child: Column(
         children: [
-          CustomTextField(hint: firstSearchHint,),
+          CustomTextField(hint: firstSearchHint),
           SizedBox(height: 12.h),
-          CustomTextField(hint: secondSearchHint,),
+          CustomTextField(hint: secondSearchHint),
           SizedBox(height: 16.h),
-          CustomButtom(title: "Search", onPressed: (){})
+          CustomButtom(title: "Search", onPressed: () {}),
         ],
       ),
     );

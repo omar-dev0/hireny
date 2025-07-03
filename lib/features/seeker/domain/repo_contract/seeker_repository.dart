@@ -10,5 +10,5 @@ abstract class SeekerRepository {
   Future<Result<num>?> showInsight(Map<String, String> data);
   Future<Result<JobDetailsModel>> getJobPostDetails(int jobId);
   Future<Result<List<OrgPost>>> getAllOrganizations();
-  Future<Result<Course>> getCourseDetails(int courseId) ;
+  Future<Result<Course>> getCourseDetails(int courseId);
 }

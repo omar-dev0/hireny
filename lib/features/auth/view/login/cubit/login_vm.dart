@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hireny/features/auth/domain/modules/seeker/seeker.dart';
 import 'package:hireny/features/auth/domain/repo_contract/repo_contract.dart';
 import 'package:hireny/features/auth/view/login/cubit/state.dart';
 import 'package:injectable/injectable.dart';
@@ -20,17 +21,36 @@ class LoginVm extends Cubit<LoginState> {
   @factoryMethod
   LoginVm(this._repoAuth) : super(InitLogin());
 
-  Future<void> pickAndReadCVFile() async {
+  Future<void> loadAndParseCv() async {
     emit(LoadingLogin());
     _requestStoragePermission();
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['pdf'],
     );
-    emit(HideLoading());
-    if (result != null && result.files.isNotEmpty) {
-      file = File(result.files.single.path!);
-    }
+    try {
+      if (result != null && result.files.isNotEmpty) {
+        file = File(result.files.single.path!);
+        var responseResult = await _repoAuth.extractFromSeekerCV(file!);
+        switch (responseResult) {
+          case null:
+            {
+              emit(HideLoading());
+              emit(FailLoadedCV());
+            }
+          case Success<Seeker?>():
+            {
+              emit(HideLoading());
+              emit(CVLoadedSuccessfully());
+            }
+          case Error<Seeker?>():
+            {
+              emit(HideLoading());
+              emit(FailLoadedCV());
+            }
+        }
+      }
+    } catch (e) {}
   }
 
   Future<bool> _requestStoragePermission() async {

@@ -6,13 +6,33 @@ class GeneralUserInfo extends StatelessWidget {
     {"icon": Icons.email_rounded, "label": "Email", "value": "XXXX@gmail.com"},
     {"icon": Icons.phone_rounded, "label": "Phone", "value": "+201220212229"},
     {"icon": Icons.person_rounded, "label": "Age", "value": "23"},
-    {"icon": Icons.language_rounded, "label": "Nationality", "value": "Egyptian"},
+    {
+      "icon": Icons.language_rounded,
+      "label": "Nationality",
+      "value": "Egyptian",
+    },
     {"icon": Icons.location_pin, "label": "Location", "value": "New York, USA"},
     {"icon": Icons.work_rounded, "label": "Career Level", "value": "Senior"},
-    {"icon": Icons.business_center_rounded, "label": "Employment", "value": "Unemployed"},
-    {"icon": Icons.event_available_rounded, "label": "Availability", "value": "Immediately"},
-    {"icon": Icons.file_present_rounded, "label": "CV", "value": "Download PDF"},
-    {"icon": Icons.link_rounded, "label": "LinkedIn", "value": "linkedin.com/XXXXX"},
+    {
+      "icon": Icons.business_center_rounded,
+      "label": "Employment",
+      "value": "Unemployed",
+    },
+    {
+      "icon": Icons.event_available_rounded,
+      "label": "Availability",
+      "value": "Immediately",
+    },
+    {
+      "icon": Icons.file_present_rounded,
+      "label": "CV",
+      "value": "Download PDF",
+    },
+    {
+      "icon": Icons.link_rounded,
+      "label": "LinkedIn",
+      "value": "linkedin.com/XXXXX",
+    },
   ];
 
   GeneralUserInfo({super.key});
@@ -36,14 +56,14 @@ class GeneralUserInfo extends StatelessWidget {
                 children: [
                   const SizedBox(height: 16),
                   Text(
-                "General Information",
-                style: theme.textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w700,
-                  color: isDarkMode ? Colors.white : AppColors.black,
-                ),
-              ),
-              const SizedBox(height: 16),
-               ]
+                    "General Information",
+                    style: theme.textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: isDarkMode ? Colors.white : AppColors.black,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                ],
               ),
             ),
 
@@ -51,9 +71,10 @@ class GeneralUserInfo extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               child: Container(
                 decoration: BoxDecoration(
-                  color: isDarkMode
-                      ? theme.colorScheme.surfaceVariant
-                      : Colors.grey[50],
+                  color:
+                      isDarkMode
+                          ? theme.colorScheme.surfaceVariant
+                          : Colors.grey[50],
                 ),
                 child: Column(
                   children: List.generate(infoItems.length, (index) {
@@ -74,7 +95,7 @@ class GeneralUserInfo extends StatelessWidget {
                                 height: 40,
                                 decoration: BoxDecoration(
                                   color: AppColors.subPrimary,
-                                  borderRadius: BorderRadius.circular(20)
+                                  borderRadius: BorderRadius.circular(20),
                                 ),
                                 child: Icon(
                                   item['icon'],
@@ -91,31 +112,39 @@ class GeneralUserInfo extends StatelessWidget {
                                   children: [
                                     Text(
                                       item['label'],
-                                      style: theme.textTheme.bodySmall?.copyWith(
-                                        color: theme.textTheme.bodySmall?.color
-                                            ?.withOpacity(0.7),
-                                        letterSpacing: 0.5,
-                                      ),
+                                      style: theme.textTheme.bodySmall
+                                          ?.copyWith(
+                                            color: theme
+                                                .textTheme
+                                                .bodySmall
+                                                ?.color
+                                                ?.withOpacity(0.7),
+                                            letterSpacing: 0.5,
+                                          ),
                                     ),
                                     const SizedBox(height: 4),
-                                    if (item['label'] == "CV" || item['label'] == "LinkedIn")
+                                    if (item['label'] == "CV" ||
+                                        item['label'] == "LinkedIn")
                                       InkWell(
                                         onTap: () {},
                                         child: Text(
                                           item['value'],
-                                          style: theme.textTheme.bodyMedium?.copyWith(
-                                            color: AppColors.primary,
-                                            fontWeight: FontWeight.w600,
-                                            decoration: TextDecoration.underline,
-                                          ),
+                                          style: theme.textTheme.bodyMedium
+                                              ?.copyWith(
+                                                color: AppColors.primary,
+                                                fontWeight: FontWeight.w600,
+                                                decoration:
+                                                    TextDecoration.underline,
+                                              ),
                                         ),
                                       )
                                     else
                                       Text(
                                         item['value'],
-                                        style: theme.textTheme.bodyMedium?.copyWith(
-                                          fontWeight: FontWeight.w600,
-                                        ),
+                                        style: theme.textTheme.bodyMedium
+                                            ?.copyWith(
+                                              fontWeight: FontWeight.w600,
+                                            ),
                                       ),
                                   ],
                                 ),
@@ -127,7 +156,9 @@ class GeneralUserInfo extends StatelessWidget {
                         // Divider
                         if (!isLast)
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                            ),
                             child: Divider(
                               height: 1,
                               thickness: 1,

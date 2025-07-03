@@ -12,6 +12,8 @@ import 'package:hireny/utils/data_shared/data_const.dart';
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../domain/modules/assessment/assessment.dart';
+
 @Injectable(as: RepoAuth)
 class RepoAuthImp implements RepoAuth {
   AuthDataSource dataSource;
@@ -42,7 +44,7 @@ class RepoAuthImp implements RepoAuth {
       var result = await dataSource.login(email, password);
       if (result is Success) {
         Success<Map<String, dynamic>> response =
-        result as Success<Map<String, dynamic>>;
+            result as Success<Map<String, dynamic>>;
         String accessToken = response.response?['access'];
         String refreshToken = response.response?['refresh'];
         var userInfo = await getUserInfo(accessToken);
@@ -65,15 +67,12 @@ class RepoAuthImp implements RepoAuth {
             return Success();
           }
         }
+      } else if (result is Error) {
+        return Error(error: 'some thing went wrong');
       }
-      else if (result is Error)
-        {
-          return Error(error: 'some thing went wrong');
-        }
     } on DioException catch (e) {
       return Error(error: e.toString());
-    }
-    catch(e){
+    } catch (e) {
       return Error(error: e.toString());
     }
     return Error(error: 'error');
@@ -83,10 +82,14 @@ class RepoAuthImp implements RepoAuth {
   Future<Result<User?>?> getUserInfo(String token) {
     return dataSource.getUserInfo(token);
   }
-  @override
-  Future<Result<void>> changePassword(String token, String oldPassword, String newPassword) {
-    return dataSource.changePassword(token,oldPassword,newPassword);
 
+  @override
+  Future<Result<void>> changePassword(
+    String token,
+    String oldPassword,
+    String newPassword,
+  ) {
+    return dataSource.changePassword(token, oldPassword, newPassword);
   }
 
   @override
@@ -102,5 +105,25 @@ class RepoAuthImp implements RepoAuth {
   @override
   Future<Result<void>?> resetPassword(String email, String newPassword) {
     return dataSource.resetPassword(email, newPassword);
+  }
+
+  @override
+  Future<Result<AssessmentModel?>?> getAssessmentDetailes(int id) async {
+    return dataSource.getAssessmentDetailes(id);
+  }
+
+  @override
+  Future<Result<Seeker?>?> extractFromSeekerCV(File cv) {
+    return dataSource.extractFromSeekerCV(cv);
+  }
+
+  @override
+  Future<Result<List<AssessmentModel>?>?> getAssessments() {
+    return dataSource.getAssessments();
+  }
+
+  @override
+  Future<Result<void>?> submitAssessment(num id, List<dynamic> answers) {
+    return dataSource.submitAssessment(id, answers);
   }
 }

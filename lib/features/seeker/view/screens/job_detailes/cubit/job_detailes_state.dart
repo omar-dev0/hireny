@@ -1,4 +1,3 @@
-
 import '../../../../domain/modules/job_details.dart';
 
 abstract class JobDatailesState {}
@@ -17,5 +16,4 @@ class JobDetailsError extends JobDatailesState {
   final String message;
 
   JobDetailsError({required this.message});
-
 }

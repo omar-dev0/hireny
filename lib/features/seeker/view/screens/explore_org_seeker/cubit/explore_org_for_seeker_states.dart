@@ -1,13 +1,10 @@
-
 import '../../../../domain/modules/org_post.dart';
 
 abstract class OrgPostState {}
 
-class OrgPostInitial extends OrgPostState {
-}
+class OrgPostInitial extends OrgPostState {}
 
-class OrgPostLoading extends OrgPostState {
-}
+class OrgPostLoading extends OrgPostState {}
 
 class OrgPostLoaded extends OrgPostState {
   final List<OrgPost> orgPosts;

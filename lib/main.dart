@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hireny/features/my_assessment/presentation/ui/assissment_detailes/assissment_details_screen.dart';
 import 'package:hireny/routes/app_routes.dart' as AppRoutes;
 import 'package:hireny/utils/di/di.dart';
 import 'package:hireny/utils/theme.dart';
+import 'package:hireny/widget/tabbar.dart';
 
 import 'config_app/app_provider.dart';
 

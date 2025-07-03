@@ -13,9 +13,6 @@ class AppCubit extends Cubit<AppStates> {
   final ShowApp listApp;
   List<AppEntity> applications = [];
 
-
-
-
   @factoryMethod
   AppCubit(this.removeApp, this.listApp) : super(InitialState());
 
@@ -28,7 +25,6 @@ class AppCubit extends Cubit<AppStates> {
       emit(ErrorState("Failed to load applications"));
     }
   }
-
 
   Future<void> deleteCourse(AppEntity app) async {
     try {

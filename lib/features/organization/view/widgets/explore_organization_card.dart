@@ -10,10 +10,8 @@ import '../../../seeker/domain/modules/org_post.dart';
 class ExploreOrganizationCard extends StatelessWidget {
   final OrgPost orgPost;
 
-  const ExploreOrganizationCard({
-    Key? key,
-    required this.orgPost
-  }) : super(key: key);
+  const ExploreOrganizationCard({Key? key, required this.orgPost})
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +25,7 @@ class ExploreOrganizationCard extends StatelessWidget {
             color: AppColors.grey.withOpacity(0.15),
             blurRadius: 8,
             offset: Offset(0, 4),
-          )
+          ),
         ],
         border: Border.all(color: AppColors.subPrimary2, width: 1),
       ),
@@ -44,7 +42,9 @@ class ExploreOrganizationCard extends StatelessWidget {
             height: MediaQuery.sizeOf(context).height * .1,
             fit: BoxFit.cover,
             errorBuilder: (_, __, ___) {
-              return Image.asset(AppAssets.org_logo); // Fallback to placeholder if image fails to load
+              return Image.asset(
+                AppAssets.org_logo,
+              ); // Fallback to placeholder if image fails to load
             },
           ),
           SizedBox(height: 10.h),
@@ -65,7 +65,11 @@ class ExploreOrganizationCard extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.home_work_rounded, size: 14.sp, color: AppColors.grey),
+                Icon(
+                  Icons.home_work_rounded,
+                  size: 14.sp,
+                  color: AppColors.grey,
+                ),
                 SizedBox(width: 4.w),
                 Expanded(
                   child: Text(

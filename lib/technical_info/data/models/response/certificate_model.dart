@@ -6,7 +6,12 @@ class CertificateModel extends CertificateEntity {
 
   CertificateModel({
     required this.createdAt,
-    required this.updatedAt, required super.id, required super.certificateName, required super.institutionName, required super.dateIssued, required super.description,
+    required this.updatedAt,
+    required super.id,
+    required super.certificateName,
+    required super.institutionName,
+    required super.dateIssued,
+    required super.description,
   });
 
   factory CertificateModel.fromJson(Map<String, dynamic> json) {

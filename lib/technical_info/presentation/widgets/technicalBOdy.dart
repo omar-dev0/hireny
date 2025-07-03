@@ -37,7 +37,6 @@ class Technicalbody extends StatelessWidget {
                     title: "My Education",
                     img: AppAssets.eduImg,
                     data: cubit.education,
-
                   ),
                 ),
                 SizedBox(height: 20),
@@ -77,20 +76,14 @@ class Technicalbody extends StatelessWidget {
               ],
             ),
           );
-        }
-        else if (state is TechnicalInfoFailure) {
+        } else if (state is TechnicalInfoFailure) {
           return Bounce(
-            child: Center(
-              child: Text("Failed to load technical information."),
-            ),
+            child: Center(child: Text("Failed to load technical information.")),
           );
-        }
-        else {
+        } else {
           return FadeIn(
             duration: Duration(milliseconds: 500),
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
+            child: Center(child: CircularProgressIndicator()),
           );
         }
       },

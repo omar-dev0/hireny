@@ -4,7 +4,6 @@ import 'package:hireny/features/assessment/presentation/manager/assessment_cubit
 import 'package:hireny/features/assessment/presentation/ui/widgets/progress_indicator.dart';
 import 'package:hireny/utils/constants/app_colors.dart';
 
-
 class Assessment extends StatelessWidget {
   const Assessment({super.key});
 
@@ -19,73 +18,77 @@ class Assessment extends StatelessWidget {
         child: Column(
           children: [
             ProgressIndicatorNumeric(totalSteps: 20),
-            SizedBox(height: height*0.07),
-            Center(child:
-            Container(
-              height:350,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: AppColors.subPrimary,
-                  borderRadius:BorderRadius.circular(16)
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 20,),
-                    Text("Q1: What's your name?",style:theme.bodyLarge ,),
-                    SizedBox(height: 40,),
-                    Text("a) John",style:theme.bodyLarge ,),
-                    SizedBox(height: 20,),
-                    Text("b) Jackson",style:theme.bodyLarge ,),
-                    SizedBox(height: 20,),
-                    Text("c) Wilson",style:theme.bodyLarge ,),
-                    SizedBox(height: 20,),
-                    Text("d) Zotobia",style:theme.bodyLarge ,),
-                    SizedBox(height: 20,),
-
-
-                  ],
+            SizedBox(height: height * 0.07),
+            Center(
+              child: Container(
+                height: 350,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: AppColors.subPrimary,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 20),
+                      Text("Q1: What's your name?", style: theme.bodyLarge),
+                      SizedBox(height: 40),
+                      Text("a) John", style: theme.bodyLarge),
+                      SizedBox(height: 20),
+                      Text("b) Jackson", style: theme.bodyLarge),
+                      SizedBox(height: 20),
+                      Text("c) Wilson", style: theme.bodyLarge),
+                      SizedBox(height: 20),
+                      Text("d) Zotobia", style: theme.bodyLarge),
+                      SizedBox(height: 20),
+                    ],
+                  ),
                 ),
               ),
-            )),
-            SizedBox(height: height*0.1),
+            ),
+            SizedBox(height: height * 0.1),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primary,
-                      shape: ContinuousRectangleBorder(
-                          borderRadius:BorderRadius.circular(16)
-                      )
+                    backgroundColor: AppColors.primary,
+                    shape: ContinuousRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
                   ),
                   onPressed: () {
                     context.read<AssessmentCubit>().goToPrevStep();
                   },
-                  child: Text("Previous",style:theme.bodySmall?.copyWith(
+                  child: Text(
+                    "Previous",
+                    style: theme.bodySmall?.copyWith(
                       color: AppColors.white,
-                      fontWeight: FontWeight.w500
-                  ),),
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primary,
-                      shape: ContinuousRectangleBorder(
-                          borderRadius:BorderRadius.circular(16)
-                      )
+                    backgroundColor: AppColors.primary,
+                    shape: ContinuousRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
                   ),
                   onPressed: () {
                     // # of Questions
                     context.read<AssessmentCubit>().goToNextStep(20);
                   },
-                  child: Text("Next",style:theme.bodySmall?.copyWith(
+                  child: Text(
+                    "Next",
+                    style: theme.bodySmall?.copyWith(
                       color: AppColors.white,
-                      fontWeight: FontWeight.w500
-                  ),),
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 ),
-
               ],
             ),
           ],

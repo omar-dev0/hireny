@@ -1,8 +1,7 @@
-
 import 'org_post_entity.dart';
 import 'org_review_entity.dart';
 
-class OrgProfileEntity{
+class OrgProfileEntity {
   int orgID;
   String description;
   String ceoName;
@@ -10,8 +9,8 @@ class OrgProfileEntity{
   int employeesNum;
   String industry;
   String location;
- List<OrgPostCardEntity> postCard;
- List<OrgReviewEntity> reviewCard;
+  List<OrgPostCardEntity> postCard;
+  List<OrgReviewEntity> reviewCard;
 
   OrgProfileEntity({
     required this.orgID,
@@ -22,8 +21,6 @@ class OrgProfileEntity{
     required this.industry,
     required this.location,
     required this.postCard,
-    required this.reviewCard
+    required this.reviewCard,
   });
-
-
 }

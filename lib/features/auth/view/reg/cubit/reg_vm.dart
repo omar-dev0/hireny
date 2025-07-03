@@ -158,7 +158,7 @@ class RegSeekerVm extends Cubit<RegState> {
           orgSize: orgSize,
           updatesToEmail: sendMeEmail,
           links: [UserLink(type: 'website', url: websiteLink.text)],
-          photo: null
+          photo: null,
         );
         Result<OrgAdmin?>? result = await repoAuth.regOrg(
           orgAdmin,

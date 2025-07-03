@@ -35,68 +35,63 @@ class _ExploreJobSeekersOrgState extends State<ExploreJobSeekersOrg> {
   @override
   Widget build(BuildContext context) {
     final List<Function()?> onChipPressed = [
-          () => showLocationSheet(context),
-          () => showDynamicBottomSheet(context: context,title: "Select  category" , items: [
-            "Commerce",
-            "Telecommunications",
-            "Hotels & Tourism",
-            "Education",
-            "Financial Services"
-          ],
-              onSelectedIndicesChanged: (selectedIndices) {
-
-              }
-          ),
-          () => showDynamicBottomSheet(context: context,title: "Select  Career Level" , items: [
-            "No-experience",
-            "Fresher",
-            "Intermediate",
-            "Expert",
-          ],
-              onSelectedIndicesChanged: (selectedIndices) {
-
-              }
-          ),
-          () => showDynamicBottomSheet(context: context,title: "Select  Employment Statuts" , items: [
-            "Employed",
-            "Unemployed",
-            "Freelancer",
-          ],
-              onSelectedIndicesChanged: (selectedIndices) {
-
-              }
-          ),
-          () => showDynamicBottomSheet(context: context,title: "Select  Gender"
-              , items: [
-            "Male",
-            "Female",
-          ],
-              onSelectedIndicesChanged: (selectedIndices) {
-
-              }
-          ),
-          // () => showDynamicInputBottomSheet(context: context,title: "Select  Age" , minHint: "Min Age", maxHint: "Max Age", buttonText: "Filter"),
+      () => showLocationSheet(context),
+      () => showDynamicBottomSheet(
+        context: context,
+        title: "Select  category",
+        items: [
+          "Commerce",
+          "Telecommunications",
+          "Hotels & Tourism",
+          "Education",
+          "Financial Services",
+        ],
+        onSelectedIndicesChanged: (selectedIndices) {},
+      ),
+      () => showDynamicBottomSheet(
+        context: context,
+        title: "Select  Career Level",
+        items: ["No-experience", "Fresher", "Intermediate", "Expert"],
+        onSelectedIndicesChanged: (selectedIndices) {},
+      ),
+      () => showDynamicBottomSheet(
+        context: context,
+        title: "Select  Employment Statuts",
+        items: ["Employed", "Unemployed", "Freelancer"],
+        onSelectedIndicesChanged: (selectedIndices) {},
+      ),
+      () => showDynamicBottomSheet(
+        context: context,
+        title: "Select  Gender",
+        items: ["Male", "Female"],
+        onSelectedIndicesChanged: (selectedIndices) {},
+      ),
+      // () => showDynamicInputBottomSheet(context: context,title: "Select  Age" , minHint: "Min Age", maxHint: "Max Age", buttonText: "Filter"),
     ];
     return Scaffold(
       backgroundColor: AppColors.subPrimary,
       body: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: 10.w,vertical: 15.h),
+        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
         child: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
-              child:     Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: 20.h,),
+                  SizedBox(height: 20.h),
                   SearchBarWidget(
                     firstSearchHint: "Enter service name",
                     secondSearchHint: "Job Seeker",
-                    onSearchPressed: (){},
+                    onSearchPressed: () {},
                   ),
-                  SizedBox(height: 20.h,),
-                  Text("Explore Job Seekers",style: AppFonts.mainText,),
-                  Text("Discover courses to boost your skills.json and achieve your goals.",style: AppFonts.secMain,textAlign: TextAlign.center,),
-                  SizedBox(height: 20.h,),
+                  SizedBox(height: 20.h),
+                  Text("Explore Job Seekers", style: AppFonts.mainText),
+                  Text(
+                    "Discover courses to boost your skills.json and achieve your goals.",
+                    style: AppFonts.secMain,
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 20.h),
                   // DynamicFilterChipsWidget(
                   //   chipLabels: chipLabels,
                   //   onChipPressed: onChipPressed,
@@ -104,8 +99,8 @@ class _ExploreJobSeekersOrgState extends State<ExploreJobSeekersOrg> {
                   //     print("Selected chips: $selectedIndices");
                   //   },
                   // ),
-                  SizedBox(height: 20.h,),
-                  Text("All Job Seekers (2310)",style: AppFonts.mainText,),
+                  SizedBox(height: 20.h),
+                  Text("All Job Seekers (2310)", style: AppFonts.mainText),
                 ],
               ),
             ),
@@ -123,11 +118,10 @@ class _ExploreJobSeekersOrgState extends State<ExploreJobSeekersOrg> {
                   ],
                 );
               },
-            )
+            ),
           ],
         ),
       ),
     );
   }
 }
-

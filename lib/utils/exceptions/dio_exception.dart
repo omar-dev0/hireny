@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 
 import '../lang/lang.dart';
 
-
 class DioExceptions implements Exception {
   final String message;
 
@@ -17,7 +16,6 @@ class DioExceptions implements Exception {
       case DioExceptionType.receiveTimeout:
         return DioExceptions(message: Lang.receiveTimeout);
       case DioExceptionType.badResponse:
-
         return DioExceptions(
           message: handleHttpError(
             dioError.response?.statusCode,
@@ -37,7 +35,6 @@ class DioExceptions implements Exception {
 
   static String handleHttpError(int? statusCode, String? statusMessage) {
     switch (statusCode) {
-
       case 400:
         return Lang.otpExpiredOrIncorrect;
       case 401:
@@ -48,8 +45,8 @@ class DioExceptions implements Exception {
         return Lang.notFound;
       case 422:
         return Lang.emailIncorrect;
-        case 423:
-          return Lang.emailExists;
+      case 423:
+        return Lang.emailExists;
       case 410:
         return Lang.otpExpiredOrIncorrect;
       case 500:

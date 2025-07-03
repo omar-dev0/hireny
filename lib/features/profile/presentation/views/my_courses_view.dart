@@ -94,8 +94,10 @@ class _MyCoursesViewState extends State<MyCoursesView> {
                   /// 📘 Title
                   FadeInDown(
                     duration: const Duration(milliseconds: 600),
-                    child: Text("Registered Courses ($total)",
-                        style: AppFonts.mainText),
+                    child: Text(
+                      "Registered Courses ($total)",
+                      style: AppFonts.mainText,
+                    ),
                   ),
 
                   const SizedBox(height: 12),

@@ -14,18 +14,19 @@ class RelatedServicesOrg extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.subPrimary,
       body: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: 10.w,vertical: 10.h),
+        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
         child: Column(
           children: [
-            SizedBox(height: 40.h,),
-            Text("Related Services",style: AppFonts.mainText,),
+            SizedBox(height: 40.h),
+            Text("Related Services", style: AppFonts.mainText),
             Expanded(
               child: ListView.builder(
-                  itemCount: 5,
-                  itemBuilder: (context, index){
-                    return ServiceCard();
-                  }),
-            )
+                itemCount: 5,
+                itemBuilder: (context, index) {
+                  return ServiceCard();
+                },
+              ),
+            ),
           ],
         ),
       ),

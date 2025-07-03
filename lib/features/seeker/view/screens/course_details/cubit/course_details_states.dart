@@ -1,15 +1,10 @@
-
-
 import '../../../../domain/modules/course.dart';
 
-abstract class CourseDetailsState  {}
+abstract class CourseDetailsState {}
 
-class CourseDetailsInitial extends CourseDetailsState {
+class CourseDetailsInitial extends CourseDetailsState {}
 
-}
-
-class CourseDetailsLoading extends CourseDetailsState {
-}
+class CourseDetailsLoading extends CourseDetailsState {}
 
 class CourseDetailsLoaded extends CourseDetailsState {
   final Course? courseDetails;

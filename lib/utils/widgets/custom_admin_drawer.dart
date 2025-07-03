@@ -90,22 +90,25 @@ class _CustomAdminDrawerState extends State<CustomAdminDrawer> {
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {
-
                     Navigator.pop(context);
                   },
                   child: Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 16,
+                        ),
                         child: Text(
                           drawerList[index],
-                          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                          style: Theme.of(
+                            context,
+                          ).textTheme.headlineSmall!.copyWith(
                             color: AppColors.primary,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),
-
                     ],
                   ),
                 );

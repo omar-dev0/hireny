@@ -4,11 +4,7 @@ class BulletPoint extends StatelessWidget {
   final Widget? icon;
   final String label;
 
-  const BulletPoint({
-    super.key,
-    this.icon,
-    required this.label,
-  });
+  const BulletPoint({super.key, this.icon, required this.label});
 
   @override
   Widget build(BuildContext context) {
@@ -20,18 +16,10 @@ class BulletPoint extends StatelessWidget {
           icon ??
               const Padding(
                 padding: EdgeInsets.only(top: 6),
-                child: Text(
-                  '•',
-                  style: TextStyle(fontSize: 20),
-                ),
+                child: Text('•', style: TextStyle(fontSize: 20)),
               ),
           const SizedBox(width: 8),
-          Expanded(
-            child: Text(
-              label,
-              style: TextStyle(fontSize: 16),
-            ),
-          ),
+          Expanded(child: Text(label, style: TextStyle(fontSize: 16))),
         ],
       ),
     );

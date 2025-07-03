@@ -1,4 +1,4 @@
-class OrgReviewEntity{
+class OrgReviewEntity {
   int reviewID;
   String owner;
   String publishedTime;
@@ -8,5 +8,6 @@ class OrgReviewEntity{
     required this.reviewID,
     required this.owner,
     required this.publishedTime,
-    required this.content});
+    required this.content,
+  });
 }

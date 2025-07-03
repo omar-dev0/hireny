@@ -4,9 +4,7 @@ import 'package:hireny/technical_info/presentation/widgets/skillBox.dart';
 import '../../../utils/constants/app_colors.dart';
 
 class skillsSection extends StatelessWidget {
-  const skillsSection({
-    super.key, required this.title,
-  });
+  const skillsSection({super.key, required this.title});
 
   final String title;
 
@@ -14,22 +12,21 @@ class skillsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        sectionHeader(title: title, onAddPressed: () {  },),
-        SizedBox(height: 15,),
+        sectionHeader(title: title, onAddPressed: () {}),
+        SizedBox(height: 15),
         Container(
-            decoration: BoxDecoration(
-                color: AppColors.lightGrey,
-                borderRadius: BorderRadius.circular(14)
-            ),
-            height: 100,
-            child:ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount:5,
-                itemBuilder : (context,index)
-                {
-                  return skillBox();
-                }
-            )
+          decoration: BoxDecoration(
+            color: AppColors.lightGrey,
+            borderRadius: BorderRadius.circular(14),
+          ),
+          height: 100,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: 5,
+            itemBuilder: (context, index) {
+              return skillBox();
+            },
+          ),
         ),
       ],
     );

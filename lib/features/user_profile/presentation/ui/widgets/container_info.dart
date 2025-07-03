@@ -21,20 +21,21 @@ class ContainerInfo extends StatelessWidget {
         crossAxisSpacing: 8,
         childAspectRatio: 5,
       ),
-      itemBuilder: (context, index) => Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: AppColors.subPrimary,
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Center(
-          child: Text(
-            info[index],
-            style: theme.bodyMedium,
-            textAlign: TextAlign.center,
+      itemBuilder:
+          (context, index) => Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: AppColors.subPrimary,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Center(
+              child: Text(
+                info[index],
+                style: theme.bodyMedium,
+                textAlign: TextAlign.center,
+              ),
+            ),
           ),
-        ),
-      ),
     );
   }
 }

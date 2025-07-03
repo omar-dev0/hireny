@@ -47,7 +47,10 @@ class ExploreOrgForSeekerContent extends StatelessWidget {
                 /// Animated Title
                 FadeInDown(
                   duration: Duration(milliseconds: 500),
-                  child: Text("Explore Organizations", style: AppFonts.mainText),
+                  child: Text(
+                    "Explore Organizations",
+                    style: AppFonts.mainText,
+                  ),
                 ),
                 SizedBox(height: 20.h),
 
@@ -104,9 +107,7 @@ class ExploreOrgForSeekerContent extends StatelessWidget {
                           onTap: () {
                             Navigator.pushNamed(context, PagesRoute.orgProfile);
                           },
-                          child: ExploreOrganizationCard(
-                            orgPost: orgPost,
-                          ),
+                          child: ExploreOrganizationCard(orgPost: orgPost),
                         ),
                       );
                     }, childCount: state.orgPosts.length),
@@ -121,7 +122,10 @@ class ExploreOrgForSeekerContent extends StatelessWidget {
               } else if (state is OrgPostLoaded && state.orgPosts.isEmpty) {
                 return SliverToBoxAdapter(
                   child: Center(
-                    child: Text("No organizations found.", style: AppFonts.secMain),
+                    child: Text(
+                      "No organizations found.",
+                      style: AppFonts.secMain,
+                    ),
                   ),
                 );
               } else {
@@ -134,4 +138,3 @@ class ExploreOrgForSeekerContent extends StatelessWidget {
     );
   }
 }
-

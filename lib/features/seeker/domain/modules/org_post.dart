@@ -69,8 +69,9 @@ class OrgPost {
         industryValue = data['industry'];
       } else if (data['industry'] is List) {
         // If it's a list like ["it", "finance"]
-        industryValue =
-            (data['industry'] as List).map((e) => e.toString()).join(', ');
+        industryValue = (data['industry'] as List)
+            .map((e) => e.toString())
+            .join(', ');
       }
     }
 

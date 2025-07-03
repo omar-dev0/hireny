@@ -63,7 +63,8 @@ class CourseContent extends StatelessWidget {
                       if (cubit.selectedDateFilter != 'All') {
                         selectedChips.add(chipLabels.indexOf('Date Published'));
                       }
-                      if (cubit.minPriceFilter != null || cubit.maxPriceFilter != null) {
+                      if (cubit.minPriceFilter != null ||
+                          cubit.maxPriceFilter != null) {
                         selectedChips.add(chipLabels.indexOf('Price'));
                       }
 
@@ -94,7 +95,10 @@ class CourseContent extends StatelessWidget {
                             duration: Duration(milliseconds: 300 + index * 100),
                             child: InkWell(
                               onTap: () {
-                                Navigator.pushNamed(context, PagesRoute.courseDetailes);
+                                Navigator.pushNamed(
+                                  context,
+                                  PagesRoute.courseDetailes,
+                                );
                               },
                               child: ExploreCard(
                                 course: course,
@@ -118,11 +122,10 @@ class CourseContent extends StatelessWidget {
                   return SliverToBoxAdapter(child: Container());
                 }
               },
-            )
+            ),
           ],
         ),
       ),
     );
   }
 }
-

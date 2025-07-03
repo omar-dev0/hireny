@@ -19,8 +19,11 @@ class FormAddInfo extends StatelessWidget {
             TextFormField(
               controller: cubit.titleController,
               decoration: const InputDecoration(labelText: 'Title'),
-              validator: (value) =>
-              (value == null || value.trim().isEmpty) ? 'Required' : null,
+              validator:
+                  (value) =>
+                      (value == null || value.trim().isEmpty)
+                          ? 'Required'
+                          : null,
             ),
             const SizedBox(height: 10),
 
@@ -28,10 +31,14 @@ class FormAddInfo extends StatelessWidget {
             TextFormField(
               controller: cubit.institutionController,
               decoration: InputDecoration(
-                labelText: cubit.isExperience ? 'Company Name' : 'Institution Name',
+                labelText:
+                    cubit.isExperience ? 'Company Name' : 'Institution Name',
               ),
-              validator: (value) =>
-              (value == null || value.trim().isEmpty) ? 'Required' : null,
+              validator:
+                  (value) =>
+                      (value == null || value.trim().isEmpty)
+                          ? 'Required'
+                          : null,
             ),
             const SizedBox(height: 10),
 
@@ -43,8 +50,11 @@ class FormAddInfo extends StatelessWidget {
                     child: TextFormField(
                       controller: cubit.startDateController,
                       readOnly: true,
-                      decoration: const InputDecoration(labelText: 'Start Date'),
-                      onTap: () => _pickDate(context, cubit.startDateController),
+                      decoration: const InputDecoration(
+                        labelText: 'Start Date',
+                      ),
+                      onTap:
+                          () => _pickDate(context, cubit.startDateController),
                     ),
                   ),
                   const SizedBox(width: 16),
@@ -64,9 +74,10 @@ class FormAddInfo extends StatelessWidget {
                 controller: cubit.startDateController,
                 readOnly: true,
                 decoration: InputDecoration(
-                  labelText: (cubit.isCourse || cubit.isCertificate)
-                      ? 'Date Issued'
-                      : 'Start Date',
+                  labelText:
+                      (cubit.isCourse || cubit.isCertificate)
+                          ? 'Date Issued'
+                          : 'Start Date',
                 ),
                 onTap: () => _pickDate(context, cubit.startDateController),
               ),
@@ -77,24 +88,32 @@ class FormAddInfo extends StatelessWidget {
             if (cubit.isExperience) ...[
               DropdownButtonFormField<String>(
                 value: cubit.selectedJobTitle,
-                items: cubit.jobTitles
-                    .map((e) => DropdownMenuItem(value: e, child: Text(e)))
-                    .toList(),
+                items:
+                    cubit.jobTitles
+                        .map((e) => DropdownMenuItem(value: e, child: Text(e)))
+                        .toList(),
                 decoration: const InputDecoration(labelText: 'Job Title'),
                 onChanged: (val) => cubit.setJobTitle(val!),
-                validator: (value) =>
-                (value == null || value.trim().isEmpty) ? 'Required' : null,
+                validator:
+                    (value) =>
+                        (value == null || value.trim().isEmpty)
+                            ? 'Required'
+                            : null,
               ),
               const SizedBox(height: 10),
               DropdownButtonFormField<String>(
                 value: cubit.selectedJobType,
-                items: cubit.jobTypes
-                    .map((e) => DropdownMenuItem(value: e, child: Text(e)))
-                    .toList(),
+                items:
+                    cubit.jobTypes
+                        .map((e) => DropdownMenuItem(value: e, child: Text(e)))
+                        .toList(),
                 decoration: const InputDecoration(labelText: 'Job Type'),
                 onChanged: (val) => cubit.setJobType(val!),
-                validator: (value) =>
-                (value == null || value.trim().isEmpty) ? 'Required' : null,
+                validator:
+                    (value) =>
+                        (value == null || value.trim().isEmpty)
+                            ? 'Required'
+                            : null,
               ),
               const SizedBox(height: 10),
             ],
@@ -104,8 +123,11 @@ class FormAddInfo extends StatelessWidget {
               controller: cubit.descriptionController,
               decoration: const InputDecoration(labelText: 'Description'),
               maxLines: 3,
-              validator: (value) =>
-              (value == null || value.trim().isEmpty) ? 'Required' : null,
+              validator:
+                  (value) =>
+                      (value == null || value.trim().isEmpty)
+                          ? 'Required'
+                          : null,
             ),
             const SizedBox(height: 20),
           ],

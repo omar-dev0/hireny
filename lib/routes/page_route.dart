@@ -30,7 +30,6 @@ abstract class PagesRoute {
   static const String changePassword = "/changePass";
   static const String techInfo = "/techInfo";
 
-
   // admin routes
   static const String showCourses = "/showCourses";
   static const String showOrg = "/showOrg";
@@ -42,4 +41,6 @@ abstract class PagesRoute {
   static const String otpScreen = "/otpScreen";
   static const String verifyEmail = "/verifyEmail";
   static const String resetPassword = "/resetPassword";
+
+  static const String aiTools = '/aiTools';
 }

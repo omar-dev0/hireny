@@ -2,7 +2,7 @@ import 'package:hireny/features/org_profile/domain/repositories/org_profile_repo
 import 'package:injectable/injectable.dart';
 
 @injectable
-class AddReview{
+class AddReview {
   final OrgProfileRepo profileRepo;
 
   AddReview({required this.profileRepo});

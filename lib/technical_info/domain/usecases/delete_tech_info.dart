@@ -9,8 +9,7 @@ class DeleteTechInfo {
 
   DeleteTechInfo(this.techRepo);
 
-  Future<Result<void>> call(String id,int deleteID) async {
-    return await techRepo.deleteItem(id,deleteID);
+  Future<Result<void>> call(String id, int deleteID) async {
+    return await techRepo.deleteItem(id, deleteID);
   }
-
 }

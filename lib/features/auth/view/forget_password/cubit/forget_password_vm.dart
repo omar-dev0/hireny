@@ -74,37 +74,35 @@ class ForgetPasswordVM extends Cubit<ForgetPasswordState> {
   }
 
   Future<void> changePassword() async {
-    if(passwordChangeKey.currentState!.validate())
-      {
-        try {
-          emit(LoadingResetPassword());
-          var result = await authRepo.resetPassword(
-            emailVerfiy.text,
-            password.text,
-          );
-          switch (result) {
-            case null:
-              {
-                emit(HideForgetPasswordDialogs());
-                emit(FailResetPassword());
-              }
-            case Success<void>():
-              {
-                emit(HideForgetPasswordDialogs());
-                emit(SuccessResetPassword());
-              }
-              throw UnimplementedError();
-            case Error<void>():
-              {
-                emit(HideForgetPasswordDialogs());
-                emit(FailResetPassword());
-              }
-          }
-        } catch (e) {
-          emit(HideForgetPasswordDialogs());
-          emit(FailResetPassword());
+    if (passwordChangeKey.currentState!.validate()) {
+      try {
+        emit(LoadingResetPassword());
+        var result = await authRepo.resetPassword(
+          emailVerfiy.text,
+          password.text,
+        );
+        switch (result) {
+          case null:
+            {
+              emit(HideForgetPasswordDialogs());
+              emit(FailResetPassword());
+            }
+          case Success<void>():
+            {
+              emit(HideForgetPasswordDialogs());
+              emit(SuccessResetPassword());
+            }
+            throw UnimplementedError();
+          case Error<void>():
+            {
+              emit(HideForgetPasswordDialogs());
+              emit(FailResetPassword());
+            }
         }
+      } catch (e) {
+        emit(HideForgetPasswordDialogs());
+        emit(FailResetPassword());
       }
-      }
+    }
   }
-
+}

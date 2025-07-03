@@ -70,10 +70,7 @@ class _DynamicBottomSheetState extends State<DynamicBottomSheet> {
           SizedBox(height: 8.h),
           Row(
             children: [
-              Text(
-                widget.title,
-                style: AppFonts.secMain,
-              ),
+              Text(widget.title, style: AppFonts.secMain),
               const Spacer(),
               IconButton(
                 onPressed: Navigator.of(context).pop,
@@ -84,26 +81,34 @@ class _DynamicBottomSheetState extends State<DynamicBottomSheet> {
           SizedBox(height: 24.h),
           Expanded(
             child: ListView(
-              children: widget.items.asMap().entries.map((entry) {
-                int index = entry.key;
-                String item = entry.value;
+              children:
+                  widget.items.asMap().entries.map((entry) {
+                    int index = entry.key;
+                    String item = entry.value;
 
-                return CheckboxListTile(
-                  title: Text(item, style: AppFonts.secMain.copyWith(fontSize: 14.sp)),
-                  value: selectedIndices.contains(index),
-                  onChanged: (value) => _toggleSelection(index, value),
-                  activeColor: AppColors.primary,
-                  controlAffinity: ListTileControlAffinity.leading,
-                );
-              }).toList(),
+                    return CheckboxListTile(
+                      title: Text(
+                        item,
+                        style: AppFonts.secMain.copyWith(fontSize: 14.sp),
+                      ),
+                      value: selectedIndices.contains(index),
+                      onChanged: (value) => _toggleSelection(index, value),
+                      activeColor: AppColors.primary,
+                      controlAffinity: ListTileControlAffinity.leading,
+                    );
+                  }).toList(),
             ),
           ),
           SizedBox(height: 16.h), // Add some space before the button
           CustomButtom(
             title: "Apply Filters",
             onPressed: () {
-              widget.onSelectedIndicesChanged(selectedIndices); // Notify parent only when apply button is pressed
-              Navigator.pop(context); // Close bottom sheet after applying filter
+              widget.onSelectedIndicesChanged(
+                selectedIndices,
+              ); // Notify parent only when apply button is pressed
+              Navigator.pop(
+                context,
+              ); // Close bottom sheet after applying filter
             },
           ),
           SizedBox(height: 16.h), // Add some space below the button
@@ -112,5 +117,3 @@ class _DynamicBottomSheetState extends State<DynamicBottomSheet> {
     );
   }
 }
-
-

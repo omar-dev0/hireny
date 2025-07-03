@@ -43,12 +43,12 @@ class CourseCubit extends Cubit<CourseState> {
     }
 
     final filteredList =
-    AppSharedData.courses
-        .where(
-          (course) =>
-          course.title.toLowerCase().contains(query.toLowerCase()),
-    )
-        .toList();
+        AppSharedData.courses
+            .where(
+              (course) =>
+                  course.title.toLowerCase().contains(query.toLowerCase()),
+            )
+            .toList();
 
     emit(CourseLoaded(courses: filteredList));
   }
@@ -76,34 +76,47 @@ class CourseCubit extends Cubit<CourseState> {
     Set<int> selectedCategoryIndices = _currentFilters['category'];
     if (selectedCategoryIndices.isNotEmpty) {
       final List<String> allCategories = AppSharedData.industries;
-      final List<String> selectedCategories = selectedCategoryIndices.map((i) => allCategories[i].toLowerCase()).toList();
-      filteredList = filteredList
-          .where((course) =>
-          course.category.any((cat) => selectedCategories.contains(cat.toLowerCase())))
-          .toList();
+      final List<String> selectedCategories =
+          selectedCategoryIndices
+              .map((i) => allCategories[i].toLowerCase())
+              .toList();
+      filteredList =
+          filteredList
+              .where(
+                (course) => course.category.any(
+                  (cat) => selectedCategories.contains(cat.toLowerCase()),
+                ),
+              )
+              .toList();
     }
 
     // Apply date filter
     String selectedDate = _currentFilters['date'];
     if (selectedDate != 'All') {
-      filteredList = filteredList
-          .where((c) => _isWithinDateRange(c.createdAt, selectedDate))
-          .toList();
+      filteredList =
+          filteredList
+              .where((c) => _isWithinDateRange(c.createdAt, selectedDate))
+              .toList();
     }
 
     // Apply price range filter
     String? minPriceStr = _currentFilters['priceMin'];
     String? maxPriceStr = _currentFilters['priceMax'];
     if (minPriceStr != null || maxPriceStr != null) {
-      double minPrice = minPriceStr != null ? double.tryParse(minPriceStr) ?? 0.0 : 0.0;
-      double maxPrice = maxPriceStr != null ? double.tryParse(maxPriceStr) ?? double.infinity : double.infinity;
+      double minPrice =
+          minPriceStr != null ? double.tryParse(minPriceStr) ?? 0.0 : 0.0;
+      double maxPrice =
+          maxPriceStr != null
+              ? double.tryParse(maxPriceStr) ?? double.infinity
+              : double.infinity;
 
-      filteredList = filteredList
-          .where((course) {
-        final price = double.tryParse(course.price.replaceAll('LE', '').trim()) ?? 0.0;
-        return price >= minPrice && price <= maxPrice;
-      })
-          .toList();
+      filteredList =
+          filteredList.where((course) {
+            final price =
+                double.tryParse(course.price.replaceAll('LE', '').trim()) ??
+                0.0;
+            return price >= minPrice && price <= maxPrice;
+          }).toList();
     }
 
     emit(CourseLoaded(courses: filteredList));
@@ -133,5 +146,3 @@ class CourseCubit extends Cubit<CourseState> {
   String? get minPriceFilter => _currentFilters['priceMin'];
   String? get maxPriceFilter => _currentFilters['priceMax'];
 }
-
-

@@ -3,7 +3,8 @@ import 'package:hireny/features/show_courses/data/data_sources/course_data_inter
 import 'package:hireny/features/show_courses/data/models/course_reponse.dart';
 import 'package:hireny/features/show_courses/domain/entities/course_entity.dart';
 import 'package:injectable/injectable.dart';
-class RemoteCourseData implements CourseDataInterface{
+
+class RemoteCourseData implements CourseDataInterface {
   @override
   Future<CourseResponse> deleteCourse(CourseEntity courseData) {
     // TODO: implement deleteCourse
@@ -15,5 +16,4 @@ class RemoteCourseData implements CourseDataInterface{
     // TODO: implement showCourses
     throw UnimplementedError();
   }
-
 }

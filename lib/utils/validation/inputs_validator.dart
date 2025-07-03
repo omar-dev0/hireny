@@ -27,4 +27,3 @@ String? emptyFieldValidator(String? val) {
   }
   return null;
 }
-

@@ -43,7 +43,9 @@ class JobDetailesContent extends StatelessWidget {
                             height: MediaQuery.sizeOf(context).height * .1,
                             fit: BoxFit.cover,
                             errorBuilder: (_, __, ___) {
-                              return Image.asset(AppAssets.org_logo); // Fallback to placeholder if image fails to load
+                              return Image.asset(
+                                AppAssets.org_logo,
+                              ); // Fallback to placeholder if image fails to load
                             },
                           ),
                           // Image.asset(
@@ -62,7 +64,9 @@ class JobDetailesContent extends StatelessWidget {
                                 job?.jobTitle ?? "null",
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
-                                style: AppFonts.mainText.copyWith(fontSize: 20.sp),
+                                style: AppFonts.mainText.copyWith(
+                                  fontSize: 20.sp,
+                                ),
                               ),
                               SizedBox(height: 10.h),
                               Row(
@@ -152,7 +156,8 @@ class JobDetailesContent extends StatelessWidget {
                               Icons.account_balance_wallet_rounded,
                               color: AppColors.primary,
                             ),
-                            label: '${job?.minSalary} - ${job?.maxSalary} ${job?.currency}',
+                            label:
+                                '${job?.minSalary} - ${job?.maxSalary} ${job?.currency}',
                           ),
                           IconElement(
                             icon: Icon(
@@ -213,10 +218,7 @@ class JobDetailesContent extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: FittedBox(
         fit: BoxFit.scaleDown,
-        child: Text(
-          title,
-          style: TextStyle(fontSize: 13),
-        ),
+        child: Text(title, style: TextStyle(fontSize: 13)),
       ),
     );
   }

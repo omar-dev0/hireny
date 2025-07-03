@@ -69,12 +69,15 @@ class JobContent extends StatelessWidget {
                         selectedChips.add(chipLabels.indexOf('Job Location'));
                       }
                       if (cubit.selectedExperienceLevelIndices.isNotEmpty) {
-                        selectedChips.add(chipLabels.indexOf('Experience Level'));
+                        selectedChips.add(
+                          chipLabels.indexOf('Experience Level'),
+                        );
                       }
                       if (cubit.selectedDateFilter != 'All') {
                         selectedChips.add(chipLabels.indexOf('Date Posted'));
                       }
-                      if (cubit.minSalaryFilter != null || cubit.maxSalaryFilter != null) {
+                      if (cubit.minSalaryFilter != null ||
+                          cubit.maxSalaryFilter != null) {
                         selectedChips.add(chipLabels.indexOf('Salary'));
                       }
 
@@ -137,4 +140,3 @@ class JobContent extends StatelessWidget {
     );
   }
 }
-

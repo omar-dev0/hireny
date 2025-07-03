@@ -5,14 +5,13 @@ import 'package:hireny/features/show_admin/domain/usecases/get_admins.dart';
 import 'package:hireny/features/show_admin/presentation/manager/admin_states.dart';
 import 'package:injectable/injectable.dart';
 
-
 @injectable
 class AdminCubit extends Cubit<AdminStates> {
   final GetAdmins listAdmins;
   final DeleteAdmin removeAdmin;
   List<AdminEntity> admins = [];
 
-  AdminCubit( this.listAdmins, this.removeAdmin) : super(InitialState());
+  AdminCubit(this.listAdmins, this.removeAdmin) : super(InitialState());
 
   Future<void> loadAdmins() async {
     try {
@@ -23,6 +22,7 @@ class AdminCubit extends Cubit<AdminStates> {
       emit(ErrorState("Failed to load courses"));
     }
   }
+
   Future<void> deleteCourse(AdminEntity admin) async {
     try {
       await removeAdmin.call(admin);

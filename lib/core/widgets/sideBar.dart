@@ -39,11 +39,7 @@ class SideBarScreen extends StatelessWidget {
       "icon": Icons.school,
       "route": PagesRoute.myCourses,
     },
-    {
-      "title": "AI Tools",
-      "icon": Icons.smart_toy,
-      "route": PagesRoute.myCourses,
-    },
+    {"title": "AI Tools", "icon": Icons.smart_toy, "route": PagesRoute.aiTools},
   ];
 
   @override
@@ -88,7 +84,8 @@ class SideBarScreen extends StatelessWidget {
             child: ListView.separated(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               itemCount: drawerItems.length,
-              separatorBuilder: (_, __) => const Divider(indent: 20, endIndent: 20),
+              separatorBuilder:
+                  (_, __) => const Divider(indent: 20, endIndent: 20),
               itemBuilder: (context, index) {
                 final item = drawerItems[index];
                 final bool isSelected = currentRoute == item['route'];
@@ -98,9 +95,13 @@ class SideBarScreen extends StatelessWidget {
                   child: ListTile(
                     selected: isSelected,
                     selectedTileColor: AppColors.primary.withOpacity(0.1),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    leading: Icon(item['icon'],
-                        color: isSelected ? AppColors.primary : Colors.black54),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    leading: Icon(
+                      item['icon'],
+                      color: isSelected ? AppColors.primary : Colors.black54,
+                    ),
                     title: Text(
                       item['title'],
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(

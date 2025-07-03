@@ -12,18 +12,25 @@ class ErrorScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: 40.w),
+        padding: EdgeInsets.symmetric(horizontal: 40.w),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text("ERROR",style: AppFonts.secMain,textAlign: TextAlign.center,),
-            SizedBox(height: 12.h,),
+            Text("ERROR", style: AppFonts.secMain, textAlign: TextAlign.center),
+            SizedBox(height: 12.h),
             Image.asset(AppAssets.error),
-            SizedBox(height: 30.h,),
-            Text("Oops... Something went wrong",style: AppFonts.mainText, textAlign: TextAlign.center,),
-            Text("An error has occurred. Please try again or return to the home page.",style: AppFonts.secMain.copyWith(fontSize: 20.cSp), textAlign: TextAlign.center,),
-
+            SizedBox(height: 30.h),
+            Text(
+              "Oops... Something went wrong",
+              style: AppFonts.mainText,
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              "An error has occurred. Please try again or return to the home page.",
+              style: AppFonts.secMain.copyWith(fontSize: 20.cSp),
+              textAlign: TextAlign.center,
+            ),
           ],
         ),
       ),

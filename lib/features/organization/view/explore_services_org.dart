@@ -12,7 +12,7 @@ import '../../../utils/widgets/explore_card.dart';
 class ExploreServicesOrg extends StatefulWidget {
   static String routeName = "ExploreServicesOrg";
 
-   ExploreServicesOrg({super.key});
+  ExploreServicesOrg({super.key});
 
   @override
   State<ExploreServicesOrg> createState() => _ExploreServicesOrgState();
@@ -24,46 +24,47 @@ class _ExploreServicesOrgState extends State<ExploreServicesOrg> {
     // 'Price',
   ];
 
-
-
   @override
   Widget build(BuildContext context) {
     final List<Function()?> onChipPressed = [
-          () => showDynamicBottomSheet(context: context,title: "Select your category"
-              ,
-              onSelectedIndicesChanged: (selectedIndices) {
-
-              }
-              ,
-              items: [
-        "Commerce",
-        "Telecommunications",
-        "Hotels & Tourism",
-        "Education",
-        "Financial Services"
-      ]),
-          // () => showDynamicInputBottomSheet(context: context,title: "Select  Price Range" , minHint: "Min Price", maxHint: "Max Price", buttonText: "Filter"),
+      () => showDynamicBottomSheet(
+        context: context,
+        title: "Select your category",
+        onSelectedIndicesChanged: (selectedIndices) {},
+        items: [
+          "Commerce",
+          "Telecommunications",
+          "Hotels & Tourism",
+          "Education",
+          "Financial Services",
+        ],
+      ),
+      // () => showDynamicInputBottomSheet(context: context,title: "Select  Price Range" , minHint: "Min Price", maxHint: "Max Price", buttonText: "Filter"),
     ];
     return Scaffold(
       backgroundColor: AppColors.subPrimary,
       body: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: 10.w,vertical: 15.h),
+        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
         child: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
-              child:     Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: 20.h,),
+                  SizedBox(height: 20.h),
                   SearchBarWidget(
                     firstSearchHint: "Enter service name",
                     secondSearchHint: "Company Name",
-                    onSearchPressed: (){},
+                    onSearchPressed: () {},
                   ),
-                  SizedBox(height: 20.h,),
-                  Text("Explore Services",style: AppFonts.mainText,),
-                  Text("Discover Services to boost your company and achieve your goals.",style: AppFonts.secMain,textAlign: TextAlign.center,),
-                  SizedBox(height: 20.h,),
+                  SizedBox(height: 20.h),
+                  Text("Explore Services", style: AppFonts.mainText),
+                  Text(
+                    "Discover Services to boost your company and achieve your goals.",
+                    style: AppFonts.secMain,
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 20.h),
                   // DynamicFilterChipsWidget(
                   //   chipLabels: chipLabels,
                   //   onChipPressed: onChipPressed,
@@ -71,8 +72,8 @@ class _ExploreServicesOrgState extends State<ExploreServicesOrg> {
                   //     print("Selected chips: $selectedIndices");
                   //   },
                   // ),
-                  SizedBox(height: 20.h,),
-                  Text("All Services (2310)",style: AppFonts.mainText,),
+                  SizedBox(height: 20.h),
+                  Text("All Services (2310)", style: AppFonts.mainText),
                 ],
               ),
             ),
@@ -92,9 +93,8 @@ class _ExploreServicesOrgState extends State<ExploreServicesOrg> {
                   ],
                 );
               },
-            )
-          ]
-
+            ),
+          ],
         ),
       ),
     );

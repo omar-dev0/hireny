@@ -6,7 +6,6 @@ import 'package:hireny/features/course_detailes/presentation/views/widgets/revie
 
 import '../../../../../utils/constants/app_colors.dart';
 
-
 class courseScreenSeekerDetails extends StatelessWidget {
   const courseScreenSeekerDetails({super.key});
 

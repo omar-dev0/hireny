@@ -32,7 +32,8 @@ class ErrorDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Lottie.asset(
-              AppAssets.errorAnimation, // <-- Make sure this exists in your assets
+              AppAssets
+                  .errorAnimation, // <-- Make sure this exists in your assets
               width: 90.w,
               height: 90.h,
               repeat: false,

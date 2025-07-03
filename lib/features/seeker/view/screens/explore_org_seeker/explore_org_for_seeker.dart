@@ -47,10 +47,10 @@ class _ExploreOrgForSeekerState extends State<ExploreOrgForSeeker> {
             body: ExploreOrgForSeekerContent(
               chipLabels: ["Location", "Industry", "Size", "Date Posted"],
               onChipPressed: [
-                    () => _showLocationBottomSheet(context),
-                    () => _showIndustryBottomSheet(context),
-                    () => _showOrganizationSizeBottomSheet(context),
-                    () => _showDatePostedBottomSheet(context),
+                () => _showLocationBottomSheet(context),
+                () => _showIndustryBottomSheet(context),
+                () => _showOrganizationSizeBottomSheet(context),
+                () => _showDatePostedBottomSheet(context),
               ],
             ),
           );
@@ -110,14 +110,29 @@ class _ExploreOrgForSeekerState extends State<ExploreOrgForSeeker> {
         "Last 7 Days",
         "Last 30 Days",
       ],
-      initialSelection: {["All", "Last Hour", "Last 24 Hours", "Last 7 Days", "Last 30 Days"].indexOf(cubit.selectedDateFilter)},
+      initialSelection: {
+        [
+          "All",
+          "Last Hour",
+          "Last 24 Hours",
+          "Last 7 Days",
+          "Last 30 Days",
+        ].indexOf(cubit.selectedDateFilter),
+      },
       onSelectedIndicesChanged: (selectedIndices) {
-        final List<String> allDates = ["All", "Last Hour", "Last 24 Hours", "Last 7 Days", "Last 30 Days"];
-        final selectedDate = selectedIndices.isNotEmpty ? allDates[selectedIndices.first] : "All";
+        final List<String> allDates = [
+          "All",
+          "Last Hour",
+          "Last 24 Hours",
+          "Last 7 Days",
+          "Last 30 Days",
+        ];
+        final selectedDate =
+            selectedIndices.isNotEmpty
+                ? allDates[selectedIndices.first]
+                : "All";
         cubit.updateDateFilter(selectedDate);
       },
     );
   }
 }
-
-

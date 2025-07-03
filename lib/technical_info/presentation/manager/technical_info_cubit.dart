@@ -26,7 +26,7 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
 
   @factoryMethod
   TechnicalInfoCubit(this._addEdu, this._getTechInfo, this._deleteTechInfo)
-      : super(TechnicalInfoInitial());
+    : super(TechnicalInfoInitial());
 
   bool isCourse = false;
   bool isCertificate = false;
@@ -50,7 +50,11 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
   final List<SkillModel> skills = [];
   final List<LanguageModel> languages = [];
 
-  List<String> jobTitles = ['Software Engineer', 'Backend Developer', 'Mobile Developer'];
+  List<String> jobTitles = [
+    'Software Engineer',
+    'Backend Developer',
+    'Mobile Developer',
+  ];
   List<String> jobTypes = ['Full-time', 'Part-time', 'Internship'];
 
   void setJobTitle(String title) {
@@ -235,10 +239,14 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
     isEducation = false;
     isExperience = false;
 
-    if (title == "My Certificate") isCertificate = true;
-    else if (title == "My Courses") isCourse = true;
-    else if (title == "My Education") isEducation = true;
-    else if (title == "My Experience") isExperience = true;
+    if (title == "My Certificate")
+      isCertificate = true;
+    else if (title == "My Courses")
+      isCourse = true;
+    else if (title == "My Education")
+      isEducation = true;
+    else if (title == "My Experience")
+      isExperience = true;
 
     emit(TechnicalInfoInitial());
   }

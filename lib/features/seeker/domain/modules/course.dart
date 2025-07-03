@@ -33,15 +33,19 @@ class Course {
     // Handle category list
     List<String> categories = [];
     if (json['category'] is List) {
-      categories = (json['category'] as List).map((item) => item.toString().toLowerCase()).toList();
+      categories =
+          (json['category'] as List)
+              .map((item) => item.toString().toLowerCase())
+              .toList();
     }
 
     // Handle lessons list
     List<Lesson> lessons = [];
     if (json['lessons'] is List) {
-      lessons = (json['lessons'] as List)
-          .map((item) => Lesson.fromJson(item))
-          .toList();
+      lessons =
+          (json['lessons'] as List)
+              .map((item) => Lesson.fromJson(item))
+              .toList();
     }
 
     return Course(

@@ -7,12 +7,13 @@ import '../../../utils/constants/app_fonts.dart';
 
 class sectionHeader extends StatelessWidget {
   const sectionHeader({
-    super.key, required this.title,required this.onAddPressed,
+    super.key,
+    required this.title,
+    required this.onAddPressed,
   });
 
   final String title;
   final VoidCallback onAddPressed;
-
 
   @override
   Widget build(BuildContext context) {
@@ -21,19 +22,23 @@ class sectionHeader extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Align(alignment:Alignment.centerLeft,child: Text(title,style: AppFonts.textFieldStyle.copyWith(fontSize: 22),)),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              title,
+              style: AppFonts.textFieldStyle.copyWith(fontSize: 22),
+            ),
+          ),
           ElevatedButton(
-              onPressed: (){
-                  popUpForm(context,(){},title
-                  );
-              },
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary,
-                fixedSize: Size(100, 35)
-              ),
-              child: Text("Add",style: TextStyle(color: AppColors.white),)
-          )
-
+            onPressed: () {
+              popUpForm(context, () {}, title);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.primary,
+              fixedSize: Size(100, 35),
+            ),
+            child: Text("Add", style: TextStyle(color: AppColors.white)),
+          ),
         ],
       ),
     );

@@ -1,4 +1,4 @@
-class AdminEntity{
+class AdminEntity {
   int adminID;
   String adminName;
   String adminEmail;
@@ -8,5 +8,6 @@ class AdminEntity{
     required this.adminID,
     required this.adminName,
     required this.adminEmail,
-    required this.adminDate});
+    required this.adminDate,
+  });
 }

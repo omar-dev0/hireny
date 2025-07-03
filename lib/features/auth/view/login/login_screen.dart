@@ -63,7 +63,7 @@ class LoginScreen extends StatelessWidget {
                     iconButton1: Icon(Icons.rocket, color: AppColors.white),
                     iconButton2: Icon(Icons.edit, color: AppColors.primary),
                     onPressButton1: () async {
-                      await loginVm.pickAndReadCVFile();
+                      await loginVm.loadAndParseCv();
                     },
                     onPressButton2: () {
                       Navigator.pop(context);

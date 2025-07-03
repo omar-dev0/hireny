@@ -80,7 +80,10 @@ class RelatedJobs extends StatelessWidget {
                             color: AppColors.subPrimary,
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                          padding: EdgeInsets.symmetric(
+                            vertical: 5,
+                            horizontal: 10,
+                          ),
                           child: Text(
                             job['time'],
                             style: TextStyle(color: AppColors.primary),
@@ -101,14 +104,19 @@ class RelatedJobs extends StatelessWidget {
                                 children: [
                                   Text(
                                     job['title'],
-                                    style: AppFonts.mainText.copyWith(fontSize: 17),
+                                    style: AppFonts.mainText.copyWith(
+                                      fontSize: 17,
+                                    ),
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
                                   ),
                                   SizedBox(height: 2.h),
                                   Text(
                                     job['company'],
-                                    style: TextStyle(color: Colors.grey, fontSize: 13),
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 13,
+                                    ),
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
                                   ),
@@ -122,7 +130,10 @@ class RelatedJobs extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             IconElement(
-                              icon: Icon(Icons.wallet_travel_rounded, color: AppColors.primary),
+                              icon: Icon(
+                                Icons.wallet_travel_rounded,
+                                color: AppColors.primary,
+                              ),
                               label: job['industry'],
                             ),
                             IconElement(
@@ -136,11 +147,17 @@ class RelatedJobs extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             IconElement(
-                              icon: Icon(Icons.account_balance_wallet_rounded, color: AppColors.primary),
+                              icon: Icon(
+                                Icons.account_balance_wallet_rounded,
+                                color: AppColors.primary,
+                              ),
                               label: job['salary'],
                             ),
                             IconElement(
-                              icon: Icon(Icons.location_on_rounded, color: AppColors.primary),
+                              icon: Icon(
+                                Icons.location_on_rounded,
+                                color: AppColors.primary,
+                              ),
                               label: job['location'],
                             ),
                           ],
@@ -151,7 +168,7 @@ class RelatedJobs extends StatelessWidget {
                 );
               },
             ),
-          )
+          ),
         ],
       ),
     );

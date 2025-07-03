@@ -25,14 +25,16 @@ void showDynamicBottomSheet({
         topRight: Radius.circular(30.r),
       ),
     ),
-    builder: (_) => DynamicBottomSheet(
-      title: title,
-      items: items,
-      initialSelection: initialSelection,
-      onSelectedIndicesChanged: onSelectedIndicesChanged,
-    ),
+    builder:
+        (_) => DynamicBottomSheet(
+          title: title,
+          items: items,
+          initialSelection: initialSelection,
+          onSelectedIndicesChanged: onSelectedIndicesChanged,
+        ),
   );
 }
+
 void showDynamicInputBottomSheet({
   required BuildContext context,
   required String title,
@@ -50,16 +52,18 @@ void showDynamicInputBottomSheet({
         topRight: Radius.circular(30.r),
       ),
     ),
-    builder: (context) => DynamicInputBottomSheet(
-      title: title,
-      firstHint: minHint,
-      secondHint: maxHint,
-      buttonText: buttonText,
-      onpress: onpress,
-    ),
+    builder:
+        (context) => DynamicInputBottomSheet(
+          title: title,
+          firstHint: minHint,
+          secondHint: maxHint,
+          buttonText: buttonText,
+          onpress: onpress,
+        ),
   );
 }
-void showLocationSheet(context){
+
+void showLocationSheet(context) {
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -72,8 +76,8 @@ void showLocationSheet(context){
     builder: (_) => LocationBottomSheet(),
   );
 }
+
 String formatDate(String isoDate) {
   final date = DateTime.parse(isoDate);
   return '${DateFormat('MMM d, yyyy').format(date)}';
 }
-

@@ -51,6 +51,7 @@ class SeekerApi {
       return Error(error: e.toString());
     }
   }
+
   Future<Result<List<JobPost>>> getNotAppliedJobPosts() async {
     try {
       _dio.options.headers = {
@@ -84,6 +85,7 @@ class SeekerApi {
       return Error(error: e.toString());
     }
   }
+
   Future<Result<num>?> showInsight(Map<String, String> data) async {
     try {
       _dio.options.headers = {
@@ -115,11 +117,13 @@ class SeekerApi {
     }
     return null;
   }
+
   Future<Result<JobDetailsModel>> getJobPostDetails(int jobId) async {
     try {
       _dio.options.headers = {
         HttpHeaders.contentTypeHeader: 'multipart/form-data',
-        HttpHeaders.authorizationHeader: 'Bearer ${AppSharedData.user?.accessToken}',
+        HttpHeaders.authorizationHeader:
+            'Bearer ${AppSharedData.user?.accessToken}',
       };
 
       final response = await _dio.get('${SeekerConst.getJobPostDetails}$jobId');
@@ -144,19 +148,22 @@ class SeekerApi {
       return Error(error: e.toString());
     }
   }
+
   Future<Result<List<OrgPost>>> getAllOrganizations() async {
     try {
       _dio.options.headers = {
         HttpHeaders.contentTypeHeader: 'multipart/form-data',
-        HttpHeaders.authorizationHeader: 'Bearer ${AppSharedData.user?.accessToken}',
+        HttpHeaders.authorizationHeader:
+            'Bearer ${AppSharedData.user?.accessToken}',
       };
 
       final response = await _dio.get(SeekerConst.getAllOrganizations);
 
       if (response.statusCode == 200 && response.data != null) {
-        final List<OrgPost> organizations = (response.data as List)
-            .map((item) => OrgPost.fromJson(item))
-            .toList();
+        final List<OrgPost> organizations =
+            (response.data as List)
+                .map((item) => OrgPost.fromJson(item))
+                .toList();
 
         return Success(response: organizations);
       } else {
@@ -175,14 +182,18 @@ class SeekerApi {
       return Error(error: e.toString());
     }
   }
+
   Future<Result<Course>> getCourseDetails(int courseId) async {
     try {
       _dio.options.headers = {
         HttpHeaders.contentTypeHeader: 'multipart/form-data',
-        HttpHeaders.authorizationHeader: 'Bearer ${AppSharedData.user?.accessToken}',
+        HttpHeaders.authorizationHeader:
+            'Bearer ${AppSharedData.user?.accessToken}',
       };
 
-      final response = await _dio.get('${SeekerConst.getCourseDetails}$courseId');
+      final response = await _dio.get(
+        '${SeekerConst.getCourseDetails}$courseId',
+      );
 
       if (response.statusCode == 200 && response.data != null) {
         final course = Course.fromJson(response.data);
@@ -203,5 +214,4 @@ class SeekerApi {
       return Error(error: e.toString());
     }
   }
-
 }

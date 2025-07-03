@@ -9,8 +9,6 @@ import '../../domain/modules/org_post.dart';
 import '../api/seeker_api.dart';
 import '../data_source/seeker_data_source.dart';
 
-
-
 @Injectable(as: SeekerDataSource)
 class SeekerDataSourceImpl implements SeekerDataSource {
   final SeekerApi seekerApi;
@@ -22,6 +20,7 @@ class SeekerDataSourceImpl implements SeekerDataSource {
   Future<Result<List<Course>>> getNotRegisteredCourses() async {
     return seekerApi.getNotRegisteredCourses();
   }
+
   @override
   Future<Result<List<JobPost>>> getNotAppliedJobPosts() async {
     return seekerApi.getNotAppliedJobPosts();
@@ -31,12 +30,15 @@ class SeekerDataSourceImpl implements SeekerDataSource {
   Future<Result<num>?> showInsight(Map<String, String> data) {
     return seekerApi.showInsight(data);
   }
-  Future<Result<JobDetailsModel>> getJobPostDetails(int jobId){
+
+  Future<Result<JobDetailsModel>> getJobPostDetails(int jobId) {
     return seekerApi.getJobPostDetails(jobId);
   }
+
   Future<Result<List<OrgPost>>> getAllOrganizations() {
     return seekerApi.getAllOrganizations();
   }
+
   Future<Result<Course>> getCourseDetails(int courseId) {
     return seekerApi.getCourseDetails(courseId);
   }

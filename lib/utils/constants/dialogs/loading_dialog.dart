@@ -40,19 +40,13 @@ class _LoadingDialogState extends State<LoadingDialog>
     return AlertDialog(
       contentPadding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
       backgroundColor: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           FadeTransition(
             opacity: _fadeAnimation,
-            child: Image.asset(
-              AppAssets.hireny,
-              width: 170.w,
-              height: 170.h,
-            ),
+            child: Image.asset(AppAssets.hireny, width: 170.w, height: 170.h),
           ),
         ],
       ),

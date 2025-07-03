@@ -17,16 +17,17 @@ class VerifyOrganizationAdmin extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.subPrimary,
       body: Padding(
-        padding:  EdgeInsets.symmetric(vertical: 10.h,horizontal: 10.w),
+        padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SizedBox(height: 40.h,),
+              SizedBox(height: 40.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Image.asset(AppAssets.org_logo,
+                  Image.asset(
+                    AppAssets.org_logo,
                     fit: BoxFit.fill, // Optional
                     width: 50.w,
                     height: 50.h,
@@ -34,18 +35,22 @@ class VerifyOrganizationAdmin extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text("Corporate Solutions",style: AppFonts.mainText,),
-                      Text("Joining Date : 01/02/2025",style: AppFonts.secMain,),
-          
+                      Text("Corporate Solutions", style: AppFonts.mainText),
+                      Text(
+                        "Joining Date : 01/02/2025",
+                        style: AppFonts.secMain,
+                      ),
                     ],
                   ),
                   InkWell(
-                    onTap: (){
+                    onTap: () {
                       //navigate to chat hnaa
                     },
-                      child: ImageIcon(AssetImage( AppAssets.chat_icon,),)),              ],
+                    child: ImageIcon(AssetImage(AppAssets.chat_icon)),
+                  ),
+                ],
               ),
-              SizedBox(height: 20.h,),
+              SizedBox(height: 20.h),
               OrganizationInfoCard(
                 ceoName: "John Smith",
                 size: "2000",
@@ -56,12 +61,17 @@ class VerifyOrganizationAdmin extends StatelessWidget {
                 Email: "corporatesolutions@gmail.com",
               ),
               OrganizationDescriptionCard(),
-              Text("Proof of company",style: AppFonts.mainText,),
-              Text("Download Proof of company as PDF",style: AppFonts.secMain.copyWith(decoration: TextDecoration.underline,),),
-              SizedBox(height: 20.h,),
-              CustomButtom(title: "Reject", onPressed: (){}),
-              SizedBox(height: 10.h,),
-              CustomButtom(title: "Approve", onPressed: (){})
+              Text("Proof of company", style: AppFonts.mainText),
+              Text(
+                "Download Proof of company as PDF",
+                style: AppFonts.secMain.copyWith(
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+              SizedBox(height: 20.h),
+              CustomButtom(title: "Reject", onPressed: () {}),
+              SizedBox(height: 10.h),
+              CustomButtom(title: "Approve", onPressed: () {}),
             ],
           ),
         ),

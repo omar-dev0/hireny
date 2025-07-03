@@ -12,5 +12,4 @@ class CourseModel {
     required this.dateCompleted,
     required this.description,
   });
-
 }

@@ -30,10 +30,7 @@ class ServiceCard extends StatelessWidget {
                 ),
                 child: Text(
                   "24 min ago",
-                  style: TextStyle(
-                    fontSize: 12.sp,
-                    color: AppColors.primary,
-                  ),
+                  style: TextStyle(fontSize: 12.sp, color: AppColors.primary),
                 ),
               ),
             ],
@@ -41,7 +38,7 @@ class ServiceCard extends StatelessWidget {
           SizedBox(height: 10.h),
           Row(
             children: [
-              Image.asset(AppAssets.org_logo,width: 40.w,height: 40.h,),
+              Image.asset(AppAssets.org_logo, width: 40.w, height: 40.h),
               SizedBox(width: 10.w),
               Expanded(
                 child: Column(
@@ -49,13 +46,10 @@ class ServiceCard extends StatelessWidget {
                   children: [
                     Text(
                       "Internal Creative Coordinator",
-                      style: AppFonts.secMain.copyWith(color: AppColors.black)
+                      style: AppFonts.secMain.copyWith(color: AppColors.black),
                     ),
                     SizedBox(height: 5.h),
-                    Text(
-                      "Green Group",
-                      style:AppFonts.hintStyle
-                    ),
+                    Text("Green Group", style: AppFonts.hintStyle),
                   ],
                 ),
               ),
@@ -76,15 +70,14 @@ class ServiceCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ImageIcon(AssetImage(AppAssets.location_logo)),
-              SizedBox(width: 10.w,),
+              SizedBox(width: 10.w),
               Text("New-York, USA"),
             ],
           ),
           SizedBox(height: 15.h),
-          CustomButtom(title: "Service Details", onPressed: (){})
+          CustomButtom(title: "Service Details", onPressed: () {}),
         ],
       ),
     );
   }
-
 }

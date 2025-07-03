@@ -12,5 +12,4 @@ class GetTechInfo {
   Future<Result<void>> call(String id) async {
     return await techRepo.getTechInfo(id);
   }
-
 }

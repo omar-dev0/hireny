@@ -48,10 +48,13 @@ class JobPostCubit extends Cubit<JobPostState> {
       return;
     }
 
-    final filteredList = AppSharedData.jobPosts
-        .where((jobPost) =>
-        jobPost.jobTitle.toLowerCase().contains(query.toLowerCase()))
-        .toList();
+    final filteredList =
+        AppSharedData.jobPosts
+            .where(
+              (jobPost) =>
+                  jobPost.jobTitle.toLowerCase().contains(query.toLowerCase()),
+            )
+            .toList();
 
     emit(JobPostLoaded(jobPosts: filteredList));
   }
@@ -99,79 +102,116 @@ class JobPostCubit extends Cubit<JobPostState> {
     Set<int> selectedLocationIndices = _currentFilters['location'];
     if (selectedLocationIndices.isNotEmpty) {
       final List<String> allLocations = AppSharedData.countries;
-      final List<String> selectedLocations = selectedLocationIndices.map((i) => allLocations[i]).toList();
-      filteredList = filteredList
-          .where((jobPost) =>
-          selectedLocations.contains(jobPost.country.toLowerCase()))
-          .toList();
+      final List<String> selectedLocations =
+          selectedLocationIndices.map((i) => allLocations[i]).toList();
+      filteredList =
+          filteredList
+              .where(
+                (jobPost) =>
+                    selectedLocations.contains(jobPost.country.toLowerCase()),
+              )
+              .toList();
     }
 
     // Apply category filter
     Set<int> selectedCategoryIndices = _currentFilters['category'];
     if (selectedCategoryIndices.isNotEmpty) {
       final List<String> allCategories = AppSharedData.industries;
-      final List<String> selectedCategories = selectedCategoryIndices.map((i) => allCategories[i].toLowerCase()).toList();
-      filteredList = filteredList
-          .where((jobPost) =>
-          jobPost.category.any((cat) => selectedCategories.contains(cat.toLowerCase())))
-          .toList();
+      final List<String> selectedCategories =
+          selectedCategoryIndices
+              .map((i) => allCategories[i].toLowerCase())
+              .toList();
+      filteredList =
+          filteredList
+              .where(
+                (jobPost) => jobPost.category.any(
+                  (cat) => selectedCategories.contains(cat.toLowerCase()),
+                ),
+              )
+              .toList();
     }
-
 
     // Apply job type filter
     Set<int> selectedJobTypeIndices = _currentFilters['jobType'];
     if (selectedJobTypeIndices.isNotEmpty) {
       final List<String> allJobTypes = AppSharedData.employmentStatus;
-      final List<String> selectedJobTypes = selectedJobTypeIndices.map((i) => allJobTypes[i]).toList();
-      filteredList = filteredList
-          .where((jobPost) =>
-          selectedJobTypes.contains(jobPost.jobType.toLowerCase()))
-          .toList();
+      final List<String> selectedJobTypes =
+          selectedJobTypeIndices.map((i) => allJobTypes[i]).toList();
+      filteredList =
+          filteredList
+              .where(
+                (jobPost) =>
+                    selectedJobTypes.contains(jobPost.jobType.toLowerCase()),
+              )
+              .toList();
     }
 
     // Apply job location type filter
     Set<int> selectedJobLocationIndices = _currentFilters['jobLocationType'];
     if (selectedJobLocationIndices.isNotEmpty) {
       final List<String> allJobLocationTypes = AppSharedData.jobLocationTypes;
-      final List<String> selectedJobLocationTypes = selectedJobLocationIndices.map((i) => allJobLocationTypes[i]).toList();
-      filteredList = filteredList
-          .where((jobPost) =>
-          selectedJobLocationTypes.contains(jobPost.country.toLowerCase()))
-          .toList();
+      final List<String> selectedJobLocationTypes =
+          selectedJobLocationIndices
+              .map((i) => allJobLocationTypes[i])
+              .toList();
+      filteredList =
+          filteredList
+              .where(
+                (jobPost) => selectedJobLocationTypes.contains(
+                  jobPost.country.toLowerCase(),
+                ),
+              )
+              .toList();
     }
 
     // Apply experience level filter
-    Set<int> selectedExperienceLevelIndices = _currentFilters['experienceLevel'];
+    Set<int> selectedExperienceLevelIndices =
+        _currentFilters['experienceLevel'];
     if (selectedExperienceLevelIndices.isNotEmpty) {
       final List<String> allExperienceLevels = AppSharedData.careerLevels;
-      final List<String> selectedExperienceLevels = selectedExperienceLevelIndices.map((i) => allExperienceLevels[i]).toList();
-      filteredList = filteredList
-          .where((jobPost) =>
-          selectedExperienceLevels.contains(jobPost.educationLevel.toLowerCase()))
-          .toList();
+      final List<String> selectedExperienceLevels =
+          selectedExperienceLevelIndices
+              .map((i) => allExperienceLevels[i])
+              .toList();
+      filteredList =
+          filteredList
+              .where(
+                (jobPost) => selectedExperienceLevels.contains(
+                  jobPost.educationLevel.toLowerCase(),
+                ),
+              )
+              .toList();
     }
 
     // Apply date filter
     String selectedDate = _currentFilters['date'];
     if (selectedDate != 'All') {
-      filteredList = filteredList
-          .where((j) => _isWithinDateRange(j.createdAt, selectedDate))
-          .toList();
+      filteredList =
+          filteredList
+              .where((j) => _isWithinDateRange(j.createdAt, selectedDate))
+              .toList();
     }
 
     // Apply salary range filter
     String? minSalaryStr = _currentFilters['salaryMin'];
     String? maxSalaryStr = _currentFilters['salaryMax'];
     if (minSalaryStr != null || maxSalaryStr != null) {
-      double minSalary = minSalaryStr != null ? double.tryParse(minSalaryStr) ?? 0.0 : 0.0;
-      double maxSalary = maxSalaryStr != null ? double.tryParse(maxSalaryStr) ?? double.infinity : double.infinity;
+      double minSalary =
+          minSalaryStr != null ? double.tryParse(minSalaryStr) ?? 0.0 : 0.0;
+      double maxSalary =
+          maxSalaryStr != null
+              ? double.tryParse(maxSalaryStr) ?? double.infinity
+              : double.infinity;
 
-      filteredList = filteredList
-          .where((jobPost) {
-        final salary = double.tryParse(jobPost.maxSalary.replaceAll('LE', '').trim()) ?? 0.0; // Assuming salary is a string like '1000 LE'
-        return salary >= minSalary && salary <= maxSalary;
-      })
-          .toList();
+      filteredList =
+          filteredList.where((jobPost) {
+            final salary =
+                double.tryParse(
+                  jobPost.maxSalary.replaceAll('LE', '').trim(),
+                ) ??
+                0.0; // Assuming salary is a string like '1000 LE'
+            return salary >= minSalary && salary <= maxSalary;
+          }).toList();
     }
 
     emit(JobPostLoaded(jobPosts: filteredList));
@@ -200,10 +240,9 @@ class JobPostCubit extends Cubit<JobPostState> {
   Set<int> get selectedCategoryIndices => _currentFilters['category'];
   Set<int> get selectedJobTypeIndices => _currentFilters['jobType'];
   Set<int> get selectedJobLocationIndices => _currentFilters['jobLocationType'];
-  Set<int> get selectedExperienceLevelIndices => _currentFilters['experienceLevel'];
+  Set<int> get selectedExperienceLevelIndices =>
+      _currentFilters['experienceLevel'];
   String get selectedDateFilter => _currentFilters['date'];
   String? get minSalaryFilter => _currentFilters['salaryMin'];
   String? get maxSalaryFilter => _currentFilters['salaryMax'];
 }
-
-

@@ -294,7 +294,7 @@ class _GeneralTechInfoState extends State<GeneralTechInfo> {
                               controller: cubit.fieldPairs[index]['link'],
                               hint: "Enter the link",
                               keyboardType: TextInputType.url,
-                              onValidate: (value)=>cubit.validateLink(value),
+                              onValidate: (value) => cubit.validateLink(value),
                             ),
 
                             const SizedBox(height: 10),
@@ -326,10 +326,7 @@ class _GeneralTechInfoState extends State<GeneralTechInfo> {
                     onPressed: () {
                       if (cubit.formTechKey.currentState!.validate()) {
                         cubit.formKey.currentState!.save();
-                        Navigator.pushNamed(
-                          context,
-                          PagesRoute.generalInfo,
-                        );
+                        Navigator.pushNamed(context, PagesRoute.generalInfo);
                       }
                     },
                     style: ElevatedButton.styleFrom(

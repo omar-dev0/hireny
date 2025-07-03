@@ -1,9 +1,5 @@
-enum AppStatus {
-  pending,
-  approved,
-  rejected,
-  completed,
-}
+enum AppStatus { pending, approved, rejected, completed }
+
 class AppEntity {
   int appID;
   String applicationType;
@@ -18,6 +14,6 @@ class AppEntity {
     required this.companyName,
     required this.appliedDate,
     required this.deadlineDate,
-    required this.status,}
-  );
+    required this.status,
+  });
 }

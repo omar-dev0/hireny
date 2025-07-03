@@ -17,7 +17,6 @@ class JobPost {
   final String createdAt;
   final String jobType;
 
-
   JobPost({
     required this.id,
     required this.jobTitle,
@@ -36,13 +35,13 @@ class JobPost {
     required this.totalApplications,
     required this.createdAt,
     required this.jobType,
-
   });
 
   factory JobPost.fromJson(Map<String, dynamic> json) {
     List<String> categories = [];
     if (json['category'] is List) {
-      categories = (json['category'] as List).map((item) => item.toString()).toList();
+      categories =
+          (json['category'] as List).map((item) => item.toString()).toList();
     }
 
     return JobPost(
@@ -63,7 +62,6 @@ class JobPost {
       totalApplications: json['total_applications'] ?? 0,
       createdAt: json['createdAt'] ?? '',
       jobType: json['jobType'] ?? '', // ← Add this line
-
     );
   }
 }

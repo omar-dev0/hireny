@@ -14,7 +14,8 @@ class ExploreJobsForJobSeeker extends StatefulWidget {
   ExploreJobsForJobSeeker({super.key});
 
   @override
-  State<ExploreJobsForJobSeeker> createState() => _ExploreJobsForJobSeekerState();
+  State<ExploreJobsForJobSeeker> createState() =>
+      _ExploreJobsForJobSeekerState();
 }
 
 class _ExploreJobsForJobSeekerState extends State<ExploreJobsForJobSeeker> {
@@ -34,12 +35,13 @@ class _ExploreJobsForJobSeekerState extends State<ExploreJobsForJobSeeker> {
         if (state is JobPostLoading) {
           // Show a simple loading indicator if no data is loaded yet
           return LoadingDialog();
-        }if (state is JobPostLoading && AppSharedData.jobPosts.isEmpty) {
+        }
+        if (state is JobPostLoading && AppSharedData.jobPosts.isEmpty) {
           // Show a simple loading indicator if no data is loaded yet
           return LoadingDialog();
         } else if (state is JobPostError && AppSharedData.jobPosts.isEmpty) {
           // Show an error message if there's an error and no data
-          return   ErrorDialog(message: state.message,);
+          return ErrorDialog(message: state.message);
         } else {
           // Always return JobContent once data is available or after initial load
           return JobContent(
@@ -53,13 +55,13 @@ class _ExploreJobsForJobSeekerState extends State<ExploreJobsForJobSeeker> {
               'Salary',
             ],
             onChipPressed: [
-                  () => _showLocationBottomSheet(context),
-                  () => _showCategoryBottomSheet(context),
-                  () => _showJobTypeBottomSheet(context),
-                  () => _showJobLocationBottomSheet(context),
-                  () => _showExperienceLevelBottomSheet(context),
-                  () => _showDatePostedBottomSheet(context),
-                  () => _showSalaryRangeBottomSheet(context),
+              () => _showLocationBottomSheet(context),
+              () => _showCategoryBottomSheet(context),
+              () => _showJobTypeBottomSheet(context),
+              () => _showJobLocationBottomSheet(context),
+              () => _showExperienceLevelBottomSheet(context),
+              () => _showDatePostedBottomSheet(context),
+              () => _showSalaryRangeBottomSheet(context),
             ],
           );
         }
@@ -144,10 +146,27 @@ class _ExploreJobsForJobSeekerState extends State<ExploreJobsForJobSeeker> {
         "Last 7 Days",
         "Last 30 Days",
       ],
-      initialSelection: {["All", "Last Hour", "Last 24 Hours", "Last 7 Days", "Last 30 Days"].indexOf(cubit.selectedDateFilter)},
+      initialSelection: {
+        [
+          "All",
+          "Last Hour",
+          "Last 24 Hours",
+          "Last 7 Days",
+          "Last 30 Days",
+        ].indexOf(cubit.selectedDateFilter),
+      },
       onSelectedIndicesChanged: (selectedIndices) {
-        final List<String> allDates = ["All", "Last Hour", "Last 24 Hours", "Last 7 Days", "Last 30 Days"];
-        final selectedDate = selectedIndices.isNotEmpty ? allDates[selectedIndices.first] : "All";
+        final List<String> allDates = [
+          "All",
+          "Last Hour",
+          "Last 24 Hours",
+          "Last 7 Days",
+          "Last 30 Days",
+        ];
+        final selectedDate =
+            selectedIndices.isNotEmpty
+                ? allDates[selectedIndices.first]
+                : "All";
         cubit.updateDateFilter(selectedDate);
       },
     );
@@ -167,5 +186,3 @@ class _ExploreJobsForJobSeekerState extends State<ExploreJobsForJobSeeker> {
     );
   }
 }
-
-

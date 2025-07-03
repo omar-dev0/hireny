@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hireny/features/auth/domain/modules/linkes/link.dart';
 import 'package:hireny/features/auth/domain/repo_contract/repo_contract.dart';
 import 'package:hireny/features/auth/view/profile/cubit/user_states.dart';
 import 'package:hireny/result.dart';

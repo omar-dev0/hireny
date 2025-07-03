@@ -31,7 +31,7 @@ class _SideBarState extends State<SideBar> {
       PagesRoute.myAssessment, // todo assessment
       PagesRoute.calender,
       PagesRoute.myCourses,
-      // PagesRoute., //todo ai tools route
+      PagesRoute.aiTools,
     ];
 
     return Drawer(
@@ -98,15 +98,18 @@ class _SideBarState extends State<SideBar> {
                 return InkWell(
                   onTap: () {
                     Navigator.pushReplacementNamed(context, routeList[index]);
-
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 16),
+                      horizontal: 16,
+                      vertical: 16,
+                    ),
                     child: Center(
                       child: Text(
                         drawerList[index],
-                        style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                        style: Theme.of(
+                          context,
+                        ).textTheme.headlineSmall!.copyWith(
                           color: AppColors.primary,
                           fontWeight: FontWeight.w500,
                         ),

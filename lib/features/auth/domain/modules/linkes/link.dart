@@ -10,15 +10,10 @@ class UserLink {
 
   UserLink({required this.type, required this.url});
 
-  factory UserLink.fromJson(Map<String, dynamic> json) => UserLink(
-    type: json['type'],
-    url: json['url'],
-  );
+  factory UserLink.fromJson(Map<String, dynamic> json) =>
+      UserLink(type: json['type'], url: json['url']);
 
   Map<String, dynamic> toJson() {
-    return {
-      'type': type,
-      'url': url,
-    };
+    return {'type': type, 'url': url};
   }
 }

@@ -10,11 +10,8 @@ import '../../data/models/response/education_model.dart';
 import '../../data/models/response/experience_model.dart';
 import '../manager/technical_info_cubit.dart';
 
-
 class InfoBox extends StatelessWidget {
-  const InfoBox({
-    super.key, required this.img, required this.info,
-  });
+  const InfoBox({super.key, required this.img, required this.info});
   final String img;
   // final int id;
   final dynamic info;
@@ -68,24 +65,33 @@ class InfoBox extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Row(
               children: [
-                Container(width: 65, height: 60, decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.primary),
-                  borderRadius: BorderRadius.circular(16),
-                  image: DecorationImage(image: AssetImage(img))
-                ), ),
+                Container(
+                  width: 65,
+                  height: 60,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.primary),
+                    borderRadius: BorderRadius.circular(16),
+                    image: DecorationImage(image: AssetImage(img)),
+                  ),
+                ),
                 SizedBox(width: 35),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(title, style: AppFonts.textFieldStyle.copyWith(fontSize: 20)),
+                    Text(
+                      title,
+                      style: AppFonts.textFieldStyle.copyWith(fontSize: 20),
+                    ),
                     SizedBox(height: 10),
                     Text(organization, style: AppFonts.secMain),
                     SizedBox(height: 5),
                     Row(
                       children: [
                         Text(
-                          endDate.isNotEmpty ? "$startDate - $endDate" : startDate,
+                          endDate.isNotEmpty
+                              ? "$startDate - $endDate"
+                              : startDate,
                           style: AppFonts.hintStyle.copyWith(fontSize: 16),
                         ),
                         SizedBox(width: 60),
@@ -93,26 +99,28 @@ class InfoBox extends StatelessWidget {
                           onPressed: () {
                             popUpForm(context, () {
                               // handle update
-                            },title);
+                            }, title);
                           },
                           icon: Icon(Icons.edit),
                         ),
                         IconButton(
                           onPressed: () {
                             // make sure info has an id property
-                            context.read<TechnicalInfoCubit>().deleteItem(info.id.toString(), info);
-
+                            context.read<TechnicalInfoCubit>().deleteItem(
+                              info.id.toString(),
+                              info,
+                            );
                           },
                           icon: Icon(Icons.delete),
                         ),
                       ],
                     ),
                   ],
-                )
+                ),
               ],
             ),
           ),
-        )
+        ),
       ],
     );
   }

@@ -38,14 +38,14 @@ class _ExploreCoursesSeekerState extends State<ExploreCoursesSeeker> {
         if (state is CourseLoading && AppSharedData.jobPosts.isEmpty) {
           return LoadingDialog();
         } else if (state is CourseError && AppSharedData.jobPosts.isEmpty) {
-          return ErrorDialog(message: state.message,);
-        } else  {
+          return ErrorDialog(message: state.message);
+        } else {
           return CourseContent(
             chipLabels: ["Category", "Date Published", "Price"],
             onChipPressed: [
-                  () => _showCategoryBottomSheet(context),
-                  () => _showDatePublishedBottomSheet(context),
-                  () => _showPriceRangeBottomSheet(context),
+              () => _showCategoryBottomSheet(context),
+              () => _showDatePublishedBottomSheet(context),
+              () => _showPriceRangeBottomSheet(context),
             ],
           );
         }
@@ -71,11 +71,32 @@ class _ExploreCoursesSeekerState extends State<ExploreCoursesSeeker> {
     showDynamicBottomSheet(
       context: context,
       title: "Select Date Published",
-      items: ["All", "Last Hour", "Last 24 Hours", "Last 7 Days", "Last 30 Days"],
-      initialSelection: {["All", "Last Hour", "Last 24 Hours", "Last 7 Days", "Last 30 Days"].indexOf(cubit.selectedDateFilter)},
+      items: [
+        "All",
+        "Last Hour",
+        "Last 24 Hours",
+        "Last 7 Days",
+        "Last 30 Days",
+      ],
+      initialSelection: {
+        [
+          "All",
+          "Last Hour",
+          "Last 24 Hours",
+          "Last 7 Days",
+          "Last 30 Days",
+        ].indexOf(cubit.selectedDateFilter),
+      },
       onSelectedIndicesChanged: (indices) {
-        final List<String> allDates = ["All", "Last Hour", "Last 24 Hours", "Last 7 Days", "Last 30 Days"];
-        final selectedDate = indices.isNotEmpty ? allDates[indices.first] : "All";
+        final List<String> allDates = [
+          "All",
+          "Last Hour",
+          "Last 24 Hours",
+          "Last 7 Days",
+          "Last 30 Days",
+        ];
+        final selectedDate =
+            indices.isNotEmpty ? allDates[indices.first] : "All";
         cubit.updateDateFilter(selectedDate);
       },
     );
@@ -95,5 +116,3 @@ class _ExploreCoursesSeekerState extends State<ExploreCoursesSeeker> {
     );
   }
 }
-
-

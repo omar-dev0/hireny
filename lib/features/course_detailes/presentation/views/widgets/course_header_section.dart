@@ -3,11 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../../../utils/constants/app_colors.dart';
 import '../../../../../utils/constants/app_fonts.dart';
 
-
 class course_header_section extends StatelessWidget {
-  const course_header_section({
-    super.key,
-  });
+  const course_header_section({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +19,14 @@ class course_header_section extends StatelessWidget {
                 color: AppColors.primary.withOpacity(0.1),
                 spreadRadius: 1,
                 blurRadius: 4,
-                offset: Offset(0, 4), )// Bottom shadow
+                offset: Offset(0, 4),
+              ), // Bottom shadow
             ],
             borderRadius: BorderRadius.only(
               bottomRight: Radius.circular(16),
               bottomLeft: Radius.circular(16),
             ),
           ),
-
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -53,7 +50,9 @@ class course_header_section extends StatelessWidget {
                     TextSpan(
                       text: 'Janaki Ballav',
                       style: AppFonts.secMain.copyWith(
-                          fontSize: 15, color: AppColors.primary),
+                        fontSize: 15,
+                        color: AppColors.primary,
+                      ),
                     ),
                   ],
                 ),

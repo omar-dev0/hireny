@@ -18,7 +18,8 @@ class DynamicInputBottomSheet extends StatelessWidget {
     required this.title,
     required this.firstHint,
     required this.secondHint,
-    required this.buttonText, required this.onpress,
+    required this.buttonText,
+    required this.onpress,
   });
 
   @override
@@ -56,10 +57,7 @@ class DynamicInputBottomSheet extends StatelessWidget {
               SizedBox(height: 8.h),
               Row(
                 children: [
-                  Text(
-                    title,
-                    style: AppFonts.secMain,
-                  ),
+                  Text(title, style: AppFonts.secMain),
                   const Spacer(),
                   IconButton(
                     onPressed: () => Navigator.pop(context),
@@ -74,9 +72,11 @@ class DynamicInputBottomSheet extends StatelessWidget {
               SizedBox(height: 15.h),
               CustomButtom(
                 title: buttonText,
-                onPressed: (){
+                onPressed: () {
                   onpress(minController.text, maxController.text);
-                  Navigator.pop(context); // Close bottom sheet after applying filter
+                  Navigator.pop(
+                    context,
+                  ); // Close bottom sheet after applying filter
                 },
               ),
             ],
@@ -86,4 +86,3 @@ class DynamicInputBottomSheet extends StatelessWidget {
     );
   }
 }
-

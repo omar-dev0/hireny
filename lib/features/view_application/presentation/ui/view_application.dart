@@ -42,7 +42,10 @@ class _ViewApplicationState extends State<ViewApplication> {
             FadeInDown(
               duration: const Duration(milliseconds: 300),
               child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 20,
+                  horizontal: 12,
+                ),
                 margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: AppColors.white,
@@ -52,17 +55,32 @@ class _ViewApplicationState extends State<ViewApplication> {
                       color: Colors.black12,
                       blurRadius: 8,
                       offset: const Offset(0, 4),
-                    )
+                    ),
                   ],
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: const [
-                    ProgressCard(icon: Icons.assignment_turned_in, title: "Completed", value: "3"),
-                    ProgressCard(icon: Icons.access_time, title: "Pending", value: "2"),
-                    ProgressCard(icon: Icons.check_circle, title: "Approved", value: "1"),
-                    ProgressCard(icon: Icons.cancel, title: "Rejected", value: "1"),
-
+                    ProgressCard(
+                      icon: Icons.assignment_turned_in,
+                      title: "Completed",
+                      value: "3",
+                    ),
+                    ProgressCard(
+                      icon: Icons.access_time,
+                      title: "Pending",
+                      value: "2",
+                    ),
+                    ProgressCard(
+                      icon: Icons.check_circle,
+                      title: "Approved",
+                      value: "1",
+                    ),
+                    ProgressCard(
+                      icon: Icons.cancel,
+                      title: "Rejected",
+                      value: "1",
+                    ),
                   ],
                 ),
               ),
@@ -75,7 +93,9 @@ class _ViewApplicationState extends State<ViewApplication> {
                   if (state is LoadingState) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (state is ErrorState) {
-                    return Center(child: Text(state.message ?? "An error occurred"));
+                    return Center(
+                      child: Text(state.message ?? "An error occurred"),
+                    );
                   } else if (state is SuccessState) {
                     return ListView.separated(
                       itemCount: cubit.applications.length,
@@ -86,13 +106,14 @@ class _ViewApplicationState extends State<ViewApplication> {
                         final isApproved = app.status == AppStatus.approved;
                         final isRejected = app.status == AppStatus.rejected;
 
-                        final statusColor = isPending
-                            ? AppColors.grey.withOpacity(0.7)
-                            : isRejected
-                            ? AppColors.red
-                            : isApproved
-                            ? AppColors.green
-                            : AppColors.primary;
+                        final statusColor =
+                            isPending
+                                ? AppColors.grey.withOpacity(0.7)
+                                : isRejected
+                                ? AppColors.red
+                                : isApproved
+                                ? AppColors.green
+                                : AppColors.primary;
 
                         return FadeInUp(
                           duration: Duration(milliseconds: 300 + index * 100),
@@ -101,15 +122,17 @@ class _ViewApplicationState extends State<ViewApplication> {
                             decoration: BoxDecoration(
                               color: AppColors.subPrimary,
                               borderRadius: BorderRadius.circular(16),
-                              border: Border.all(color: AppColors.primary, width: 1),
+                              border: Border.all(
+                                color: AppColors.primary,
+                                width: 1,
+                              ),
                               boxShadow: [
                                 BoxShadow(
                                   color: AppColors.black.withOpacity(0.05),
                                   blurRadius: 10,
                                   offset: const Offset(0, 4),
-                                )
+                                ),
                               ],
-
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -120,24 +143,29 @@ class _ViewApplicationState extends State<ViewApplication> {
                                     Expanded(
                                       child: Text(
                                         app.applicationType,
-                                        style: theme.textTheme.titleMedium?.copyWith(
-                                          fontWeight: FontWeight.w600,
-                                          color: AppColors.primary,
-                                        ),
+                                        style: theme.textTheme.titleMedium
+                                            ?.copyWith(
+                                              fontWeight: FontWeight.w600,
+                                              color: AppColors.primary,
+                                            ),
                                       ),
                                     ),
                                     Container(
-                                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 10,
+                                        vertical: 4,
+                                      ),
                                       decoration: BoxDecoration(
                                         color: statusColor,
                                         borderRadius: BorderRadius.circular(12),
                                       ),
                                       child: Text(
                                         app.status.name,
-                                        style: theme.textTheme.labelSmall?.copyWith(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w600,
-                                        ),
+                                        style: theme.textTheme.labelSmall
+                                            ?.copyWith(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w600,
+                                            ),
                                       ),
                                     ),
                                   ],
@@ -147,14 +175,20 @@ class _ViewApplicationState extends State<ViewApplication> {
                                 // Company + Delete
                                 Row(
                                   children: [
-                                    Icon(Icons.business_center, size: 20, color: AppColors.grey.withOpacity(0.8)),
+                                    Icon(
+                                      Icons.business_center,
+                                      size: 20,
+                                      color: AppColors.grey.withOpacity(0.8),
+                                    ),
                                     const SizedBox(width: 8),
                                     Expanded(
                                       child: Text(
                                         app.companyName,
-                                        style: theme.textTheme.bodyMedium?.copyWith(
-                                          color: AppColors.black.withOpacity(0.8),
-                                        ),
+                                        style: theme.textTheme.bodyMedium
+                                            ?.copyWith(
+                                              color: AppColors.black
+                                                  .withOpacity(0.8),
+                                            ),
                                       ),
                                     ),
                                     if (isPending)
@@ -176,22 +210,28 @@ class _ViewApplicationState extends State<ViewApplication> {
 
                                 // Dates
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       "Started: ${app.appliedDate}",
-                                      style: theme.textTheme.bodySmall?.copyWith(
-                                        color: AppColors.grey.withOpacity(0.8),
-                                      ),
+                                      style: theme.textTheme.bodySmall
+                                          ?.copyWith(
+                                            color: AppColors.grey.withOpacity(
+                                              0.8,
+                                            ),
+                                          ),
                                     ),
                                     Spacer(),
                                     Text(
                                       "Deadline:${app.deadlineDate}",
-                                      style: theme.textTheme.bodySmall?.copyWith(
-                                        color: AppColors.grey.withOpacity(0.8),
-                                      ),
+                                      style: theme.textTheme.bodySmall
+                                          ?.copyWith(
+                                            color: AppColors.grey.withOpacity(
+                                              0.8,
+                                            ),
+                                          ),
                                     ),
-
                                   ],
                                 ),
                               ],

@@ -12,11 +12,11 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title:Text(
+      title: Text(
         title,
         style: Theme.of(context).textTheme.headlineSmall!.copyWith(
           fontWeight: FontWeight.bold,
-          color: AppColors.primary
+          color: AppColors.primary,
         ),
       ),
       centerTitle: true,
