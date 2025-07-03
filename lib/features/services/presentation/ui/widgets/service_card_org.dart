@@ -6,7 +6,7 @@ class ServiceCardOrg extends StatelessWidget {
   final String price;
   final String company;
   final String companyLogo;
-  final List<String> profiles;
+  final Widget? footer;
 
   const ServiceCardOrg({
     super.key,
@@ -14,7 +14,7 @@ class ServiceCardOrg extends StatelessWidget {
     required this.price,
     required this.company,
     required this.companyLogo,
-    required this.profiles,
+    this.footer,
   });
 
   @override
@@ -75,28 +75,7 @@ class ServiceCardOrg extends StatelessWidget {
 
           const SizedBox(height: 12),
 
-          /// 👥 Profiles
-          SizedBox(
-            height: 36,
-            child: Stack(
-              children: profiles.asMap().entries.map((entry) {
-                int i = entry.key;
-                String url = entry.value;
-                return Positioned(
-                  left: i * 22.0,
-                  child: CircleAvatar(
-                    radius: 18,
-                    backgroundColor: Colors.white,
-                    child: CircleAvatar(
-                      radius: 16,
-                      backgroundImage: NetworkImage(url),
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
-          ),
-
+          /// Spacer between name/price and bottom info
           const Spacer(),
 
           /// 🏢 Company Info
@@ -120,6 +99,11 @@ class ServiceCardOrg extends StatelessWidget {
               ),
             ],
           ),
+
+          const SizedBox(height: 12),
+
+          /// 👥 Footer (e.g. avatars row)
+          if (footer != null) footer!,
         ],
       ),
     );

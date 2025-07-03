@@ -1,25 +1,3 @@
-// {
-// "id": 5,
-// "serviceTitle": "Digital Marketing Specialist",
-// "salary": "3200.00",
-// "serviceDescription": "We specialize in SEO, social media marketing, and email campaigns to grow your brand online.",
-// "category": [
-// "Marketing",
-// "Advertising"
-// ],
-// "country": "Egypt",
-// "city": "Cairo",
-// "currency": [
-// "EGP"
-// ],
-// "serviceAvailable": "available",
-// "createdAt": "2025-07-01T22:17:30.008876Z",
-// "updatedAt": "2025-07-01T22:17:30.008921Z",
-// "organization": 8,
-// "total_applications": 0,
-// "companyName": "Tech Solutions",
-// "companyLogo": "/media/photos/default.png"
-// }
 class ServiceResponse {
   final int id;
   final String serviceTitle;

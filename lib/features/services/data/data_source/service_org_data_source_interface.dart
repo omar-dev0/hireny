@@ -5,4 +5,5 @@ import 'package:hireny/result.dart';
 abstract class ServiceOrgDataSourceInterface {
 
   Future<Result<ServiceResponse>>addServicePost(ServiceRequestModel service);
+  Future<Result<void>> getServices(int id);
 }

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:hireny/features/services/data/service_api/service_api_const.dart';
 import 'package:hireny/features/services/domain/models/response/service_post_response.dart';
 import 'package:hireny/result.dart';
@@ -16,7 +17,7 @@ class ServiceApiManager {
 
   ServiceApiManager(this._dio);
   String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxNDUxMTMxLCJpYXQiOjE3NTE0MDc5MzEsImp0aSI6IjAxZjFhM2RlYTM5NjRkYjliNjJmMDY4Y2NiZWVkNDBlIiwidXNlcl9pZCI6MzEsImlkIjozMSwiZmlyc3ROYW1lIjoidGVzdCIsImxhc3ROYW1lIjoidGVzdCIsImVtYWlsIjoiZmx1dHRlclRlc3RAY29tYW55LmNvbSIsInJvbGUiOiJvcmdBZG1pbiIsInBob3RvIjoiL21lZGlhL3Bob3Rvcy9kZWZhdWx0LnBuZyIsIm9yZ2FuaXphdGlvbiI6OH0.RIQKhDrLMEyGg8wVw5RhJwPLW70yMsSSVulKRN_lnaM";
-  //  add service post
+  ///  add service post
   Future<Result<ServiceResponse>> addServicePost(ServiceRequestModel service) async {
     try {
       final response = await _dio.post(
@@ -45,6 +46,34 @@ class ServiceApiManager {
     }
   }
 
+  /// get services
+  Future<Result<void>> getServices(int id) async {
+    debugPrint("call api");
+    try {
+      final response = await _dio.get(
+        "${ServiceApiConst.getServices}$id",
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        List<ServiceResponse> serviceResponse = (response.data as List)
+            .map((json) => ServiceResponse.fromJson(json))
+            .toList();
+
+        AppSharedData.servicesOrg.addAll(serviceResponse);
+       debugPrint(response.data);
+        return Success(response: serviceResponse);
+      } else {
+        return Error(error: "Failed to get services. Status code: ${response.statusCode}");
+      }
+    } catch (e) {
+      return Error(error: "Error occurred: $e");
+    }
+  }
 
 
 }

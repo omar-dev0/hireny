@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:hireny/features/auth/data/data_source/auth_data_source.dart';
 import 'package:hireny/features/auth/domain/modules/org/org_admin.dart';
 import 'package:hireny/features/auth/domain/modules/seeker/seeker.dart';
@@ -47,8 +48,11 @@ class RepoAuthImp implements RepoAuth {
         String refreshToken = response.response?['refresh'];
         var userInfo = await getUserInfo(accessToken);
         if (userInfo is Success) {
+
           Success<User?> response = userInfo as Success<User?>;
           AppSharedData.user = response.response;
+          // debugPrint("org Data ${response.response?.firstName}");
+
           AppSharedData.user?.accessToken = accessToken;
           AppSharedData.user?.refreshToken = refreshToken;
           if (AppSharedData.user is Seeker) {

@@ -58,6 +58,8 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
     return MaterialPageRoute(builder: (_) => LoginScreen());
   } else if (name == PagesRoute.firstPage &&
       AppSharedData.user?.accessToken != null) {
+    debugPrint("${AppSharedData.user?.role}");
+
     return MaterialPageRoute(builder: (_) => TabBarApp());
   }
 
@@ -104,15 +106,30 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
   if (name == PagesRoute.calender) {
     return MaterialPageRoute(builder: (_) => CalenderView());
   }if (name == PagesRoute.servicePostDetails) {
-    return MaterialPageRoute(builder: (_) => ServiceDetailsScreen(
-      title: '',
-      company: '',
-      postedTime: '',
-      category: '', time: ''
-      , price: '', location: ''
-      , description: '',));
-  }if (name == PagesRoute.orgServices) {
-    return MaterialPageRoute(builder: (_) => ServicesView());
+    return MaterialPageRoute(builder: (_) =>
+        ServiceDetailsScreen(
+          title: '',
+          company: '',
+          postedTime: '',
+          category: '',
+          time: ''
+          ,
+          price: '',
+          location: ''
+          ,
+          description: '',));
+  }
+  if (name == PagesRoute.orgServices) {
+    debugPrint("➡ Navigating to ServicesView and calling loadServices");
+    debugPrint("${AppSharedData.user?.role}");
+
+    return MaterialPageRoute(
+      builder:
+          (context) => BlocProvider(
+        create: (context) => getIt.get<ServiceOrgCubit>()..loadServices(),
+        child: ServicesView(),
+      ),
+    );
   }
   if (name == PagesRoute.myCourses) {
     return MaterialPageRoute(

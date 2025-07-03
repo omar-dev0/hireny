@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hireny/features/services/domain/models/request/service_post_request.dart';
 import 'package:hireny/features/services/domain/usecases/add_service_org_post.dart';
+import 'package:hireny/features/services/domain/usecases/get_services.dart';
 import 'package:hireny/utils/data_shared/app_shared_data.dart';
 import 'package:injectable/injectable.dart';
 import 'service_org_states.dart';
@@ -10,8 +11,9 @@ import 'package:hireny/result.dart'; // Make sure this is the correct import for
 @injectable
 class ServiceOrgCubit extends Cubit<ServiceOrgStates> {
   final AddServiceOrgPost addServiceOrgPost;
+  final GetServicesOrg getServicesOrg;
 
-  ServiceOrgCubit(this.addServiceOrgPost) : super(InitServiceOrg());
+  ServiceOrgCubit(this.addServiceOrgPost, this.getServicesOrg) : super(InitServiceOrg());
 
   final formKey = GlobalKey<FormState>();
 
@@ -69,15 +71,43 @@ class ServiceOrgCubit extends Cubit<ServiceOrgStates> {
 
       } catch (e) {
         emit(ErrorServiceOrg("Unexpected error occurred: $e"));
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e')),
-        );
+
       }
     } else {
       emit(ErrorServiceOrg("Please complete all required fields"));
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please complete all required fields')),
-      );
+
     }
   }
+  Future<void> loadServices() async {
+    debugPrint("✅ ServiceOrgCubit created ${AppSharedData.user?.id}");
+    debugPrint("✅ ServiceOrgCubit created ${AppSharedData.user?.firstName}");
+    debugPrint("✅ ServiceOrgCubit created ${AppSharedData.user?.role}");
+    debugPrint("✅ ServiceOrgCubit created ${AppSharedData.user?.email}");
+
+
+    emit(LoadingServiceOrg());
+
+    try {
+      final userId = AppSharedData.user?.id;
+      if (userId == null) {
+        emit(ErrorServiceOrg("User not logged in."));
+        return;
+      }
+
+      final result = await getServicesOrg.call(userId);
+      debugPrint(result.runtimeType as String?);
+
+      if (result is Success) {
+        AppSharedData.servicesOrg.clear();
+        AppSharedData.servicesOrg.addAll(result.response);
+        emit(SuccessServiceOrg());
+      } else if (result is Error) {
+        emit(ErrorServiceOrg(result.error));
+      }
+    } catch (e) {
+      emit(ErrorServiceOrg("Error loading services: $e"));
+    }
+  }
+
 }
+
