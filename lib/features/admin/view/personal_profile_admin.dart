@@ -17,27 +17,41 @@ class PersonalProfileAdmin extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.subPrimary,
       body: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: 10.w,vertical: 20.h),
+        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SizedBox(height: 30.h,),
-              Text("Personal Profile",style: AppFonts.mainText,),
-              SizedBox(height: 20.h,),
-              Text("First name*",style: AppFonts.secMain,),
-              CustomTextField(hint: "Enter your first name",controller: firstNameController,),
-              SizedBox(height: 20.h,),
-              Text("Last name*",style: AppFonts.secMain,),
-              CustomTextField(hint: "Enter your Last name",controller: secondNameController,),
-              SizedBox(height: 20.h,),
-              Text("Email",style: AppFonts.secMain,),
-              CustomTextField(hint: "Enter your Email",controller: emailController,),
-              SizedBox(height: 20.h,),
-              Text("Password",style: AppFonts.secMain,),
-              CustomTextField(hint: "***********",isPassword: true,maxLines: 1,controller: passwordController,),
-              SizedBox(height: 60.h,),
-              CustomButtom(title: "Save Changes ",onPressed: (){},)
+              SizedBox(height: 30.h),
+              Text("Personal Profile", style: AppFonts.mainText),
+              SizedBox(height: 20.h),
+              Text("First name*", style: AppFonts.secMain),
+              CustomTextField(
+                hint: "Enter your first name",
+                controller: firstNameController,
+              ),
+              SizedBox(height: 20.h),
+              Text("Last name*", style: AppFonts.secMain),
+              CustomTextField(
+                hint: "Enter your Last name",
+                controller: secondNameController,
+              ),
+              SizedBox(height: 20.h),
+              Text("Email", style: AppFonts.secMain),
+              CustomTextField(
+                hint: "Enter your Email",
+                controller: emailController,
+              ),
+              SizedBox(height: 20.h),
+              Text("Password", style: AppFonts.secMain),
+              CustomTextField(
+                hint: "***********",
+                isPassword: true,
+                maxLines: 1,
+                controller: passwordController,
+              ),
+              SizedBox(height: 60.h),
+              CustomButtom(title: "Save Changes ", onPressed: () {}),
             ],
           ),
         ),

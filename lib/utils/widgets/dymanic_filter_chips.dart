@@ -6,12 +6,14 @@ class DynamicFilterChipsWidget extends StatefulWidget {
   final List<String> chipLabels;
   final List<Function()?> onChipPressed;
   final Function(Set<int>)? onSelectionChanged;
+  final Set<int> selectedChipIndices;
 
   const DynamicFilterChipsWidget({
     Key? key,
     required this.chipLabels,
     required this.onChipPressed,
     this.onSelectionChanged,
+    required this.selectedChipIndices,
   }) : super(key: key);
 
   @override
@@ -19,8 +21,6 @@ class DynamicFilterChipsWidget extends StatefulWidget {
 }
 
 class _DynamicChipsWidgetState extends State<DynamicFilterChipsWidget> {
-  Set<int> selectedChipIndices = {};
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,35 +29,28 @@ class _DynamicChipsWidgetState extends State<DynamicFilterChipsWidget> {
         scrollDirection: Axis.horizontal,
         itemCount: widget.chipLabels.length,
         itemBuilder: (BuildContext context, int index) {
+          final isSelected = widget.selectedChipIndices.contains(index);
           return Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 14.w),
+            padding: EdgeInsets.symmetric(horizontal: 14.w),
             child: ChoiceChip(
               label: Text(
                 widget.chipLabels[index],
                 style: TextStyle(
-                  color: selectedChipIndices.contains(index)
-                      ? AppColors.primary // Selected color
-                      : Colors.grey, // Unselected color
+                  color: AppColors.primary, // Always primary color
                 ),
               ),
-              selected: selectedChipIndices.contains(index),
-              selectedColor: AppColors.subPrimary2,
+              selected: isSelected,
+              selectedColor:
+                  AppColors.subPrimary2, // Keep selected color for background
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.r), // Rounded corners
+                side: BorderSide(color: AppColors.primary), // Border color
+              ),
               onSelected: (bool selected) {
-                setState(() {
-                  if (selected) {
-                    selectedChipIndices.add(index);
-                  } else {
-                    selectedChipIndices.remove(index);
-                  }
-                });
-
-                if (widget.onChipPressed != null && widget.onChipPressed![index] != null) {
+                // The selection logic is now handled by the parent widget
+                if (widget.onChipPressed != null &&
+                    widget.onChipPressed![index] != null) {
                   widget.onChipPressed![index]!();
-                }
-
-                // Notify parent about selection changes
-                if (widget.onSelectionChanged != null) {
-                  widget.onSelectionChanged!(selectedChipIndices);
                 }
               },
             ),

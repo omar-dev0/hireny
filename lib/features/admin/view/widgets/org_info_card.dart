@@ -39,8 +39,8 @@ class OrganizationInfoCard extends StatelessWidget {
             "Information",
             style: AppFonts.mainText.copyWith(color: AppColors.white),
           ),
-          Divider(color: AppColors.grey,height: 1,),
-          SizedBox(height: 10.h,),
+          Divider(color: AppColors.grey, height: 1),
+          SizedBox(height: 10.h),
           Row(
             children: [
               Text(
@@ -51,10 +51,9 @@ class OrganizationInfoCard extends StatelessWidget {
                 ceoName,
                 style: AppFonts.secMain.copyWith(color: AppColors.white),
               ),
-
             ],
           ),
-          SizedBox(height: 10.h,),
+          SizedBox(height: 10.h),
           Row(
             children: [
               Text(
@@ -67,7 +66,7 @@ class OrganizationInfoCard extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 10.h,),
+          SizedBox(height: 10.h),
           Row(
             children: [
               Text(
@@ -80,7 +79,7 @@ class OrganizationInfoCard extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 10.h,),
+          SizedBox(height: 10.h),
           Row(
             children: [
               Text(
@@ -93,7 +92,7 @@ class OrganizationInfoCard extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 10.h,),
+          SizedBox(height: 10.h),
           Row(
             children: [
               Text(
@@ -106,7 +105,7 @@ class OrganizationInfoCard extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 10.h,),
+          SizedBox(height: 10.h),
           Row(
             children: [
               Text(
@@ -119,7 +118,7 @@ class OrganizationInfoCard extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 10.h,),
+          SizedBox(height: 10.h),
           Row(
             children: [
               Text(

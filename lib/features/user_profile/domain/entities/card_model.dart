@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class CardModel{
+class CardModel {
   final Widget image;
   final String title;
   final String subtitle;
   final String duration;
   final String? badge;
-  final bool? isLink ;
+  final bool? isLink;
   const CardModel({
     required this.image,
     required this.title,

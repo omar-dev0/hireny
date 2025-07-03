@@ -55,9 +55,12 @@ class RestPasswordContent extends StatelessWidget {
                   },
                 ),
                 SizedBox(height: 20),
-                CustomButtom(title: 'Reset Password', onPressed: () {
-                  forgetPasswordVM.changePassword();
-                }),
+                CustomButtom(
+                  title: 'Reset Password',
+                  onPressed: () {
+                    forgetPasswordVM.changePassword();
+                  },
+                ),
               ],
             ),
           ),

@@ -48,7 +48,7 @@ class _ChangePasswordState extends State<ChangePassword> {
             Navigator.pushNamedAndRemoveUntil(
               context,
               PagesRoute.generalInfo,
-                  (route) => false,
+              (route) => false,
             );
           });
         }
@@ -66,87 +66,88 @@ class _ChangePasswordState extends State<ChangePassword> {
         }
       },
       child: Scaffold(
-      backgroundColor: AppColors.white,
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: FadeInDown(
-          duration: const Duration(milliseconds: 500),
-          child: Text(
-            'Change Password',
-            style: theme.textTheme.headlineSmall?.copyWith(
-              fontWeight: FontWeight.w600,
-              color: theme.primaryColor,
+        backgroundColor: AppColors.white,
+        appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_rounded),
+            onPressed: () => Navigator.pop(context),
+          ),
+          title: FadeInDown(
+            duration: const Duration(milliseconds: 500),
+            child: Text(
+              'Change Password',
+              style: theme.textTheme.headlineSmall?.copyWith(
+                fontWeight: FontWeight.w600,
+                color: theme.primaryColor,
+              ),
             ),
           ),
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
         ),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0),
-        child: SingleChildScrollView(
-          child: Form(
-            key: cubit.formKey,
-            child: Column(
-              children: [
-            Center(
-            child: Lottie.asset(
-            'animations/password.json',
-              width: 200,
-              height: 200,
-              repeat: true,
-              animate: true,
-            ),
-          ),
-                const SizedBox(height: 24),
-                FadeInLeft(
-                  duration: const Duration(milliseconds: 500),
-                  child: CustomTextField(
-                    controller: cubit.oldPasswordController,
-                    label: "Current Password",
-                    hint: "Enter your current password",
-                    prefixIcon: const Icon(Icons.lock_outline_rounded),
-                    isPassword: true,
-                    keyboardType: TextInputType.visiblePassword,
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: SingleChildScrollView(
+            child: Form(
+              key: cubit.formKey,
+              child: Column(
+                children: [
+                  Center(
+                    child: Lottie.asset(
+                      'animations/password.json',
+                      width: 200,
+                      height: 200,
+                      repeat: true,
+                      animate: true,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 20),
-                FadeInLeft(
-                  duration: const Duration(milliseconds: 600),
-                  child: CustomTextField(
-                    controller: cubit.resetPasswordController,
-                    label: "New Password",
-                    hint: "Create new password",
-                    prefixIcon: const Icon(Icons.lock_outline_rounded),
-                    isPassword: true,
-                    keyboardType: TextInputType.visiblePassword,
-                    onValidate: (value) => cubit.validatePassword(value),
+                  const SizedBox(height: 24),
+                  FadeInLeft(
+                    duration: const Duration(milliseconds: 500),
+                    child: CustomTextField(
+                      controller: cubit.oldPasswordController,
+                      label: "Current Password",
+                      hint: "Enter your current password",
+                      prefixIcon: const Icon(Icons.lock_outline_rounded),
+                      isPassword: true,
+                      keyboardType: TextInputType.visiblePassword,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 20),
-                FadeInLeft(
-                  duration: const Duration(milliseconds: 700),
-                  child: CustomTextField(
-                    controller: cubit.confirmResetPasswordController,
-                    label: "Confirm New Password",
-                    hint: "Re-enter new password",
-                    prefixIcon: const Icon(Icons.lock_outline_rounded),
-                    isPassword: true,
-                    keyboardType: TextInputType.visiblePassword,
-                    onValidate: (value) => cubit.validateConfirmPassword(value),
+                  const SizedBox(height: 20),
+                  FadeInLeft(
+                    duration: const Duration(milliseconds: 600),
+                    child: CustomTextField(
+                      controller: cubit.resetPasswordController,
+                      label: "New Password",
+                      hint: "Create new password",
+                      prefixIcon: const Icon(Icons.lock_outline_rounded),
+                      isPassword: true,
+                      keyboardType: TextInputType.visiblePassword,
+                      onValidate: (value) => cubit.validatePassword(value),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 32),
-                FadeInUp(
-                  duration: const Duration(milliseconds: 800),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 52,
-                    child: ElevatedButton(
+                  const SizedBox(height: 20),
+                  FadeInLeft(
+                    duration: const Duration(milliseconds: 700),
+                    child: CustomTextField(
+                      controller: cubit.confirmResetPasswordController,
+                      label: "Confirm New Password",
+                      hint: "Re-enter new password",
+                      prefixIcon: const Icon(Icons.lock_outline_rounded),
+                      isPassword: true,
+                      keyboardType: TextInputType.visiblePassword,
+                      onValidate:
+                          (value) => cubit.validateConfirmPassword(value),
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+                  FadeInUp(
+                    duration: const Duration(milliseconds: 800),
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 52,
+                      child: ElevatedButton(
                         onPressed: () async {
                           if (cubit.formKey.currentState!.validate()) {
                             FocusScope.of(context).unfocus(); // hide keyboard
@@ -154,43 +155,43 @@ class _ChangePasswordState extends State<ChangePassword> {
                           }
                         },
 
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: theme.primaryColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: theme.primaryColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          elevation: 0,
                         ),
-                        elevation: 0,
+                        child: Text(
+                          "Update Password",
+                          style: theme.textTheme.bodyLarge?.copyWith(
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  FadeInUp(
+                    duration: const Duration(milliseconds: 900),
+                    child: TextButton(
+                      onPressed: () => Navigator.pop(context),
                       child: Text(
-                        "Update Password",
+                        "Cancel",
                         style: theme.textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 16),
-                FadeInUp(
-                  duration: const Duration(milliseconds: 900),
-                  child: TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: Text(
-                      "Cancel",
-                      style: theme.textTheme.bodyLarge?.copyWith(
-                        color: AppColors.primary,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
       ),
-      )
     );
   }
 }

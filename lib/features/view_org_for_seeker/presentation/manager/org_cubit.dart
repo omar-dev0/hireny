@@ -42,5 +42,3 @@ class OrgCubit extends Cubit<OrgStates> {
     }
   }
 }
-
-

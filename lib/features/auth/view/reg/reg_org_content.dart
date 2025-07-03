@@ -262,8 +262,7 @@ class _RegOrgContentState extends State<RegOrgContent> {
                                     lastDate: DateTime(2100),
                                   );
                                   if (regVm.date != null) {
-                                    regVm.dob =
-                                        "${regVm.date!.year}";
+                                    regVm.dob = "${regVm.date!.year}";
                                   }
                                   setState(() {});
                                 },

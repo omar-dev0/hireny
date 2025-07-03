@@ -11,7 +11,8 @@ class LocationBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: MediaQuery.of(context).viewInsets, // Adjust padding for the keyboard
+      padding:
+          MediaQuery.of(context).viewInsets, // Adjust padding for the keyboard
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -40,10 +41,7 @@ class LocationBottomSheet extends StatelessWidget {
               SizedBox(height: 8.h),
               Row(
                 children: [
-                  Text(
-                    "Location",
-                    style: AppFonts.secMain,
-                  ),
+                  Text("Location", style: AppFonts.secMain),
                   const Spacer(),
                   IconButton(
                     onPressed: () => Navigator.pop(context),
@@ -51,17 +49,28 @@ class LocationBottomSheet extends StatelessWidget {
                   ),
                 ],
               ),
-              DropDownListCustom(iconData: Icons.location_city,hintText:"Choose country" ,items: ["Egypt", "Spain","Argentina"],),
+              DropDownListCustom(
+                iconData: Icons.location_city,
+                hintText: "Choose country",
+                items: ["Egypt", "Spain", "Argentina"],
+              ),
               SizedBox(height: 8.h),
-              DropDownListCustom(iconData: Icons.location_city,hintText:"Choose city" ,items: ["Cairo", "Giza","Madrid"],),
+              DropDownListCustom(
+                iconData: Icons.location_city,
+                hintText: "Choose city",
+                items: ["Cairo", "Giza", "Madrid"],
+              ),
               SizedBox(height: 8.h),
-              DropDownListCustom(iconData: Icons.location_city,hintText:"Choose area" ,items: ["Area1", "Area2","Area3"],),
-
-
+              DropDownListCustom(
+                iconData: Icons.location_city,
+                hintText: "Choose area",
+                items: ["Area1", "Area2", "Area3"],
+              ),
             ],
           ),
         ),
       ),
-    );;
+    );
+    ;
   }
 }

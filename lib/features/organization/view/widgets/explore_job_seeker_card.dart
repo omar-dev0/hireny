@@ -10,7 +10,6 @@ class ExploreJobSeekerCard extends StatelessWidget {
   final String name;
   final String logoImage;
 
-
   const ExploreJobSeekerCard({
     Key? key,
     required this.jobType,
@@ -21,39 +20,26 @@ class ExploreJobSeekerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:  EdgeInsets.symmetric(horizontal: 15.w,vertical: 10.h),
+      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(8.r),
-        border: Border.all(
-          color: AppColors.subPrimary2,
-          width: 1.0,
-        ),
+        border: Border.all(color: AppColors.subPrimary2, width: 1.0),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Image.asset(
-                logoImage,
-                height: 32.h,
-                width: 32.w,
-              ),
+              Image.asset(logoImage, height: 32.h, width: 32.w),
               SizedBox(width: 8.w),
-              Text(
-                  name,
-                  style: AppFonts.mainText
-              ),
+              Text(name, style: AppFonts.mainText),
             ],
           ),
           SizedBox(height: 16.h),
-          Text(
-              '$jobType',
-              style: AppFonts.secMain
-          ),
+          Text('$jobType', style: AppFonts.secMain),
           SizedBox(height: 24.h),
-          CustomButtom(title: "View Profile", onPressed: (){}),
+          CustomButtom(title: "View Profile", onPressed: () {}),
         ],
       ),
     );

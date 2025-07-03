@@ -53,6 +53,7 @@ class _SideBarState extends State<SideBar> {
       PagesRoute.myAssessment,
       PagesRoute.calender,
       PagesRoute.myCourses,
+      PagesRoute.aiTools,
       // PagesRoute.aiTools, // ← Make sure this exists in routes
     ]
         : [
@@ -146,12 +147,16 @@ class _SideBarState extends State<SideBar> {
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 16),
+                      horizontal: 16,
+                      vertical: 16,
+                    ),
                     child: Center(
                       child: Text(
                         drawerList[index],
                         style:
-                        Theme.of(context).textTheme.headlineSmall!.copyWith(
+                        Theme.of(
+                          context,
+                        ).textTheme.headlineSmall!.copyWith(
                           color: AppColors.primary,
                           fontWeight: FontWeight.w500,
                         ),

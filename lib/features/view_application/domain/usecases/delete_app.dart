@@ -3,7 +3,7 @@ import 'package:hireny/features/view_application/domain/repositories/app_repo_in
 import 'package:injectable/injectable.dart';
 
 @injectable
-class DeleteApp{
+class DeleteApp {
   AppRepoInterface appRepo;
 
   DeleteApp({required this.appRepo});

@@ -5,7 +5,6 @@ import 'package:hireny/features/user_profile/presentation/ui/widgets/experience_
 import 'package:hireny/features/user_profile/presentation/ui/widgets/general_info.dart';
 import 'package:hireny/utils/constants/app_colors.dart';
 
-
 class UserProfile extends StatelessWidget {
   const UserProfile({super.key});
 
@@ -20,104 +19,93 @@ class UserProfile extends StatelessWidget {
           body: NestedScrollView(
             headerSliverBuilder:
                 (BuildContext context, bool innerBoxIsScrolled) => [
-              SliverAppBar(
-                backgroundColor: AppColors.subPrimary,
-                pinned: true,
-                expandedHeight: 240,
-                flexibleSpace: FlexibleSpaceBar(
-                  background: Padding(
-                    padding: const EdgeInsets.only(
-                      top: 20,
-                      left: 16,
-                      right: 16,
-                    ),
-                    child: Column(
-
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  SliverAppBar(
+                    backgroundColor: AppColors.subPrimary,
+                    pinned: true,
+                    expandedHeight: 240,
+                    flexibleSpace: FlexibleSpaceBar(
+                      background: Padding(
+                        padding: const EdgeInsets.only(
+                          top: 20,
+                          left: 16,
+                          right: 16,
+                        ),
+                        child: Column(
                           children: [
-                            Icon(
-                              Icons.arrow_back,
-                              size: 30,
-                              color: AppColors.primary,
-                            ),
-                            Container(
-                              width: 60,
-                              height: 60,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: AppColors.primary,
-                                  width: 3,
-                                ),
-                              ),
-                              child: CircleAvatar(
-                                radius: 50,
-                                backgroundColor: Colors.white,
-                                child: Icon(
-                                  Icons.person,
-                                  color: AppColors.primary,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Icon(
+                                  Icons.arrow_back,
                                   size: 30,
+                                  color: AppColors.primary,
                                 ),
+                                Container(
+                                  width: 60,
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: AppColors.primary,
+                                      width: 3,
+                                    ),
+                                  ),
+                                  child: CircleAvatar(
+                                    radius: 50,
+                                    backgroundColor: Colors.white,
+                                    child: Icon(
+                                      Icons.person,
+                                      color: AppColors.primary,
+                                      size: 30,
+                                    ),
+                                  ),
+                                ),
+                                Icon(
+                                  Icons.chat,
+                                  size: 30,
+                                  color: AppColors.primary,
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 10),
+                            Text(
+                              "Person's name",
+                              style: theme.titleLarge!.copyWith(
+                                color: AppColors.primary,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Icon(
-                              Icons.chat,
-                              size: 30,
-                              color: AppColors.primary,
+                            SizedBox(height: 10),
+                            Text(
+                              "Graphic designer",
+                              style: theme.titleMedium!.copyWith(
+                                color: AppColors.grey.withOpacity(0.6),
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ],
                         ),
-                        SizedBox(height: 10),
-                        Text(
-                          "Person's name",
-                          style: theme.titleLarge!.copyWith(
-                            color: AppColors.primary,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      ),
+                    ),
+                    bottom: PreferredSize(
+                      preferredSize: const Size.fromHeight(50),
+                      child: TabBar(
+                        labelColor: AppColors.primary,
+                        unselectedLabelColor: Colors.grey,
+                        indicatorColor: AppColors.primary,
+                        labelStyle: theme.labelLarge!.copyWith(fontSize: 18),
+                        unselectedLabelStyle: theme.labelLarge!.copyWith(
+                          fontSize: 16,
                         ),
-                        SizedBox(height: 10),
-                        Text(
-                          "Graphic designer",
-                          style: theme.titleMedium!.copyWith(
-                            color: AppColors.grey.withOpacity(0.6),
-                            fontWeight: FontWeight.bold,
-                          ),
+                        overlayColor: WidgetStateProperty.all(
+                          Colors.transparent,
                         ),
-                      ],
+                        tabs: const [Tab(text: "Home"), Tab(text: "Info")],
+                      ),
                     ),
                   ),
-                ),
-                bottom: PreferredSize(
-                  preferredSize: const Size.fromHeight(50),
-                  child: TabBar(
-                    labelColor: AppColors.primary,
-                    unselectedLabelColor: Colors.grey,
-                    indicatorColor: AppColors.primary,
-                    labelStyle: theme.labelLarge!.copyWith(fontSize: 18),
-                    unselectedLabelStyle: theme.labelLarge!.copyWith(
-                      fontSize: 16,
-                    ),
-                    overlayColor: WidgetStateProperty.all(
-                      Colors.transparent,
-                    ),
-                    tabs: const [
-                      Tab(text: "Home"),
-                      Tab(text: "Info"),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-            body: TabBarView(
-              children: [
-                HomeInfo(),
-                GeneralUserInfo()
-
-
-              ],
-            ),
+                ],
+            body: TabBarView(children: [HomeInfo(), GeneralUserInfo()]),
           ),
         ),
       ),

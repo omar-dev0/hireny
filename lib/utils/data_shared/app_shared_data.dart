@@ -1,4 +1,6 @@
+import 'package:hireny/features/auth/domain/modules/assessment/assessment.dart';
 import 'package:hireny/features/auth/domain/modules/user/user.dart';
+import 'package:hireny/features/calender/domain/models/event.dart';
 import 'package:hireny/features/seeker/domain/modules/course.dart';
 import 'package:hireny/features/services/domain/models/response/service_post_response.dart';
 import 'package:hireny/features/show_courses/data/models/seeker_courses_registered.dart';
@@ -140,4 +142,8 @@ abstract class AppSharedData {
     "Self-Paced",
     "Other",
   ];
+
+  static List<AssessmentModel>? assessments = [];
+
+  static List<EventModel> events = [];
 }

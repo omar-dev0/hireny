@@ -1,9 +1,6 @@
-enum JobTime {
-  full,
-  part,
-}
+enum JobTime { full, part }
 
-class OrgPostCardEntity{
+class OrgPostCardEntity {
   int postID;
   String postTitle;
   String publishedTime;
@@ -19,7 +16,6 @@ class OrgPostCardEntity{
     required this.jobType,
     required this.jobTime,
     required this.salary,
-    required this.location
+    required this.location,
   });
-
 }

@@ -8,7 +8,7 @@ import '../linkes/link.dart';
 part 'user.g.dart';
 
 @HiveType(typeId: 22)
- class User {
+class User {
   @HiveField(0)
   int? id;
   @HiveField(1)
@@ -77,6 +77,7 @@ part 'user.g.dart';
     final file = File('${dir.path}/$fileName');
     return await file.writeAsBytes(bytes);
   }
+
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
       id: json['id'],

@@ -4,10 +4,13 @@ part of 'technical_info_cubit.dart';
 sealed class TechnicalInfoState {}
 
 final class TechnicalInfoInitial extends TechnicalInfoState {}
+
 final class TechnicalInfoLoading extends TechnicalInfoState {}
 
 final class TechnicalInfoSuccess extends TechnicalInfoState {}
+
 final class TechnicalInfoSuccessUpdated extends TechnicalInfoState {}
+
 final class TechnicalInfoSuccessDeleted extends TechnicalInfoState {}
 
 final class TechnicalInfoFailure extends TechnicalInfoState {

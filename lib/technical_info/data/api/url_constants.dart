@@ -10,10 +10,13 @@ abstract class UrlConstants {
   static const String addSkill = "/api/techical-info/skills/add/";
   static const String addLang ='/api/techical-info/languages/add/';
 
+
   /// delete
   static const String deleteEdu = '/api/techical-info/education/delete/';
-  static const String deleteExperience = '/api/techical-info/experience/delete/';
-  static const String deleteCertificate = '/api/techical-info/certificate/delete/';
+  static const String deleteExperience =
+      '/api/techical-info/experience/delete/';
+  static const String deleteCertificate =
+      '/api/techical-info/certificate/delete/';
   static const String deleteCourse = '/api/techical-info/course/delete/';
   static const String deleteSkill = "/api/techical-info/skills/delete/";
   static const String deleteLang = "/api/techical-info/languages/delete/";

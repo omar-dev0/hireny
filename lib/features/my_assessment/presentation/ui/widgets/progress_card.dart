@@ -2,9 +2,16 @@ import 'package:flutter/material.dart';
 
 import '../../../../../utils/constants/app_colors.dart';
 
-class ProgressCard  extends StatelessWidget {
-  final IconData icon;final String title; final String value;
-  const ProgressCard ({super.key, required this.icon, required this.title, required this.value});
+class ProgressCard extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String value;
+  const ProgressCard({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.value,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -24,11 +24,11 @@ class OrgProfileCubit extends Cubit<OrgProfileStates> {
   List<OrgReviewEntity> reviews = [];
 
   OrgProfileCubit(
-      this.profile,
-      this.addReviewUseCase,
-      this.getReviewsUseCase,
-      this.getPostsUseCase,
-      ) : super(InitialState());
+    this.profile,
+    this.addReviewUseCase,
+    this.getReviewsUseCase,
+    this.getPostsUseCase,
+  ) : super(InitialState());
 
   Future<void> loadProfile(int orgID) async {
     emit(LoadingState());
@@ -70,7 +70,9 @@ class OrgProfileCubit extends Cubit<OrgProfileStates> {
         await loadReviews();
         print("Fetched Reviews:");
         for (var review in reviews) {
-          print("Review by ${review.owner} at ${review.publishedTime}: ${review.content}");
+          print(
+            "Review by ${review.owner} at ${review.publishedTime}: ${review.content}",
+          );
         }
         emit(SuccessState());
         reviewController.clear();
@@ -82,4 +84,3 @@ class OrgProfileCubit extends Cubit<OrgProfileStates> {
     }
   }
 }
-

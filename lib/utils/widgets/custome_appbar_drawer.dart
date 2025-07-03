@@ -21,16 +21,20 @@ class CustomScreen extends StatelessWidget {
       backgroundColor: AppColors.white,
       appBar: AppBar(
         leading: Builder(
-          builder: (context) => IconButton(
-            icon: const Icon(Icons.menu, color: Colors.white), // White drawer icon
-            onPressed: () => Scaffold.of(context).openDrawer(),
-          ),
+          builder:
+              (context) => IconButton(
+                icon: const Icon(
+                  Icons.menu,
+                  color: Colors.white,
+                ), // White drawer icon
+                onPressed: () => Scaffold.of(context).openDrawer(),
+              ),
         ),
         title: Text(
           title,
-          style: Theme.of(context).textTheme.labelLarge?.copyWith(
-              color: AppColors.white
-          ),
+          style: Theme.of(
+            context,
+          ).textTheme.labelLarge?.copyWith(color: AppColors.white),
         ),
         centerTitle: centerTitle,
         backgroundColor: AppColors.primary,
@@ -40,4 +44,3 @@ class CustomScreen extends StatelessWidget {
     );
   }
 }
-

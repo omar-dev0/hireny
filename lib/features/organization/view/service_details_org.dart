@@ -8,7 +8,6 @@ import 'package:hireny/utils/extensions/font_size.dart';
 import 'package:hireny/utils/widgets/custom_buttom.dart';
 
 class ServiceDetailsOrg extends StatelessWidget {
-
   const ServiceDetailsOrg({super.key});
 
   @override
@@ -16,23 +15,29 @@ class ServiceDetailsOrg extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.subPrimary,
       body: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: 10.w,vertical: 10.h),
+        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SizedBox(height: 40.h,),
-              Text("Service Details",style: AppFonts.mainText,),
-              Text("Explore detailed job descriptions, required skills.json, and application steps to find your perfect fit.",style: AppFonts.secMain,),
-              SizedBox(height: 25.h,),
+              SizedBox(height: 40.h),
+              Text("Service Details", style: AppFonts.mainText),
+              Text(
+                "Explore detailed job descriptions, required skills.json, and application steps to find your perfect fit.",
+                style: AppFonts.secMain,
+              ),
+              SizedBox(height: 25.h),
               Row(
                 children: [
-                  Image.asset(AppAssets.org_logo,width: 40.w,height: 40.h,),
-                  SizedBox(width: 10.w,),
-                  Text("Corporate Solutions Executive",style: AppFonts.mainText.copyWith(fontSize: 20.cSp),)
+                  Image.asset(AppAssets.org_logo, width: 40.w, height: 40.h),
+                  SizedBox(width: 10.w),
+                  Text(
+                    "Corporate Solutions Executive",
+                    style: AppFonts.mainText.copyWith(fontSize: 20.cSp),
+                  ),
                 ],
               ),
-              SizedBox(height: 15.h,),
+              SizedBox(height: 15.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -42,24 +47,31 @@ class ServiceDetailsOrg extends StatelessWidget {
                   Text("40000 dollar"),
                 ],
               ),
-              SizedBox(height: 15.h,),
+              SizedBox(height: 15.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ImageIcon(AssetImage(AppAssets.location_logo)),
-                  SizedBox(width: 10.w,),
+                  SizedBox(width: 10.w),
                   Text("New-York, USA"),
                 ],
               ),
-              SizedBox(height: 15.h,),
-              CustomButtom(title: "Request", onPressed: (){}),
-              SizedBox(height: 15.h,),
+              SizedBox(height: 15.h),
+              CustomButtom(title: "Request", onPressed: () {}),
+              SizedBox(height: 15.h),
               ServiceDetailsDescription(),
               InkWell(
-                onTap: (){
+                onTap: () {
                   //navigate to related services
                 },
-                  child: Text("Show related services",style: AppFonts.secMain.copyWith(decoration: TextDecoration.underline),textAlign: TextAlign.center,))
+                child: Text(
+                  "Show related services",
+                  style: AppFonts.secMain.copyWith(
+                    decoration: TextDecoration.underline,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
             ],
           ),
         ),

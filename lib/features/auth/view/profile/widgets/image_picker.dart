@@ -30,9 +30,9 @@ class ImagePickerBottomSheet extends StatelessWidget {
         children: [
           Text(
             "Choose Profile Photo",
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.bold,
-            ),
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 24),
           Row(
@@ -65,11 +65,11 @@ class ImagePickerBottomSheet extends StatelessWidget {
   }
 
   Widget _buildImagePickerOption(
-      BuildContext context, {
-        required IconData icon,
-        required String label,
-        required VoidCallback onTap,
-      }) {
+    BuildContext context, {
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+  }) {
     return FadeInUp(
       child: InkWell(
         onTap: onTap,
@@ -101,4 +101,3 @@ class ImagePickerBottomSheet extends StatelessWidget {
     );
   }
 }
-

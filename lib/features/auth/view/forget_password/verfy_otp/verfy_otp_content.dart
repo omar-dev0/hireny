@@ -37,7 +37,7 @@ class VerfyOtpContent extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 onCodeChanged: (String? val) {
-                  cubit.otp+= val!;
+                  cubit.otp += val!;
                 },
                 showFieldAsBox: true,
                 keyboardType: TextInputType.number,

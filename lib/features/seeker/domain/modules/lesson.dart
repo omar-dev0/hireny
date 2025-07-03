@@ -35,11 +35,7 @@ class Lesson {
         seconds = double.tryParse(s.split('.')[0]) ?? 0.0;
       }
 
-      return Duration(
-        seconds: seconds.toInt(),
-        minutes: minutes,
-        hours: hours,
-      );
+      return Duration(seconds: seconds.toInt(), minutes: minutes, hours: hours);
     }
 
     return Lesson(

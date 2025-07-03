@@ -23,7 +23,7 @@ class ServiceDetailsDescription extends StatelessWidget {
             children: [
               Text(
                 "Job Description",
-                style: AppFonts.secMain.copyWith(color: AppColors.primary)
+                style: AppFonts.secMain.copyWith(color: AppColors.primary),
               ),
             ],
           ),
@@ -46,17 +46,10 @@ class ServiceDetailsDescription extends StatelessWidget {
     return descriptionPoints.map((point) {
       return ListTile(
         contentPadding: EdgeInsets.zero,
-        leading: Icon(
-          Icons.circle,
-          size: 10.w,
-          color: AppColors.primary,
-        ),
+        leading: Icon(Icons.circle, size: 10.w, color: AppColors.primary),
         title: Text(
           point,
-          style: TextStyle(
-            fontSize: 16.cSp,
-            color: AppColors.primary,
-          ),
+          style: TextStyle(fontSize: 16.cSp, color: AppColors.primary),
         ),
       );
     }).toList();

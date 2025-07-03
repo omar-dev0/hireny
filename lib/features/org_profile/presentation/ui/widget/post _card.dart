@@ -59,10 +59,7 @@ class PostCard extends StatelessWidget {
                       const SizedBox(height: 4),
                       Text(
                         'Posted 24 min ago',
-                        style: TextStyle(
-                          color: AppColors.grey,
-                          fontSize: 12,
-                        ),
+                        style: TextStyle(color: AppColors.grey, fontSize: 12),
                       ),
                     ],
                   ),
@@ -106,13 +103,9 @@ class PostCard extends StatelessWidget {
           // Divider
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Divider(
-              height: 1,
-              color: Colors.grey.withOpacity(0.1),
-            ),
+            child: Divider(height: 1, color: Colors.grey.withOpacity(0.1)),
           ),
-
-          ],
+        ],
       ),
     );
   }
@@ -123,10 +116,7 @@ class PostCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.subPrimary,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: AppColors.primary,
-          width: 1,
-        ),
+        border: Border.all(color: AppColors.primary, width: 1),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,

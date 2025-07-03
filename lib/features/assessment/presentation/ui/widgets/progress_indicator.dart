@@ -50,37 +50,39 @@ class ProgressIndicatorNumeric extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       child: FractionallySizedBox(
                         widthFactor: progressValue,
-                        child: Container(
-                          height: 4,
-                          color: AppColors.primary,
-                        ),
+                        child: Container(height: 4, color: AppColors.primary),
                       ),
                     ),
                     Align(
                       alignment: Alignment.center,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: displaySteps.map((step) {
-                          bool isCurrent = step == currentStep;
-                          return Container(
-                            width: 30,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: isCurrent ? AppColors.primary : Colors.white,
-                              border: Border.all(color: AppColors.primary),
-                            ),
-                            alignment: Alignment.center,
-                            child: Text(
-                              "$step",
-                              style: TextStyle(
-                                color: isCurrent ? Colors.white : Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                              ),
-                            ),
-                          );
-                        }).toList(),
+                        children:
+                            displaySteps.map((step) {
+                              bool isCurrent = step == currentStep;
+                              return Container(
+                                width: 30,
+                                height: 30,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color:
+                                      isCurrent
+                                          ? AppColors.primary
+                                          : Colors.white,
+                                  border: Border.all(color: AppColors.primary),
+                                ),
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "$step",
+                                  style: TextStyle(
+                                    color:
+                                        isCurrent ? Colors.white : Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              );
+                            }).toList(),
                       ),
                     ),
                   ],

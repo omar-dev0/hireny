@@ -8,8 +8,7 @@ class DeleteTechInfo {
 
   DeleteTechInfo(this.techRepo);
 
-  Future<Result<void>> call(String id,int deleteID)  {
-    return  techRepo.deleteItem(id,deleteID);
+  Future<Result<void>> call(String id, int deleteID)  {
+    return  techRepo.deleteItem(id, deleteID);
   }
-
 }

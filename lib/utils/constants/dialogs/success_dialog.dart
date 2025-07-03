@@ -10,6 +10,7 @@ class SuccessDialog extends StatelessWidget {
   final VoidCallback? onPositivePressed;
   final String? negativeButtonText;
   final VoidCallback? onNegativePressed;
+  final String lottie;
 
   const SuccessDialog({
     this.message,
@@ -17,6 +18,7 @@ class SuccessDialog extends StatelessWidget {
     this.onPositivePressed,
     this.negativeButtonText,
     this.onNegativePressed,
+    this.lottie = AppAssets.successAnimation,
   });
 
   @override
@@ -30,12 +32,7 @@ class SuccessDialog extends StatelessWidget {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Lottie.asset(
-              AppAssets.successAnimation,
-              width: 150.w,
-              height: 150.h,
-              repeat: false,
-            ),
+            Lottie.asset(lottie, width: 150.w, height: 150.h, repeat: false),
             if (message != null) SizedBox(height: 20),
             if (message != null)
               Text(

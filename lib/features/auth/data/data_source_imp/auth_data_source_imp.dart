@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:hireny/features/auth/data/api/api_manger.dart';
 import 'package:hireny/features/auth/data/data_source/auth_data_source.dart';
+import 'package:hireny/features/auth/domain/modules/assessment/assessment.dart';
 import 'package:hireny/features/auth/domain/modules/org/org_admin.dart';
 import 'package:hireny/features/auth/domain/modules/seeker/seeker.dart';
 import 'package:hireny/features/auth/domain/modules/user/user.dart';
@@ -24,7 +25,11 @@ class DataSourcAuthImp implements AuthDataSource {
   }
 
   @override
-  Future<Result<OrgAdmin?>?> regOrg(OrgAdmin orgAdmin, String password, File? orgProf) {
+  Future<Result<OrgAdmin?>?> regOrg(
+    OrgAdmin orgAdmin,
+    String password,
+    File? orgProf,
+  ) {
     return apiManger.regOrg(orgAdmin, password, orgProf);
   }
 
@@ -54,9 +59,17 @@ class DataSourcAuthImp implements AuthDataSource {
   }
 
   @override
-  Future<Result<void>> changePassword(String token, String oldPassword, String newPassword) {
-    return apiManger.changePassword(token,oldPassword,newPassword);
+  Future<Result<void>> changePassword(
+    String token,
+    String oldPassword,
+    String newPassword,
+  ) {
+    return apiManger.changePassword(token, oldPassword, newPassword);
+  }
 
+  @override
+  Future<Result<AssessmentModel?>?> getAssessmentDetailes(int id) {
+    return apiManger.getAssessmentDetailes(id);
   }
 
   @override
@@ -64,5 +77,18 @@ class DataSourcAuthImp implements AuthDataSource {
     return apiManger.updateUserInfo(seeker);
   }
 
+  @override
+  Future<Result<Seeker?>?> extractFromSeekerCV(File cv) {
+    return apiManger.extractFromSeekerCV(cv);
+  }
 
+  @override
+  Future<Result<List<AssessmentModel>?>?> getAssessments() {
+    return apiManger.getAssessments();
+  }
+
+  @override
+  Future<Result<void>?> submitAssessment(num id, List<dynamic> answers) {
+    return apiManger.submitAssessment(id, answers);
+  }
 }

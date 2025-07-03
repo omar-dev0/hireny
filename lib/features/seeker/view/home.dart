@@ -47,7 +47,10 @@ class _HomeState extends State<Home> {
         if (state is JobPostLoaded && state.jobPosts.isNotEmpty) {
           jobPosts = state.jobPosts.take(5).toList();
         } else {
-          jobPosts = AppSharedData.jobPosts.take(5).toList(); // Fallback to cached jobs
+          jobPosts =
+              AppSharedData.jobPosts
+                  .take(5)
+                  .toList(); // Fallback to cached jobs
         }
 
         return Padding(
@@ -99,29 +102,26 @@ class _HomeState extends State<Home> {
 
               //👇 Animated Job Cards
               SliverList(
-                delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                    final jobPost = jobPosts[index];
-                    return FadeInUp(
-                      delay: Duration(milliseconds: 100 * index),
-                      duration: Duration(milliseconds: 600),
-                      child: Padding(
-                        padding: EdgeInsets.only(bottom: 20.h),
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.pushNamed(
-                              context,
-                              PagesRoute.jobDetailes,
-                              arguments: jobPost.id,
-                            );
-                          },
-                          child: JobExploreCard(jobPost: jobPost),
-                        ),
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  final jobPost = jobPosts[index];
+                  return FadeInUp(
+                    delay: Duration(milliseconds: 100 * index),
+                    duration: Duration(milliseconds: 600),
+                    child: Padding(
+                      padding: EdgeInsets.only(bottom: 20.h),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            PagesRoute.jobDetailes,
+                            arguments: jobPost.id,
+                          );
+                        },
+                        child: JobExploreCard(jobPost: jobPost),
                       ),
-                    );
-                  },
-                  childCount: jobPosts.length,
-                ),
+                    ),
+                  );
+                }, childCount: jobPosts.length),
               ),
             ],
           ),

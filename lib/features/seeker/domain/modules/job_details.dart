@@ -55,13 +55,17 @@ class JobDetailsModel {
     // Parse category list
     List<String> categoryList = [];
     if (json['category'] is List) {
-      categoryList = (json['category'] as List).map((item) => item.toString()).toList();
+      categoryList =
+          (json['category'] as List).map((item) => item.toString()).toList();
     }
 
     // Parse requiredSkills list
     List<String> skillsList = [];
     if (json['requiredSkills'] is List) {
-      skillsList = (json['requiredSkills'] as List).map((item) => item.toString()).toList();
+      skillsList =
+          (json['requiredSkills'] as List)
+              .map((item) => item.toString())
+              .toList();
     }
 
     return JobDetailsModel(

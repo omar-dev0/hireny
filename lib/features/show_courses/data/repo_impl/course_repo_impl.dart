@@ -3,7 +3,8 @@ import 'package:injectable/injectable.dart';
 import '../../domain/entities/course_entity.dart';
 import '../../domain/repositories/CourseRepo.dart';
 import '../data_sources/course_data_interface.dart';
-@Injectable(as:CourseRepo)
+
+@Injectable(as: CourseRepo)
 class CourseRepoImpl implements CourseRepo {
   final CourseDataInterface dataSource;
 
@@ -12,7 +13,6 @@ class CourseRepoImpl implements CourseRepo {
 
   @override
   Future<void> showCourses()  {
-   return  dataSource.showCourses();
+    return  dataSource.showCourses();
   }
-
 }

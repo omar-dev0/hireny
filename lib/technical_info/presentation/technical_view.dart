@@ -23,8 +23,8 @@ class TechnicalInfoView extends StatelessWidget {
         create: (_) => getIt<TechnicalInfoCubit>()..getTechInfo(),
         child: BlocListener<TechnicalInfoCubit, TechnicalInfoState>(
           listener: (context, state) {
-
-            if (state is TechnicalInfoSuccessDeleted ||state is TechnicalInfoSuccessUpdated) {
+            if (state is TechnicalInfoSuccessDeleted ||
+                state is TechnicalInfoSuccessUpdated) {
               // Navigator.pop(context);
               showDialog(
                 context: context,
@@ -43,7 +43,7 @@ class TechnicalInfoView extends StatelessWidget {
                 builder: (_) {
                   print(state.message);
                   return ErrorDialog(message: state.message);
-                }
+                },
               );
             }
           },

@@ -9,11 +9,9 @@ class SeekerCoursesCubit extends Cubit<SeekerCoursesSate> {
   final ShowCourses listCourses;
   List<CourseEntity> courses = [];
 
-
-
-
   @factoryMethod
-  SeekerCoursesCubit(this.listCourses) : super(InitSeekerCourse());
+  SeekerCoursesCubit(this.listCourses)
+    : super(InitSeekerCourse());
 
   Future<void> loadCourses() async {
     try {
@@ -24,6 +22,5 @@ class SeekerCoursesCubit extends Cubit<SeekerCoursesSate> {
       emit(ErrorSeekerCourse("Failed to load courses"));
     }
   }
-
 
 }

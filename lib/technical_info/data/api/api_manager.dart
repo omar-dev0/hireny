@@ -16,7 +16,8 @@ import '../models/response/skill_model.dart';
 @injectable
 class TechApiManager {
   final Dio _dio;
-  String? token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxMzU0NzgwLCJpYXQiOjE3NTEzMTE1ODAsImp0aSI6ImQyN2FkNDliYmFhMDRlNDQ5ZTNlNTgxN2JlOTUwNmM1IiwidXNlcl9pZCI6MiwiaWQiOjIsImZpcnN0TmFtZSI6InRlc3QiLCJsYXN0TmFtZSI6InRlc3QiLCJlbWFpbCI6ImZsdXR0ZXJUZXN0MTIzQGdtYWlsLmNvbSIsInJvbGUiOiJzZWVrZXIiLCJwaG90byI6Ii9tZWRpYS9waG90b3MvZGVmYXVsdC5wbmcifQ.uuOfsMb5p3_QsaRkRZD1epllckH-1Uaauwc-bylIZVY';
+  String? token =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxMzU0NzgwLCJpYXQiOjE3NTEzMTE1ODAsImp0aSI6ImQyN2FkNDliYmFhMDRlNDQ5ZTNlNTgxN2JlOTUwNmM1IiwidXNlcl9pZCI6MiwiaWQiOjIsImZpcnN0TmFtZSI6InRlc3QiLCJsYXN0TmFtZSI6InRlc3QiLCJlbWFpbCI6ImZsdXR0ZXJUZXN0MTIzQGdtYWlsLmNvbSIsInJvbGUiOiJzZWVrZXIiLCJwaG90byI6Ii9tZWRpYS9waG90b3MvZGVmYXVsdC5wbmcifQ.uuOfsMb5p3_QsaRkRZD1epllckH-1Uaauwc-bylIZVY';
   List<String> deleteApi = [
     "",
     UrlConstants.deleteCourse,
@@ -107,6 +108,17 @@ class TechApiManager {
   /// Add
   Future<Result<void>> addTechInfo(dynamic obj, int addID) async {
     try {
+      print(obj);
+      final response = await _dio.post(
+        addApi[addID],
+        data: obj.toJson(),
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            'Content-Type': 'application/json',
+          },
+        ),
+      );
       print("Sending: ${obj.toJson()}");
       final response;
 
@@ -248,7 +260,9 @@ class TechApiManager {
 
         return Success();
       } else {
-        return Error(error: "Failed to delete item: ${response.statusCode}");
+        return Error(
+          error: "Failed to delete item: ${response.statusCode}",
+        );
       }
     } catch (e) {
       return Error(error: "Exception deleting item: ${e.toString()}");

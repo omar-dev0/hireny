@@ -6,7 +6,6 @@ import 'package:hireny/utils/widgets/custom_appbar.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../manager/admin_cubit.dart';
 
-
 class ShowAdmins extends StatefulWidget {
   const ShowAdmins({super.key});
 
@@ -28,7 +27,7 @@ class _ShowAdminsState extends State<ShowAdmins> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
-      appBar:CustomAppbar(title: 'Admins'),
+      appBar: CustomAppbar(title: 'Admins'),
       drawer: CustomAdminDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -62,11 +61,13 @@ class _ShowAdminsState extends State<ShowAdmins> {
             Expanded(
               child: BlocBuilder<AdminCubit, AdminStates>(
                 builder: (context, state) {
-                  if(state is LoadingState){
+                  if (state is LoadingState) {
                     return Center(child: CircularProgressIndicator());
-                  }else if(state is ErrorState){
-                    return Center(child: Text(state.message ?? "An error occurred"));
-                  }else if(state is SuccessState){
+                  } else if (state is ErrorState) {
+                    return Center(
+                      child: Text(state.message ?? "An error occurred"),
+                    );
+                  } else if (state is SuccessState) {
                     return ListView.separated(
                       itemBuilder: (context, index) {
                         return Container(
@@ -84,7 +85,8 @@ class _ShowAdminsState extends State<ShowAdmins> {
                           child: Row(
                             children: [
                               Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
@@ -99,13 +101,17 @@ class _ShowAdminsState extends State<ShowAdmins> {
                                   SizedBox(width: 16),
                                   Text(
                                     cubit.admins[index].adminEmail,
-                                    style: Theme.of(context).textTheme.titleSmall
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall
                                         ?.copyWith(color: AppColors.grey),
                                   ),
                                   SizedBox(width: 16),
                                   Text(
                                     cubit.admins[index].adminDate,
-                                    style: Theme.of(context).textTheme.titleSmall
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall
                                         ?.copyWith(color: AppColors.grey),
                                   ),
                                 ],
@@ -134,12 +140,12 @@ class _ShowAdminsState extends State<ShowAdmins> {
                           ),
                         );
                       },
-                      separatorBuilder: (context, index) => SizedBox(height: 16),
+                      separatorBuilder:
+                          (context, index) => SizedBox(height: 16),
                       itemCount: cubit.admins.length,
                     );
                   }
                   return Center(child: Text('No data available'));
-
                 },
               ),
             ),

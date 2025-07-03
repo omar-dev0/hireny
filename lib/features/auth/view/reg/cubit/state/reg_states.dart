@@ -22,7 +22,6 @@ class ValidateGender extends RegState {}
 
 class ValidateNationality extends RegState {}
 
-
 class ValidateCountry extends RegState {}
 
 class ValidateCity extends RegState {}
@@ -36,5 +35,3 @@ class ValidateFile extends RegState {}
 class ValidateIndestry extends RegState {}
 
 class ValidateOrgSize extends RegState {}
-
-

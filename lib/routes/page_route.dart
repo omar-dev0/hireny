@@ -53,4 +53,6 @@ abstract class PagesRoute {
   static const String otpScreen = "/otpScreen";
   static const String verifyEmail = "/verifyEmail";
   static const String resetPassword = "/resetPassword";
+
+  static const String aiTools = '/aiTools';
 }

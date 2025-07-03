@@ -29,14 +29,17 @@ class SeekerRepoImpl implements SeekerRepository {
   Future<Result<num>?> showInsight(Map<String, String> data) {
     return _dataSource.showInsight(data);
   }
+
   @override
   Future<Result<JobDetailsModel>> getJobPostDetails(int jobId) {
     return _dataSource.getJobPostDetails(jobId);
   }
+
   @override
   Future<Result<List<OrgPost>>> getAllOrganizations() {
     return _dataSource.getAllOrganizations();
   }
+
   Future<Result<Course>> getCourseDetails(int courseId) {
     return _dataSource.getCourseDetails(courseId);
   }

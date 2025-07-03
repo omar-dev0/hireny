@@ -10,7 +10,8 @@ class OrgProfileLocalDataSource implements OrgProfileDataInterface {
   final List<OrgProfileEntity> fixedData = [
     OrgProfileEntity(
       orgID: 1,
-      description: 'We are a leading tech company building impactful solutions.',
+      description:
+          'We are a leading tech company building impactful solutions.',
       ceoName: 'Jane Doe',
       foundedDate: '2010',
       employeesNum: 250000,
@@ -117,17 +118,25 @@ class OrgProfileLocalDataSource implements OrgProfileDataInterface {
       ],
     ),
   ];
-  late List<OrgProfileEntity>profileData ;
+  late List<OrgProfileEntity> profileData;
   OrgProfileLocalDataSource() {
     profileData = List.from(fixedData);
   }
 
-
   @override
   Future<void> addReview(String reviewContent) async {
     var len = profileData[1].reviewCard.length;
-    profileData[1].reviewCard.add(new OrgReviewEntity(reviewID:len +1 , owner: "user", publishedTime: "just not", content: reviewContent));
-    print("Review added! Current reviews list:${profileData[1].reviewCard.length}");
+    profileData[1].reviewCard.add(
+      new OrgReviewEntity(
+        reviewID: len + 1,
+        owner: "user",
+        publishedTime: "just not",
+        content: reviewContent,
+      ),
+    );
+    print(
+      "Review added! Current reviews list:${profileData[1].reviewCard.length}",
+    );
     for (var r in profileData[1].reviewCard) {
       print("- ${r.owner}: ${r.content}");
     }
@@ -137,7 +146,7 @@ class OrgProfileLocalDataSource implements OrgProfileDataInterface {
   List<OrgReviewEntity> getReviews() {
     var orgID = 2;
     var profile = profileData.firstWhere(
-          (profile) => profile.orgID == orgID,
+      (profile) => profile.orgID == orgID,
       orElse: () => throw Exception('Profile with ID $orgID not found'),
     );
     print("get review -----?:${profileData[1].reviewCard.length}");
@@ -151,6 +160,7 @@ class OrgProfileLocalDataSource implements OrgProfileDataInterface {
     }
     return profile.reviewCard;
   }
+
   @override
   OrgPostCardEntity getPost(int postID) {
     for (var profile in profileData) {
@@ -170,6 +180,4 @@ class OrgProfileLocalDataSource implements OrgProfileDataInterface {
   Future<OrgProfileEntity> getProfile(int orgID) async {
     return profileData.firstWhere((profile) => profile.orgID == orgID);
   }
-
-
 }

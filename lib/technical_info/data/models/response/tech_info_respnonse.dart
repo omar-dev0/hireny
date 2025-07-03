@@ -27,29 +27,35 @@ class TechInfoResponse {
 
   factory TechInfoResponse.fromJson(Map<String, dynamic> json) {
     return TechInfoResponse(
-      educations: (json['educations'] as List<dynamic>?)
-          ?.map((e) => Educations.fromJson(e))
-          .toList() ??
+      educations:
+          (json['educations'] as List<dynamic>?)
+              ?.map((e) => Educations.fromJson(e))
+              .toList() ??
           [],
-      certificates: (json['certificates'] as List<dynamic>?)
-          ?.map((e) => CertificateModel.fromJson(e))
-          .toList() ??
+      certificates:
+          (json['certificates'] as List<dynamic>?)
+              ?.map((e) => CertificateModel.fromJson(e))
+              .toList() ??
           [],
-      courses: (json['courses'] as List<dynamic>?)
-          ?.map((e) => CourseModel.fromJson(e))
-          .toList() ??
+      courses:
+          (json['courses'] as List<dynamic>?)
+              ?.map((e) => CourseModel.fromJson(e))
+              .toList() ??
           [],
-      experiences: (json['experiences'] as List<dynamic>?)
-          ?.map((e) => ExperienceModel.fromJson(e))
-          .toList() ??
+      experiences:
+          (json['experiences'] as List<dynamic>?)
+              ?.map((e) => ExperienceModel.fromJson(e))
+              .toList() ??
           [],
-      languages: (json['languages'] as List<dynamic>?)
-          ?.map((e) => LanguageModel.fromJson(e))
-          .toList() ??
+      languages:
+          (json['languages'] as List<dynamic>?)
+              ?.map((e) => LanguageModel.fromJson(e))
+              .toList() ??
           [],
-      skills: (json['skills'] as List<dynamic>?)
-          ?.map((e) => SkillModel.fromJson(e))
-          .toList() ??
+      skills:
+          (json['skills'] as List<dynamic>?)
+              ?.map((e) => SkillModel.fromJson(e))
+              .toList() ??
           [],
       cv: json['cv'],
     );
@@ -67,4 +73,3 @@ class TechInfoResponse {
     };
   }
 }
-

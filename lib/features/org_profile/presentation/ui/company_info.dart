@@ -3,7 +3,11 @@ import 'package:hireny/utils/constants/app_colors.dart';
 
 class CompanyInfoCard extends StatelessWidget {
   final List<Map<String, dynamic>> infoItems = [
-    {"icon": Icons.person_outline_rounded, "label": "CEO", "value": "John Smith"},
+    {
+      "icon": Icons.person_outline_rounded,
+      "label": "CEO",
+      "value": "John Smith",
+    },
     {"icon": Icons.calendar_month_rounded, "label": "Founded", "value": "2012"},
     {"icon": Icons.people_alt_rounded, "label": "Employees", "value": "150+"},
     {"icon": Icons.rocket_launch_rounded, "label": "Industry", "value": "Tech"},
@@ -46,7 +50,10 @@ class CompanyInfoCard extends StatelessWidget {
                 height: 24,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [AppColors.primary, AppColors.primary.withOpacity(0.6)],
+                    colors: [
+                      AppColors.primary,
+                      AppColors.primary.withOpacity(0.6),
+                    ],
                   ),
                   borderRadius: BorderRadius.circular(4),
                 ),
@@ -72,7 +79,8 @@ class CompanyInfoCard extends StatelessWidget {
             childAspectRatio: 3.4,
             mainAxisSpacing: 14,
             crossAxisSpacing: 12,
-            children: infoItems.map((item) => _buildInfoItem(context, item)).toList(),
+            children:
+                infoItems.map((item) => _buildInfoItem(context, item)).toList(),
           ),
         ],
       ),
@@ -91,7 +99,7 @@ class CompanyInfoCard extends StatelessWidget {
             color: Colors.black.withOpacity(0.02),
             blurRadius: 4,
             offset: const Offset(0, 2),
-          )
+          ),
         ],
       ),
       child: Row(

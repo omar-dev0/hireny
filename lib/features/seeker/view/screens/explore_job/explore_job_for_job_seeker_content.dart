@@ -24,6 +24,8 @@ class JobContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = BlocProvider.of<JobPostCubit>(context);
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
       child: FadeIn(
@@ -50,11 +52,40 @@ class JobContent extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 20.h),
-                  DynamicFilterChipsWidget(
-                    chipLabels: chipLabels,
-                    onChipPressed: onChipPressed,
-                    onSelectionChanged: (Set<int> selectedIndices) {
-                      print("Selected chips: $selectedIndices");
+                  BlocBuilder<JobPostCubit, JobPostState>(
+                    builder: (context, state) {
+                      Set<int> selectedChips = {};
+                      // Determine which chips are 'selected' based on the cubit's filter state
+                      if (cubit.selectedLocationIndices.isNotEmpty) {
+                        selectedChips.add(chipLabels.indexOf('Location'));
+                      }
+                      if (cubit.selectedCategoryIndices.isNotEmpty) {
+                        selectedChips.add(chipLabels.indexOf('Category'));
+                      }
+                      if (cubit.selectedJobTypeIndices.isNotEmpty) {
+                        selectedChips.add(chipLabels.indexOf('Job Type'));
+                      }
+                      if (cubit.selectedJobLocationIndices.isNotEmpty) {
+                        selectedChips.add(chipLabels.indexOf('Job Location'));
+                      }
+                      if (cubit.selectedExperienceLevelIndices.isNotEmpty) {
+                        selectedChips.add(
+                          chipLabels.indexOf('Experience Level'),
+                        );
+                      }
+                      if (cubit.selectedDateFilter != 'All') {
+                        selectedChips.add(chipLabels.indexOf('Date Posted'));
+                      }
+                      if (cubit.minSalaryFilter != null ||
+                          cubit.maxSalaryFilter != null) {
+                        selectedChips.add(chipLabels.indexOf('Salary'));
+                      }
+
+                      return DynamicFilterChipsWidget(
+                        chipLabels: chipLabels,
+                        onChipPressed: onChipPressed,
+                        selectedChipIndices: selectedChips,
+                      );
                     },
                   ),
                   SizedBox(height: 24.h),
@@ -83,7 +114,7 @@ class JobContent extends StatelessWidget {
                                   PagesRoute.jobDetailes,
                                   arguments: jobPost.id,
                                 );
-                                },
+                              },
                               child: JobExploreCard(jobPost: jobPost),
                             ),
                           ),

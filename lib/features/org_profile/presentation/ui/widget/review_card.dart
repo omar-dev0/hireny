@@ -38,7 +38,10 @@ class _ReviewCardState extends State<ReviewCard> {
             // Add Review Input at the end
             if (index == cubit.reviews.length) {
               return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 12,
+                ),
                 child: Container(
                   decoration: BoxDecoration(
                     color: AppColors.subPrimary,
@@ -65,7 +68,10 @@ class _ReviewCardState extends State<ReviewCard> {
                           children: [
                             Text(
                               "Add a Review",
-                              style: AppFonts.mainText.copyWith(fontSize: 18, fontWeight: FontWeight.bold),
+                              style: AppFonts.mainText.copyWith(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             const SizedBox(height: 12),
                             CustomTextField(
@@ -81,20 +87,28 @@ class _ReviewCardState extends State<ReviewCard> {
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: AppColors.primary,
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
                                 ),
                                 onPressed: () {
-                                  final text = cubit.reviewController.text.trim();
+                                  final text =
+                                      cubit.reviewController.text.trim();
                                   if (text.isNotEmpty) {
                                     cubit.addReview();
                                     cubit.reviewController.clear();
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(content: Text("Review cannot be empty")),
+                                      const SnackBar(
+                                        content: Text("Review cannot be empty"),
+                                      ),
                                     );
                                   }
                                 },
-                                child: const Text("Post Review", style: TextStyle(color: Colors.white)),
+                                child: const Text(
+                                  "Post Review",
+                                  style: TextStyle(color: Colors.white),
+                                ),
                               ),
                             ),
                           ],
@@ -108,14 +122,24 @@ class _ReviewCardState extends State<ReviewCard> {
 
             // Review Card
             final review = cubit.reviews[index];
-            final initials = review.owner.isNotEmpty
-                ? review.owner.trim().split(" ").map((e) => e[0]).take(2).join().toUpperCase()
-                : "U";
+            final initials =
+                review.owner.isNotEmpty
+                    ? review.owner
+                        .trim()
+                        .split(" ")
+                        .map((e) => e[0])
+                        .take(2)
+                        .join()
+                        .toUpperCase()
+                    : "U";
 
             return FadeInUp(
               duration: Duration(milliseconds: 300 + (index * 150)),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 8,
+                ),
                 child: Container(
                   decoration: BoxDecoration(
                     color: AppColors.subPrimary,
@@ -152,7 +176,9 @@ class _ReviewCardState extends State<ReviewCard> {
                               ),
                               child: Text(
                                 review.content,
-                                style: AppFonts.textFieldStyle.copyWith(color: AppColors.black.withOpacity(0.8)),
+                                style: AppFonts.textFieldStyle.copyWith(
+                                  color: AppColors.black.withOpacity(0.8),
+                                ),
                               ),
                             ),
                             const SizedBox(height: 16),
@@ -172,7 +198,10 @@ class _ReviewCardState extends State<ReviewCard> {
                                 const SizedBox(width: 14),
                                 Text(
                                   review.owner,
-                                  style: AppFonts.mainText.copyWith(fontSize: 16, color: AppColors.black),
+                                  style: AppFonts.mainText.copyWith(
+                                    fontSize: 16,
+                                    color: AppColors.black,
+                                  ),
                                 ),
                                 const Spacer(),
                                 Text(

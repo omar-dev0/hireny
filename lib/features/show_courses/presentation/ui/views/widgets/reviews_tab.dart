@@ -39,7 +39,7 @@ class ReviewsTab extends StatelessWidget {
               ),
             ),
           ),
-        )
+        ),
       ],
     );
   }

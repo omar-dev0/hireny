@@ -24,7 +24,11 @@ class VerfyOtp extends StatelessWidget {
         listener: (context, state) {
           ForgetPasswordVM vm = context.read<ForgetPasswordVM>();
           if (state is LoadingVerifyOtp) {
-            showDialog(context: context, barrierDismissible: false,builder: (_) => LoadingDialog());
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (_) => LoadingDialog(),
+            );
           }
           if (state is SuccessVerifyOtp) {
             Future.delayed(Duration(seconds: 2), () {

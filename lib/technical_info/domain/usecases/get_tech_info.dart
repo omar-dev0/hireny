@@ -11,5 +11,4 @@ class GetTechInfo {
   Future<Result<TechInfoResponse>> call(String id)  {
     return  techRepo.getTechInfo(id);
   }
-
 }

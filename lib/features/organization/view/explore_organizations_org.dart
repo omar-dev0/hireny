@@ -19,40 +19,35 @@ class ExploreOrganizationsOrg extends StatefulWidget {
   const ExploreOrganizationsOrg({super.key});
 
   @override
-  State<ExploreOrganizationsOrg> createState() => _ExploreOrganizationsOrgState();
+  State<ExploreOrganizationsOrg> createState() =>
+      _ExploreOrganizationsOrgState();
 }
 
 class _ExploreOrganizationsOrgState extends State<ExploreOrganizationsOrg> {
-  final List<String> chipLabels = [
-    'Location',
-    'Industry',
-    'Size',
-  ];
+  final List<String> chipLabels = ['Location', 'Industry', 'Size'];
 
   @override
   Widget build(BuildContext context) {
     final List<Function()?> onChipPressed = [
-          () => showLocationSheet(context),
-          () => showDynamicBottomSheet(
-          context: context,
-          title: "Select your category",
-          items: [
-            "Commerce",
-            "Telecommunications",
-            "Hotels & Tourism",
-            "Education",
-            "Financial Services"
-          ]),
-          () => showDynamicBottomSheet(
-          context: context,
-          title: "Select your Size",
-          items: [
-            "0 - 100",
-            "100 - 500",
-            "500 - 1000",
-            "1000 - 5000",
-            "> 5000",
-          ]),
+      () => showLocationSheet(context),
+      () => showDynamicBottomSheet(
+        context: context,
+        title: "Select your category",
+        items: [
+          "Commerce",
+          "Telecommunications",
+          "Hotels & Tourism",
+          "Education",
+          "Financial Services",
+        ],
+        onSelectedIndicesChanged: (selectedIndices) {},
+      ),
+      () => showDynamicBottomSheet(
+        context: context,
+        title: "Select your Size",
+        items: ["0 - 100", "100 - 500", "500 - 1000", "1000 - 5000", "> 5000"],
+        onSelectedIndicesChanged: (selectedIndices) {},
+      ),
     ];
 
     return Scaffold(
@@ -79,13 +74,13 @@ class _ExploreOrganizationsOrgState extends State<ExploreOrganizationsOrg> {
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 20.h),
-                  DynamicFilterChipsWidget(
-                    chipLabels: chipLabels,
-                    onChipPressed: onChipPressed,
-                    onSelectionChanged: (Set<int> selectedIndices) {
-                      print("Selected chips: $selectedIndices");
-                    },
-                  ),
+                  // DynamicFilterChipsWidget(
+                  //   chipLabels: chipLabels,
+                  //   onChipPressed: onChipPressed,
+                  //   onSelectionChanged: (Set<int> selectedIndices) {
+                  //     print("Selected chips: $selectedIndices");
+                  //   },
+                  // ),
                   SizedBox(height: 20.h),
                   Text("All Organizations (2310)", style: AppFonts.mainText),
                   SizedBox(height: 15.h),
@@ -95,50 +90,47 @@ class _ExploreOrganizationsOrgState extends State<ExploreOrganizationsOrg> {
             SliverPadding(
               padding: EdgeInsets.only(bottom: 20.h),
               sliver: SliverGrid(
-                delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        print('Tapped organization index $index');
-                      },
-                      child: ExploreOrganizationCard(
-                       orgPost: OrgPost(
-                         id: 5,
-                         name: "Tech Solutions Inc.",
-                         phone: "+201234567890",
-                         country: "Egypt",
-                         city: "Cairo",
-                         ceoName: "Ahmed Ibrahim",
-                         establishmentYear: 2010,
-                         industry: "Information Technology",
-                         organizationSize: "51-200",
-                         updatesToEmail: true,
-                         verificationStatus: true,
-                         photo: AppAssets.org_logo,
-                         createdAt: "2025-06-09T18:02:14.059188Z",
-                         updatedAt: "2025-06-25T21:08:57.274667Z",
-                         user: User.fromJson({
-                           'id': 18,
-                           'firstName': 'test',
-                           'lastName': 'user',
-                           'email': 'test@example.com',
-                           'role': 'orgAdmin',
-                         }),
-                         proof: "/media/docs/proof.pdf",
-                       ),
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  return InkWell(
+                    onTap: () {
+                      print('Tapped organization index $index');
+                    },
+                    child: ExploreOrganizationCard(
+                      orgPost: OrgPost(
+                        id: 5,
+                        name: "Tech Solutions Inc.",
+                        phone: "+201234567890",
+                        country: "Egypt",
+                        city: "Cairo",
+                        ceoName: "Ahmed Ibrahim",
+                        establishmentYear: 2010,
+                        industry: "Information Technology",
+                        organizationSize: "51-200",
+                        updatesToEmail: true,
+                        verificationStatus: true,
+                        photo: AppAssets.org_logo,
+                        createdAt: "2025-06-09T18:02:14.059188Z",
+                        updatedAt: "2025-06-25T21:08:57.274667Z",
+                        user: User.fromJson({
+                          'id': 18,
+                          'firstName': 'test',
+                          'lastName': 'user',
+                          'email': 'test@example.com',
+                          'role': 'orgAdmin',
+                        }),
+                        proof: "/media/docs/proof.pdf",
                       ),
-                    );
-                  },
-                  childCount: 10,
-                ),
+                    ),
+                  );
+                }, childCount: 10),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   mainAxisSpacing: 15.h,
                   crossAxisSpacing: 10.w,
-                  childAspectRatio: 2/3,
+                  childAspectRatio: 2 / 3,
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

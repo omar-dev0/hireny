@@ -12,8 +12,14 @@ class CVSection extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
         children: [
-          Align(alignment:Alignment.centerLeft,child: Text("Upload Your CV",style: AppFonts.textFieldStyle.copyWith(fontSize: 22),)),
-          SizedBox(height: 15,),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "Upload Your CV",
+              style: AppFonts.textFieldStyle.copyWith(fontSize: 22),
+            ),
+          ),
+          SizedBox(height: 15),
           CVBox(),
         ],
       ),

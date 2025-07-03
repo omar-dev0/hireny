@@ -18,8 +18,7 @@ class JobDetailesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt.get<JobDetailsCubit>()
-        ..fetchJobDetails(jobId),
+      create: (context) => getIt.get<JobDetailsCubit>()..fetchJobDetails(jobId),
       child: BlocConsumer<JobDetailsCubit, JobDatailesState>(
         listener: (context, state) {
           // Handle loading/error here if needed

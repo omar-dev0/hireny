@@ -12,8 +12,7 @@ import '../data_shared/shared_const_api.dart';
 class JobExploreCard extends StatelessWidget {
   JobPost jobPost;
 
-   JobExploreCard({
-    required this.jobPost}) ;
+  JobExploreCard({required this.jobPost});
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +21,7 @@ class JobExploreCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.subPrimary,
         borderRadius: BorderRadius.circular(8.r),
-        border: Border.all(
-          color: AppColors.primary,
-          width: 1.0,
-        ),
+        border: Border.all(color: AppColors.primary, width: 1.0),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,7 +59,9 @@ class JobExploreCard extends StatelessWidget {
                 height: MediaQuery.sizeOf(context).height * .1,
                 fit: BoxFit.cover,
                 errorBuilder: (_, __, ___) {
-                  return Image.asset(AppAssets.org_logo); // Fallback to placeholder if image fails to load
+                  return Image.asset(
+                    AppAssets.org_logo,
+                  ); // Fallback to placeholder if image fails to load
                 },
               ),
               SizedBox(width: 8.w),
@@ -77,7 +75,11 @@ class JobExploreCard extends StatelessWidget {
                   SizedBox(height: 4.h),
                   Row(
                     children: [
-                      Icon(Icons.location_on, size: 16.sp, color: AppColors.grey),
+                      Icon(
+                        Icons.location_on,
+                        size: 16.sp,
+                        color: AppColors.grey,
+                      ),
                       SizedBox(width: 4.w),
                       Text(
                         jobPost.country,
@@ -111,7 +113,7 @@ class JobExploreCard extends StatelessWidget {
               ),
               SizedBox(width: 4.w),
               Text(
-                formatDate(jobPost.deadline,), // <-- Format the date here
+                formatDate(jobPost.deadline), // <-- Format the date here
 
                 style: AppFonts.secMain.copyWith(color: AppColors.grey),
               ),

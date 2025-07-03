@@ -7,7 +7,6 @@ import 'container_info.dart';
 import 'custom_view.dart';
 
 class HomeInfo extends StatelessWidget {
-
   HomeInfo({super.key});
 
   @override
@@ -71,9 +70,8 @@ class HomeInfo extends StatelessWidget {
         isLink: true,
       ),
     ];
-    List<String> lang=['English','Arabic'];
-    List<String> skills=['React','JS','Communication'];
-
+    List<String> lang = ['English', 'Arabic'];
+    List<String> skills = ['React', 'JS', 'Communication'];
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(20.0),
@@ -84,17 +82,19 @@ class HomeInfo extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Brief",
-                  style: theme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.black
-                  )),
+              Text(
+                "Brief",
+                style: theme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.black,
+                ),
+              ),
               const SizedBox(height: 12),
               Text(
                 "We are looking for a motivated Corporate Solutions professional to join our team. In this role, you will build strong relationships with corporate clients, understand their unique needs, and deliver tailored solutions that drive business success.",
                 style: theme.bodyLarge?.copyWith(
-                    height: 1.5,
-                    color: colorScheme.onSurface.withOpacity(0.8)
+                  height: 1.5,
+                  color: colorScheme.onSurface.withOpacity(0.8),
                 ),
               ),
             ],
@@ -110,9 +110,9 @@ class HomeInfo extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 16,),
+              SizedBox(height: 16),
               CustomInfoCard(info: experience),
-              SizedBox(height: 16,),
+              SizedBox(height: 16),
               Text(
                 "Education",
                 style: theme.titleMedium?.copyWith(
@@ -120,9 +120,9 @@ class HomeInfo extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 16,),
+              SizedBox(height: 16),
               CustomInfoCard(info: education),
-              SizedBox(height: 16,),
+              SizedBox(height: 16),
               Text(
                 "Courses",
                 style: theme.titleMedium?.copyWith(
@@ -130,9 +130,9 @@ class HomeInfo extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 16,),
+              SizedBox(height: 16),
               CustomInfoCard(info: courses),
-              SizedBox(height: 16,),
+              SizedBox(height: 16),
               Text(
                 "Certificates",
                 style: theme.titleMedium?.copyWith(
@@ -140,9 +140,9 @@ class HomeInfo extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 16,),
+              SizedBox(height: 16),
               CustomInfoCard(info: certificate),
-              SizedBox(height: 16,),
+              SizedBox(height: 16),
               Text(
                 "My Skills",
                 style: theme.titleMedium?.copyWith(
@@ -150,22 +150,20 @@ class HomeInfo extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 16,),
-              ContainerInfo(info: skills,),
-              SizedBox(height: 16,),
+              SizedBox(height: 16),
+              ContainerInfo(info: skills),
+              SizedBox(height: 16),
               Text(
                 "My Languages",
                 style: theme.titleMedium?.copyWith(
-                  color:AppColors.black,
+                  color: AppColors.black,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 16,),
-              ContainerInfo(info: lang,)
+              SizedBox(height: 16),
+              ContainerInfo(info: lang),
             ],
-          )
-
-
+          ),
         ],
       ),
     );

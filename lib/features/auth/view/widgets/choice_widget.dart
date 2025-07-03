@@ -1,4 +1,3 @@
-
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:hireny/utils/constants/app_colors.dart';
@@ -11,7 +10,7 @@ class ChoiceDialog extends StatelessWidget {
   final VoidCallback onPressButton1;
   final VoidCallback onPressButton2;
   final Widget? iconButton1;
-  final  Widget? iconButton2;
+  final Widget? iconButton2;
 
   const ChoiceDialog({
     required this.message,
