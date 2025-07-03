@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../../utils/data_shared/app_shared_data.dart';
+import '../../../domain/modules/linkes/link.dart';
 import '../../../domain/modules/seeker/seeker.dart';
 import '../../../domain/modules/user/user.dart';
 

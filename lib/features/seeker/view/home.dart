@@ -25,15 +25,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  late Seeker seeker;
-
-  @override
-  void initState() {
-    super.initState();
-    if (AppSharedData.user is Seeker) {
-      seeker = AppSharedData.user as Seeker;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {

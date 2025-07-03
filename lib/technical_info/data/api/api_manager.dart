@@ -81,22 +81,21 @@ class TechApiManager {
         return Success(
           response: TechInfoResponse(
             educations:
-            (AppSharedData.techInfo?['educations'] as List)
-                .cast<Educations>(),
+                (AppSharedData.techInfo?['educations'] as List)
+                    .cast<Educations>(),
             certificates:
-            (AppSharedData.techInfo?['certificates'] as List)
-                .cast<CertificateModel>(),
+                (AppSharedData.techInfo?['certificates'] as List)
+                    .cast<CertificateModel>(),
             courses:
-            (AppSharedData.techInfo?['courses'] as List)
-                .cast<CourseModel>(),
+                (AppSharedData.techInfo?['courses'] as List)
+                    .cast<CourseModel>(),
             experiences:
-            (AppSharedData.techInfo?['experiences'] as List)
-                .cast<ExperienceModel>(),
+                (AppSharedData.techInfo?['experiences'] as List)
+                    .cast<ExperienceModel>(),
             languages:
-            (AppSharedData.techInfo?['lang'] as List)
-                .cast<LanguageModel>(),
+                (AppSharedData.techInfo?['lang'] as List).cast<LanguageModel>(),
             skills:
-            (AppSharedData.techInfo?['skills'] as List).cast<SkillModel>(),
+                (AppSharedData.techInfo?['skills'] as List).cast<SkillModel>(),
           ),
         );
       }
@@ -109,7 +108,7 @@ class TechApiManager {
   Future<Result<void>> addTechInfo(dynamic obj, int addID) async {
     try {
       print(obj);
-      final response = await _dio.post(
+      var response = await _dio.post(
         addApi[addID],
         data: obj.toJson(),
         options: Options(
@@ -120,7 +119,6 @@ class TechApiManager {
         ),
       );
       print("Sending: ${obj.toJson()}");
-      final response;
 
       if (obj is SkillModel) {
         response = await _dio.post(
@@ -224,24 +222,24 @@ class TechApiManager {
         switch (deleteID) {
           case 1: // Course
             final list =
-            AppSharedData.techInfo!['courses'] as List<CourseModel>?;
+                AppSharedData.techInfo!['courses'] as List<CourseModel>?;
             list?.removeWhere((item) => item.id.toString() == id);
             break;
           case 2: // Certificate
             final list =
-            AppSharedData.techInfo!['certificates']
-            as List<CertificateModel>?;
+                AppSharedData.techInfo!['certificates']
+                    as List<CertificateModel>?;
             list?.removeWhere((item) => item.id.toString() == id);
             break;
           case 3: // Education
             final list =
-            AppSharedData.techInfo!['educations'] as List<Educations>?;
+                AppSharedData.techInfo!['educations'] as List<Educations>?;
             list?.removeWhere((item) => item.id.toString() == id);
             break;
           case 4: // Experience
             final list =
-            AppSharedData.techInfo!['experiences']
-            as List<ExperienceModel>?;
+                AppSharedData.techInfo!['experiences']
+                    as List<ExperienceModel>?;
             list?.removeWhere((item) => item.id.toString() == id);
             break;
           case 5: // Skill
@@ -250,7 +248,7 @@ class TechApiManager {
             break;
           case 6: // Language
             final list =
-            AppSharedData.techInfo!['lang'] as List<LanguageModel>?;
+                AppSharedData.techInfo!['lang'] as List<LanguageModel>?;
             list?.removeWhere((item) => item.id.toString() == id);
             break;
 
@@ -260,9 +258,7 @@ class TechApiManager {
 
         return Success();
       } else {
-        return Error(
-          error: "Failed to delete item: ${response.statusCode}",
-        );
+        return Error(error: "Failed to delete item: ${response.statusCode}");
       }
     } catch (e) {
       return Error(error: "Exception deleting item: ${e.toString()}");
@@ -270,10 +266,12 @@ class TechApiManager {
   }
 
   /// update
-  Future<Result<void>> updateTechInfo(String itemID, dynamic data, int updateID,) async {
+  Future<Result<void>> updateTechInfo(
+    String itemID,
+    dynamic data,
+    int updateID,
+  ) async {
     try {
-
-
       final response = await _dio.put(
         "${updateApi[updateID]}$itemID/",
         data: data,
@@ -284,7 +282,6 @@ class TechApiManager {
           },
         ),
       );
-
 
       // Step 2: Determine key and deserialize model
       String? key;

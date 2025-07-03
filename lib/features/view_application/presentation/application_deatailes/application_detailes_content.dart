@@ -8,24 +8,24 @@ import 'package:hireny/features/my_assessment/presentation/ui/assissment_detaile
 import '../../../../../utils/constants/app_fonts.dart';
 import '../../../../../utils/widgets/custom_buttom.dart';
 import '../../../../../utils/widgets/custom_text_field.dart';
-import '../../../../auth/domain/modules/assessment/assessment.dart';
-import 'cubit/assiss_cubit.dart';
+import '../../../auth/domain/modules/assessment/assessment.dart';
+import 'cubit/application_deatailes_cubit.dart';
 
-class AssissmentDetailsScreenContent extends StatefulWidget {
+class ApplicationDetailesContent extends StatefulWidget {
   final AssessmentModel? assessmentModel;
 
-  AssissmentDetailsScreenContent({super.key, required this.assessmentModel});
+  ApplicationDetailesContent({super.key, required this.assessmentModel});
 
   @override
-  State<AssissmentDetailsScreenContent> createState() =>
+  State<ApplicationDetailesContent> createState() =>
       _AssissmentDetailsScreenContentState();
 }
 
 class _AssissmentDetailsScreenContentState
-    extends State<AssissmentDetailsScreenContent> {
+    extends State<ApplicationDetailesContent> {
   @override
   Widget build(BuildContext context) {
-    final assissmentCubit = context.read<AssissmentCubit>();
+    final assissmentCubit = context.read<ApplicationDeatailesCubit>();
     if (assissmentCubit.totalQuestions == 0) {
       assissmentCubit.totalQuestions =
           widget.assessmentModel?.questions?.length ?? 0;
@@ -174,7 +174,7 @@ class _AssissmentDetailsScreenContentState
                   ),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: BlocBuilder<AssissmentCubit, dynamic>(
+                    child: BlocBuilder<ApplicationDeatailesCubit, dynamic>(
                       builder: (context, state) {
                         final isLastPage =
                             assissmentCubit.currentPage ==

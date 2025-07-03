@@ -146,4 +146,6 @@ abstract class AppSharedData {
   static List<AssessmentModel>? assessments = [];
 
   static List<EventModel> events = [];
+
+  static bool initNotification = false;
 }

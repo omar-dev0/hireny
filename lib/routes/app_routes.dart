@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hireny/features/auth/view/forget_password/reset_password/reset_password.dart';
 import 'package:hireny/features/auth/view/forget_password/verift_email_screen.dart';
+import 'package:hireny/features/chat_bot/UI/chat_boot_screen.dart';
 import 'package:hireny/features/manage_org_account/reviews_tab/presentation/ui/review_card.dart';
-import 'package:hireny/features/my_assessment/presentation/ui/my_assessment.dart';
 import 'package:hireny/features/org_account/org_account.dart';
 import 'package:hireny/features/org_assessment/presentation/ui/org_assessment.dart';
 import 'package:hireny/features/auth/view/profile/ai_tools/ai-screen.dart';
@@ -35,7 +35,6 @@ import '../features/auth/view/profile/widgets/change_password.dart';
 import '../features/auth/view/reg/reg_screen.dart';
 import '../features/calender/ui/calender_screen_content.dart';
 import '../features/course_detailes/presentation/views/course_details_view.dart';
-import '../features/course_detailes/presentation/views/widgets/calender_view.dart';
 import '../features/manage_org_account/org_rep_tab/presentation/ui/org_rep.dart';
 import '../features/manage_org_account/service_request_tab/presentation/ui/service_request.dart';
 import '../features/organization/view/explore_organizations_org.dart';
@@ -86,21 +85,24 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
     return MaterialPageRoute(builder: (context) => OrgAccount());
   }
   if (name == PagesRoute.orgAssessment) {
-    return MaterialPageRoute(builder: (context) => OrgAssessment());// done
-  } if (name == PagesRoute.orgServiceRequest) {
+    return MaterialPageRoute(builder: (context) => OrgAssessment()); // done
+  }
+  if (name == PagesRoute.orgServiceRequest) {
     return MaterialPageRoute(builder: (context) => ServiceRequest());
-  } if (name == PagesRoute.orgRep) {
+  }
+  if (name == PagesRoute.orgRep) {
     return MaterialPageRoute(builder: (context) => OrgRep()); //
-  } if (name == PagesRoute.orgReviewForOrg) {
+  }
+  if (name == PagesRoute.orgReviewForOrg) {
     return MaterialPageRoute(builder: (context) => ReviewCard());
   }
   if (name == PagesRoute.orgServicePost) {
     return MaterialPageRoute(
       builder:
-          (_) =>BlocProvider(
-              create: (_) =>getIt.get<ServiceOrgCubit>(),
-              child: ServicePost(),
-            ),
+          (_) => BlocProvider(
+            create: (_) => getIt.get<ServiceOrgCubit>(),
+            child: ServicePost(),
+          ),
     );
   }
   if (name == PagesRoute.courseDetails) {
@@ -108,15 +110,23 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
   }
   if (name == PagesRoute.calender) {
     return MaterialPageRoute(builder: (_) => CalenderScreen());
-  }if (name == PagesRoute.servicePostDetails) {
-    return MaterialPageRoute(builder: (_) => ServiceDetailsScreen(
-      title: '',
-      company: '',
-      postedTime: '',
-      category: '', time: ''
-      , price: '', location: ''
-      , description: '',));
-  }if (name == PagesRoute.orgServices) {
+  }
+  if (name == PagesRoute.servicePostDetails) {
+    return MaterialPageRoute(
+      builder:
+          (_) => ServiceDetailsScreen(
+            title: '',
+            company: '',
+            postedTime: '',
+            category: '',
+            time: '',
+            price: '',
+            location: '',
+            description: '',
+          ),
+    );
+  }
+  if (name == PagesRoute.orgServices) {
     return MaterialPageRoute(builder: (_) => ServicesView());
   }
   if (name == PagesRoute.myCourses) {
@@ -261,6 +271,9 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
     );
   }
 
+  if (name == PagesRoute.chatBoot) {
+    return MaterialPageRoute(builder: (_) => ChatBootScreen());
+  }
   // Default case
   return MaterialPageRoute(
     builder:

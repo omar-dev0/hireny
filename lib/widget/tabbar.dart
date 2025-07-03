@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hireny/config_app/notification_service.dart';
 import 'package:hireny/features/organization/view/explore_organizations_org.dart';
 import 'package:hireny/features/organization/view/explore_services_org.dart';
 import 'package:hireny/features/seeker/view/screens/courses/cubit/course_cubit.dart';
@@ -19,8 +20,25 @@ import '../features/organization/view/explore_job_seekers_org.dart';
 import '../features/seeker/view/screens/courses/explore_courses_seeker.dart';
 import '../utils/constants/app_colors.dart';
 
-class TabBarApp extends StatelessWidget {
+class TabBarApp extends StatefulWidget {
   const TabBarApp({super.key});
+
+  @override
+  State<TabBarApp> createState() => _TabBarAppState();
+}
+
+class _TabBarAppState extends State<TabBarApp> {
+  @override
+  // void initState() {
+  //   super.initState();
+  //   if (!AppSharedData.initNotification) {
+  //     NotificationService().init();
+  //     NotificationService().connectToWebSocket(
+  //       "${AppSharedData.user?.accessToken ?? ""}",
+  //     );
+  //     AppSharedData.initNotification = true;
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +58,13 @@ class TabBarApp extends StatelessWidget {
               (context) => getIt.get<OrgPostCubit>()..fetchAllOrganizations(),
         ),
         BlocProvider(create: (context) => getIt.get<SalaryCubit>()),
-        BlocProvider(create: (context)=>getIt.get<OrgPostCubit>()..fetchAllOrganizations()),
+        BlocProvider(
+          create:
+              (context) => getIt.get<OrgPostCubit>()..fetchAllOrganizations(),
+        ),
       ],
-      child:
-      DefaultTabController(
-        length: AppSharedData.user is Seeker? 5 : 4,
+      child: DefaultTabController(
+        length: AppSharedData.user is Seeker ? 5 : 4,
         child: Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
@@ -66,64 +86,71 @@ class TabBarApp extends StatelessWidget {
               IconButton(
                 icon: Icon(Icons.person, color: AppColors.white),
                 onPressed: () {
-                  AppSharedData.user is Seeker?
-
-                  Navigator.pushReplacementNamed(
-                    context,
-                    PagesRoute.generalInfo,
-                  ):
-                  Navigator.pushReplacementNamed(
-                    context,
-                    PagesRoute.orgAccount,
-                  );
+                  AppSharedData.user is Seeker
+                      ? Navigator.pushReplacementNamed(
+                        context,
+                        PagesRoute.generalInfo,
+                      )
+                      : Navigator.pushReplacementNamed(
+                        context,
+                        PagesRoute.orgAccount,
+                      );
                 },
               ),
             ],
             bottom: TabBar(
               isScrollable: AppSharedData.user is Seeker,
-              labelPadding: AppSharedData.user is Seeker
-                  ? const EdgeInsets.symmetric(horizontal: 16)
-                  : EdgeInsets.zero,
+              labelPadding:
+                  AppSharedData.user is Seeker
+                      ? const EdgeInsets.symmetric(horizontal: 16)
+                      : EdgeInsets.zero,
               labelColor: AppColors.white,
               unselectedLabelColor: AppColors.white.withOpacity(0.7),
               indicatorColor: Colors.white,
               indicatorWeight: 3,
               indicatorPadding: const EdgeInsets.symmetric(horizontal: 8),
-              tabs: (AppSharedData.user is Seeker)
-                  ? const [
-                Tab(text: 'Home'),
-                Tab(text: 'Jobs'),
-                Tab(text: 'Organizations'),
-                Tab(text: 'Courses'),
-                Tab(text: 'Insights'),
-              ]
-                  : const [
-                Tab(text: 'Home'),
-                Tab(text: 'Seekers'),
-                Tab(text: 'Services'),
-                Tab(text: 'Organizations'),
-              ],
+              tabs:
+                  (AppSharedData.user is Seeker)
+                      ? const [
+                        Tab(text: 'Home'),
+                        Tab(text: 'Jobs'),
+                        Tab(text: 'Organizations'),
+                        Tab(text: 'Courses'),
+                        Tab(text: 'Insights'),
+                      ]
+                      : const [
+                        Tab(text: 'Home'),
+                        Tab(text: 'Seekers'),
+                        Tab(text: 'Services'),
+                        Tab(text: 'Organizations'),
+                      ],
             ),
-
           ),
-          body:              AppSharedData.user is Seeker?
-            TabBarView(
-
-            children: [
-              Home(),
-              ExploreJobsForJobSeeker(),
-              ExploreOrgForSeeker(),
-              ExploreCoursesSeeker(),
-              SalaryInsightsScreen(),
-            ],
-          ):TabBarView(
-
-            children: [
-              Home(),
-              ExploreJobSeekersOrg(),
-              ExploreServicesOrg(),
-              ExploreOrganizationsOrg(),
-            ],
+          body:
+              AppSharedData.user is Seeker
+                  ? TabBarView(
+                    children: [
+                      Home(),
+                      ExploreJobsForJobSeeker(),
+                      ExploreOrgForSeeker(),
+                      ExploreCoursesSeeker(),
+                      SalaryInsightsScreen(),
+                    ],
+                  )
+                  : TabBarView(
+                    children: [
+                      Home(),
+                      ExploreJobSeekersOrg(),
+                      ExploreServicesOrg(),
+                      ExploreOrganizationsOrg(),
+                    ],
+                  ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              Navigator.pushNamed(context, PagesRoute.chatBoot);
+            },
+            backgroundColor: AppColors.primary,
+            child: Icon(Icons.smart_toy, color: AppColors.white),
           ),
         ),
       ),
