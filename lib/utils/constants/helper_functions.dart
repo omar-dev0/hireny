@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
 import '../../features/organization/view/widgets/bottomSheets/location_bottom_sheet.dart';
+import '../../features/seeker/view/screens/courses/cubit/course_cubit.dart';
 import '../widgets/dynamic_check_box_filter_bottom_sheet.dart';
 import '../widgets/dynamic_input_bottom_sheet.dart';
 
@@ -11,6 +13,8 @@ void showDynamicBottomSheet({
   required BuildContext context,
   required String title,
   required List<String> items,
+  Set<int> initialSelection = const {},
+  required Function(Set<int>) onSelectedIndicesChanged,
 }) {
   showModalBottomSheet(
     context: context,
@@ -21,9 +25,11 @@ void showDynamicBottomSheet({
         topRight: Radius.circular(30.r),
       ),
     ),
-    builder: (context) => DynamicBottomSheet(
+    builder: (_) => DynamicBottomSheet(
       title: title,
       items: items,
+      initialSelection: initialSelection,
+      onSelectedIndicesChanged: onSelectedIndicesChanged,
     ),
   );
 }
@@ -33,6 +39,7 @@ void showDynamicInputBottomSheet({
   required String minHint,
   required String maxHint,
   required String buttonText,
+  required Function(String, String) onpress,
 }) {
   showModalBottomSheet(
     context: context,
@@ -48,11 +55,12 @@ void showDynamicInputBottomSheet({
       firstHint: minHint,
       secondHint: maxHint,
       buttonText: buttonText,
+      onpress: onpress,
     ),
   );
 }
 void showLocationSheet(context){
-    showModalBottomSheet(
+  showModalBottomSheet(
     context: context,
     isScrollControlled: true,
     shape: RoundedRectangleBorder(
@@ -67,4 +75,26 @@ void showLocationSheet(context){
 String formatDate(String isoDate) {
   final date = DateTime.parse(isoDate);
   return '${DateFormat('MMM d, yyyy').format(date)}';
+}
+
+int calculateAge(String? dobString) {
+  if (dobString == null || dobString.isEmpty) return 0;
+
+  try {
+    DateTime dob = DateTime.parse(dobString); // Converts "2000-01-01" to DateTime
+    DateTime now = DateTime.now();
+    int age = now.year - dob.year;
+
+    // Adjust if birthday hasn't occurred yet this year
+    if (now.month < dob.month ||
+        (now.month == dob.month && now.day < dob.day)) {
+      age--;
+    }
+
+    return age;
+  } catch (e) {
+    // Handle invalid date format
+    print("Failed to parse DOB: $dobString");
+    return 0;
+  }
 }

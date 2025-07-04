@@ -52,11 +52,22 @@ class ExploreServicesOrgContent extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 20.h),
-                DynamicFilterChipsWidget(
-                  chipLabels: chipLabels,
-                  onChipPressed: onChipPressed,
-                  onSelectionChanged: (Set<int> selectedIndices) {
-                    print("Selected chips: $selectedIndices");
+                BlocBuilder<ExploreServicesCubit, states.ExploreServicesState>(
+                  builder: (context, state) {
+                    // Determine which chips are 'selected' based on the cubit's filter state
+                    Set<int> selectedChips = {};
+                    if (cubit.selectedCategoryIndices.isNotEmpty) {
+                      selectedChips.add(chipLabels.indexOf('Category'));
+                    }
+                    if (cubit.minPriceFilter != null || cubit.maxPriceFilter != null) {
+                      selectedChips.add(chipLabels.indexOf('Price'));
+                    }
+
+                    return DynamicFilterChipsWidget(
+                      chipLabels: chipLabels,
+                      onChipPressed: onChipPressed,
+                      selectedChipIndices: selectedChips,
+                    );
                   },
                 ),
                 SizedBox(height: 24.h),

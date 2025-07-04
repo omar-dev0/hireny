@@ -10,7 +10,6 @@ import 'package:hireny/utils/widgets/dymanic_filter_chips.dart';
 import 'package:hireny/features/organization/view/widgets/explore_organization_card.dart';
 import 'package:hireny/features/organization/domain/modules/organization.dart';
 import 'package:hireny/routes/page_route.dart';
-
 import '../../../../../utils/data_shared/app_shared_data.dart';
 import '../../widgets/explore_organization_card_org.dart';
 import 'cubit/explore_organizations_org_cubit.dart';
@@ -28,90 +27,109 @@ class ExploreOrganizationsOrgContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = BlocProvider.of<ExploreOrganizationsOrgCubit>(context);
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
-      child: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(height: 20.h),
-                CustomSearchBar(
-                  hintText: "Search for Organizations",
-                  onSearchChanged: (value) {
-                    context.read<ExploreOrganizationsOrgCubit>().filterOrgs(value);
-                  },
-                ),
-                SizedBox(height: 20.h),
-                Text("Explore Organizations", style: AppFonts.mainText),
-                Text(
-                  "Discover organizations and connect with top companies.",
-                  style: AppFonts.secMain,
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 20.h),
-                DynamicFilterChipsWidget(
-                  chipLabels: chipLabels,
-                  onChipPressed: onChipPressed,
-                  onSelectionChanged: (Set<int> selectedIndices) {
-                    // Handle selection changes here
-                  },
-                ),
-                SizedBox(height: 24.h),
-                Text("All Organizations (${AppSharedData.orgs.length})", style: AppFonts.mainText),
-                SizedBox(height: 15.h),
-              ],
+      child: FadeIn(
+        duration: Duration(milliseconds: 500),
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: 20.h),
+                  CustomSearchBar(
+                    hintText: "Search for Organizations",
+                    onSearchChanged: (value) {
+                      cubit.filterOrgs(value);
+                    },
+                  ),
+                  SizedBox(height: 20.h),
+                  Text("Explore Organizations", style: AppFonts.mainText),
+                  Text(
+                    "Discover organizations and connect with top companies.",
+                    style: AppFonts.secMain,
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 20.h),
+                  BlocBuilder<ExploreOrganizationsOrgCubit, ExploreOrganizationsOrgState>(
+                    builder: (context, state) {
+                      // Determine which chips are 'selected' based on the cubit's filter state
+                      Set<int> selectedChips = {};
+                      if (cubit.selectedLocationIndices != 'All') {
+                        selectedChips.add(chipLabels.indexOf('Location'));
+                      }
+                      if (cubit.selectedIndustryIndices.isNotEmpty) {
+                        selectedChips.add(chipLabels.indexOf('Industry'));
+                      }
+                      if (cubit.selectedSizeIndices != 'All') {
+                        selectedChips.add(chipLabels.indexOf('Size'));
+                      }
+
+                      return DynamicFilterChipsWidget(
+                        chipLabels: chipLabels,
+                        onChipPressed: onChipPressed,
+                        selectedChipIndices: selectedChips,
+                      );
+                    },
+                  ),
+                  SizedBox(height: 24.h),
+                  Text("All Organizations (${AppSharedData.orgs.length})", style: AppFonts.mainText),
+                  SizedBox(height: 15.h),
+                ],
+              ),
             ),
-          ),
-          BlocBuilder<ExploreOrganizationsOrgCubit, ExploreOrganizationsOrgState>(
-            builder: (context, state) {
-              if (state is ExploreOrganizationsOrgLoaded && state.orgs.isNotEmpty) {
-                return SliverPadding(
-                  padding: EdgeInsets.only(bottom: 20.h),
-                  sliver: SliverGrid(
-                    delegate: SliverChildBuilderDelegate(
-                          (context, index) {
-                        final orgPost = state.orgs[index];
-                        return FadeInUp(
-                          delay: Duration(milliseconds: 100 * index),
-                          duration: Duration(milliseconds: 500),
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.pushNamed(
-                                context,
-                                PagesRoute.orgProfile,
-                                arguments: orgPost.id,
-                              );
-                            },
-                            child: ExploreOrganizationCardOrg(
-                              orgPost: orgPost,
+            BlocBuilder<ExploreOrganizationsOrgCubit, ExploreOrganizationsOrgState>(
+              builder: (context, state) {
+                if (state is ExploreOrganizationsOrgLoaded && state.orgs.isNotEmpty) {
+                  return SliverPadding(
+                    padding: EdgeInsets.only(bottom: 20.h),
+                    sliver: SliverGrid(
+                      delegate: SliverChildBuilderDelegate(
+                            (context, index) {
+                          final orgPost = state.orgs[index];
+                          return FadeInUp(
+                            delay: Duration(milliseconds: 100 * index),
+                            duration: Duration(milliseconds: 500),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  PagesRoute.orgProfile,
+                                  arguments: orgPost.id,
+                                );
+                              },
+                              child: ExploreOrganizationCardOrg(
+                                orgPost: orgPost,
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                      childCount: state.orgs.length,
+                          );
+                        },
+                        childCount: state.orgs.length,
+                      ),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 10.h,
+                        crossAxisSpacing: 10.w,
+                        childAspectRatio: 2.4 / 3.2,
+                      ),
                     ),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 10.h,
-                      crossAxisSpacing: 10.w,
-                      childAspectRatio: 2.4 / 3.2,
+                  );
+                } else if (state is ExploreOrganizationsOrgLoaded && state.orgs.isEmpty) {
+                  return SliverToBoxAdapter(
+                    child: Center(
+                      child: Text("No organizations found.", style: AppFonts.secMain),
                     ),
-                  ),
-                );
-              } else if (state is ExploreOrganizationsOrgLoaded && state.orgs.isEmpty) {
-                return SliverToBoxAdapter(
-                  child: Center(
-                    child: Text("No organizations found.", style: AppFonts.secMain),
-                  ),
-                );
-              } else {
-                return SliverToBoxAdapter(child: Container());
-              }
-            },
-          ),
-        ],
+                  );
+                } else {
+                  return SliverToBoxAdapter(child: Container());
+                }
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

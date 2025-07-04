@@ -213,12 +213,12 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
   if (name == PagesRoute.exploreServicesOrg) {
     return MaterialPageRoute(builder: (_) => ExploreServicesOrg());
   }
-  if (name == PagesRoute.exploreCoursesSeeker) {
-    return MaterialPageRoute(builder: (_) => ExploreCoursesSeeker());
-  }
-  if (name == PagesRoute.exploreJobsSeeker) {
-    return MaterialPageRoute(builder: (_) => ExploreJobsForJobSeeker());
-  }
+  // if (name == PagesRoute.exploreCoursesSeeker) {
+  //   return MaterialPageRoute(builder: (_) => ExploreCoursesSeeker());
+  // }
+  // if (name == PagesRoute.exploreJobsSeeker) {
+  //   return MaterialPageRoute(builder: (_) => ExploreJobsForJobSeeker());
+  // }
   if (name == PagesRoute.courseDetailes) {
     return MaterialPageRoute(builder: (_) => courseScreenSeekerDetails());
   }

@@ -24,6 +24,8 @@ class ExploreJobSeekersContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = BlocProvider.of<ExploreSeekersCubit>(context);
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
       child: FadeIn(
@@ -36,25 +38,47 @@ class ExploreJobSeekersContent extends StatelessWidget {
                 children: [
                   SizedBox(height: 20.h),
                   CustomSearchBar(
-                    hintText: "Search for Jobs",
+                    hintText: "Seekers for Jobs",
                     onSearchChanged: (value) {
-                      // Trigger filtering in Cubit
-                      context.read<ExploreSeekersCubit>().filterSeekers(value);
+                      cubit.filterSeekers(value);
                     },
                   ),
                   SizedBox(height: 20.h),
                   Text("Job Search", style: AppFonts.mainText),
                   Text(
-                    "Search for your desired job matching your skills.json",
+                    "Search for your desired job matching your skills.",
                     style: AppFonts.secMain,
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 20.h),
-                  DynamicFilterChipsWidget(
-                    chipLabels: chipLabels,
-                    onChipPressed: onChipPressed,
-                    onSelectionChanged: (Set<int> selectedIndices) {
-                      print("Selected chips: $selectedIndices");
+                  BlocBuilder<ExploreSeekersCubit, SeekerPostState>(
+                    builder: (context, state) {
+                      Set<int> selectedChips = {};
+
+                      if (cubit.selectedLocationIndices.isNotEmpty) {
+                        selectedChips.add(chipLabels.indexOf('Location'));
+                      }
+                      if (cubit.selectedIndustryIndices.isNotEmpty) {
+                        selectedChips.add(chipLabels.indexOf('Industry'));
+                      }
+                      // if (cubit.selectedCareerLevelIndices.isNotEmpty) {
+                      //   selectedChips.add(chipLabels.indexOf('Career Level'));
+                      // }
+                      if (cubit.selectedEmploymentStatusIndices.isNotEmpty) {
+                        selectedChips.add(chipLabels.indexOf('Employment Status'));
+                      }
+                      if (cubit.selectedGenderIndices.isNotEmpty) {
+                        selectedChips.add(chipLabels.indexOf('Gender'));
+                      }
+                      if (cubit.minAgeFilter != null || cubit.maxAgeFilter != null) {
+                        selectedChips.add(chipLabels.indexOf('Age'));
+                      }
+
+                      return DynamicFilterChipsWidget(
+                        chipLabels: chipLabels,
+                        onChipPressed: onChipPressed,
+                        selectedChipIndices: selectedChips,
+                      );
                     },
                   ),
                   SizedBox(height: 24.h),
@@ -78,16 +102,10 @@ class ExploreJobSeekersContent extends StatelessWidget {
                             duration: Duration(milliseconds: 300 + index * 100),
                             child: InkWell(
                               onTap: () {
-                                print("ttsssss");
-                                // Navigator.pushNamed(
-                                //   context,
-                                //   PagesRoute.jobDetailes,
-                                //   arguments: jobPost.id,
-                                // );
+                                print("Seeker Card Tapped");
                               },
                               child: ExploreJobSeekerCard(
                                 seeker: seeker,
-
                               ),
                             ),
                           ),

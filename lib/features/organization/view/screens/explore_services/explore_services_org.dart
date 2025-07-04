@@ -1,24 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hireny/features/organization/view/widgets/related_service_card.dart';
-import 'package:hireny/utils/app_assets.dart';
-import 'package:hireny/utils/constants/app_colors.dart';
-import 'package:hireny/utils/constants/app_fonts.dart';
-import 'package:hireny/utils/widgets/dymanic_filter_chips.dart';
-import 'package:hireny/utils/widgets/search_bar_widget.dart';
-
-import '../../../../../utils/constants/helper_functions.dart';
-import '../../../../../utils/widgets/custom_search_bar.dart';
-import '../../../../../utils/widgets/explore_card.dart';
-import '../../../../services/presentation/ui/widgets/service_card_org.dart';
-import '../../widgets/serivce_card.dart';
-
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hireny/utils/constants/app_colors.dart';
 import 'package:hireny/utils/constants/dialogs/error_dialog.dart';
 import 'package:hireny/utils/constants/dialogs/loading_dialog.dart';
 import 'package:hireny/utils/data_shared/app_shared_data.dart';
+import 'package:hireny/utils/constants/helper_functions.dart';
 
 import 'cubit/explore_services_cubit.dart';
 import 'cubit/explore_services_states.dart';
@@ -33,14 +19,15 @@ class ExploreServicesOrg extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<ExploreServicesCubit, ExploreServicesState>(
       listener: (context, state) {
-        if (state is ExploreServicesLoading) {
+        if (state is ExploreServicesLoading && AppSharedData.services.isEmpty) {
           showDialog(
             context: context,
             barrierDismissible: false,
             builder: (_) => LoadingDialog(),
-          );        }
+          );
+        }
         if (state is ServicesError) {
-          Navigator.pop(context);
+          if (Navigator.canPop(context)) Navigator.pop(context);
           showDialog(
             context: context,
             builder: (_) => ErrorDialog(message: state.message),
@@ -51,6 +38,9 @@ class ExploreServicesOrg extends StatelessWidget {
         if (state is ExploreServicesLoading && AppSharedData.services.isEmpty) {
           return LoadingDialog();
         }
+
+        final cubit = BlocProvider.of<ExploreServicesCubit>(context);
+
         return Scaffold(
           backgroundColor: AppColors.subPrimary,
           body: ExploreServicesOrgContent(
@@ -66,10 +56,46 @@ class ExploreServicesOrg extends StatelessWidget {
   }
 
   void _showCategoryBottomSheet(BuildContext context) {
+    final cubit = context.read<ExploreServicesCubit>();
     showDynamicBottomSheet(
       context: context,
       title: "Select your category",
-      items: AppSharedData.industries,
+      items: [
+        "Agriculture",
+        "Automotive",
+        "Banking",
+        "Construction",
+        "Consumer Goods",
+        "Education",
+        "Energy & Utilities",
+        "Entertainment",
+        "Environmental Services",
+        "Fashion & Apparel",
+        "Food & Beverage",
+        "Government",
+        "Healthcare",
+        "Hospitality & Tourism",
+        "Information Technology",
+        "Insurance",
+        "Legal Services",
+        "Logistics & Transportation",
+        "Manufacturing",
+        "Media & Communications",
+        "Mining",
+        "Nonprofit",
+        "Pharmaceuticals",
+        "Real Estate",
+        "Retail",
+        "Software Development",
+        "Telecommunications",
+        "Textiles",
+        "Waste Management",
+        "Wholesale & Distribution",
+      ],
+      initialSelection: cubit.selectedCategoryIndices,
+      onSelectedIndicesChanged: (indices) {
+        cubit.updateCategoryFilter(indices);
+      },
     );
   }
 
@@ -81,9 +107,9 @@ class ExploreServicesOrg extends StatelessWidget {
       minHint: "Min Price",
       maxHint: "Max Price",
       buttonText: "Filter",
-      // onpress: (min, max) {
-      //   // cubit.updatePriceFilter(min: double.tryParse(min), max: double.tryParse(max));
-      // },
+      onpress: (min, max) {
+        cubit.updatePriceRangeFilter(min: min, max: max);
+      },
     );
   }
 }

@@ -137,9 +137,9 @@ class _TabBarAppState extends State<TabBarApp> {
 
             children: [
               Home(),
-              ExploreJobsForJobSeeker(),
-              ExploreOrgForSeeker(),
-              ExploreCoursesSeeker(),
+              // ExploreJobsForJobSeeker(),
+              // ExploreOrgForSeeker(),
+              // ExploreCoursesSeeker(),
               SalaryInsightsScreen(),
             ],
           ):TabBarView(

@@ -11,7 +11,6 @@ import 'package:hireny/utils/constants/helper_functions.dart';
 
 class ExploreOrganizationsOrg extends StatelessWidget {
   static String routeName = "ExploreOrganizationsOrg";
-
   const ExploreOrganizationsOrg({super.key});
 
   @override
@@ -23,9 +22,10 @@ class ExploreOrganizationsOrg extends StatelessWidget {
             context: context,
             barrierDismissible: false,
             builder: (_) => LoadingDialog(),
-          );        }
+          );
+        }
         if (state is ExploreOrganizationsOrgError) {
-          Navigator.pop(context);
+          if (Navigator.canPop(context)) Navigator.pop(context);
           showDialog(
             context: context,
             builder: (_) => ErrorDialog(message: state.message),
@@ -36,6 +36,8 @@ class ExploreOrganizationsOrg extends StatelessWidget {
         if (state is ExploreOrganizationsOrgLoading && AppSharedData.orgs.isEmpty) {
           return LoadingDialog();
         }
+
+        final cubit = BlocProvider.of<ExploreOrganizationsOrgCubit>(context);
 
         return Scaffold(
           backgroundColor: AppColors.subPrimary,
@@ -52,33 +54,46 @@ class ExploreOrganizationsOrg extends StatelessWidget {
     );
   }
 
+
   void _showLocationBottomSheet(BuildContext context) {
+    final cubit = context.read<ExploreOrganizationsOrgCubit>();
     showDynamicBottomSheet(
       context: context,
       title: "Select Location",
-      items: AppSharedData.countryCityData.keys.toList(),
+      items: AppSharedData.countries,
+      initialSelection: cubit.selectedLocationIndices,
+      onSelectedIndicesChanged: (selectedIndices) {
+        cubit.updateLocationFilter(selectedIndices);
+      },
     );
   }
 
+
+
   void _showCategoryBottomSheet(BuildContext context) {
+    final cubit = context.read<ExploreOrganizationsOrgCubit>();
     showDynamicBottomSheet(
       context: context,
       title: "Select your category",
-      items: [
-        "Commerce",
-        "Telecommunications",
-        "Hotels & Tourism",
-        "Education",
-        "Financial Services"
-      ],
+      items: AppSharedData.industries,
+      initialSelection: cubit.selectedIndustryIndices,
+      onSelectedIndicesChanged: (indices) {
+        cubit.updateIndustryFilter(indices);
+      },
     );
   }
-
-  void _showOrganizationSizeBottomSheet(BuildContext context) {
+void _showOrganizationSizeBottomSheet(BuildContext context) {
+    final cubit = context.read<ExploreOrganizationsOrgCubit>();
     showDynamicBottomSheet(
       context: context,
       title: "Select Organization Size",
       items: AppSharedData.organizationSizes,
+      initialSelection: cubit.selectedSizeIndices,
+      onSelectedIndicesChanged: (indices) {
+        cubit.updateSizeFilter(indices);
+      },
     );
   }
+
+
 }

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hireny/utils/app_assets.dart';
 import 'package:hireny/utils/constants/app_colors.dart';
 import 'package:hireny/utils/constants/app_fonts.dart';
+import 'package:hireny/utils/extensions/font_size.dart';
 import 'package:hireny/utils/widgets/custom_buttom.dart';
 
 import '../../../../utils/data_shared/shared_const_api.dart';
@@ -111,9 +112,12 @@ class ServiceCardOrgExplore extends StatelessWidget {
                 "${service.salary} ${service.currency?.first ?? ""}",
                 style: AppFonts.mainText.copyWith(fontWeight: FontWeight.bold),
               ),
-              Text(
-                "${service.country}, ${service.city}",
-                style: AppFonts.secMain,
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  "${service.country}, ${service.city}",
+                  style: AppFonts.secMain.copyWith(fontSize: 14.cSp),
+                ),
               )
             ],
           ),

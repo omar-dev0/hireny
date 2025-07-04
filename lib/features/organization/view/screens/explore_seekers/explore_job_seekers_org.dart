@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hireny/utils/app_assets.dart';
 import 'package:hireny/utils/constants/dialogs/loading_dialog.dart';
 import '../../../../../utils/constants/app_colors.dart';
 import '../../../../../utils/constants/dialogs/error_dialog.dart';
@@ -37,12 +38,14 @@ class ExploreJobSeekersOrg extends StatelessWidget {
         if (state is SeekerPostLoading && AppSharedData.seekers.isEmpty) {
           return LoadingDialog();
         }
+        final cubit = BlocProvider.of<ExploreSeekersCubit>(context);
+
         return Scaffold(
           backgroundColor: AppColors.subPrimary,
           body: ExploreJobSeekersContent(
             chipLabels: [
               'Location',
-              'Industry',
+              // 'Industry',
               'Career Level',
               'Employment Status',
               'Gender',
@@ -50,39 +53,11 @@ class ExploreJobSeekersOrg extends StatelessWidget {
             ],
             onChipPressed: [
                   () => _showLocationBottomSheet(context),
-                  () => showDynamicBottomSheet(
-                context: context,
-                title: "Select category",
-                items: [
-                  "Commerce",
-                  "Telecommunications",
-                  "Hotels & Tourism",
-                  "Education",
-                  "Financial Services"
-                ],
-              ),
-                  () => showDynamicBottomSheet(
-                context: context,
-                title: "Select Career Level",
-                items: ["No-experience", "Fresher", "Intermediate", "Expert"],
-              ),
-                  () => showDynamicBottomSheet(
-                context: context,
-                title: "Select Employment Status",
-                items: ["Employed", "Unemployed", "Freelancer"],
-              ),
-                  () => showDynamicBottomSheet(
-                context: context,
-                title: "Select Gender",
-                items: ["Male", "Female"],
-              ),
-                  () => showDynamicInputBottomSheet(
-                context: context,
-                title: "Select Age",
-                minHint: "Min Age",
-                maxHint: "Max Age",
-                buttonText: "Filter",
-              ),
+                  // () => _showIndustryBottomSheet(context),
+                  () => _showCareerLevelBottomSheet(context),
+                  () => _showEmploymentStatusBottomSheet(context),
+                  () => _showGenderBottomSheet(context),
+                  () => _showAgeRangeBottomSheet(context),
             ],
           ),
         );
@@ -91,10 +66,81 @@ class ExploreJobSeekersOrg extends StatelessWidget {
   }
 
   void _showLocationBottomSheet(BuildContext context) {
+    final cubit = context.read<ExploreSeekersCubit>();
     showDynamicBottomSheet(
       context: context,
       title: "Select Location",
-      items: AppSharedData.countryCityData.keys.toList(),
+      items: AppSharedData.countries,
+      initialSelection: cubit.selectedLocationIndices,
+      onSelectedIndicesChanged: (indices) {
+        cubit.updateLocationFilter(indices);
+      },
+    );
+  }
+
+  // void _showIndustryBottomSheet(BuildContext context) {
+  //   final cubit = context.read<ExploreSeekersCubit>();
+  //   showDynamicBottomSheet(
+  //     context: context,
+  //     title: "Select Industry",
+  //     items: AppSharedData.industries,
+  //     initialSelection: cubit.selectedIndustryIndices,
+  //     onSelectedIndicesChanged: (indices) {
+  //       cubit.updateIndustryFilter(indices);
+  //     },
+  //   );
+  // }
+
+  void _showCareerLevelBottomSheet(BuildContext context) {
+    final cubit = context.read<ExploreSeekersCubit>();
+    showDynamicBottomSheet(
+      context: context,
+      title: "Select Career Level",
+      items: AppSharedData.careerLevels,
+      initialSelection: cubit.selectedCareerLevelIndices,
+      onSelectedIndicesChanged: (indices) {
+        cubit.updateCareerLevelFilter(indices);
+      },
+    );
+  }
+
+  void _showEmploymentStatusBottomSheet(BuildContext context) {
+    final cubit = context.read<ExploreSeekersCubit>();
+    showDynamicBottomSheet(
+      context: context,
+      title: "Select Employment Status",
+      items: AppSharedData.employmentStatus,
+      initialSelection: cubit.selectedEmploymentStatusIndices,
+      onSelectedIndicesChanged: (indices) {
+        cubit.updateEmploymentStatusFilter(indices);
+      },
+    );
+  }
+
+  void _showGenderBottomSheet(BuildContext context) {
+    final cubit = context.read<ExploreSeekersCubit>();
+    showDynamicBottomSheet(
+      context: context,
+      title: "Select Gender",
+      items: ["Male", "Female"],
+      initialSelection: cubit.selectedGenderIndices,
+      onSelectedIndicesChanged: (indices) {
+        cubit.updateGenderFilter(indices);
+      },
+    );
+  }
+
+  void _showAgeRangeBottomSheet(BuildContext context) {
+    final cubit = context.read<ExploreSeekersCubit>();
+    showDynamicInputBottomSheet(
+      context: context,
+      title: "Select Age Range",
+      minHint: "Min Age",
+      maxHint: "Max Age",
+      buttonText: "Filter",
+      onpress: (min, max) {
+        cubit.updateAgeRangeFilter(min: min, max: max);
+      },
     );
   }
 }
