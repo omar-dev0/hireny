@@ -105,20 +105,11 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
   }
   if (name == PagesRoute.calender) {
     return MaterialPageRoute(builder: (_) => CalenderView());
-  }if (name == PagesRoute.servicePostDetails) {
-    return MaterialPageRoute(builder: (_) =>
-        ServiceDetailsScreen(
-          title: '',
-          company: '',
-          postedTime: '',
-          category: '',
-          time: ''
-          ,
-          price: '',
-          location: ''
-          ,
-          description: '',));
   }
+  // }if (name == PagesRoute.servicePostDetails) {
+  //   return MaterialPageRoute(builder: (_) =>
+  //       ServiceDetailsScreen());
+  // }
   if (name == PagesRoute.orgServices) {
     debugPrint("➡ Navigating to ServicesView and calling loadServices");
     debugPrint("${AppSharedData.user?.role}");

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hireny/core/widgets/sideBar.dart';
+import 'package:hireny/features/services/presentation/ui/service_details.dart';
 import 'package:hireny/features/services/presentation/ui/widgets/profile_avatar.dart';
 import 'package:hireny/features/services/presentation/ui/widgets/service_card_org.dart';
 import 'package:hireny/routes/page_route.dart';
@@ -82,17 +83,22 @@ class ServicesView extends StatelessWidget {
 
                       return FadeInUp(
                         duration: Duration(milliseconds: 400 + index * 100),
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.pushNamed(context, PagesRoute.servicePostDetails);
-                          },
-                          child: ServiceCardOrg(
-                            name: service.serviceTitle,
-                            price: "${service.salary} ${service.currency.isNotEmpty ? service.currency[0] : ''}",
-                            company: service.companyName,
-                            companyLogo: service.companyLogo,
-                            footer: ApplicantAvatars(totalApplicants: service.totalApplications),
-                          ),
+                          child: InkWell(
+                            onTap: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ServiceDetailsScreen(
+                                    serviceObj: AppSharedData.servicesOrg[index],
+                                  ),
+                                ),
+                              );
+                            },
+                            child: ServiceCardOrg(
+                              name: service.serviceTitle,
+                              price: "${service.salary} ${service.currency.isNotEmpty ? service.currency[0] : ''}",
+                              footer: ApplicantAvatar(size: 30,total: AppSharedData.servicesOrg[index].totalApplications,),
+                            ),
                         ),
                       );
                     },

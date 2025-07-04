@@ -16,7 +16,7 @@ class ServiceApiManager {
   final Dio _dio;
 
   ServiceApiManager(this._dio);
-  String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxNDUxMTMxLCJpYXQiOjE3NTE0MDc5MzEsImp0aSI6IjAxZjFhM2RlYTM5NjRkYjliNjJmMDY4Y2NiZWVkNDBlIiwidXNlcl9pZCI6MzEsImlkIjozMSwiZmlyc3ROYW1lIjoidGVzdCIsImxhc3ROYW1lIjoidGVzdCIsImVtYWlsIjoiZmx1dHRlclRlc3RAY29tYW55LmNvbSIsInJvbGUiOiJvcmdBZG1pbiIsInBob3RvIjoiL21lZGlhL3Bob3Rvcy9kZWZhdWx0LnBuZyIsIm9yZ2FuaXphdGlvbiI6OH0.RIQKhDrLMEyGg8wVw5RhJwPLW70yMsSSVulKRN_lnaM";
+  String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxNjIzNjcwLCJpYXQiOjE3NTE1ODA0NzAsImp0aSI6ImIzM2VkNjU4MTZkODRiMGQ4ODMzMzBjZTgyM2FlOTEyIiwidXNlcl9pZCI6MzEsImlkIjozMSwiZmlyc3ROYW1lIjoidGVzdCIsImxhc3ROYW1lIjoidGVzdCIsImVtYWlsIjoiZmx1dHRlclRlc3RAY29tYW55LmNvbSIsInJvbGUiOiJvcmdBZG1pbiIsInBob3RvIjoiL21lZGlhL3Bob3Rvcy9kZWZhdWx0LnBuZyIsIm9yZ2FuaXphdGlvbiI6OH0.meRlLrgojcbv5CQQUJ6y67WU78bgGamr0ZwvOaoSp1c";
   ///  add service post
   Future<Result<ServiceResponse>> addServicePost(ServiceRequestModel service) async {
     try {
@@ -51,7 +51,7 @@ class ServiceApiManager {
     debugPrint("call api");
     try {
       final response = await _dio.get(
-        "${ServiceApiConst.getServices}$id",
+        "${ServiceApiConst.getServices}8",
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',

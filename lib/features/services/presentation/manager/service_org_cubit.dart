@@ -79,16 +79,12 @@ class ServiceOrgCubit extends Cubit<ServiceOrgStates> {
     }
   }
   Future<void> loadServices() async {
-    debugPrint("✅ ServiceOrgCubit created ${AppSharedData.user?.id}");
-    debugPrint("✅ ServiceOrgCubit created ${AppSharedData.user?.firstName}");
-    debugPrint("✅ ServiceOrgCubit created ${AppSharedData.user?.role}");
-    debugPrint("✅ ServiceOrgCubit created ${AppSharedData.user?.email}");
 
 
     emit(LoadingServiceOrg());
 
     try {
-      final userId = AppSharedData.user?.id;
+      final userId = 8;//AppSharedData.user?.id
       if (userId == null) {
         emit(ErrorServiceOrg("User not logged in."));
         return;
