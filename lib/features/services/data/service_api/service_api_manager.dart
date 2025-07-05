@@ -6,7 +6,6 @@ import 'package:hireny/result.dart';
 import 'package:hireny/utils/data_shared/app_shared_data.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../result.dart';
 import '../../domain/models/request/service_post_request.dart';
 
 
@@ -16,7 +15,7 @@ class ServiceApiManager {
   final Dio _dio;
 
   ServiceApiManager(this._dio);
-  String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxNjIzNjcwLCJpYXQiOjE3NTE1ODA0NzAsImp0aSI6ImIzM2VkNjU4MTZkODRiMGQ4ODMzMzBjZTgyM2FlOTEyIiwidXNlcl9pZCI6MzEsImlkIjozMSwiZmlyc3ROYW1lIjoidGVzdCIsImxhc3ROYW1lIjoidGVzdCIsImVtYWlsIjoiZmx1dHRlclRlc3RAY29tYW55LmNvbSIsInJvbGUiOiJvcmdBZG1pbiIsInBob3RvIjoiL21lZGlhL3Bob3Rvcy9kZWZhdWx0LnBuZyIsIm9yZ2FuaXphdGlvbiI6OH0.meRlLrgojcbv5CQQUJ6y67WU78bgGamr0ZwvOaoSp1c";
+  String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxNzMyODA3LCJpYXQiOjE3NTE2ODk2MDcsImp0aSI6ImQwMjNiZDg3Mzc0YjQyMTBhMDEwNjk1ZDViNzY3YWIzIiwidXNlcl9pZCI6MzIsImlkIjozMiwiZmlyc3ROYW1lIjoidGVzdCIsImxhc3ROYW1lIjoidGVzdCIsImVtYWlsIjoiZmx1dHRlclRlc3RAY29tcGFueS5jb20iLCJyb2xlIjoib3JnQWRtaW4iLCJwaG90byI6Ii9tZWRpYS9waG90b3MvZGVmYXVsdC5wbmciLCJvcmdhbml6YXRpb24iOjl9.0pGKGfhKE4RG_eXVPBnbM_J80_edN6O-LeUR8CTl7Lo";
   ///  add service post
   Future<Result<ServiceResponse>> addServicePost(ServiceRequestModel service) async {
     try {
@@ -48,10 +47,9 @@ class ServiceApiManager {
 
   /// get services
   Future<Result<void>> getServices(int id) async {
-    debugPrint("call api");
     try {
       final response = await _dio.get(
-        "${ServiceApiConst.getServices}8",
+        "${ServiceApiConst.getServices}9",
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',
@@ -74,6 +72,71 @@ class ServiceApiManager {
       return Error(error: "Error occurred: $e");
     }
   }
+
+  /// delete service
+  Future<Result<void>> deleteService(int id) async {
+    try {
+      final response = await _dio.delete(
+        "${ServiceApiConst.deleteServicePost}$id/",
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 204) {
+        // 🔹 Remove from local list
+        AppSharedData.servicesOrg.removeWhere((service) => service.id == id);
+
+        debugPrint("Service deleted successfully: ${response.data}");
+        return Success();
+      } else {
+        return Error(error: "Failed to delete service. Status code: ${response.statusCode}");
+      }
+    } catch (e) {
+      return Error(error: "Error occurred: $e");
+    }
+  }
+
+  /// update service
+  Future<Result<void>> updateService(int id, ServiceRequestModel service) async {
+
+    final url = "${ServiceApiConst.updateServicePost}$id/";
+    try {
+      final response = await _dio.put(
+        url,
+        data: service.toJson(),
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            'Content-Type': 'application/json',
+          },
+        ),
+      );
+
+      // debugPrint("Response status: ${response.statusCode}");
+      // debugPrint("Response data: ${response.data}");
+
+      // Success case
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final index = AppSharedData.servicesOrg.indexWhere((s) => s.id == id);
+        if (index != -1) {
+          // AppSharedData.servicesOrg[index] = ;
+        }
+        debugPrint("✅ Service updated successfully");
+        return Success();
+      } else {
+        debugPrint("❌ Failed to update service. Status: ${response.statusCode}");
+        return Error(error: "Failed to update service. Status code: ${response.statusCode}");
+      }
+    } catch (e, stackTrace) {
+      debugPrint("❌ Exception occurred: $e");
+      debugPrint("🔍 StackTrace: $stackTrace");
+      return Error(error: "Error occurred: $e");
+    }
+  }
+
 
 
 }

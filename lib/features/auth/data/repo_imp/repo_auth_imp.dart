@@ -51,7 +51,6 @@ class RepoAuthImp implements RepoAuth {
 
           Success<User?> response = userInfo as Success<User?>;
           AppSharedData.user = response.response;
-          // debugPrint("org Data ${response.response?.firstName}");
 
           AppSharedData.user?.accessToken = accessToken;
           AppSharedData.user?.refreshToken = refreshToken;

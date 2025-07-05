@@ -111,7 +111,6 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
   //       ServiceDetailsScreen());
   // }
   if (name == PagesRoute.orgServices) {
-    debugPrint("➡ Navigating to ServicesView and calling loadServices");
     debugPrint("${AppSharedData.user?.role}");
 
     return MaterialPageRoute(

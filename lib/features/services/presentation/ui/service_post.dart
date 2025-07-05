@@ -5,11 +5,15 @@ import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/data_shared/app_shared_data.dart';
 import '../../../../utils/widgets/custom_drop_down.dart';
 import '../../../../utils/widgets/custom_text_field.dart';
+import '../../domain/models/response/service_post_response.dart';
 import '../manager/service_org_cubit.dart';
 import '../manager/service_org_states.dart';
 
 class ServicePost extends StatelessWidget {
-  const ServicePost({super.key});
+  final bool isUpdate;
+  final ServiceResponse? service;
+  const ServicePost({super.key, this.isUpdate = false,this.service});
+
 
   @override
   Widget build(BuildContext context) {
@@ -132,8 +136,13 @@ class ServicePost extends StatelessWidget {
                     children: [
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: () {
-                            cubit.submitForm(context);
+                          onPressed: () async {
+                            if(isUpdate){
+                              await cubit.updateServiceOrg(service!);
+                            }else{
+                             await cubit.submitForm(context);
+                            }
+
                             Navigator.pop(context);
                           },
                           style: ElevatedButton.styleFrom(

@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hireny/features/services/domain/models/response/service_post_response.dart';
+import 'package:hireny/features/services/presentation/manager/service_org_cubit.dart';
+import 'package:hireny/features/services/presentation/ui/service_post.dart';
 import 'package:hireny/features/services/presentation/ui/widgets/info_row.dart';
 import 'package:hireny/utils/app_assets.dart';
+import 'package:hireny/utils/data_shared/app_shared_data.dart';
 import '../../../../../utils/constants/app_colors.dart';
 import '../../../../../utils/constants/app_fonts.dart';
 import '../../../../../utils/widgets/custom_buttom.dart';
+import '../../../../utils/di/di.dart';
 
 class ServiceDetailsScreen extends StatelessWidget {
   final ServiceResponse serviceObj;
@@ -14,24 +19,14 @@ class ServiceDetailsScreen extends StatelessWidget {
     required this.serviceObj,
   });
 
-  // 🔹 Format time: "xh ago" or "xd ago"
-  String formatCreatedAt(String isoTime) {
-    final dateTime = DateTime.parse(isoTime).toLocal();
-    final now = DateTime.now();
-    final diff = now.difference(dateTime);
 
-    if (diff.inHours < 24) {
-      return '${diff.inHours}h ago';
-    } else {
-      return '${diff.inDays}d ago';
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     final media = MediaQuery.of(context);
     final screenWidth = media.size.width;
     final screenHeight = media.size.height;
+    final serviceCubit =context.read<ServiceOrgCubit>();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -91,7 +86,7 @@ class ServiceDetailsScreen extends StatelessWidget {
                             ),
                             SizedBox(width: screenWidth * 0.01),
                             Text(
-                              formatCreatedAt(serviceObj.createdAt),
+                              serviceCubit.formatCreatedAt(serviceObj.createdAt),
                               style: Theme.of(context)
                                   .textTheme
                                   .bodySmall
@@ -114,7 +109,16 @@ class ServiceDetailsScreen extends StatelessWidget {
                     child: CustomButtom(
                       title: "Update",
                       hight: screenHeight * 0.05,
-                      onPressed: () {},
+                      onPressed: () {
+
+                        Navigator.push(context, MaterialPageRoute(
+                          builder:
+                              (_) =>BlocProvider(
+                            create: (_) =>getIt.get<ServiceOrgCubit>()..setFields(serviceObj),
+                            child: ServicePost(isUpdate: true,service: serviceObj,),
+                          ),
+                        ));
+                      },
                     ),
                   ),
                   SizedBox(width: screenWidth * 0.04),
@@ -122,8 +126,12 @@ class ServiceDetailsScreen extends StatelessWidget {
                     child: CustomButtom(
                       title: "Delete",
                       hight: screenHeight * 0.05,
-                      onPressed: () {},
-                    ),
+                      onPressed: () async {
+                        await serviceCubit.deleteService(serviceObj.id);
+                        Navigator.pop(context, 'deleted'); // ✅ Return to previous screen with flag
+                      },
+                    )
+                    ,
                   ),
                 ],
               ),
@@ -132,7 +140,7 @@ class ServiceDetailsScreen extends StatelessWidget {
               /// 🔹 Info Row
               InfoContainer(
                 category: serviceObj.city,
-                time: formatCreatedAt(serviceObj.createdAt),
+                time: serviceCubit.formatCreatedAt(serviceObj.createdAt),
                 price: serviceObj.salary,
                 location: "${serviceObj.country},${serviceObj.city}",
               ),

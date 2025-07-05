@@ -21,9 +21,17 @@ class ServiceOrgDataSource implements ServiceOrgDataSourceInterface {
 
   @override
   Future<Result<void>> getServices(int id) {
-    debugPrint("dataSource");
 
     return apiManger.getServices(id);
 
+  }
+  @override
+  Future<Result<void>> deleteService(int id){
+    return apiManger.deleteService(id);
+  }
+
+  @override
+  Future<Result<void>> updateService(int id,ServiceRequestModel service) {
+    return apiManger.updateService(id,service);
   }
 }

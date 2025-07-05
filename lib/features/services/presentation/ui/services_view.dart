@@ -11,6 +11,7 @@ import 'package:hireny/utils/constants/app_colors.dart';
 import 'package:hireny/utils/data_shared/app_shared_data.dart';
 import 'package:hireny/utils/widgets/custome_appbar_drawer.dart';
 
+import '../../../../utils/di/di.dart';
 import '../manager/service_org_cubit.dart';
 import '../manager/service_org_states.dart';
 
@@ -30,9 +31,13 @@ class ServicesView extends StatelessWidget {
             const SizedBox(height: 16),
             FadeInDown(
               duration: const Duration(milliseconds: 600),
-              child: Text(
-                "Available Services (${AppSharedData.servicesOrg.length})",
-                style: AppFonts.mainText,
+              child: BlocBuilder<ServiceOrgCubit, ServiceOrgStates>(
+                builder: (context, state) {
+                  return Text(
+                    "Available Services (${AppSharedData.servicesOrg.length})",
+                    style: AppFonts.mainText,
+                  );
+                }
               ),
             ),
             const SizedBox(height: 16),
@@ -84,15 +89,22 @@ class ServicesView extends StatelessWidget {
                       return FadeInUp(
                         duration: Duration(milliseconds: 400 + index * 100),
                           child: InkWell(
-                            onTap: (){
-                              Navigator.push(
+                            onTap: () async {
+                              final service = AppSharedData.servicesOrg[index];
+
+                              final result = await Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => ServiceDetailsScreen(
-                                    serviceObj: AppSharedData.servicesOrg[index],
+                                  builder: (_) => BlocProvider.value(
+                                    value: context.read<ServiceOrgCubit>(), // reuse current cubit
+                                    child: ServiceDetailsScreen(serviceObj: service),
                                   ),
                                 ),
                               );
+
+                              if (result == 'deleted') {
+                                context.read<ServiceOrgCubit>().loadServices(); // ✅ refresh on return
+                              }
                             },
                             child: ServiceCardOrg(
                               name: service.serviceTitle,

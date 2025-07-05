@@ -71,7 +71,9 @@ import '../../features/services/domain/repo/service_org_repo_interface.dart'
     as _i154;
 import '../../features/services/domain/usecases/add_service_org_post.dart'
     as _i607;
+import '../../features/services/domain/usecases/delete_service.dart' as _i554;
 import '../../features/services/domain/usecases/get_services.dart' as _i193;
+import '../../features/services/domain/usecases/update_service.dart' as _i132;
 import '../../features/services/presentation/manager/service_org_cubit.dart'
     as _i896;
 import '../../features/show_admin/data/data_sources/admin_data_interface.dart'
@@ -200,8 +202,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i636.ShowApp(appRepo: gh<_i346.AppRepoInterface>()));
     gh.factory<_i607.AddServiceOrgPost>(
         () => _i607.AddServiceOrgPost(gh<_i154.ServiceOrgRepoInterface>()));
+    gh.factory<_i554.DeleteService>(
+        () => _i554.DeleteService(gh<_i154.ServiceOrgRepoInterface>()));
     gh.factory<_i193.GetServicesOrg>(
         () => _i193.GetServicesOrg(gh<_i154.ServiceOrgRepoInterface>()));
+    gh.factory<_i132.UpdateService>(
+        () => _i132.UpdateService(gh<_i154.ServiceOrgRepoInterface>()));
     gh.factory<_i981.RegSeekerVm>(
         () => _i981.RegSeekerVm(gh<_i412.RepoAuth>()));
     gh.factory<_i598.ShowOrg>(
@@ -216,10 +222,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i609.UserCubit>(() => _i609.UserCubit(gh<_i412.RepoAuth>()));
     gh.factory<_i386.SeekerRepository>(
         () => _i475.SeekerRepoImpl(gh<_i946.SeekerDataSource>()));
-    gh.factory<_i896.ServiceOrgCubit>(() => _i896.ServiceOrgCubit(
-          gh<_i607.AddServiceOrgPost>(),
-          gh<_i193.GetServicesOrg>(),
-        ));
     gh.factory<_i630.CourseRepo>(
         () => _i248.CourseRepoImpl(gh<_i234.CourseDataInterface>()));
     gh.factory<_i215.OrgCubit>(() => _i215.OrgCubit(
@@ -228,6 +230,12 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.lazySingleton<_i854.TechRepoInterface>(
         () => _i557.TechRepoImpl(gh<_i411.TechDataSourceInterface>()));
+    gh.factory<_i896.ServiceOrgCubit>(() => _i896.ServiceOrgCubit(
+          gh<_i607.AddServiceOrgPost>(),
+          gh<_i193.GetServicesOrg>(),
+          gh<_i554.DeleteService>(),
+          gh<_i132.UpdateService>(),
+        ));
     gh.factory<_i1064.AddReview>(
         () => _i1064.AddReview(profileRepo: gh<_i886.OrgProfileRepo>()));
     gh.factory<_i431.GetOrgProfile>(

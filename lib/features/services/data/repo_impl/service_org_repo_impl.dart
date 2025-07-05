@@ -18,9 +18,16 @@ class ServiceOrgRepoImpl implements ServiceOrgRepoInterface{
     return dataSource.addServicePost(service);
   }
   Future<Result<void>> getServices(int id) {
-    debugPrint("repo impl");
 
     return dataSource.getServices(id);
 
+  }
+  Future<Result<void>> deleteService (int id){
+    return dataSource.deleteService(id);
+  }
+
+  @override
+  Future<Result<void>> updateService( int id,ServiceRequestModel service) {
+    return dataSource.updateService(id,service);
   }
 }

@@ -6,12 +6,12 @@ import 'package:hireny/result.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
-class GetServicesOrg {
+class DeleteService {
   final ServiceOrgRepoInterface serviceRepo;
-  GetServicesOrg(this.serviceRepo);
+  DeleteService(this.serviceRepo);
 
   Future<Result<void>> call(int id)  {
-    return  serviceRepo.getServices(id);
+    return  serviceRepo.deleteService(id);
   }
 
 }
