@@ -17,3 +17,11 @@ class JobDetailsError extends JobDatailesState {
 
   JobDetailsError({required this.message});
 }
+
+class SubmitApplicationLoading extends JobDatailesState {}
+
+class HideSubmitApplicationLoading extends JobDatailesState {}
+
+class SubmitApplicationSuccess extends JobDatailesState {}
+
+class SubmitApplicationError extends JobDatailesState {}

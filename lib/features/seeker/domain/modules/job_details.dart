@@ -1,3 +1,5 @@
+import 'package:hireny/features/auth/domain/modules/assessment/question.dart';
+
 class JobDetailsModel {
   final int id;
   final String jobTitle;
@@ -16,7 +18,7 @@ class JobDetailsModel {
   final String currency;
   final List<String> requiredSkills;
   final String jobLocationType;
-  final List<dynamic> questions; // Can be expanded later if needed
+  final List<Question> questions; // Can be expanded later if needed
   final String createdAt;
   final String updatedAt;
   final int organizationId;
@@ -67,6 +69,14 @@ class JobDetailsModel {
               .map((item) => item.toString())
               .toList();
     }
+    // Parse questions list
+    List<Question> questionsList = [];
+    if (json['questions'] is List) {
+      questionsList =
+          (json['questions'] as List)
+              .map((item) => Question.fromJson(item))
+              .toList();
+    }
 
     return JobDetailsModel(
       id: json['id'],
@@ -86,7 +96,7 @@ class JobDetailsModel {
       currency: json['currency'] ?? '',
       requiredSkills: skillsList,
       jobLocationType: json['jobLocationType'] ?? '',
-      questions: json['questions'] ?? [],
+      questions: questionsList,
       createdAt: json['createdAt'] ?? '',
       updatedAt: json['updatedAt'] ?? '',
       organizationId: json['organization'] ?? -1,

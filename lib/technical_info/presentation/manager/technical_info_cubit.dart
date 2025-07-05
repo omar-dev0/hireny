@@ -148,7 +148,7 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
           description: descriptionController.text,
           createdAt: DateTime.now().toIso8601String(),
           updatedAt: DateTime.now().toIso8601String(),
-          user: AppSharedData.user?.id,
+          user: AppSharedData.user?.id?.toInt(),
         );
       } else if (isEducation) {
         isEducation = false;
@@ -161,7 +161,7 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
           description: descriptionController.text,
           createdAt: DateTime.now().toIso8601String(),
           updatedAt: DateTime.now().toIso8601String(),
-          user: AppSharedData.user?.id,
+          user: AppSharedData.user?.id?.toInt(),
         );
       } else if (isExperience) {
         isExperience = false;
@@ -175,7 +175,7 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
           description: descriptionController.text,
           createdAt: DateTime.now().toIso8601String(),
           updatedAt: DateTime.now().toIso8601String(),
-          user: AppSharedData.user?.id,
+          user: AppSharedData.user?.id?.toInt(),
         );
       }else if(isSkill){
         print(isSkill);
@@ -183,7 +183,7 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
             skillName: selectedSkill!,
           createdAt: DateTime.now().toIso8601String(),
           updatedAt: DateTime.now().toIso8601String(),
-          user: AppSharedData.user!.id,
+          user: AppSharedData.user!.id?.toInt(),
         );
 
       }
@@ -193,7 +193,7 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
           languageName: selectedLang!,
           createdAt: DateTime.now().toIso8601String(),
           updatedAt: DateTime.now().toIso8601String(),
-          user: AppSharedData.user!.id,
+          user: AppSharedData.user!.id?.toInt(),
         );
 
       }
@@ -267,7 +267,7 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
           description: descriptionController.text,
           createdAt: data.createdAt,
           updatedAt: DateTime.now().toIso8601String(),
-          user: AppSharedData.user?.id,
+          user: AppSharedData.user?.id?.toInt(),
         ).toJson();
       } else if (data is Educations) {
         dataToSend = Educations(
@@ -279,7 +279,7 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
           description: descriptionController.text,
           createdAt: data.createdAt,
           updatedAt: DateTime.now().toIso8601String(),
-          user: AppSharedData.user?.id,
+          user: AppSharedData.user?.id?.toInt(),
         ).toJson();
       } else if (data is ExperienceModel) {
         dataToSend = ExperienceModel(
@@ -292,7 +292,7 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
           description: descriptionController.text,
           createdAt: data.createdAt,
           updatedAt: DateTime.now().toIso8601String(),
-          user: AppSharedData.user?.id,
+          user: AppSharedData.user?.id?.toInt(),
         ).toJson();
       } else {
         final error = "❌ Invalid form type selected for update.";

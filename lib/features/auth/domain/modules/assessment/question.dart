@@ -19,7 +19,10 @@ class Question {
       type: json['type'],
       choices: List<String>.from(json['choices']),
       correctAnswer: json['correctAnswer'],
-      optionsCount: json['optionsCount'],
+      optionsCount:
+          json['optionsCount'] is String
+              ? int.parse(json['optionsCount'])
+              : (json['optionsCount'] ?? 0),
     );
   }
 

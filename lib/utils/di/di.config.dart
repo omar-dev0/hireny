@@ -47,19 +47,25 @@ import '../../features/my_assessment/presentation/cubit/user_assessment_cubit.da
     as _i201;
 import '../../features/my_assessment/presentation/ui/assissment_detailes/cubit/assiss_cubit.dart'
     as _i721;
-import '../../features/org_profile/data/data_sources/org_profile_data_interface.dart'
-    as _i30;
-import '../../features/org_profile/data/data_sources/org_profile_local_data_source.dart'
-    as _i944;
-import '../../features/org_profile/data/repo_impl/org_profile_repo_impl.dart'
-    as _i91;
-import '../../features/org_profile/domain/repositories/org_profile_repo.dart'
-    as _i886;
-import '../../features/org_profile/domain/usecases/add_review.dart' as _i1064;
-import '../../features/org_profile/domain/usecases/get_org_profile.dart'
-    as _i431;
-import '../../features/org_profile/domain/usecases/get_posts.dart' as _i512;
-import '../../features/org_profile/domain/usecases/get_reviews.dart' as _i754;
+import '../../features/notification/data/api/api_manger.dart' as _i572;
+import '../../features/notification/data/data_source/notification_data_source.dart'
+    as _i707;
+import '../../features/notification/data/data_source_imp/notification_data_source_imp.dart'
+    as _i541;
+import '../../features/notification/data/repo_imp/notification_repo_imp.dart'
+    as _i742;
+import '../../features/notification/domain/repo_contract/notification_repo.dart'
+    as _i823;
+import '../../features/notification/ui/cubit/notification_cubit.dart' as _i504;
+import '../../features/org_profile/data/api/api_manger.dart' as _i527;
+import '../../features/org_profile/data/data_source/org_profile_data_source.dart'
+    as _i297;
+import '../../features/org_profile/data/data_source_imp/org_profile_data_source_imp.dart'
+    as _i749;
+import '../../features/org_profile/data/repo_imp/org_profile_repo_imp.dart'
+    as _i568;
+import '../../features/org_profile/domain/repo_contract/org_profile_repo_contratc.dart'
+    as _i814;
 import '../../features/org_profile/presentation/manager/org_profile_cubit.dart'
     as _i5;
 import '../../features/seeker/data/api/seeker_api.dart' as _i514;
@@ -78,6 +84,8 @@ import '../../features/seeker/view/screens/explore_job/cubit/explore_job_cubit.d
     as _i401;
 import '../../features/seeker/view/screens/explore_org_seeker/cubit/explore_org_for_seeker_cubit.dart'
     as _i123;
+import '../../features/seeker/view/screens/job_detailes/application_deatailes/cubit/application_deatailes_cubit.dart'
+    as _i507;
 import '../../features/seeker/view/screens/job_detailes/cubit/job_detailes_cubit.dart'
     as _i704;
 import '../../features/seeker/view/screens/salary_insights/cubit/salary_cubit.dart'
@@ -119,19 +127,15 @@ import '../../features/show_courses/domain/repositories/CourseRepo.dart'
 import '../../features/show_courses/domain/usecases/show_courses.dart' as _i714;
 import '../../features/show_courses/presentation/ui/manager/seeker_course_cubit.dart'
     as _i583;
-import '../../features/view_application/data/data_sources/app_data_interface.dart'
-    as _i867;
-import '../../features/view_application/data/data_sources/local_app_data.dart'
-    as _i284;
-import '../../features/view_application/data/repo_impl/app_repo_impl.dart'
-    as _i821;
-import '../../features/view_application/domain/repositories/app_repo_interface.dart'
-    as _i346;
-import '../../features/view_application/domain/usecases/delete_app.dart'
-    as _i37;
-import '../../features/view_application/domain/usecases/show_app.dart' as _i636;
-import '../../features/view_application/presentation/application_deatailes/cubit/application_deatailes_cubit.dart'
-    as _i1063;
+import '../../features/view_application/data/api/api_manger.dart' as _i417;
+import '../../features/view_application/data/data_source/application_data_scource.dart'
+    as _i674;
+import '../../features/view_application/data/data_source_imp/application_data_source_imp.dart'
+    as _i337;
+import '../../features/view_application/data/repo_imp/application_repo_imp.dart'
+    as _i1009;
+import '../../features/view_application/domain/repo_contract/application_repo_contratc.dart'
+    as _i901;
 import '../../features/view_application/presentation/manager/app_cubit.dart'
     as _i610;
 import '../../features/view_org_for_seeker/data/data_sources/local_org_data.dart'
@@ -179,10 +183,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i528.PrettyDioLogger>(() => dioProvider.providePretty());
     gh.lazySingleton<_i5.AdminDataInterface>(
         () => _i974.AdminLocalDataSource());
-    gh.lazySingleton<_i30.OrgProfileDataInterface>(
-        () => _i944.OrgProfileLocalDataSource());
     gh.lazySingleton<_i925.OrgDataInterface>(() => _i342.LocalOrgData());
-    gh.lazySingleton<_i867.AppDataInterface>(() => _i284.LocalAppData());
+    gh.singleton<_i572.NotificationApiManger>(
+        () => _i572.NotificationApiManger(gh<_i361.Dio>()));
+    gh.singleton<_i527.OrgProfileApi>(
+        () => _i527.OrgProfileApi(gh<_i361.Dio>()));
     gh.singleton<_i451.CoursesApiManager>(
         () => _i451.CoursesApiManager(gh<_i361.Dio>()));
     gh.singleton<_i758.ApiManger>(() => _i758.ApiManger(gh<_i361.Dio>()));
@@ -194,12 +199,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i341.ServiceApiManager(gh<_i361.Dio>()));
     gh.singleton<_i409.TechApiManager>(
         () => _i409.TechApiManager(gh<_i361.Dio>()));
+    gh.singleton<_i417.ApplicationApi>(
+        () => _i417.ApplicationApi(gh<_i361.Dio>()));
     gh.lazySingleton<_i387.ServiceOrgDataSourceInterface>(
         () => _i618.ServiceOrgDataSource(gh<_i341.ServiceApiManager>()));
     gh.factory<_i656.AdminRepoInterface>(
         () => _i587.AdminRepoImpl(gh<_i5.AdminDataInterface>()));
-    gh.factory<_i346.AppRepoInterface>(
-        () => _i821.AppRepoImpl(gh<_i867.AppDataInterface>()));
     gh.factory<_i523.CalenderDataSource>(
         () => _i342.CalenderDataSourceImp(gh<_i2.CalenderApi>()));
     gh.lazySingleton<_i154.ServiceOrgRepoInterface>(() =>
@@ -214,8 +219,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i591.DataSourcAuthImp(gh<_i758.ApiManger>()));
     gh.factory<_i225.CalenderRepoContract>(
         () => _i223.CalenderRepoImp(gh<_i523.CalenderDataSource>()));
-    gh.factory<_i886.OrgProfileRepo>(
-        () => _i91.OrgProfileRepoImpl(gh<_i30.OrgProfileDataInterface>()));
+    gh.factory<_i707.NotificationDataSource>(() =>
+        _i541.NotificationDataSourceImp(gh<_i572.NotificationApiManger>()));
     gh.factory<_i412.RepoAuth>(
         () => _i951.RepoAuthImp(gh<_i364.AuthDataSource>()));
     gh.factory<_i413.ForgetPasswordVM>(
@@ -230,20 +235,24 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i338.LocalCourseData(gh<_i451.CoursesApiManager>()));
     gh.factory<_i1018.ChatBootDataSource>(
         () => _i347.ChatBootDataSourceImp(gh<_i174.ChatBootApiManger>()));
-    gh.factory<_i636.ShowApp>(
-        () => _i636.ShowApp(appRepo: gh<_i346.AppRepoInterface>()));
-    gh.factory<_i37.DeleteApp>(
-        () => _i37.DeleteApp(appRepo: gh<_i346.AppRepoInterface>()));
+    gh.factory<_i674.ApplicationDataSource>(
+        () => _i337.ApplicationDataSourceImp(gh<_i417.ApplicationApi>()));
+    gh.factory<_i297.OrgProfileDataSource>(
+        () => _i749.OrgProfileDataSourceImp(gh<_i527.OrgProfileApi>()));
+    gh.factory<_i823.NotificationRepo>(
+        () => _i742.NotificationRepoImp(gh<_i707.NotificationDataSource>()));
+    gh.factory<_i901.ApplicationRepo>(
+        () => _i1009.ApplicationRepoImp(gh<_i674.ApplicationDataSource>()));
     gh.factory<_i607.AddServiceOrgPost>(
         () => _i607.AddServiceOrgPost(gh<_i154.ServiceOrgRepoInterface>()));
     gh.factory<_i896.ServiceOrgCubit>(
         () => _i896.ServiceOrgCubit(gh<_i607.AddServiceOrgPost>()));
     gh.factory<_i981.RegSeekerVm>(
         () => _i981.RegSeekerVm(gh<_i412.RepoAuth>()));
-    gh.factory<_i1063.ApplicationDeatailesCubit>(
-        () => _i1063.ApplicationDeatailesCubit(gh<_i412.RepoAuth>()));
     gh.factory<_i721.AssissmentCubit>(
         () => _i721.AssissmentCubit(gh<_i412.RepoAuth>()));
+    gh.factory<_i504.NotificationCubit>(
+        () => _i504.NotificationCubit(gh<_i823.NotificationRepo>()));
     gh.factory<_i598.ShowOrg>(
         () => _i598.ShowOrg(orgRepo: gh<_i648.OrgRepo>()));
     gh.factory<_i81.VerifyOrg>(
@@ -258,6 +267,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i201.UserAssessmentCubit(gh<_i412.RepoAuth>()));
     gh.factory<_i386.SeekerRepository>(
         () => _i475.SeekerRepoImpl(gh<_i946.SeekerDataSource>()));
+    gh.factory<_i814.OrgProfileRepoContract>(
+        () => _i568.OrgProfileRepoImp(gh<_i297.OrgProfileDataSource>()));
     gh.factory<_i630.CourseRepo>(
         () => _i248.CourseRepoImpl(gh<_i234.CourseDataInterface>()));
     gh.factory<_i215.OrgCubit>(() => _i215.OrgCubit(
@@ -266,26 +277,8 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.lazySingleton<_i854.TechRepoInterface>(
         () => _i557.TechRepoImpl(gh<_i411.TechDataSourceInterface>()));
-    gh.factory<_i754.GetReviews>(
-        () => _i754.GetReviews(profileRepo: gh<_i886.OrgProfileRepo>()));
-    gh.factory<_i1064.AddReview>(
-        () => _i1064.AddReview(profileRepo: gh<_i886.OrgProfileRepo>()));
-    gh.factory<_i431.GetOrgProfile>(
-        () => _i431.GetOrgProfile(profileRepo: gh<_i886.OrgProfileRepo>()));
-    gh.factory<_i512.GetPosts>(
-        () => _i512.GetPosts(profileRepo: gh<_i886.OrgProfileRepo>()));
     gh.factory<_i889.CourseCubit>(
         () => _i889.CourseCubit(gh<_i386.SeekerRepository>()));
-    gh.factory<_i5.OrgProfileCubit>(() => _i5.OrgProfileCubit(
-          gh<_i431.GetOrgProfile>(),
-          gh<_i1064.AddReview>(),
-          gh<_i754.GetReviews>(),
-          gh<_i512.GetPosts>(),
-        ));
-    gh.factory<_i610.AppCubit>(() => _i610.AppCubit(
-          gh<_i37.DeleteApp>(),
-          gh<_i636.ShowApp>(),
-        ));
     gh.factory<_i48.ChatBootRepo>(
         () => _i731.ChatBootRepoImp(gh<_i1018.ChatBootDataSource>()));
     gh.factory<_i938.CourseDetailsCubit>(
@@ -296,12 +289,18 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i627.SalaryCubit(gh<_i386.SeekerRepository>()));
     gh.factory<_i123.OrgPostCubit>(
         () => _i123.OrgPostCubit(gh<_i386.SeekerRepository>()));
+    gh.factory<_i507.ApplicationDeatailesCubit>(
+        () => _i507.ApplicationDeatailesCubit(gh<_i386.SeekerRepository>()));
+    gh.factory<_i610.AppCubit>(
+        () => _i610.AppCubit(gh<_i901.ApplicationRepo>()));
     gh.factory<_i714.ShowCourses>(
         () => _i714.ShowCourses(courseRepo: gh<_i630.CourseRepo>()));
     gh.factory<_i401.JobPostCubit>(
         () => _i401.JobPostCubit(gh<_i386.SeekerRepository>()));
     gh.factory<_i471.ChatBotCubit>(
         () => _i471.ChatBotCubit(gh<_i48.ChatBootRepo>()));
+    gh.factory<_i5.OrgProfileCubit>(
+        () => _i5.OrgProfileCubit(gh<_i814.OrgProfileRepoContract>()));
     gh.factory<_i120.UpdateTechInfo>(
         () => _i120.UpdateTechInfo(gh<_i854.TechRepoInterface>()));
     gh.factory<_i377.DeleteTechInfo>(

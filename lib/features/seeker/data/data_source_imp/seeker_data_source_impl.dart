@@ -42,4 +42,11 @@ class SeekerDataSourceImpl implements SeekerDataSource {
   Future<Result<Course>> getCourseDetails(int courseId) {
     return seekerApi.getCourseDetails(courseId);
   }
+  Future<Result<void>?> applyJob(
+    num jobId,
+    bool haveApplication,
+    List<dynamic> answers,
+  ) {
+    return seekerApi.applyJob(jobId, haveApplication, answers);
+  }
 }

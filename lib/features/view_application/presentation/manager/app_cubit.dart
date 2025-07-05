@@ -1,38 +1,37 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hireny/features/view_application/domain/entities/application_entity.dart';
-import 'package:hireny/features/view_application/domain/usecases/delete_app.dart';
+import 'package:hireny/features/view_application/domain/model/user_application.dart';
+import 'package:hireny/features/view_application/domain/repo_contract/application_repo_contratc.dart';
 import 'package:hireny/features/view_application/presentation/manager/app_states.dart';
+import 'package:hireny/result.dart';
 
 import 'package:injectable/injectable.dart';
 
-import '../../domain/usecases/show_app.dart';
-
 @injectable
-class AppCubit extends Cubit<AppStates> {
-  final DeleteApp removeApp;
-  final ShowApp listApp;
-  List<AppEntity> applications = [];
-
+class AppCubit extends Cubit<AppState> {
+  ApplicationRepo applicationRepo;
   @factoryMethod
-  AppCubit(this.removeApp, this.listApp) : super(InitialState());
+  AppCubit(this.applicationRepo) : super(InitUserAppState());
 
-  Future<void> loadApplications() async {
+  Future<void> getUserApplication() async {
     try {
-      emit(LoadingState());
-      applications = await listApp.call();
-      emit(SuccessState());
+      emit(LoadingUserAppState());
+      final result = await applicationRepo.getUserApplication();
+      switch (result) {
+        case null:
+          {
+            emit(ErrorUserAppState());
+          }
+        case Success<List<SeekerApplication>>():
+          {
+            emit(SuccessUserAppState(result.response ?? []));
+          }
+        case Error<List<SeekerApplication>>():
+          {
+            emit(ErrorUserAppState());
+          }
+      }
     } catch (e) {
-      emit(ErrorState("Failed to load applications"));
-    }
-  }
-
-  Future<void> deleteCourse(AppEntity app) async {
-    try {
-      await removeApp.call(app);
-      emit(SuccessState());
-      await loadApplications();
-    } catch (e) {
-      emit(ErrorState("Failed to delete application: ${e.toString()}"));
+      emit(ErrorUserAppState());
     }
   }
 }

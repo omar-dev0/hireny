@@ -14,13 +14,8 @@ class NotificationService {
   WebSocket? _socket;
 
   Future<void> init() async {
-    // Request notification permissions
-    if (Platform.isAndroid) {
       if (await Permission.notification.isDenied) {
         await Permission.notification.request();
-      }
-    } else if (Platform.isIOS) {
-      await Permission.notification.request();
     }
 
     const androidInit = AndroidInitializationSettings('@mipmap/ic_launcher');
@@ -34,7 +29,6 @@ class NotificationService {
       iOS: iosInit,
     );
     await _flutterLocalNotificationsPlugin.initialize(initializationSettings);
-
     _createNotificationChannel();
   }
 
@@ -56,71 +50,75 @@ class NotificationService {
   }
 
   Future<void> connectToWebSocket(String token) async {
-    final url =
-        'ws://localhost:8000/ws/notifications/?token=$token'; // for Android emulator
-
     try {
-      print('🔌 Connecting to: $url');
-      _socket = await WebSocket.connect(url);
+      _socket = await WebSocket.connect(
+        'ws://localhost:8000/ws/notifications/?token=$token',
+      );
+      print('✅ Connected to WebSocket server');
 
       _socket!.listen(
         (message) {
-          print('📥 WebSocket Response: $message');
+          print('📥 Message received: $message');
           _handleIncomingMessage(message);
+        },
+        onDone: () {
+          print('🔌 WebSocket connection closed');
         },
         onError: (error) {
           print('❌ WebSocket error: $error');
         },
-        onDone: () {
-          print("🔌 WebSocket connection closed.");
-        },
       );
-
-      print('✅ WebSocket connected');
     } catch (e) {
-      print('❗ WebSocket connection failed: $e');
+      print('❗ Failed to connect to WebSocket: $e');
     }
   }
 
   void _handleIncomingMessage(String message) {
     try {
       final data = jsonDecode(message);
-      print('🔔 Incoming notification: $data');
       final title = data['title'] ?? 'Notification';
       final body = data['body'] ?? 'You have a new message';
-
-      _showNotification(title, body);
+      final int id = data['id'];
+      print(data);
+      _showNotification(title, body, id);
     } catch (e) {
       print('⚠️ Invalid message format: $message');
     }
   }
 
-  Future<void> _showNotification(String title, String body) async {
-    const androidDetails = AndroidNotificationDetails(
-      'default_channel',
-      'General Notifications',
-      channelDescription: 'Used for general notifications',
-      importance: Importance.high,
-      priority: Priority.high,
-    );
+  Future<void> _showNotification(String title, String body, int id) async {
+    try {
+      AndroidNotificationDetails? androidDetails;
+      if (Platform.isAndroid) {
+        androidDetails = AndroidNotificationDetails(
+          'default_channel',
+          'General Notifications',
+          channelDescription: 'Used for general notifications',
+          importance: Importance.high,
+          priority: Priority.high,
+        );
+      }
 
-    const iosDetails = DarwinNotificationDetails(
-      presentAlert: true,
-      presentBadge: true,
-      presentSound: true,
-    );
+      const iosDetails = DarwinNotificationDetails(
+        presentAlert: true,
+        presentBadge: true,
+        presentSound: true,
+      );
 
-    const notificationDetails = NotificationDetails(
-      android: androidDetails,
-      iOS: iosDetails,
-    );
+      NotificationDetails notificationDetails = NotificationDetails(
+        android: androidDetails,
+        iOS: iosDetails,
+      );
 
-    await _flutterLocalNotificationsPlugin.show(
-      DateTime.now().millisecondsSinceEpoch ~/ 1000,
-      title,
-      body,
-      notificationDetails,
-    );
+      await _flutterLocalNotificationsPlugin.show(
+        id,
+        title,
+        body,
+        notificationDetails,
+      );
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   void disconnect() {
@@ -129,8 +127,12 @@ class NotificationService {
   }
 
   void sendMessage(Map<String, dynamic> message) {
-    final encoded = jsonEncode(message);
-    print('📤 WebSocket Request: $encoded');
-    _socket?.add(encoded);
+    if (_socket != null && _socket!.readyState == WebSocket.open) {
+      final encoded = jsonEncode(message);
+      print('📤 Sending message: $encoded');
+      _socket!.add(encoded);
+    } else {
+      print('⚠️ Cannot send message — WebSocket is not connected.');
+    }
   }
 }

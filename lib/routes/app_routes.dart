@@ -19,7 +19,7 @@ import 'package:hireny/features/seeker/view/screens/explore_job/explore_job_seek
 import 'package:hireny/features/seeker/view/screens/salary_insights/salary_insights_screen.dart';
 import 'package:hireny/features/services/presentation/ui/services_view.dart';
 import 'package:hireny/features/view_application/presentation/manager/app_cubit.dart';
-import 'package:hireny/features/view_application/presentation/ui/view_application.dart';
+import 'package:hireny/features/view_application/presentation/ui/view_application_content.dart';
 import 'package:hireny/routes/page_route.dart';
 import 'package:hireny/technical_info/presentation/manager/technical_info_cubit.dart';
 import 'package:hireny/widget/tabbar.dart';
@@ -37,6 +37,7 @@ import '../features/calender/ui/calender_screen_content.dart';
 import '../features/course_detailes/presentation/views/course_details_view.dart';
 import '../features/manage_org_account/org_rep_tab/presentation/ui/org_rep.dart';
 import '../features/manage_org_account/service_request_tab/presentation/ui/service_request.dart';
+import '../features/notification/ui/notification_screen.dart';
 import '../features/organization/view/explore_organizations_org.dart';
 import '../features/organization/view/explore_services_org.dart';
 import '../features/organization/view/related_services_org.dart';
@@ -49,6 +50,7 @@ import '../features/services/presentation/ui/service_details.dart';
 import '../features/services/presentation/ui/service_post.dart';
 import '../features/show_courses/presentation/ui/manager/seeker_course_cubit.dart';
 import '../features/show_courses/presentation/ui/views/my_courses_view.dart';
+import '../features/view_application/presentation/ui/view_application_screen.dart';
 import '../technical_info/presentation/technical_view.dart';
 import '../utils/constants/app_colors.dart';
 import '../utils/data_shared/app_shared_data.dart';
@@ -169,36 +171,13 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
     );
   }
   if (name == PagesRoute.myApplication) {
-    return MaterialPageRoute(
-      builder:
-          (_) => BlocProvider(
-            create: (_) => getIt.get<AppCubit>(),
-            child: ViewApplication(),
-          ),
-    );
+    return MaterialPageRoute(builder: (_) =>ViewApplicationScreen());
   }
-  // if (name == PagesRoute.myAssessment) {
-  //   return MaterialPageRoute(
-  //     builder:
-  //         (_) => BlocProvider(
-  //       create: (_) => getIt.get<AppCubit>(),
-  //       child: MyAssessment(),
-  //     ),
-  //   );
 
   if (name == PagesRoute.myAssessment) {
     return MaterialPageRoute(builder: (_) => MyAssessmentScreen());
   }
 
-  if (name == PagesRoute.orgProfile) {
-    return MaterialPageRoute(
-      builder:
-          (_) => BlocProvider(
-            create: (_) => getIt.get<OrgProfileCubit>(),
-            child: OrgProfile(),
-          ),
-    );
-  }
 
   if (name == PagesRoute.reg) {
     bool isOrg = false;
@@ -273,6 +252,9 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
 
   if (name == PagesRoute.chatBoot) {
     return MaterialPageRoute(builder: (_) => ChatBootScreen());
+  }
+  if (name == PagesRoute.notifications) {
+    return MaterialPageRoute(builder: (_) => NotificationScreen());
   }
   // Default case
   return MaterialPageRoute(

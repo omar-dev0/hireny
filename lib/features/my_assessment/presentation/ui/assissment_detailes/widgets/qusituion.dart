@@ -27,7 +27,7 @@ class Qusituion extends StatelessWidget {
             ),
           ),
           SizedBox(height: 20),
-          Expanded(child: answer),
+          answer,
         ],
       ),
     );

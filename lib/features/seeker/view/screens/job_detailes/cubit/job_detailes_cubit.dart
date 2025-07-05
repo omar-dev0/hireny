@@ -27,4 +27,35 @@ class JobDetailsCubit extends Cubit<JobDatailesState> {
       emit(JobDetailsError(message: e.toString()));
     }
   }
+
+  Future<void> applyJob(num jobId, bool haveApplication) async {
+    try {
+      emit(SubmitApplicationLoading());
+      final result = await seekerRepository.applyJob(
+        jobId,
+        haveApplication,
+        [],
+      );
+      switch (result) {
+        case null:
+          {
+            emit(HideSubmitApplicationLoading());
+            emit(SubmitApplicationError());
+          }
+        case Success<void>():
+          {
+            emit(HideSubmitApplicationLoading());
+            emit(SubmitApplicationSuccess());
+          }
+        case Error<void>():
+          {
+            emit(HideSubmitApplicationLoading());
+            emit(SubmitApplicationError());
+          }
+      }
+    } catch (e) {
+      emit(HideSubmitApplicationLoading());
+      emit(SubmitApplicationError());
+    }
+  }
 }

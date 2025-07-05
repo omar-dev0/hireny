@@ -16,15 +16,16 @@ class OrgAdmin extends User {
   String? ceo;
 
   @HiveField(15)
-  String? startYear;
+  num? startYear;
 
   @HiveField(16)
-  String? industry;
+  List<String?>? industry;
 
   @HiveField(17)
   String? orgSize;
 
   OrgAdmin({
+    num? id,
     String? firstName,
     String? lastName,
     String? email,
@@ -41,6 +42,7 @@ class OrgAdmin extends User {
     this.industry,
     this.orgSize,
   }) : super(
+    id: id,
          firstName: firstName,
          lastName: lastName,
          email: email,
@@ -54,34 +56,36 @@ class OrgAdmin extends User {
        );
 
   factory OrgAdmin.fromJson(Map<String, dynamic> json) => OrgAdmin(
-    firstName: json['firstName'],
-    lastName: json['lastName'],
-    email: json['email'],
-    phone: json['phone'],
-    role: json['role'],
-    country: json['country'],
-    city: json['city'],
-    links: json['links'] is String
-        ? (jsonDecode(json['links']) as List?)
-        ?.map((e) => UserLink.fromJson(e as Map<String, dynamic>))
-        .toList()
-        : json['links'] is List
-        ? (json['links'] as List)
-        .map((e) => UserLink.fromJson(e as Map<String, dynamic>))
-        .toList()
-        : null,
-    updatesToEmail: json['updatesToEmail'],
-    photo: json['photo'],
-    companyName: json['name'],
-    ceo: json['ceo'],
-    startYear: json['eYear'],
-    industry: json['industry'],
-    orgSize: json['organizationSize'],
+    id: json['user']?['id'],
+    firstName: json['user']?['firstName'],
+    lastName: json['user']?['lastName'],
+    email: json['user']?['email'],
+    phone: json['organization']?['phone'],
+    role: json['user']?['role'],
+    country: json['organization']?['country'],
+    city: json['organization']?['city'],
+    links:
+        (json['organization']?['links'] is List)
+            ? (json['organization']['links'] as List)
+                .map((e) => UserLink.fromJson(e as Map<String, dynamic>))
+                .toList()
+            : null,
+    updatesToEmail: json['organization']?['updatesToEmail'],
+    photo: json['organization']?['photo'],
+    companyName: json['organization']?['name'],
+    ceo: json['organization']?['ceoName'],
+    startYear: json['organization']?['eYear'],
+    industry:
+        (json['organization']?['industry'] as List?)
+            ?.map((e) => e.toString())
+            .toList(),
+    orgSize: json['organization']?['organizationSize'],
   );
 
   @override
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'firstName': firstName,
       'lastName': lastName,
       'email': email,

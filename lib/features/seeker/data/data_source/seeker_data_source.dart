@@ -17,4 +17,9 @@ abstract class SeekerDataSource {
   Future<Result<List<OrgPost>>> getAllOrganizations();
 
   Future<Result<Course>> getCourseDetails(int courseId);
+  Future<Result<void>?> applyJob(
+    num jobId,
+    bool haveApplication,
+    List<dynamic> answers,
+  );
 }

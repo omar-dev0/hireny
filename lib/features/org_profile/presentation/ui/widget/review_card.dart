@@ -4,39 +4,51 @@ import 'package:animate_do/animate_do.dart';
 
 import 'package:hireny/features/org_profile/presentation/manager/org_profile_cubit.dart';
 import 'package:hireny/features/org_profile/presentation/manager/org_profile_states.dart';
+import 'package:hireny/utils/data_shared/app_shared_data.dart';
 import 'package:hireny/utils/widgets/custom_text_field.dart';
 import '../../../../../utils/constants/app_colors.dart';
 import '../../../../../utils/constants/app_fonts.dart';
+import 'edit_bottom_sheet.dart';
 
-class ReviewCard extends StatefulWidget {
+class ReviewCardOrgProfile extends StatefulWidget {
   final OrgProfileCubit profileCubit;
+  final num Id;
 
-  const ReviewCard({super.key, required this.profileCubit});
+  const ReviewCardOrgProfile({
+    super.key,
+    required this.profileCubit,
+    required this.Id,
+  });
 
   @override
-  State<ReviewCard> createState() => _ReviewCardState();
+  State<ReviewCardOrgProfile> createState() => _ReviewCardOrgProfileState();
 }
 
-class _ReviewCardState extends State<ReviewCard> {
+class _ReviewCardOrgProfileState extends State<ReviewCardOrgProfile> {
   late OrgProfileCubit cubit;
 
   @override
   void initState() {
-    cubit = widget.profileCubit;
     super.initState();
-    cubit.loadReviews();
+    cubit = widget.profileCubit;
+    cubit.getOrgReviews(widget.Id);
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<OrgProfileCubit, OrgProfileStates>(
+    return BlocBuilder<OrgProfileCubit, OrgProfilleState>(
       builder: (context, state) {
+        if (state is LoadingReviews) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        if (state is ErrorLoadedReviews) {
+          return Center(child: Text(state.error));
+        }
         return ListView.builder(
           padding: const EdgeInsets.symmetric(vertical: 16),
-          itemCount: cubit.reviews.length + 1,
+          itemCount: cubit.reviews.length,
           itemBuilder: (context, index) {
-            // Add Review Input at the end
-            if (index == cubit.reviews.length) {
+            if (index == 0) {
               return Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 14,
@@ -95,8 +107,9 @@ class _ReviewCardState extends State<ReviewCard> {
                                   final text =
                                       cubit.reviewController.text.trim();
                                   if (text.isNotEmpty) {
-                                    cubit.addReview();
+                                    cubit.addOrgReview(widget.Id, text);
                                     cubit.reviewController.clear();
+                                    setState(() {});
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
@@ -120,12 +133,11 @@ class _ReviewCardState extends State<ReviewCard> {
               );
             }
 
-            // Review Card
             final review = cubit.reviews[index];
             final initials =
-                review.owner.isNotEmpty
-                    ? review.owner
-                        .trim()
+                review.reviewerName!.isNotEmpty
+                    ? review.reviewerName
+                        ?.trim()
                         .split(" ")
                         .map((e) => e[0])
                         .take(2)
@@ -172,10 +184,9 @@ class _ReviewCardState extends State<ReviewCard> {
                               decoration: BoxDecoration(
                                 color: AppColors.white,
                                 borderRadius: BorderRadius.circular(12),
-                                // border: Border.all(color: AppColors.grey),
                               ),
                               child: Text(
-                                review.content,
+                                review.message ?? "",
                                 style: AppFonts.textFieldStyle.copyWith(
                                   color: AppColors.black.withOpacity(0.8),
                                 ),
@@ -188,7 +199,7 @@ class _ReviewCardState extends State<ReviewCard> {
                                   radius: 24,
                                   backgroundColor: AppColors.primary,
                                   child: Text(
-                                    initials,
+                                    initials ?? "",
                                     style: AppFonts.mainText.copyWith(
                                       color: AppColors.white,
                                       fontSize: 18,
@@ -196,21 +207,63 @@ class _ReviewCardState extends State<ReviewCard> {
                                   ),
                                 ),
                                 const SizedBox(width: 14),
-                                Text(
-                                  review.owner,
-                                  style: AppFonts.mainText.copyWith(
-                                    fontSize: 16,
-                                    color: AppColors.black,
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        review.reviewerName ?? "",
+                                        style: AppFonts.mainText.copyWith(
+                                          fontSize: 16,
+                                          color: AppColors.black,
+                                        ),
+                                      ),
+                                      Text(
+                                        "${review.createdAt?.day}/${review.createdAt?.month}/${review.createdAt?.year}",
+                                        style: AppFonts.textFieldStyle.copyWith(
+                                          color: AppColors.grey.withOpacity(
+                                            0.8,
+                                          ),
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                const Spacer(),
-                                Text(
-                                  review.publishedTime,
-                                  style: AppFonts.textFieldStyle.copyWith(
-                                    color: AppColors.grey.withOpacity(0.8),
-                                    fontSize: 12,
+                                if (review.reviewer == AppSharedData.user?.id)
+                                  PopupMenuButton<String>(
+                                    icon: const Icon(
+                                      Icons.more_vert,
+                                      color: AppColors.primary,
+                                    ),
+                                    onSelected: (value) {
+                                      if (value == 'edit') {
+                                        showEditReviewBottomSheet(
+                                          onEdit: (val) {
+                                            cubit.updateReview(review.id!, val);
+                                            setState(() {});
+                                          },
+                                          context: context,
+                                          initialText: review.message ?? "",
+                                        );
+                                      } else if (value == 'delete') {
+                                        cubit.deleteOrgReview(review.id!);
+                                        setState(() {});
+                                      }
+                                    },
+                                    itemBuilder:
+                                        (context) => [
+                                          const PopupMenuItem(
+                                            value: 'edit',
+                                            child: Text('Edit'),
+                                          ),
+                                          const PopupMenuItem(
+                                            value: 'delete',
+                                            child: Text('Delete'),
+                                          ),
+                                        ],
                                   ),
-                                ),
                               ],
                             ),
                           ],

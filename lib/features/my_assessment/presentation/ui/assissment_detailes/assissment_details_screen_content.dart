@@ -108,10 +108,13 @@ class _AssissmentDetailsScreenContentState
                           itemBuilder:
                               (context, choiceIndex) => RadioQ(
                                 index: choiceIndex,
-                                selectedChoices: null,
+                                selectedChoice: assissmentCubit.answaers[index] as int?,
                                 choice: question?.choices?[choiceIndex] ?? "",
                                 onChanged: (value) {
                                   assissmentCubit.answaers[index] = value;
+                                  setState(() {
+
+                                  });
                                 },
                               ),
                         );

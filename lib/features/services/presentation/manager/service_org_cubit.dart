@@ -62,7 +62,7 @@ class ServiceOrgCubit extends Cubit<ServiceOrgStates> {
           city: [selectedCity!],
           currency: [currencyController.text],
           serviceAvailable: "available",
-          organization: AppSharedData.user?.id,
+          organization: AppSharedData.user?.id?.toInt(),
         );
 
         final result = await addServiceOrgPost.call(service);

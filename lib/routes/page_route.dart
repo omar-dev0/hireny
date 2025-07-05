@@ -55,4 +55,5 @@ abstract class PagesRoute {
   static const String aiTools = '/aiTools';
 
   static const String chatBoot = '/chatBoot';
+  static const String notifications = '/notifications';
 }

@@ -43,4 +43,12 @@ class SeekerRepoImpl implements SeekerRepository {
   Future<Result<Course>> getCourseDetails(int courseId) {
     return _dataSource.getCourseDetails(courseId);
   }
+
+  Future<Result<void>?> applyJob(
+    num jobId,
+    bool haveApplication,
+    List<dynamic> answers,
+  ) {
+    return _dataSource.applyJob(jobId, haveApplication, answers);
+  }
 }

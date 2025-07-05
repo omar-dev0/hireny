@@ -11,4 +11,10 @@ abstract class SeekerRepository {
   Future<Result<JobDetailsModel>> getJobPostDetails(int jobId);
   Future<Result<List<OrgPost>>> getAllOrganizations();
   Future<Result<Course>> getCourseDetails(int courseId);
+
+  Future<Result<void>?> applyJob(
+    num jobId,
+    bool haveApplication,
+    List<dynamic> answers,
+  );
 }

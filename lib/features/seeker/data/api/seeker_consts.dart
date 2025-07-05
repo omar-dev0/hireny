@@ -6,4 +6,5 @@ abstract class SeekerConst {
   static const String getJobPostDetails = '/api/posts/jobs/';
   static const String getAllOrganizations = '/api/auth/get-all-organizations/';
   static const String getCourseDetails = '/api/courses/get-course-details/';
+  static const String applyjob = '/api/applications/jobs/';
 }

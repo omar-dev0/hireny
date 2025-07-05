@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hireny/features/org_profile/presentation/ui/org_profile.dart';
 import 'package:hireny/routes/page_route.dart';
 import 'package:hireny/utils/app_assets.dart';
 import 'package:hireny/utils/constants/app_colors.dart';
@@ -105,7 +106,13 @@ class ExploreOrgForSeekerContent extends StatelessWidget {
                         duration: Duration(milliseconds: 500),
                         child: InkWell(
                           onTap: () {
-                            Navigator.pushNamed(context, PagesRoute.orgProfile);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder:
+                                    (context) => OrgProfile(orgPost: orgPost),
+                              ),
+                            );
                           },
                           child: ExploreOrganizationCard(orgPost: orgPost),
                         ),

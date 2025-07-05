@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hireny/config_app/notification_service.dart';
+import 'package:hireny/features/notification/ui/cubit/notification_cubit.dart';
 import 'package:hireny/features/organization/view/explore_organizations_org.dart';
 import 'package:hireny/features/organization/view/explore_services_org.dart';
 import 'package:hireny/features/seeker/view/screens/courses/cubit/course_cubit.dart';
@@ -22,23 +23,22 @@ import '../utils/constants/app_colors.dart';
 
 class TabBarApp extends StatefulWidget {
   const TabBarApp({super.key});
-
   @override
   State<TabBarApp> createState() => _TabBarAppState();
 }
 
 class _TabBarAppState extends State<TabBarApp> {
   @override
-  // void initState() {
-  //   super.initState();
-  //   if (!AppSharedData.initNotification) {
-  //     NotificationService().init();
-  //     NotificationService().connectToWebSocket(
-  //       "${AppSharedData.user?.accessToken ?? ""}",
-  //     );
-  //     AppSharedData.initNotification = true;
-  //   }
-  // }
+  void initState() {
+    super.initState();
+    if (!AppSharedData.initNotification) {
+      NotificationService().init();
+      NotificationService().connectToWebSocket(
+        "${AppSharedData.user?.accessToken ?? ""}",
+      );
+      AppSharedData.initNotification = true;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +80,7 @@ class _TabBarAppState extends State<TabBarApp> {
               IconButton(
                 icon: Icon(Icons.notifications, color: AppColors.white),
                 onPressed: () {
-                  // TODO: Handle notification tap
+                  Navigator.pushNamed(context, PagesRoute.notifications);
                 },
               ),
               IconButton(

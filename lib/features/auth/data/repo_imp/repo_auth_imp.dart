@@ -51,6 +51,7 @@ class RepoAuthImp implements RepoAuth {
         if (userInfo is Success) {
           Success<User?> response = userInfo as Success<User?>;
           AppSharedData.user = response.response;
+          print(AppSharedData.user?.firstName);
           AppSharedData.user?.accessToken = accessToken;
           AppSharedData.user?.refreshToken = refreshToken;
           if (AppSharedData.user is Seeker) {
@@ -64,6 +65,7 @@ class RepoAuthImp implements RepoAuth {
             AppSharedData.rememberMe
                 ? Hive.box(CashingData.appBox).put(CashingData.user, orgAdmin)
                 : null;
+            print(AppSharedData.user?.firstName);
             return Success();
           }
         }

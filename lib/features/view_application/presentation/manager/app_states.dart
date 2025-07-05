@@ -1,12 +1,16 @@
-abstract class AppStates {}
 
-class InitialState extends AppStates {}
+import 'package:hireny/features/view_application/domain/model/user_application.dart';
 
-class LoadingState extends AppStates {}
+abstract class AppState{}
 
-class SuccessState extends AppStates {}
+class InitUserAppState extends AppState{}
 
-class ErrorState extends AppStates {
-  String? message;
-  ErrorState(this.message);
+class LoadingUserAppState extends AppState{}
+
+class ErrorUserAppState extends AppState{}
+
+class SuccessUserAppState extends AppState{
+  List<SeekerApplication> applications;
+  SuccessUserAppState(this.applications);
 }
+class HideUserAppState extends AppState{}

@@ -36,6 +36,7 @@ class Seeker extends User {
   String? cv;
 
   Seeker({
+    num? id,
     String? firstName,
     String? lastName,
     String? email,
@@ -56,6 +57,7 @@ class Seeker extends User {
     this.immediateStart,
     this.cv,
   }) : super(
+    id: id,
          firstName: firstName,
          lastName: lastName,
          email: email,
@@ -69,6 +71,7 @@ class Seeker extends User {
        );
 
   factory Seeker.fromJson(Map<String, dynamic> json) => Seeker(
+    id: json['user']['id'],
     firstName: json['user']['firstName'],
     lastName: json['user']['lastName'],
     email: json['user']['email'],
@@ -83,21 +86,23 @@ class Seeker extends User {
     brief: json['brief'],
     country: json['country'],
     city: json['city'],
-    links: json['links'] is String
-        ? (jsonDecode(json['links']) as List?)
-        ?.map((e) => UserLink.fromJson(e as Map<String, dynamic>))
-        .toList()
-        : json['links'] is List
-        ? (json['links'] as List)
-        .map((e) => UserLink.fromJson(e as Map<String, dynamic>))
-        .toList()
-        : null,
+    links:
+        json['links'] is String
+            ? (jsonDecode(json['links']) as List?)
+                ?.map((e) => UserLink.fromJson(e as Map<String, dynamic>))
+                .toList()
+            : json['links'] is List
+            ? (json['links'] as List)
+                .map((e) => UserLink.fromJson(e as Map<String, dynamic>))
+                .toList()
+            : null,
     immediateStart: json['immediateStart'],
     updatesToEmail: json['updatesToEmail'],
   );
 
   @override
   Map<String, dynamic> toJson() => {
+    "id": id,
     'firstName': firstName,
     'lastName': lastName,
     'email': email,

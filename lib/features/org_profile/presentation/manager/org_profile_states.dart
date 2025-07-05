@@ -1,12 +1,32 @@
-abstract class OrgProfileStates {}
+abstract class OrgProfilleState {}
 
-class InitialState extends OrgProfileStates {}
+class InintOrg extends OrgProfilleState {}
 
-class LoadingState extends OrgProfileStates {}
+class SuccessLoadedReviews extends OrgProfilleState {}
 
-class SuccessState extends OrgProfileStates {}
+class ErrorLoadedReviews extends OrgProfilleState {
+  final String error;
+  ErrorLoadedReviews(this.error);
+}
 
-class ErrorState extends OrgProfileStates {
-  String? message;
-  ErrorState(this.message);
+class LoadingReviews extends OrgProfilleState {}
+
+class LoadingOrgJobs extends OrgProfilleState {}
+
+class SuccessLoadedPosts extends OrgProfilleState {}
+
+class ErrorLoadedPosts extends OrgProfilleState {
+  final String error;
+  ErrorLoadedPosts(this.error);
+}
+
+class LoadingAddOrgReview extends OrgProfilleState {}
+
+class SuccessAddOrgReview extends OrgProfilleState {}
+
+class HideDialogOrgProfile extends OrgProfilleState {}
+
+class ErrorAddOrgReview extends OrgProfilleState {
+  final String error;
+  ErrorAddOrgReview(this.error);
 }

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hireny/features/auth/domain/modules/assessment/assessment.dart';
+import 'package:hireny/features/seeker/view/screens/job_detailes/cubit/job_detailes_cubit.dart';
 import 'package:hireny/features/seeker/view/screens/job_detailes/widgets/job_description_section.dart';
 import 'package:hireny/features/seeker/view/screens/job_detailes/widgets/related_jobs.dart';
 import 'package:hireny/features/seeker/view/screens/job_detailes/widgets/required_skills.dart';
@@ -12,6 +15,7 @@ import '../../../../../utils/constants/app_fonts.dart';
 import '../../../../../utils/data_shared/shared_const_api.dart';
 import '../../../../seeker/view/screens/job_detailes/widgets/icon_element.dart';
 import '../../../domain/modules/job_details.dart';
+import 'application_deatailes/application_detailes_screen.dart';
 
 class JobDetailesContent extends StatelessWidget {
   final JobDetailsModel? job;
@@ -20,6 +24,7 @@ class JobDetailesContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    JobDetailsCubit jobDetailsCubit = context.read<JobDetailsCubit>();
     return Scaffold(
       backgroundColor: Colors.white,
       body: DefaultTabController(
@@ -61,7 +66,7 @@ class JobDetailesContent extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                job?.jobTitle ?? "null",
+                                job?.jobTitle ?? "",
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                                 style: AppFonts.mainText.copyWith(
@@ -178,7 +183,29 @@ class JobDetailesContent extends StatelessWidget {
                     SizedBox(
                       width: 150.w,
                       height: 40.h,
-                      child: CustomButtom(title: 'Apply Job', onPressed: () {}),
+                      child: CustomButtom(
+                        title: 'Apply Job',
+                        onPressed: () {
+                          if (job?.questions == null ||
+                              job?.questions.isEmpty == true) {
+                            jobDetailsCubit.applyJob(job?.id ?? 0, false);
+                            return;
+                          }
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (_) => ApplicationDetailesScreen(
+                                    applicationModel: AssessmentModel(
+                                      assessmentTitle: job?.jobTitle,
+                                      id: job?.id,
+                                      questions: job?.questions,
+                                    ),
+                                  ),
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ],
                 ),

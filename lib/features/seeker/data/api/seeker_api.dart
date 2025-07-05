@@ -214,4 +214,37 @@ class SeekerApi {
       return Error(error: e.toString());
     }
   }
+
+  Future<Result<void>?> applyJob(
+    num jobId,
+    bool haveApplication,
+    List<dynamic> answers,
+  ) async {
+    try {
+      _dio.options.headers = {
+        HttpHeaders.contentTypeHeader: 'application/json',
+        HttpHeaders.authorizationHeader:
+            'Bearer ${AppSharedData.user?.accessToken}',
+      };
+      final response = await _dio.post(
+        '${SeekerConst.applyjob}$jobId/apply/',
+        data: {"hasApplication": haveApplication, "answers": answers},
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return Success(response: null);
+      }
+    } on DioException catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e).message;
+      if (kDebugMode) {
+        print('DioException in applyJob: $e');
+      }
+      return Error(error: errorMessage);
+    } catch (e) {
+      if (kDebugMode) {
+        print('General error in applyJob: $e');
+      }
+      return Error(error: e.toString());
+    }
+    return null;
+  }
 }
