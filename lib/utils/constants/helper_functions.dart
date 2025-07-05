@@ -81,3 +81,26 @@ String formatDate(String isoDate) {
   final date = DateTime.parse(isoDate);
   return '${DateFormat('MMM d, yyyy').format(date)}';
 }
+
+
+int calculateAge(String? dobString) {
+  if (dobString == null || dobString.isEmpty) return 0;
+
+  try {
+    DateTime dob = DateTime.parse(dobString); // Converts "2000-01-01" to DateTime
+    DateTime now = DateTime.now();
+    int age = now.year - dob.year;
+
+    // Adjust if birthday hasn't occurred yet this year
+    if (now.month < dob.month ||
+        (now.month == dob.month && now.day < dob.day)) {
+      age--;
+    }
+
+    return age;
+  } catch (e) {
+    // Handle invalid date format
+    print("Failed to parse DOB: $dobString");
+    return 0;
+  }
+}

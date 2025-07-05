@@ -12,7 +12,7 @@ import 'package:hireny/features/my_assessment/presentation/ui/my_assessment_cont
 import 'package:hireny/features/my_assessment/presentation/ui/my_assessment_screen.dart';
 import 'package:hireny/features/org_profile/presentation/manager/org_profile_cubit.dart';
 import 'package:hireny/features/org_profile/presentation/ui/org_profile.dart';
-import 'package:hireny/features/organization/view/explore_job_seekers_org.dart';
+import 'package:hireny/features/organization/view/screens/explore_seekers/explore_job_seekers_org.dart';
 
 import 'package:hireny/features/seeker/view/screens/courses/explore_courses_seeker.dart';
 import 'package:hireny/features/seeker/view/screens/explore_job/explore_job_seeker.dart';
@@ -38,8 +38,8 @@ import '../features/course_detailes/presentation/views/course_details_view.dart'
 import '../features/manage_org_account/org_rep_tab/presentation/ui/org_rep.dart';
 import '../features/manage_org_account/service_request_tab/presentation/ui/service_request.dart';
 import '../features/notification/ui/notification_screen.dart';
-import '../features/organization/view/explore_organizations_org.dart';
-import '../features/organization/view/explore_services_org.dart';
+import '../features/organization/view/screens/explore_orgs/explore_organizations_org.dart';
+import '../features/organization/view/screens/explore_services/explore_services_org.dart';
 import '../features/organization/view/related_services_org.dart';
 import '../features/organization/view/service_details_org.dart';
 import '../features/seeker/view/screens/course_details/course_screen_seeker_details.dart';
@@ -209,12 +209,12 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
   if (name == PagesRoute.exploreServicesOrg) {
     return MaterialPageRoute(builder: (_) => ExploreServicesOrg());
   }
-  if (name == PagesRoute.exploreCoursesSeeker) {
-    return MaterialPageRoute(builder: (_) => ExploreCoursesSeeker());
-  }
-  if (name == PagesRoute.exploreJobsSeeker) {
-    return MaterialPageRoute(builder: (_) => ExploreJobsForJobSeeker());
-  }
+  // if (name == PagesRoute.exploreCoursesSeeker) {
+  //   return MaterialPageRoute(builder: (_) => ExploreCoursesSeeker());
+  // }
+  // if (name == PagesRoute.exploreJobsSeeker) {
+  //   return MaterialPageRoute(builder: (_) => ExploreJobsForJobSeeker());
+  // }
   if (name == PagesRoute.courseDetailes) {
     return MaterialPageRoute(builder: (_) => courseScreenSeekerDetails());
   }

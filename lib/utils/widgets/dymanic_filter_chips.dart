@@ -40,16 +40,14 @@ class _DynamicChipsWidgetState extends State<DynamicFilterChipsWidget> {
                 ),
               ),
               selected: isSelected,
-              selectedColor:
-                  AppColors.subPrimary2, // Keep selected color for background
+              selectedColor: AppColors.subPrimary2, // Keep selected color for background
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20.r), // Rounded corners
                 side: BorderSide(color: AppColors.primary), // Border color
               ),
               onSelected: (bool selected) {
                 // The selection logic is now handled by the parent widget
-                if (widget.onChipPressed != null &&
-                    widget.onChipPressed![index] != null) {
+                if (widget.onChipPressed != null && widget.onChipPressed![index] != null) {
                   widget.onChipPressed![index]!();
                 }
               },
@@ -60,3 +58,5 @@ class _DynamicChipsWidgetState extends State<DynamicFilterChipsWidget> {
     );
   }
 }
+
+

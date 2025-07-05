@@ -2,10 +2,13 @@ import 'package:hireny/features/auth/domain/modules/assessment/assessment.dart';
 import 'package:hireny/features/auth/domain/modules/user/user.dart';
 import 'package:hireny/features/calender/domain/models/event.dart';
 import 'package:hireny/features/notification/domain/notification_module.dart';
+import 'package:hireny/features/organization/domain/modules/seeker.dart';
+import 'package:hireny/features/organization/domain/modules/service.dart';
 import 'package:hireny/features/seeker/domain/modules/course.dart';
 import 'package:hireny/features/services/domain/models/response/service_post_response.dart';
 import 'package:hireny/features/show_courses/data/models/seeker_courses_registered.dart';
 
+import '../../features/organization/domain/modules/organization.dart';
 import '../../features/seeker/domain/modules/job_post.dart';
 import '../../features/seeker/domain/modules/org_post.dart';
 
@@ -14,11 +17,163 @@ abstract class AppSharedData {
   static Map<String, List<String>> countryCityData = {};
   static List<String> nationalities = [];
   static List<Course> courses = [];
-  static List<String> countries = [];
+  static List<String> countries = [
+    "Afghanistan",
+    "Albania",
+    "Algeria",
+    "Angola",
+    "Andorra",
+    "Argentina",
+    "Aruba",
+    "Austria",
+    "Azerbaijan",
+    "Australia",
+    "Bahamas",
+    "Bahrain",
+    "Bangladesh",
+    "Barbados",
+    "Belarus",
+    "Belgium",
+    "Belize",
+    "Bermuda",
+    "Bolivia",
+    "Botswana",
+    "Brazil",
+    "British Indian Ocean Territory",
+    "Brunei Darussalam",
+    "Bulgaria",
+    "Burkina Faso",
+    "Cambodia",
+    "Cameroon",
+    "Canada",
+    "Cayman Islands",
+    "Chile",
+    "China",
+    "Colombia",
+    "Costa Rica",
+    "Cyprus",
+    "Czech",
+    "Denmark",
+    "Dominica",
+    "Dominican",
+    "Ecuador",
+    "Egypt",
+    "Estonia",
+    "Ethiopia",
+    "Fiji",
+    "Finland",
+    "France",
+    "Gambia",
+    "Ghana",
+    "Gibraltar",
+    "Grenada",
+    "Guam",
+    "Guatemala",
+    "Guernsey",
+    "Guyana",
+    "Haiti",
+    "Honduras",
+    "Greece",
+    "Hungary",
+    "Germany",
+    "Hong Kong",
+    "Iceland",
+    "Iran",
+    "Iraq",
+    "Indonesia",
+    "Israel",
+    "Jersey",
+    "Jordan",
+    "Japan",
+    "Kazakhstan",
+    "Jamaica",
+    "Korea",
+    "Italy",
+    "Lebanon",
+    "Lesotho",
+    "Liberia",
+    "Lithuania",
+    "Luxembourg",
+    "Kuwait",
+    "Kenya",
+    "Macau",
+    "Macedonia",
+    "Malawi",
+    "Malaysia",
+    "India",
+    "Maldives",
+    "Moldova",
+    "Monaco",
+    "Mauritius",
+    "Malta",
+    "Mozambique",
+    "Morocco",
+    "Myanmar",
+    "Namibia",
+    "Mexico",
+    "Nepal",
+    "Northern Mariana Islands",
+    "Norway",
+    "Oman",
+    "Nigeria",
+    "New Zealand",
+    "Palestinian Territories",
+    "Panama",
+    "Peru",
+    "Papua New Guinea",
+    "Zimbabwe",
+    "Zambia",
+    "Virgin Islands",
+    "Venezuela",
+    "Viet Nam",
+    "Portugal",
+    "Puerto Rico",
+    "Poland",
+    "Qatar",
+    "Netherlands",
+    "Pakistan",
+    "Uzbekistan",
+    "Uruguay",
+    "Ukraine",
+    "Uganda",
+    "Philippines",
+    "Rwanda",
+    "Turks And Caicos Islands",
+    "Tunisia",
+    "Tanzania",
+    "Russia",
+    "Trinidad And Tobago",
+    "Romania",
+    "Taiwan",
+    "Turkey",
+    "Thailand",
+    "Saint Kitts And Nevis",
+    "Saint Lucia",
+    "Senegal",
+    "Seychelles",
+    "Slovakia",
+    "Slovenia",
+    "Somalia",
+    "Swaziland",
+    "Syrian Arab",
+    "Sri Lanka",
+    "Sweden",
+    "United Arab Emirates",
+    "Spain",
+    "Switzerland",
+    "Saudi Arabia",
+    "Singapore",
+    "United Kingdom",
+    "South Africa",
+    "United States"
+  ];
   static List<String> jobs = [];
   static List<ServiceResponse> servicesOrg = [];
   static List<JobPost> jobPosts = [];
   static List<OrgPost> orgPosts = [];
+  static List<OrgPostOrg> orgs = [];
+  static List<SeekerModel> seekers = [];
+  static List<ServiceModel> services = [];
   static List<String> jobTitle = [
     "Internship",
     "Full-Time",
@@ -56,7 +211,7 @@ abstract class AppSharedData {
   static List<String> industries = [
     "Agriculture",
     "Automotive",
-    "Banking & Finance",
+    "Banking",
     "Construction",
     "Consumer Goods",
     "Education",
@@ -87,16 +242,14 @@ abstract class AppSharedData {
   ];
   static List<String> organizationSizes = [
     "Self-Employed",
-    "1-10 Employees",
-    "11-50 Employees",
-    "51-100 Employees",
-    "101-200 Employees",
-    "201-500 Employees",
-    "501-1000 Employees",
-    "1001-5000 Employees",
-    "5001-10000 Employees",
-    "10001+ Employees",
-    "Other",
+    "1-10",
+    "11-50",
+    "51-100",
+    "101-200",
+    "201-500",
+    "501-1000",
+    "1001-5000",
+    "5001-10000",
   ];
   static bool rememberMe = true;
 
@@ -151,4 +304,6 @@ abstract class AppSharedData {
   static bool initNotification = false;
 
   static List<AppNotification> notifications = [];
+
+  static bool initNotfication = false;
 }
