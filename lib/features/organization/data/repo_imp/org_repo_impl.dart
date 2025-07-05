@@ -2,6 +2,7 @@ import 'package:hireny/features/auth/domain/modules/seeker/seeker.dart';
 import 'package:hireny/result.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../seeker/domain/modules/org_post.dart';
 import '../../domain/modules/organization.dart';
 import '../../domain/modules/seeker.dart';
 import '../../domain/modules/service.dart';
@@ -22,9 +23,11 @@ class OrgRepoImpl implements OrgRepository {
   Future<Result<List<ServiceModel>>> getNotAppliedServicePosts() {
     return _dataSource.getNotAppliedServicePosts() ;
   }
-  Future<Result<List<OrgPostOrg>>> getAllOrganizations() {
+  Future<Result<List<OrgPost>>> getAllOrganizations() {
     return _dataSource.getAllOrganizations() ;
   }
+  Future<Result<bool>> applyToService(int serviceId) => _dataSource.applyToService(serviceId);
+
 
 
 }

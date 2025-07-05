@@ -98,7 +98,7 @@ class ExploreOrganizationsOrgContent extends StatelessWidget {
                                 Navigator.pushNamed(
                                   context,
                                   PagesRoute.orgProfile,
-                                  arguments: orgPost.id,
+                                  arguments: orgPost,
                                 );
                               },
                               child: ExploreOrganizationCardOrg(

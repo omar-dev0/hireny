@@ -82,7 +82,7 @@ class OrgApi {
       return Error(error: e.toString());
     }
   }
-  Future<Result<List<OrgPostOrg>>> getAllOrganizations() async {
+  Future<Result<List<OrgPost>>> getAllOrganizations() async {
     try {
       _dio.options.headers = {
         HttpHeaders.contentTypeHeader: 'multipart/form-data',
@@ -92,9 +92,9 @@ class OrgApi {
       final response = await _dio.get(OrgConst.getAllOrganizations);
 
       if (response.statusCode == 200 && response.data != null) {
-        final List<OrgPostOrg> orgs =
+        final List<OrgPost> orgs =
         (response.data as List)
-            .map((item) => OrgPostOrg.fromJson(item))
+            .map((item) => OrgPost.fromJson(item))
             .toList();
 
         return Success(response: orgs);
@@ -110,6 +110,33 @@ class OrgApi {
     } catch (e) {
       if (kDebugMode) {
         print('General error in getNotRegisteredCourses: $e');
+      }
+      return Error(error: e.toString());
+    }
+  }
+  Future<Result<bool>> applyToService(int serviceId) async {
+    try {
+      _dio.options.headers = {
+        HttpHeaders.contentTypeHeader: 'application/json',
+        HttpHeaders.authorizationHeader: 'Bearer ${AppSharedData.user?.accessToken}',
+      };
+
+      final response = await _dio.post(OrgConst.applyToService(serviceId));
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return Success(response: true);
+      } else {
+        return Error(error: 'Failed to apply');
+      }
+    } on DioException catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e).message;
+      if (kDebugMode) {
+        print('DioException in applyToService: $e');
+      }
+      return Error(error: errorMessage);
+    } catch (e) {
+      if (kDebugMode) {
+        print('General error in applyToService: $e');
       }
       return Error(error: e.toString());
     }

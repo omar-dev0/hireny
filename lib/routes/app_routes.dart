@@ -9,6 +9,7 @@ import 'package:hireny/features/org_account/org_account.dart';
 import 'package:hireny/features/org_assessment/presentation/ui/org_assessment.dart';
 import 'package:hireny/features/org_profile/presentation/manager/org_profile_cubit.dart';
 import 'package:hireny/features/org_profile/presentation/ui/org_profile.dart';
+import 'package:hireny/features/organization/domain/modules/service.dart';
 
 import 'package:hireny/features/seeker/view/screens/courses/explore_courses_seeker.dart';
 import 'package:hireny/features/seeker/view/screens/explore_job/explore_job_seeker.dart';
@@ -32,11 +33,15 @@ import '../features/calender/ui/calender_screen_content.dart';
 import '../features/course_detailes/presentation/views/course_details_view.dart';
 import '../features/manage_org_account/org_rep_tab/presentation/ui/org_rep.dart';
 import '../features/manage_org_account/service_request_tab/presentation/ui/service_request.dart';
+import '../features/organization/domain/modules/seeker.dart';
 import '../features/organization/view/related_services_org.dart';
 import '../features/organization/view/screens/explore_orgs/explore_organizations_org.dart';
 import '../features/organization/view/screens/explore_seekers/explore_job_seekers_org.dart';
+import '../features/organization/view/screens/explore_seekers/seeker_details_org.dart';
+import '../features/organization/view/screens/explore_services/cubit/explore_services_cubit.dart';
 import '../features/organization/view/screens/explore_services/explore_services_org.dart';
-import '../features/organization/view/service_details_org.dart';
+import '../features/organization/view/screens/explore_services/service_details_org.dart';
+import '../features/seeker/domain/modules/org_post.dart';
 import '../features/seeker/view/screens/course_details/course_screen_seeker_details.dart';
 import '../features/seeker/view/screens/course_details/cubit/course_details_cubit.dart';
 import '../features/seeker/view/screens/job_detailes/cubit/job_detailes_cubit.dart';
@@ -202,8 +207,20 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
   if (name == PagesRoute.verifyOrganizationAdmin) {
     return MaterialPageRoute(builder: (_) => VerifyOrganizationAdmin());
   }
-  if (name == PagesRoute.serviceDetailsOrg) {
-    return MaterialPageRoute(builder: (_) => ServiceDetailsOrg());
+  if (settings.name == PagesRoute.serviceDetailsOrg) {
+    final args = settings.arguments as Map<String, dynamic>;
+    final service = args['service'] as ServiceModel;
+    final cubit = args['cubit'] as ExploreServicesCubit;
+
+    return MaterialPageRoute(
+      builder: (context) => BlocProvider.value(
+        value: cubit,
+        child: ServiceDetailsOrg(service: service, cubit: cubit),
+      ),
+    );
+  }
+  if (name == PagesRoute.seekerDetailsOrg) {
+    return MaterialPageRoute(builder: (_) => SeekerDetailsOrg(seeker:settings.arguments as SeekerModel ,));
   }
   if (name == PagesRoute.relatedServicesOrg) {
     return MaterialPageRoute(builder: (_) => RelatedServicesOrg());
@@ -274,6 +291,12 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
     );
   }
 
+  if (name == PagesRoute.orgProfile) {
+    return MaterialPageRoute(
+      builder: (_) => OrgProfile(orgPost: settings.arguments as OrgPost,),
+    );
+  }
+
   // Default case
   return MaterialPageRoute(
     builder:
@@ -283,3 +306,4 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
         ),
   );
 }
+

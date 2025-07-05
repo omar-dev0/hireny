@@ -144,6 +144,22 @@ class ExploreServicesCubit extends Cubit<ExploreServicesState> {
     emit(ServicesLoaded(services: filteredList));
   }
 
+  Future<void> applyToService(int serviceId) async {
+    emit(ExploreServicesLoading());
+
+    try {
+      final Result<bool> result = await orgRepository.applyToService(serviceId);
+
+      if (result is Success<bool>) {
+        emit(ServiceAppliedSuccess());
+      } else if (result is Error<bool>) {
+        emit(ServiceAppliedFailed(result.error ?? "Failed to apply"));
+      }
+    } catch (e) {
+      emit(ServiceAppliedFailed(e.toString()));
+    }
+  }
+
   // Getters for current filter selections (for UI to pre-populate bottom sheets)
   Set<int> get selectedCategoryIndices => _currentFilters['category'];
   String? get minPriceFilter => _currentFilters['priceMin'];

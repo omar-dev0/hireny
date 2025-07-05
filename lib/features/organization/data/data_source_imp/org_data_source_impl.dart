@@ -3,6 +3,7 @@ import 'package:hireny/features/auth/domain/modules/seeker/seeker.dart';
 import 'package:hireny/result.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../seeker/domain/modules/org_post.dart';
 import '../../domain/modules/organization.dart';
 import '../../domain/modules/seeker.dart';
 import '../../domain/modules/service.dart';
@@ -24,8 +25,10 @@ class OrgDataSourceImpl implements OrgDataSource {
   Future<Result<List<ServiceModel>>> getNotAppliedServicePosts() {
     return orgApi.getNotAppliedServicePosts();
   }
-  Future<Result<List<OrgPostOrg>>> getAllOrganizations() {
+  Future<Result<List<OrgPost>>> getAllOrganizations() {
     return orgApi.getAllOrganizations();
   }
+  Future<Result<bool>> applyToService(int serviceId) => orgApi.applyToService(serviceId);
+
 
 }

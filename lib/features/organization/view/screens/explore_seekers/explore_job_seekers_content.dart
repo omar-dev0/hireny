@@ -9,6 +9,7 @@ import 'package:hireny/utils/constants/app_fonts.dart';
 import 'package:hireny/utils/widgets/custom_search_bar.dart';
 import 'package:hireny/utils/widgets/dymanic_filter_chips.dart';
 import 'package:hireny/utils/widgets/explore_card.dart';
+import '../../../../../routes/page_route.dart';
 import 'cubit/explore_seekers_cubit.dart';
 import 'cubit/explore_seekers_states.dart';
 
@@ -102,7 +103,11 @@ class ExploreJobSeekersContent extends StatelessWidget {
                             duration: Duration(milliseconds: 300 + index * 100),
                             child: InkWell(
                               onTap: () {
-                                print("Seeker Card Tapped");
+                                Navigator.pushNamed(
+                                  context,
+                                  PagesRoute.seekerDetailsOrg,
+                                  arguments: seeker,
+                                );
                               },
                               child: ExploreJobSeekerCard(
                                 seeker: seeker,
