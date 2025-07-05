@@ -9,6 +9,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 
 import '../../../../../result.dart';
+import '../../../../../utils/data_shared/app_shared_data.dart';
 
 @injectable
 class LoginVm extends Cubit<LoginState> {
@@ -75,6 +76,8 @@ class LoginVm extends Cubit<LoginState> {
       emit(LoadingLogin());
       try {
         Result<void> result = await _repoAuth.login(email.text, password.text);
+        debugPrint("✅ ServiceOrgCubit created ${AppSharedData.user?.firstName}");
+
         if (result is Success) {
           emit(HideLoading());
           emit(SuccessLogin());

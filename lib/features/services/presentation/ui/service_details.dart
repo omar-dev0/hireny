@@ -1,42 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hireny/features/services/domain/models/response/service_post_response.dart';
+import 'package:hireny/features/services/presentation/manager/service_org_cubit.dart';
+import 'package:hireny/features/services/presentation/ui/service_post.dart';
 import 'package:hireny/features/services/presentation/ui/widgets/info_row.dart';
 import 'package:hireny/utils/app_assets.dart';
+import 'package:hireny/utils/data_shared/app_shared_data.dart';
 import '../../../../../utils/constants/app_colors.dart';
 import '../../../../../utils/constants/app_fonts.dart';
 import '../../../../../utils/widgets/custom_buttom.dart';
+import '../../../../utils/di/di.dart';
 
 class ServiceDetailsScreen extends StatelessWidget {
-  final String title;
-  final String company;
-  final String postedTime;
-  final String category;
-  final String time;
-  final String price;
-  final String location;
-  final String description;
+  final ServiceResponse serviceObj;
 
-  const ServiceDetailsScreen({
+  ServiceDetailsScreen({
     super.key,
-    required this.title,
-    required this.company,
-    required this.postedTime,
-    required this.category,
-    required this.time,
-    required this.price,
-    required this.location,
-    required this.description,
+    required this.serviceObj,
   });
+
+
 
   @override
   Widget build(BuildContext context) {
     final media = MediaQuery.of(context);
     final screenWidth = media.size.width;
     final screenHeight = media.size.height;
+    final serviceCubit =context.read<ServiceOrgCubit>();
 
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: Icon(Icons.arrow_back,color: AppColors.primary,),
+        leading: Icon(Icons.arrow_back, color: AppColors.primary),
         backgroundColor: AppColors.white,
         automaticallyImplyLeading: false,
         surfaceTintColor: AppColors.white,
@@ -49,6 +44,7 @@ class ServiceDetailsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              /// 🔹 Header row with logo and info
               Row(
                 children: [
                   ClipRRect(
@@ -57,7 +53,8 @@ class ServiceDetailsScreen extends StatelessWidget {
                       AppAssets.google,
                       fit: BoxFit.cover,
                       width: screenWidth * 0.2,
-                      height: screenHeight * 0.1,),
+                      height: screenHeight * 0.1,
+                    ),
                   ),
                   SizedBox(width: screenWidth * 0.03),
                   Expanded(
@@ -65,31 +62,35 @@ class ServiceDetailsScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          title,
-                          style: AppFonts.mainText.copyWith(
-                            fontSize: 18,
-                          ),
+                          serviceObj.serviceTitle,
+                          style: AppFonts.mainText.copyWith(fontSize: 18),
                         ),
                         SizedBox(height: screenHeight * 0.005),
                         Row(
                           children: [
                             Text(
-                              company,
-                             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontSize: 14,
-                          color: AppColors.grey,
-                        ),
+                              serviceObj.companyName,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(
+                                fontSize: 14,
+                                color: AppColors.grey,
+                              ),
                             ),
                             SizedBox(width: screenWidth * 0.02),
-                            Icon(Icons.access_time,
-                                size: screenWidth * 0.035,
-                                color: AppColors.primary),
+                            Icon(
+                              Icons.access_time,
+                              size: screenWidth * 0.035,
+                              color: AppColors.primary,
+                            ),
                             SizedBox(width: screenWidth * 0.01),
                             Text(
-                                  postedTime,
-                                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                    color: AppColors.primary,
-                                  ),
+                              serviceCubit.formatCreatedAt(serviceObj.createdAt),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(color: AppColors.primary),
                             ),
                           ],
                         ),
@@ -100,14 +101,24 @@ class ServiceDetailsScreen extends StatelessWidget {
               ),
 
               SizedBox(height: screenHeight * 0.02),
-              /// Buttons
+
+              /// 🔹 Buttons (Update & Delete)
               Row(
                 children: [
                   Expanded(
                     child: CustomButtom(
                       title: "Update",
                       hight: screenHeight * 0.05,
-                      onPressed: () {},
+                      onPressed: () {
+
+                        Navigator.push(context, MaterialPageRoute(
+                          builder:
+                              (_) =>BlocProvider(
+                            create: (_) =>getIt.get<ServiceOrgCubit>()..setFields(serviceObj),
+                            child: ServicePost(isUpdate: true,service: serviceObj,),
+                          ),
+                        ));
+                      },
                     ),
                   ),
                   SizedBox(width: screenWidth * 0.04),
@@ -115,23 +126,28 @@ class ServiceDetailsScreen extends StatelessWidget {
                     child: CustomButtom(
                       title: "Delete",
                       hight: screenHeight * 0.05,
-                      onPressed: () {},
-                    ),
+                      onPressed: () async {
+                        await serviceCubit.deleteService(serviceObj.id);
+                        Navigator.pop(context, 'deleted'); // ✅ Return to previous screen with flag
+                      },
+                    )
+                    ,
                   ),
                 ],
               ),
               SizedBox(height: screenHeight * 0.015),
 
-              /// Info Container
+              /// 🔹 Info Row
               InfoContainer(
-                category: category,
-                time: time,
-                price: price,
-                location: location,
+                category: serviceObj.city,
+                time: serviceCubit.formatCreatedAt(serviceObj.createdAt),
+                price: serviceObj.salary,
+                location: "${serviceObj.country},${serviceObj.city}",
               ),
 
-
               SizedBox(height: screenHeight * 0.03),
+
+              /// 🔹 Service Description
               Text(
                 "Service Description",
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -139,17 +155,15 @@ class ServiceDetailsScreen extends StatelessWidget {
                   fontSize: 16,
                 ),
               ),
-
               SizedBox(height: screenHeight * 0.01),
               Expanded(
                 child: SingleChildScrollView(
                   child: Text(
-                    description,
+                    serviceObj.serviceDescription,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       fontSize: 14,
                     ),
                   ),
-
                 ),
               ),
             ],

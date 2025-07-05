@@ -39,7 +39,7 @@ class DataSourcAuthImp implements AuthDataSource {
   }
 
   @override
-  Future<Result<User?>?> getUserInfo(String token) {
+  Future<Result<User?>?> getUserInfo(String token)async {
     return apiManger.getUserInfo(token);
   }
 

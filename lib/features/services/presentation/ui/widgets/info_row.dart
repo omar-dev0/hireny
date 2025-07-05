@@ -78,7 +78,7 @@ class InfoContainer extends StatelessWidget {
                   color: Colors.black87,
                 ),
               ),
-              SizedBox(width: screenWidth * 0.33),
+              SizedBox(width: screenWidth * 0.22),
 
               Icon(Icons.location_on, color: AppColors.primary) ,
               SizedBox(width: screenWidth * 0.015),

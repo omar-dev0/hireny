@@ -4,4 +4,8 @@ import 'package:hireny/result.dart';
 
 abstract class ServiceOrgRepoInterface {
   Future<Result<ServiceResponse>> addServicePost(ServiceRequestModel service);
+  Future<Result<void>> getServices(int id);
+  Future<Result<void>> deleteService(int id);
+  Future<Result<void>> updateService(int id,ServiceRequestModel service);
+
 }

@@ -98,6 +98,7 @@ class ApiManger {
     });
     try {
       final response = await _dio.post(ApiConst.login, data: formData);
+
       return Success(response: response.data as Map<String, dynamic>);
     } on DioException catch (e) {
       final errorMessage = DioExceptions.fromDioError(e).message;
@@ -121,10 +122,12 @@ class ApiManger {
         ApiConst.getUserInfo,
         options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
+      debugPrint("Api data ${response.data}");
       if (response.data == null) return null;
       if (response.data['user']['role'] == 'seeker') {
         return Success(response: Seeker.fromJson(response.data));
       } else if (response.data['user']['role'] == 'orgAdmin') {
+        debugPrint("===========>>> check true");
         return Success(response: OrgAdmin.fromJson(response.data));
       }
     } catch (e) {

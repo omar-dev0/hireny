@@ -2,24 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hireny/features/auth/view/forget_password/reset_password/reset_password.dart';
 import 'package:hireny/features/auth/view/forget_password/verift_email_screen.dart';
-import 'package:hireny/features/chat_bot/UI/chat_boot_screen.dart';
 import 'package:hireny/features/manage_org_account/reviews_tab/presentation/ui/review_card.dart';
+import 'package:hireny/features/my_assessment/presentation/ui/my_assessment.dart';
 import 'package:hireny/features/org_account/org_account.dart';
 import 'package:hireny/features/org_assessment/presentation/ui/org_assessment.dart';
-import 'package:hireny/features/auth/view/profile/ai_tools/ai-screen.dart';
-import 'package:hireny/features/calender/ui/calender_screen.dart';
-import 'package:hireny/features/my_assessment/presentation/ui/my_assessment_content.dart';
-import 'package:hireny/features/my_assessment/presentation/ui/my_assessment_screen.dart';
 import 'package:hireny/features/org_profile/presentation/manager/org_profile_cubit.dart';
 import 'package:hireny/features/org_profile/presentation/ui/org_profile.dart';
-import 'package:hireny/features/organization/view/screens/explore_seekers/explore_job_seekers_org.dart';
+import 'package:hireny/features/organization/view/explore_job_seekers_org.dart';
 
 import 'package:hireny/features/seeker/view/screens/courses/explore_courses_seeker.dart';
 import 'package:hireny/features/seeker/view/screens/explore_job/explore_job_seeker.dart';
 import 'package:hireny/features/seeker/view/screens/salary_insights/salary_insights_screen.dart';
 import 'package:hireny/features/services/presentation/ui/services_view.dart';
 import 'package:hireny/features/view_application/presentation/manager/app_cubit.dart';
-import 'package:hireny/features/view_application/presentation/ui/view_application_content.dart';
+import 'package:hireny/features/view_application/presentation/ui/view_application.dart';
 import 'package:hireny/routes/page_route.dart';
 import 'package:hireny/technical_info/presentation/manager/technical_info_cubit.dart';
 import 'package:hireny/widget/tabbar.dart';
@@ -33,13 +29,12 @@ import '../features/auth/view/profile/cubit/user_cubit.dart';
 import '../features/auth/view/profile/general_info.dart';
 import '../features/auth/view/profile/widgets/change_password.dart';
 import '../features/auth/view/reg/reg_screen.dart';
-import '../features/calender/ui/calender_screen_content.dart';
 import '../features/course_detailes/presentation/views/course_details_view.dart';
+import '../features/course_detailes/presentation/views/widgets/calender_view.dart';
 import '../features/manage_org_account/org_rep_tab/presentation/ui/org_rep.dart';
 import '../features/manage_org_account/service_request_tab/presentation/ui/service_request.dart';
-import '../features/notification/ui/notification_screen.dart';
-import '../features/organization/view/screens/explore_orgs/explore_organizations_org.dart';
-import '../features/organization/view/screens/explore_services/explore_services_org.dart';
+import '../features/organization/view/explore_organizations_org.dart';
+import '../features/organization/view/explore_services_org.dart';
 import '../features/organization/view/related_services_org.dart';
 import '../features/organization/view/service_details_org.dart';
 import '../features/seeker/view/screens/course_details/course_screen_seeker_details.dart';
@@ -50,7 +45,6 @@ import '../features/services/presentation/ui/service_details.dart';
 import '../features/services/presentation/ui/service_post.dart';
 import '../features/show_courses/presentation/ui/manager/seeker_course_cubit.dart';
 import '../features/show_courses/presentation/ui/views/my_courses_view.dart';
-import '../features/view_application/presentation/ui/view_application_screen.dart';
 import '../technical_info/presentation/technical_view.dart';
 import '../utils/constants/app_colors.dart';
 import '../utils/data_shared/app_shared_data.dart';
@@ -64,6 +58,8 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
     return MaterialPageRoute(builder: (_) => LoginScreen());
   } else if (name == PagesRoute.firstPage &&
       AppSharedData.user?.accessToken != null) {
+    debugPrint("${AppSharedData.user?.role}");
+
     return MaterialPageRoute(builder: (_) => TabBarApp());
   }
 
@@ -87,49 +83,43 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
     return MaterialPageRoute(builder: (context) => OrgAccount());
   }
   if (name == PagesRoute.orgAssessment) {
-    return MaterialPageRoute(builder: (context) => OrgAssessment()); // done
-  }
-  if (name == PagesRoute.orgServiceRequest) {
+    return MaterialPageRoute(builder: (context) => OrgAssessment());// done
+  } if (name == PagesRoute.orgServiceRequest) {
     return MaterialPageRoute(builder: (context) => ServiceRequest());
-  }
-  if (name == PagesRoute.orgRep) {
+  } if (name == PagesRoute.orgRep) {
     return MaterialPageRoute(builder: (context) => OrgRep()); //
-  }
-  if (name == PagesRoute.orgReviewForOrg) {
+  } if (name == PagesRoute.orgReviewForOrg) {
     return MaterialPageRoute(builder: (context) => ReviewCard());
   }
   if (name == PagesRoute.orgServicePost) {
     return MaterialPageRoute(
       builder:
-          (_) => BlocProvider(
-            create: (_) => getIt.get<ServiceOrgCubit>(),
-            child: ServicePost(),
-          ),
+          (_) =>BlocProvider(
+              create: (_) =>getIt.get<ServiceOrgCubit>(),
+              child: ServicePost(),
+            ),
     );
   }
   if (name == PagesRoute.courseDetails) {
     return MaterialPageRoute(builder: (_) => CourseDetailsView());
   }
   if (name == PagesRoute.calender) {
-    return MaterialPageRoute(builder: (_) => CalenderScreen());
+    return MaterialPageRoute(builder: (_) => CalenderView());
   }
-  if (name == PagesRoute.servicePostDetails) {
+  // }if (name == PagesRoute.servicePostDetails) {
+  //   return MaterialPageRoute(builder: (_) =>
+  //       ServiceDetailsScreen());
+  // }
+  if (name == PagesRoute.orgServices) {
+    debugPrint("${AppSharedData.user?.role}");
+
     return MaterialPageRoute(
       builder:
-          (_) => ServiceDetailsScreen(
-            title: '',
-            company: '',
-            postedTime: '',
-            category: '',
-            time: '',
-            price: '',
-            location: '',
-            description: '',
-          ),
+          (context) => BlocProvider(
+        create: (context) => getIt.get<ServiceOrgCubit>()..loadServices(),
+        child: ServicesView(),
+      ),
     );
-  }
-  if (name == PagesRoute.orgServices) {
-    return MaterialPageRoute(builder: (_) => ServicesView());
   }
   if (name == PagesRoute.myCourses) {
     return MaterialPageRoute(
@@ -140,9 +130,7 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
           ),
     );
   }
-  if (name == PagesRoute.aiTools) {
-    return MaterialPageRoute(builder: (_) => AiScreen());
-  }
+
   if (name == PagesRoute.salaryInsights) {
     return MaterialPageRoute(builder: (_) => SalaryInsightsScreen());
   }
@@ -171,13 +159,36 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
     );
   }
   if (name == PagesRoute.myApplication) {
-    return MaterialPageRoute(builder: (_) =>ViewApplicationScreen());
+    return MaterialPageRoute(
+      builder:
+          (_) => BlocProvider(
+            create: (_) => getIt.get<AppCubit>(),
+            child: ViewApplication(),
+          ),
+    );
   }
+  // if (name == PagesRoute.myAssessment) {
+  //   return MaterialPageRoute(
+  //     builder:
+  //         (_) => BlocProvider(
+  //       create: (_) => getIt.get<AppCubit>(),
+  //       child: MyAssessment(),
+  //     ),
+  //   );
 
   if (name == PagesRoute.myAssessment) {
-    return MaterialPageRoute(builder: (_) => MyAssessmentScreen());
+    return MaterialPageRoute(builder: (_) => MyAssessment());
   }
 
+  if (name == PagesRoute.orgProfile) {
+    return MaterialPageRoute(
+      builder:
+          (_) => BlocProvider(
+            create: (_) => getIt.get<OrgProfileCubit>(),
+            child: OrgProfile(),
+          ),
+    );
+  }
 
   if (name == PagesRoute.reg) {
     bool isOrg = false;
@@ -209,12 +220,12 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
   if (name == PagesRoute.exploreServicesOrg) {
     return MaterialPageRoute(builder: (_) => ExploreServicesOrg());
   }
-  // if (name == PagesRoute.exploreCoursesSeeker) {
-  //   return MaterialPageRoute(builder: (_) => ExploreCoursesSeeker());
-  // }
-  // if (name == PagesRoute.exploreJobsSeeker) {
-  //   return MaterialPageRoute(builder: (_) => ExploreJobsForJobSeeker());
-  // }
+  if (name == PagesRoute.exploreCoursesSeeker) {
+    return MaterialPageRoute(builder: (_) => ExploreCoursesSeeker());
+  }
+  if (name == PagesRoute.exploreJobsSeeker) {
+    return MaterialPageRoute(builder: (_) => ExploreJobsForJobSeeker());
+  }
   if (name == PagesRoute.courseDetailes) {
     return MaterialPageRoute(builder: (_) => courseScreenSeekerDetails());
   }
@@ -250,12 +261,6 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
     );
   }
 
-  if (name == PagesRoute.chatBoot) {
-    return MaterialPageRoute(builder: (_) => ChatBootScreen());
-  }
-  if (name == PagesRoute.notifications) {
-    return MaterialPageRoute(builder: (_) => NotificationScreen());
-  }
   // Default case
   return MaterialPageRoute(
     builder:
