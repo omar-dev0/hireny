@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../utils/constants/app_colors.dart';
-import '../../../../../../utils/constants/app_fonts.dart';
+import '../../../../../utils/constants/app_colors.dart';
+import '../../../../../utils/constants/app_fonts.dart';
 
 class CourseInfoListView extends StatelessWidget {
-  const CourseInfoListView({super.key});
+  final List<String> items;
+
+  const CourseInfoListView({super.key, required this.items});
 
   @override
   Widget build(BuildContext context) {
-    final controller = ScrollController();
+    final ScrollController controller = ScrollController();
 
     return Scrollbar(
       controller: controller,
@@ -21,20 +23,24 @@ class CourseInfoListView extends StatelessWidget {
           height: 180,
           child: ListView.builder(
             controller: controller,
-            itemCount: 3,
+            itemCount: items.length,
             itemBuilder: (context, index) {
-              return Row(
-                children: [
-                  Icon(Icons.arrow_right_outlined, color: AppColors.primary),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: Text(
-                      "The course provides the entire toolbox you need to become a data scientist",
-                      style: AppFonts.textFieldStyle,
-                      softWrap: true,
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 12.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(Icons.arrow_right_alt_outlined, color: AppColors.primary, size: 18),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        items[index],
+                        style: AppFonts.textFieldStyle,
+                        softWrap: true,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               );
             },
           ),

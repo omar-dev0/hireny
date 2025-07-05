@@ -63,8 +63,7 @@ class CourseContent extends StatelessWidget {
                       if (cubit.selectedDateFilter != 'All') {
                         selectedChips.add(chipLabels.indexOf('Date Published'));
                       }
-                      if (cubit.minPriceFilter != null ||
-                          cubit.maxPriceFilter != null) {
+                      if (cubit.minPriceFilter != null || cubit.maxPriceFilter != null) {
                         selectedChips.add(chipLabels.indexOf('Price'));
                       }
 
@@ -98,8 +97,9 @@ class CourseContent extends StatelessWidget {
                                 Navigator.pushNamed(
                                   context,
                                   PagesRoute.courseDetailes,
+                                  arguments: {'courseId': course.id}, // assuming 'id' is the field
                                 );
-                              },
+                                },
                               child: ExploreCard(
                                 course: course,
                                 logoImage: AppAssets.org_logo,
@@ -122,10 +122,11 @@ class CourseContent extends StatelessWidget {
                   return SliverToBoxAdapter(child: Container());
                 }
               },
-            ),
+            )
           ],
         ),
       ),
     );
   }
 }
+

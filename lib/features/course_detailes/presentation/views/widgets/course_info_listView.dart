@@ -29,7 +29,7 @@ class CourseInfoListView extends StatelessWidget {
                   SizedBox(width: 10),
                   Expanded(
                     child: Text(
-                      "The course provides the entire toolbox you need to become a data scientist",
+                      "The course provides the entire Python basic fundementals ",
                       style: AppFonts.textFieldStyle,
                       softWrap: true,
                     ),
