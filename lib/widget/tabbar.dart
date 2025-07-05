@@ -32,22 +32,6 @@ class TabBarApp extends StatefulWidget {
   State<TabBarApp> createState() => _TabBarAppState();
 }
 
-class _TabBarAppState extends State<TabBarApp> {
-  @override
-  void initState() {
-    super.initState();
-    if (!AppSharedData.initNotification) {
-      NotificationService().init();
-      NotificationService().connectToWebSocket(
-        "${AppSharedData.user?.accessToken ?? ""}",
-      );
-      AppSharedData.initNotification = true;
-    }
-  }
-
-  @override
-  State<TabBarApp> createState() => _TabBarAppState();
-}
 
 
 class _TabBarAppState extends State<TabBarApp> {
@@ -156,9 +140,9 @@ class _TabBarAppState extends State<TabBarApp> {
                   ? TabBarView(
                     children: [
                       Home(),
-                      //ExploreJobsForJobSeeker(),
-                      //ExploreOrgForSeeker(),
-                      //ExploreCoursesSeeker(),
+                      ExploreJobsForJobSeeker(),
+                      ExploreOrgForSeeker(),
+                      ExploreCoursesSeeker(),
                       SalaryInsightsScreen(),
                     ],
                   )

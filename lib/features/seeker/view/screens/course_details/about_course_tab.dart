@@ -1,10 +1,10 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:hireny/features/seeker/domain/modules/course.dart';
+import 'package:hireny/features/show_courses/presentation/ui/views/widgets/scroll_container.dart';
 
 import '../../../../../utils/constants/app_fonts.dart';
 import '../../../../profile/presentation/views/widgets/courseDescBox.dart';
-import '../../../../show_courses/presentation/ui/views/widgets/scroll_container.dart';
 
 class AboutCourseTab extends StatelessWidget {
   final Course? course;

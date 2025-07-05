@@ -38,9 +38,8 @@ class CalenderScreen extends StatelessWidget {
           if (state is SuccessAddedEvent) {
             Future.delayed(Duration(seconds: 1), () {
               Navigator.pop(context);
-              Navigator.pop(context);
               if (coming == 0) {
-                Navigator.pushNamed(context, PagesRoute.calender);
+                Navigator.pushReplacementNamed(context, PagesRoute.calender);
                 coming++;
               } else {
                 Navigator.pushReplacementNamed(context, PagesRoute.calender);

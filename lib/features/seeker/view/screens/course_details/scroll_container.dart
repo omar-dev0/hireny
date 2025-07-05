@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../utils/constants/app_colors.dart';
-import 'course_info_listView.dart';
+import '../../../../../utils/constants/app_colors.dart';
+import '../../../../show_courses/presentation/ui/views/widgets/course_info_listView.dart';
 
 class ScrollContainer extends StatelessWidget {
   final List<String> items;
@@ -23,7 +23,7 @@ class ScrollContainer extends StatelessWidget {
           )
         ],
       ),
-      child: CourseInfoListView(items: items),
+      child: CourseInfoListView(items: items,),
     );
   }
 }

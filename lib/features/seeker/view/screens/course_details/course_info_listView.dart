@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../utils/constants/app_colors.dart';
-import '../../../../../../utils/constants/app_fonts.dart';
-
+import '../../../../../utils/constants/app_colors.dart';
+import '../../../../../utils/constants/app_fonts.dart';
 
 class CourseInfoListView extends StatelessWidget {
   final List<String> items;
