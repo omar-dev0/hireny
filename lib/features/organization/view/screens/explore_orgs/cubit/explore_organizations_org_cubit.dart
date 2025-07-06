@@ -4,6 +4,7 @@ import 'package:hireny/features/seeker/domain/repo_contract/seeker_repository.da
 import 'package:hireny/utils/data_shared/app_shared_data.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../../../result.dart';
+import '../../../../../seeker/domain/modules/org_post.dart';
 import '../../../../domain/modules/seeker.dart';
 import '../../../../domain/repo_contract/org_repository.dart';
 import 'explore_organizations_org_states.dart';
@@ -24,11 +25,11 @@ class ExploreOrganizationsOrgCubit extends Cubit<ExploreOrganizationsOrgState> {
   Future<void> fetchAllOrgs() async {
     emit(ExploreOrganizationsOrgLoading());
     try {
-      final Result<List<OrgPostOrg>> result = await orgRepository.getAllOrganizations();
-      if (result is Success<List<OrgPostOrg>>) {
+      final Result<List<OrgPost>> result = await orgRepository.getAllOrganizations();
+      if (result is Success<List<OrgPost>>) {
         AppSharedData.orgs = result.response ?? [];
         _applyFilters(); // Apply any existing filters after fetching
-      } else if (result is Error<List<OrgPostOrg>>) {
+      } else if (result is Error<List<OrgPost>>) {
         emit(ExploreOrganizationsOrgError(message: result.error ?? "An unknown error occurred"));
       }
     } catch (e) {
@@ -67,7 +68,7 @@ class ExploreOrganizationsOrgCubit extends Cubit<ExploreOrganizationsOrgState> {
 
 
   void _applyFilters() {
-    List<OrgPostOrg> filteredList = List.from(AppSharedData.orgs);
+    List<OrgPost> filteredList = List.from(AppSharedData.orgs);
 
     // Apply location filter
     Set<int> selectedLocationIndices = _currentFilters['location'];

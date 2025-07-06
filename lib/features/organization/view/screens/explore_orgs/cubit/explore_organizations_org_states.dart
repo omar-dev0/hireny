@@ -11,7 +11,7 @@ class ExploreOrganizationsOrgLoading extends ExploreOrganizationsOrgState {
 }
 
 class ExploreOrganizationsOrgLoaded extends ExploreOrganizationsOrgState {
-  final List<OrgPostOrg> orgs;
+  final List<OrgPost> orgs;
   ExploreOrganizationsOrgLoaded({required this.orgs});
 }
 

@@ -9,7 +9,7 @@ import '../../../../utils/data_shared/shared_const_api.dart';
 import '../../../seeker/domain/modules/org_post.dart';
 
 class ExploreOrganizationCardOrg extends StatelessWidget {
-  final OrgPostOrg orgPost;
+  final OrgPost orgPost;
 
   const ExploreOrganizationCardOrg({
     Key? key,

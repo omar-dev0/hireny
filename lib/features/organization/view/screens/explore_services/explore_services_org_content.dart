@@ -89,11 +89,11 @@ class ExploreServicesOrgContent extends StatelessWidget {
                           duration: Duration(milliseconds: 300 + index * 100),
                           child: InkWell(
                             onTap: () {
-                              // Navigator.pushNamed(
-                              //   context,
-                              //   PagesRoute.serviceDetails,
-                              //   arguments: service.id,
-                              // );
+                              Navigator.pushNamed(
+                                context,
+                                PagesRoute.serviceDetailsOrg,
+                                arguments: {'service': service, 'cubit': cubit},
+                                );
                             },
                             child: ServiceCardOrgExplore(service: service),
                           ),

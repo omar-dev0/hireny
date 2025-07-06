@@ -46,7 +46,7 @@ class _ReviewCardOrgProfileState extends State<ReviewCardOrgProfile> {
         }
         return ListView.builder(
           padding: const EdgeInsets.symmetric(vertical: 16),
-          itemCount: cubit.reviews.length,
+          itemCount: cubit.reviews.length == 0 ? 1 : cubit.reviews.length,
           itemBuilder: (context, index) {
             if (index == 0) {
               return Padding(

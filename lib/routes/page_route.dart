@@ -39,6 +39,7 @@ abstract class PagesRoute {
   static const String orgServicePost = "/servicePost";
   static const String servicePostDetails = "/serviceDetails";
   static const String orgServices = "/orgServices";
+  static const String seekerDetailsOrg = "/seekerDetailsOrg";
 
   // admin routes
   static const String showCourses = "/showCourses";

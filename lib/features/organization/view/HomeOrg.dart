@@ -31,6 +31,8 @@ class _HomeState extends State<HomeOrg> {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = BlocProvider.of<ExploreServicesCubit>(context);
+
     return BlocBuilder<ExploreServicesCubit, ExploreServicesState>(
       builder: (context, state) {
         List<ServiceModel> servicePosts = [];
@@ -94,11 +96,11 @@ class _HomeState extends State<HomeOrg> {
                         padding: EdgeInsets.only(bottom: 20.h),
                         child: InkWell(
                           onTap: () {
-                            // Navigator.pushNamed(
-                            //   context,
-                            //   PagesRoute.jobDetailes,
-                            //   arguments: servicePost.id,
-                            // );
+                            Navigator.pushNamed(
+                              context,
+                              PagesRoute.serviceDetailsOrg,
+                              arguments: {'service': servicePost, 'cubit': cubit},
+                            );
                           },
                           child: ServiceCardOrgExplore(service: servicePost),
                         ),

@@ -171,7 +171,7 @@ abstract class AppSharedData {
   static List<ServiceResponse> servicesOrg = [];
   static List<JobPost> jobPosts = [];
   static List<OrgPost> orgPosts = [];
-  static List<OrgPostOrg> orgs = [];
+  static List<OrgPost> orgs = [];
   static List<SeekerModel> seekers = [];
   static List<ServiceModel> services = [];
   static List<String> jobTitle = [
