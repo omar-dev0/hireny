@@ -39,6 +39,7 @@ class _GeneralInfoState extends State<GeneralInfo> {
             barrierDismissible: false,
             builder: (_) => const LoadingDialog(),
           );
+
         } else if (state is SuccessUpdatedState || state is ErrorUpdatedState) {
           // Navigator.of(context, rootNavigator: true).pop();
         }

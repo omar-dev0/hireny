@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hireny/features/chat_bot/UI/chat_boot_screen.dart';
+import 'package:hireny/features/org_account/org_account.dart';
 import 'package:hireny/features/services/presentation/ui/services_view.dart';
 import 'package:hireny/features/my_assessment/presentation/ui/assissment_detailes/assissment_details_screen.dart';
 import 'package:hireny/routes/app_routes.dart' as AppRoutes;
@@ -11,6 +12,7 @@ import 'package:hireny/utils/theme.dart';
 import 'package:hireny/widget/tabbar.dart';
 
 import 'config_app/app_provider.dart';
+import 'features/auth/view/profile/cubit/user_cubit.dart';
 import 'features/services/presentation/manager/service_org_cubit.dart';
 import 'features/services/presentation/ui/service_details.dart';
 import 'features/services/presentation/ui/service_post.dart';
@@ -32,7 +34,11 @@ class Hireny extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
-        onGenerateRoute: AppRoutes.GeneratedRoute,
+        // onGenerateRoute: AppRoutes.GeneratedRoute,
+        home:  BlocProvider(
+            create: (context) => getIt.get<UserCubit>(),
+            child: OrgAccount(),
+        )
       ),
     );
   }

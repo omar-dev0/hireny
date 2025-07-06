@@ -51,6 +51,22 @@ class UserCubit extends Cubit<UserStates> {
   String? stateValue;
   String? selectedGender;
   String? selectedLinkType;
+//=================================================
+  /// org account
+  TextEditingController nameController = TextEditingController();
+  TextEditingController ceoController = TextEditingController();
+  TextEditingController employeeNumberController = TextEditingController();
+  String? industry;
+  void setIndustry(String value){
+    industry = value;
+    emit(SuccessUpdatedState());
+  }
+  String? orgSize;
+  void setOrgSize(String value){
+    orgSize = value;
+    emit(SuccessUpdatedState());
+  }
+//=================================================
 
   /// get user info
   void loadData() {
