@@ -36,6 +36,7 @@ class TechnicalInfoView extends StatelessWidget {
                 Navigator.pop(context);
               });
             }
+
             if (state is TechnicalInfoFailure) {
               // Navigator.pop(context);
               showDialog(

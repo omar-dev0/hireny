@@ -16,7 +16,6 @@ import '../models/response/skill_model.dart';
 @injectable
 class TechApiManager {
   final Dio _dio;
-  String? token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxMzU0NzgwLCJpYXQiOjE3NTEzMTE1ODAsImp0aSI6ImQyN2FkNDliYmFhMDRlNDQ5ZTNlNTgxN2JlOTUwNmM1IiwidXNlcl9pZCI6MiwiaWQiOjIsImZpcnN0TmFtZSI6InRlc3QiLCJsYXN0TmFtZSI6InRlc3QiLCJlbWFpbCI6ImZsdXR0ZXJUZXN0MTIzQGdtYWlsLmNvbSIsInJvbGUiOiJzZWVrZXIiLCJwaG90byI6Ii9tZWRpYS9waG90b3MvZGVmYXVsdC5wbmcifQ.uuOfsMb5p3_QsaRkRZD1epllckH-1Uaauwc-bylIZVY';
   List<String> deleteApi = [
     "",
     UrlConstants.deleteCourse,
@@ -112,11 +111,10 @@ class TechApiManager {
 
       if (obj is SkillModel) {
         response = await _dio.post(
-          addApi.last,
+          addApi[5],
           data: {'skillName': obj.skillName},
           options: Options(
             headers: {
-              'Authorization': 'Bearer $token',
               'Content-Type': 'application/json',
             },
           ),
@@ -134,7 +132,6 @@ class TechApiManager {
           data: {'languageName': obj.languageName},
           options: Options(
             headers: {
-              'Authorization': 'Bearer $token',
               'Content-Type': 'application/json',
             },
           ),
@@ -152,7 +149,6 @@ class TechApiManager {
           data: obj.toJson(),
           options: Options(
             headers: {
-              'Authorization': 'Bearer $token',
               'Content-Type': 'application/json',
             },
           ),
@@ -203,7 +199,6 @@ class TechApiManager {
       print(deleteID);
       final response = await _dio.delete(
         "${deleteApi[deleteID]}/$id/",
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200 || response.statusCode == 204) {
@@ -265,7 +260,6 @@ class TechApiManager {
         data: data,
         options: Options(
           headers: {
-            'Authorization': 'Bearer $token',
             'Content-Type': 'application/json',
           },
         ),

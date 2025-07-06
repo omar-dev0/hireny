@@ -176,7 +176,7 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
       }else if(isSkill){
         print(isSkill);
         dataToSend  = SkillModel(id: AppSharedData.skills.length,
-            skillName: selectedSkill!,
+          skillName: selectedSkill!,
           createdAt: DateTime.now().toIso8601String(),
           updatedAt: DateTime.now().toIso8601String(),
           user: AppSharedData.user!.id,

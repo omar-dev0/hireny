@@ -37,8 +37,8 @@ void popUpForm(BuildContext context, Function()? onPressed, String title,
                               onPressed?.call();
                               Navigator.pop(dialogContext);
                             }else{
-                              // techCubit.addTechInfo();
-                              onPressed?.call();
+                              techCubit.addTechInfo();
+                              // onPressed?.call();
                               Navigator.pop(dialogContext);
                             }
 
