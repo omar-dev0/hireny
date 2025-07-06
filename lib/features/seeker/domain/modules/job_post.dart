@@ -16,6 +16,7 @@ class JobPost {
   final int totalApplications;
   final String createdAt;
   final String jobType;
+  final String jobLocationType;
 
   JobPost({
     required this.id,
@@ -35,6 +36,7 @@ class JobPost {
     required this.totalApplications,
     required this.createdAt,
     required this.jobType,
+    required this.jobLocationType,
   });
 
   factory JobPost.fromJson(Map<String, dynamic> json) {
@@ -62,6 +64,7 @@ class JobPost {
       totalApplications: json['total_applications'] ?? 0,
       createdAt: json['createdAt'] ?? '',
       jobType: json['jobType'] ?? '', // ← Add this line
+      jobLocationType: json['jobLocationType'] ?? '', // ← Add this line
     );
   }
 }

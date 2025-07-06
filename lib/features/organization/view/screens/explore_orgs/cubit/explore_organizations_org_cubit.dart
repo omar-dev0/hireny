@@ -48,6 +48,7 @@ class ExploreOrganizationsOrgCubit extends Cubit<ExploreOrganizationsOrgState> {
         .where((orgPost) => orgPost.name.toLowerCase().contains(query.toLowerCase()))
         .toList();
 
+    print("🔍 Filtered organizations by name with query: '$query'");
     emit(ExploreOrganizationsOrgLoaded(orgs: filteredList));
   }
 
@@ -66,7 +67,6 @@ class ExploreOrganizationsOrgCubit extends Cubit<ExploreOrganizationsOrgState> {
     _applyFilters();
   }
 
-
   void _applyFilters() {
     List<OrgPost> filteredList = List.from(AppSharedData.orgs);
 
@@ -78,8 +78,21 @@ class ExploreOrganizationsOrgCubit extends Cubit<ExploreOrganizationsOrgState> {
           .map((i) => allLocations[i].toLowerCase())
           .toList();
 
+      print("### DEBUG: Applying Location Filter ###");
+      print("Selected indices: $selectedLocationIndices");
+      print("All locations: $allLocations");
+      print("Selected locations: $selectedLocations");
+
       filteredList = filteredList
-          .where((org) => selectedLocations.contains(org.country.toLowerCase()))
+          .where((org) {
+        bool matched = selectedLocations.contains(org.country?.toLowerCase() ?? '');
+        if (matched) {
+          print("✅ Matched location: '${org.country}' for organization '${org.name}'");
+        } else {
+          print("❌ No match for location: '${org.country}' not in '$selectedLocations'");
+        }
+        return matched;
+      })
           .toList();
     }
 
@@ -91,8 +104,21 @@ class ExploreOrganizationsOrgCubit extends Cubit<ExploreOrganizationsOrgState> {
           .map((i) => allIndustries[i].toLowerCase())
           .toList();
 
+      print("### DEBUG: Applying Industry Filter ###");
+      print("Selected indices: $selectedIndustryIndices");
+      print("All industries: $allIndustries");
+      print("Selected industries: $selectedIndustries");
+
       filteredList = filteredList
-          .where((org) => selectedIndustries.contains(org.industry.toLowerCase()))
+          .where((org) {
+        bool matched = selectedIndustries.contains(org.industry?.toLowerCase() ?? '');
+        if (matched) {
+          print("✅ Matched industry: '${org.industry}' for organization '${org.name}'");
+        } else {
+          print("❌ No match for industry: '${org.industry}' not in '$selectedIndustries'");
+        }
+        return matched;
+      })
           .toList();
     }
 
@@ -104,16 +130,26 @@ class ExploreOrganizationsOrgCubit extends Cubit<ExploreOrganizationsOrgState> {
           .map((i) => allSizes[i])
           .toList();
 
+      print("### DEBUG: Applying Size Filter ###");
+      print("Selected indices: $selectedSizeIndices");
+      print("All sizes: $allSizes");
+      print("Selected sizes: $selectedSizes");
+
       filteredList = filteredList
-          .where((org) => selectedSizes.contains(org.organizationSize))
+          .where((org) {
+        bool matched = selectedSizes.contains(org.organizationSize);
+        if (matched) {
+          print("✅ Matched size: '${org.organizationSize}' for organization '${org.name}'");
+        } else {
+          print("❌ No match for size: '${org.organizationSize}' not in '$selectedSizes'");
+        }
+        return matched;
+      })
           .toList();
     }
 
-
-
     emit(ExploreOrganizationsOrgLoaded(orgs: filteredList));
   }
-
 
   // Getters for current filter selections (for UI to pre-populate bottom sheets)
   Set<int> get selectedLocationIndices => _currentFilters['location'];

@@ -58,13 +58,13 @@ class ExploreOrganizationsOrgContent extends StatelessWidget {
                     builder: (context, state) {
                       // Determine which chips are 'selected' based on the cubit's filter state
                       Set<int> selectedChips = {};
-                      if (cubit.selectedLocationIndices != 'All') {
+                      if (cubit.selectedLocationIndices.isNotEmpty) {
                         selectedChips.add(chipLabels.indexOf('Location'));
                       }
                       if (cubit.selectedIndustryIndices.isNotEmpty) {
                         selectedChips.add(chipLabels.indexOf('Industry'));
                       }
-                      if (cubit.selectedSizeIndices != 'All') {
+                      if (cubit.selectedSizeIndices.isNotEmpty) {
                         selectedChips.add(chipLabels.indexOf('Size'));
                       }
 
