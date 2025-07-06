@@ -151,11 +151,14 @@ class ExploreServicesCubit extends Cubit<ExploreServicesState> {
       final Result<bool> result = await orgRepository.applyToService(serviceId);
 
       if (result is Success<bool>) {
+        emit(HideServiceDialog());
         emit(ServiceAppliedSuccess());
       } else if (result is Error<bool>) {
+        emit(HideServiceDialog());
         emit(ServiceAppliedFailed(result.error ?? "Failed to apply"));
       }
     } catch (e) {
+      emit(HideServiceDialog());
       emit(ServiceAppliedFailed(e.toString()));
     }
   }

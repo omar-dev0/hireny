@@ -17,23 +17,23 @@ class OrgAdminAdapter extends TypeAdapter<OrgAdmin> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return OrgAdmin(
-      id: fields[0] as num?,
-      firstName: fields[1] as String?,
-      lastName: fields[2] as String?,
-      email: fields[3] as String?,
-      phone: fields[4] as String?,
-      role: fields[5] as String?,
-      country: fields[6] as String?,
-      city: fields[7] as String?,
-      links: (fields[8] as List?)?.cast<UserLink?>(),
-      updatesToEmail: fields[9] as bool?,
-      photo: fields[10] as String?,
-      companyName: fields[13] as String?,
-      ceo: fields[14] as String?,
-      startYear: fields[15] as num?,
-      industry: (fields[16] as List?)?.cast<String?>(),
-      orgSize: fields[17] as String?,
-    )
+        id: fields[0] as int?,
+        firstName: fields[1] as String?,
+        lastName: fields[2] as String?,
+        email: fields[3] as String?,
+        phone: fields[4] as String?,
+        role: fields[5] as String?,
+        country: fields[6] as String?,
+        city: fields[7] as String?,
+        links: (fields[8] as List?)?.cast<UserLink?>(),
+        updatesToEmail: fields[9] as bool?,
+        photo: fields[10] as String?,
+        companyName: fields[13] as String?,
+        ceo: fields[14] as String?,
+        startYear: fields[15] as num?,
+        industry: (fields[16] as List?)?.cast<String?>(),
+        orgSize: fields[17] as String?,
+      )
       ..accessToken = fields[11] as String?
       ..refreshToken = fields[12] as String?;
   }

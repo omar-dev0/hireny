@@ -14,8 +14,8 @@ class NotificationService {
   WebSocket? _socket;
 
   Future<void> init() async {
-      if (await Permission.notification.isDenied) {
-        await Permission.notification.request();
+    if (await Permission.notification.isDenied) {
+      await Permission.notification.request();
     }
 
     const androidInit = AndroidInitializationSettings('@mipmap/ic_launcher');

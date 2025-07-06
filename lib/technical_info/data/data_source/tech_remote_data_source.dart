@@ -4,15 +4,18 @@ import 'package:hireny/technical_info/data/data_source/tech_data_source.dart';
 import 'package:hireny/technical_info/data/models/response/tech_info_respnonse.dart';
 import 'package:injectable/injectable.dart';
 
+
 @LazySingleton(as: TechDataSourceInterface)
 class TechDataSource implements TechDataSourceInterface {
   final TechApiManager techApiManager;
 
   TechDataSource(this.techApiManager);
 
+
+
   @override
-  Future<Result<void>> addTechInfo(dynamic obj, int addID) {
-    return techApiManager.addTechInfo(obj, addID);
+  Future<Result<void>> addTechInfo(dynamic obj , int addID) {
+    return techApiManager.addTechInfo(obj,addID);
   }
 
   @override
@@ -21,7 +24,7 @@ class TechDataSource implements TechDataSourceInterface {
   }
 
   @override
-  Future<Result<void>> deleteItem(String id, int deleteID) {
+  Future<Result<void>> deleteItem(String id,int deleteID){
     return techApiManager.deleteTechInfo(id, deleteID);
   }
 
@@ -31,3 +34,4 @@ class TechDataSource implements TechDataSourceInterface {
 
   }
 }
+

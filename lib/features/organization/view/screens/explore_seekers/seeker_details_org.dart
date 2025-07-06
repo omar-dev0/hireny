@@ -13,6 +13,7 @@ class SeekerDetailsOrg extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(seeker.photo);
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: AppBar(
@@ -26,7 +27,6 @@ class SeekerDetailsOrg extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
         child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Profile Header
               Container(

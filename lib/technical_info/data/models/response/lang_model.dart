@@ -3,7 +3,7 @@ class LanguageModel {
   final String languageName;
   final String createdAt;
   final String updatedAt;
-  final int? user;
+  final int user;
 
   LanguageModel({
     required this.id,

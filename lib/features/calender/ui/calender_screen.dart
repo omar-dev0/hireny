@@ -28,7 +28,6 @@ class CalenderScreen extends StatelessWidget {
           return CalenderView(events: []);
         },
         listener: (context, state) {
-          int coming = 0;
           if (state is ErrorCalender) {
             showDialog(
               context: context,
@@ -36,16 +35,11 @@ class CalenderScreen extends StatelessWidget {
             );
           }
           if (state is SuccessAddedEvent) {
-            Future.delayed(Duration(seconds: 1), () {
-              Navigator.pop(context);
-              if (coming == 0) {
-                Navigator.pushReplacementNamed(context, PagesRoute.calender);
-                coming++;
-              } else {
-                Navigator.pushReplacementNamed(context, PagesRoute.calender);
-              }
-            });
-
+            Future.delayed(
+              Duration(seconds: 1),
+              () =>
+                  Navigator.pushReplacementNamed(context, PagesRoute.calender),
+            );
             showDialog(
               context: context,
               builder:

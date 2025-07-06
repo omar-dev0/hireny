@@ -3,7 +3,7 @@ class SkillModel {
   final String skillName;
   final String createdAt;
   final String updatedAt;
-  final int? user;
+  final int user;
 
   SkillModel({
     required this.id,

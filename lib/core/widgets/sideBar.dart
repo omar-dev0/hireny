@@ -47,14 +47,14 @@ class SideBarScreen extends StatelessWidget {
     {
       "title": "AI Tools",
       "icon": Icons.smart_toy,
-      // "route": PagesRoute.aiTools,
+      "route": PagesRoute.aiTools,
     },
   ]
       : [
     {
       "title": "General Info",
       "icon": Icons.info,
-      "route": PagesRoute.generalInfo,
+      "route": PagesRoute.orgAccount,
     },
     {
       "title": "Representatives",

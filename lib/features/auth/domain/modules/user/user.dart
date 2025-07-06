@@ -10,7 +10,7 @@ part 'user.g.dart';
 @HiveType(typeId: 22)
 class User {
   @HiveField(0)
-  num? id;
+  int? id;
   @HiveField(1)
   String? firstName;
   @HiveField(2)

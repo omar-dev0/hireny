@@ -59,14 +59,16 @@ class _OrgProfileContentState extends State<OrgProfileContent> {
                                       width: 3,
                                     ),
                                   ),
-                                  child:  CircleAvatar(
+                                  child: CircleAvatar(
                                     radius: 50,
                                     backgroundColor: Colors.white,
-                                    child:  Image.network(
+                                    child: Image.network(
                                       '${ApiShared.baseUrl}${widget.orgPost.photo}',
-                                      width: MediaQuery.sizeOf(context).width * .2,
+                                      width:
+                                          MediaQuery.sizeOf(context).width * .2,
                                       height:
-                                      MediaQuery.sizeOf(context).height * .1,
+                                          MediaQuery.sizeOf(context).height *
+                                          .1,
                                       fit: BoxFit.cover,
                                       errorBuilder: (_, __, ___) {
                                         return Image.asset(
@@ -276,7 +278,7 @@ class _OrgProfileContentState extends State<OrgProfileContent> {
             ),
             BlocBuilder<OrgProfileCubit, OrgProfilleState>(
               builder: (context, state) {
-                return ReviewCardOrgProfile(
+                return ReviewCardOrg(
                   profileCubit: cubit,
                   Id: widget.orgPost.id,
                 );

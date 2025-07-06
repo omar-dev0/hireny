@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hireny/features/auth/view/forget_password/reset_password/reset_password.dart';
 import 'package:hireny/features/auth/view/forget_password/verift_email_screen.dart';
+import 'package:hireny/features/auth/view/profile/ai_tools/ai-screen.dart';
 import 'package:hireny/features/calender/ui/calender_screen.dart';
 import 'package:hireny/features/manage_org_account/reviews_tab/presentation/ui/review_card.dart';
 import 'package:hireny/features/my_assessment/presentation/ui/my_assessment_screen.dart';
@@ -204,6 +205,10 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
   if (name == PagesRoute.personalProfileAdmin) {
     return MaterialPageRoute(builder: (_) => PersonalProfileAdmin());
   }
+  if(name == PagesRoute.aiTools)
+    {
+      return MaterialPageRoute(builder: (_)=>AiScreen());
+    }
   if (name == PagesRoute.verifyOrganizationAdmin) {
     return MaterialPageRoute(builder: (_) => VerifyOrganizationAdmin());
   }

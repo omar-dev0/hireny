@@ -17,7 +17,7 @@ class SeekerAdapter extends TypeAdapter<Seeker> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Seeker(
-      id: fields[0] as num?,
+      id: fields[0] as int?,
       firstName: fields[1] as String?,
       lastName: fields[2] as String?,
       email: fields[3] as String?,

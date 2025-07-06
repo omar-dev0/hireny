@@ -36,7 +36,7 @@ class Seeker extends User {
   String? cv;
 
   Seeker({
-    num? id,
+    int? id,
     String? firstName,
     String? lastName,
     String? email,

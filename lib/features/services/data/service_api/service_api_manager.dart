@@ -15,7 +15,6 @@ class ServiceApiManager {
   final Dio _dio;
 
   ServiceApiManager(this._dio);
-  String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxNzMyODA3LCJpYXQiOjE3NTE2ODk2MDcsImp0aSI6ImQwMjNiZDg3Mzc0YjQyMTBhMDEwNjk1ZDViNzY3YWIzIiwidXNlcl9pZCI6MzIsImlkIjozMiwiZmlyc3ROYW1lIjoidGVzdCIsImxhc3ROYW1lIjoidGVzdCIsImVtYWlsIjoiZmx1dHRlclRlc3RAY29tcGFueS5jb20iLCJyb2xlIjoib3JnQWRtaW4iLCJwaG90byI6Ii9tZWRpYS9waG90b3MvZGVmYXVsdC5wbmciLCJvcmdhbml6YXRpb24iOjl9.0pGKGfhKE4RG_eXVPBnbM_J80_edN6O-LeUR8CTl7Lo";
   ///  add service post
   Future<Result<ServiceResponse>> addServicePost(ServiceRequestModel service) async {
     try {
@@ -23,7 +22,6 @@ class ServiceApiManager {
         ServiceApiConst.addServicePost,
         data: service.toJson(), options: Options(
             headers: {
-              'Authorization': 'Bearer $token',
               'Content-Type' : 'application/json'
             },
       )
@@ -49,10 +47,9 @@ class ServiceApiManager {
   Future<Result<void>> getServices(int id) async {
     try {
       final response = await _dio.get(
-        "${ServiceApiConst.getServices}9",
+        "${ServiceApiConst.getServices}$id",
         options: Options(
           headers: {
-            'Authorization': 'Bearer $token',
           },
         ),
       );
@@ -80,7 +77,6 @@ class ServiceApiManager {
         "${ServiceApiConst.deleteServicePost}$id/",
         options: Options(
           headers: {
-            'Authorization': 'Bearer $token',
           },
         ),
       );
@@ -109,7 +105,6 @@ class ServiceApiManager {
         data: service.toJson(),
         options: Options(
           headers: {
-            'Authorization': 'Bearer $token',
             'Content-Type': 'application/json',
           },
         ),

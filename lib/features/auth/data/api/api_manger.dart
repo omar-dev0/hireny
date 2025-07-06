@@ -189,8 +189,6 @@ class ApiManger {
 
   /////////////////////// update user info
   Future<Result<void>> updateUserInfo(Seeker seeker) async {
-    final token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxNDA3NzE1LCJpYXQiOjE3NTEzOTE1MTUsImp0aSI6ImIzOWU3MTYzMzliODRlZWQ4MDU4MTA5ZDNlN2JjNTM1IiwidXNlcl9pZCI6NSwiaWQiOjUsImZpcnN0TmFtZSI6IlRlc3N0IiwibGFzdE5hbWUiOiJ0ZXN0IiwiZW1haWwiOiJmbHV0dHRlclRlc3QxMkBnbWFpbC5jb20iLCJyb2xlIjoic2Vla2VyIiwicGhvdG8iOiIvbWVkaWEvcGhvdG9zL2RlZmF1bHQuanBnIn0.WEF209t-oAA2JzUWLrhb0suU9Ifu_agFpcqMmE8jfKE";
-    if (token == null) return Error(error: "Missing token");
     try {
       final formData = FormData.fromMap({
         'firstName': seeker.firstName,
@@ -206,28 +204,32 @@ class ApiManger {
         'city': seeker.city,
         'immediateStart': seeker.immediateStart.toString(),
         'updatesToEmail': seeker.updatesToEmail.toString(),
-        'links': jsonEncode(seeker.links), // Must be a List<Map<String, dynamic>>
+        'links': jsonEncode(
+          seeker.links,
+        ), // Must be a List<Map<String, dynamic>>
         if (seeker.cv != null)
-          'cv': await MultipartFile.fromFile(seeker.cv!, filename: seeker.cv!.split('/').last),
+          'cv': await MultipartFile.fromFile(
+            seeker.cv!,
+            filename: seeker.cv!.split('/').last,
+          ),
         if (seeker.photo != null)
-          'photo': await MultipartFile.fromFile(seeker.photo!, filename: seeker.photo!.split('/').last),
+          'photo': await MultipartFile.fromFile(
+            seeker.photo!,
+            filename: seeker.photo!.split('/').last,
+          ),
       });
 
       final response = await _dio.put(
         ApiConst.updateUserInfo,
         data: formData,
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer $token',
-          },
-        ),
+        options: Options(),
       );
 
       if (response.statusCode == 200) {
         // ✅ Parse updated user from response
         final updatedUser = Seeker.fromJson(response.data);
-
-        // ✅ Store in memory
+        updatedUser.accessToken = AppSharedData.user?.accessToken;
+        updatedUser.refreshToken = AppSharedData.user?.refreshToken;
         AppSharedData.user = updatedUser;
 
         // ✅ Save to Hive if rememberMe is true
@@ -237,13 +239,14 @@ class ApiManger {
 
         return Success();
       } else {
-        return Error(error: "Failed to update user info. Status: ${response.statusCode}");
+        return Error(
+          error: "Failed to update user info. Status: ${response.statusCode}",
+        );
       }
     } catch (e) {
       return Error(error: e.toString());
     }
   }
-
 
   Future<Result<void>> changePassword(
     String token,
@@ -393,4 +396,3 @@ class ApiManger {
     return null;
   }
 }
-

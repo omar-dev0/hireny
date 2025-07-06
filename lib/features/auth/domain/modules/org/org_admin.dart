@@ -25,7 +25,7 @@ class OrgAdmin extends User {
   String? orgSize;
 
   OrgAdmin({
-    num? id,
+    int? id,
     String? firstName,
     String? lastName,
     String? email,

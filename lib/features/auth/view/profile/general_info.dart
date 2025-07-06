@@ -40,7 +40,7 @@ class _GeneralInfoState extends State<GeneralInfo> {
             builder: (_) => const LoadingDialog(),
           );
         } else if (state is SuccessUpdatedState || state is ErrorUpdatedState) {
-          // Navigator.of(context, rootNavigator: true).pop();
+          Navigator.of(context, rootNavigator: true).pop();
         }
 
         if (state is ErrorUpdatedState) {
@@ -66,60 +66,71 @@ class _GeneralInfoState extends State<GeneralInfo> {
             child: Column(
               children: [
                 // Profile Picture Section
-            FadeInDown(
-            duration: const Duration(milliseconds: 400),
-            child: Stack(
-              clipBehavior: Clip.none,
+                FadeInDown(
+                  duration: const Duration(milliseconds: 400),
+                  child: Stack(
+                    clipBehavior: Clip.none,
 
-              children: [
-                BlocBuilder<UserCubit, UserStates>(
-                  builder: (context, state) {
-                    final selected = cubit.selectedImage;
-                    final validFile = selected != null && File(selected.path).existsSync();
+                    children: [
+                      BlocBuilder<UserCubit, UserStates>(
+                        builder: (context, state) {
+                          final selected = cubit.selectedImage;
+                          final validFile =
+                              selected != null &&
+                              File(selected.path).existsSync();
 
-                    return AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 400),
-                      child: validFile
-                          ? CircleAvatar(
-                        key: const ValueKey('picked_avatar'),
-                        radius: 60,
-                        backgroundImage: FileImage(File(selected.path)),
-                      )
-                          : CircleAvatar(
-                        key: const ValueKey('default_avatar'),
-                        radius: 60,
-                        child: Icon(Icons.person, size: 50),
+                          return AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 400),
+                            child:
+                                validFile
+                                    ? CircleAvatar(
+                                      key: const ValueKey('picked_avatar'),
+                                      radius: 60,
+                                      backgroundImage: FileImage(
+                                        File(selected.path),
+                                      ),
+                                    )
+                                    : CircleAvatar(
+                                      key: const ValueKey('default_avatar'),
+                                      radius: 60,
+                                      child: Icon(Icons.person, size: 50),
+                                    ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),   Positioned(
-                  bottom: -5,
-                  right: -5,
-                  child: GestureDetector(
-                    onTap: () {
-                      showModalBottomSheet(
-                        context: context,
-                        backgroundColor: Colors.transparent,
-                        isScrollControlled: true,
-                        builder: (context) => BlocProvider.value(
-                          value: cubit,
-                          child: const ImagePickerBottomSheet(),
+                      Positioned(
+                        bottom: -5,
+                        right: -5,
+                        child: GestureDetector(
+                          onTap: () {
+                            showModalBottomSheet(
+                              context: context,
+                              backgroundColor: Colors.transparent,
+                              isScrollControlled: true,
+                              builder:
+                                  (context) => BlocProvider.value(
+                                    value: cubit,
+                                    child: const ImagePickerBottomSheet(),
+                                  ),
+                            );
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor,
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(
+                              Icons.edit,
+                              size: 20,
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
-                      );
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                        shape: BoxShape.circle,
                       ),
-                      child: const Icon(Icons.edit, size: 20, color: Colors.white),
-                    ),
+                    ],
                   ),
                 ),
-              ],
-            ),
-            ),
                 const SizedBox(height: 24),
 
                 // Form Section
@@ -144,8 +155,11 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                       hint: "Enter your first name",
                                       prefixIcon: Icon(Icons.person_outline),
                                       keyboardType: TextInputType.name,
-                                      onValidate: (value) =>
-                                          cubit.validateText(value, "First name"),
+                                      onValidate:
+                                          (value) => cubit.validateText(
+                                            value,
+                                            "First name",
+                                          ),
                                     ),
                                   ),
                                 ),
@@ -158,8 +172,11 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                       controller: cubit.lastNameController,
                                       hint: "Enter your last name",
                                       keyboardType: TextInputType.name,
-                                      onValidate: (value) =>
-                                          cubit.validateText(value, "Last name"),
+                                      onValidate:
+                                          (value) => cubit.validateText(
+                                            value,
+                                            "Last name",
+                                          ),
                                     ),
                                   ),
                                 ),
@@ -182,14 +199,17 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                       return Theme(
                                         data: Theme.of(context).copyWith(
                                           colorScheme: ColorScheme.light(
-                                            primary: Theme.of(context).primaryColor,
+                                            primary:
+                                                Theme.of(context).primaryColor,
                                             onPrimary: Colors.white,
                                             onSurface: Colors.black,
                                           ),
                                           textButtonTheme: TextButtonThemeData(
                                             style: TextButton.styleFrom(
                                               foregroundColor:
-                                              Theme.of(context).primaryColor,
+                                                  Theme.of(
+                                                    context,
+                                                  ).primaryColor,
                                             ),
                                           ),
                                         ),
@@ -199,10 +219,10 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                   );
                                   if (pickedDate != null) {
                                     cubit.birthDateController.text =
-                                    "${pickedDate.year.toString().padLeft(4, '0')}-"
+                                        "${pickedDate.year.toString().padLeft(4, '0')}-"
                                         "${pickedDate.month.toString().padLeft(2, '0')}-"
                                         "${pickedDate.day.toString().padLeft(2, '0')}";
-                                  } else{
+                                  } else {
                                     print(pickedDate);
                                   }
                                 },
@@ -211,9 +231,11 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                     label: "Birth Date",
                                     controller: cubit.birthDateController,
                                     hint: "yyyy/mm/dd",
-                                    prefixIcon: Icon(Icons.calendar_today_outlined),
-                                    onValidate: (value) =>
-                                        cubit.validateDate(value),
+                                    prefixIcon: Icon(
+                                      Icons.calendar_today_outlined,
+                                    ),
+                                    onValidate:
+                                        (value) => cubit.validateDate(value),
                                   ),
                                 ),
                               ),
@@ -228,9 +250,13 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                 label: "Email",
                                 controller: cubit.emailController,
                                 hint: "Enter your email",
-                                prefixIcon: Icon(Icons.email_outlined,color:AppColors.grey.withValues(alpha: 0.5)),
+                                prefixIcon: Icon(
+                                  Icons.email_outlined,
+                                  color: AppColors.grey.withValues(alpha: 0.5),
+                                ),
                                 keyboardType: TextInputType.emailAddress,
-                                onValidate: (value) => cubit.validateEmail(value),
+                                onValidate:
+                                    (value) => cubit.validateEmail(value),
                                 enabled: false,
                               ),
                             ),
@@ -243,9 +269,13 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                 label: "Phone Number",
                                 controller: cubit.phoneController,
                                 hint: "+20XXXXXXXXX",
-                                prefixIcon: Icon(Icons.phone_outlined, color: AppColors.grey.withAlpha(120)),
+                                prefixIcon: Icon(
+                                  Icons.phone_outlined,
+                                  color: AppColors.grey.withAlpha(120),
+                                ),
                                 keyboardType: TextInputType.phone,
-                                onValidate: (value) => cubit.validatePhoneNumber(value),
+                                onValidate:
+                                    (value) => cubit.validatePhoneNumber(value),
                               ),
                             ),
                             const SizedBox(height: 16),
@@ -259,9 +289,10 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                     child: CustomDropDown(
                                       label: "Country",
                                       selectItem: cubit.country,
-                                      items: AppSharedData.countryCityData.keys
-                                          .toList()
-                                          .cast<String>(),
+                                      items:
+                                          AppSharedData.countryCityData.keys
+                                              .toList()
+                                              .cast<String>(),
                                       onChanged: (val) {
                                         setState(() {
                                           cubit.country = val;
@@ -275,8 +306,9 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                     child: CustomDropDown(
                                       label: "City",
                                       selectItem: cubit.city,
-                                      items: AppSharedData.countryCityData[
-                                      cubit.country] ??
+                                      items:
+                                          AppSharedData.countryCityData[cubit
+                                              .country] ??
                                           [],
                                       onChanged: (val) {
                                         cubit.city = val;
@@ -303,7 +335,8 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                   const SizedBox(height: 8),
                                   Container(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 8),
+                                      horizontal: 8,
+                                    ),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(12),
                                       border: Border.all(
@@ -318,26 +351,34 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                               child: RadioListTile<String>(
                                                 title: const Text('Male'),
                                                 value: 'male',
-                                                groupValue: cubit.selectedGender,
+                                                groupValue:
+                                                    cubit.selectedGender,
                                                 contentPadding: EdgeInsets.zero,
                                                 dense: true,
                                                 activeColor:
-                                                Theme.of(context).primaryColor,
-                                                onChanged: (value) =>
-                                                    cubit.updateGender(value),
+                                                    Theme.of(
+                                                      context,
+                                                    ).primaryColor,
+                                                onChanged:
+                                                    (value) => cubit
+                                                        .updateGender(value),
                                               ),
                                             ),
                                             Expanded(
                                               child: RadioListTile<String>(
                                                 title: const Text('Female'),
                                                 value: 'female',
-                                                groupValue: cubit.selectedGender,
+                                                groupValue:
+                                                    cubit.selectedGender,
                                                 contentPadding: EdgeInsets.zero,
                                                 dense: true,
                                                 activeColor:
-                                                Theme.of(context).primaryColor,
-                                                onChanged: (value) =>
-                                                    cubit.updateGender(value),
+                                                    Theme.of(
+                                                      context,
+                                                    ).primaryColor,
+                                                onChanged:
+                                                    (value) => cubit
+                                                        .updateGender(value),
                                               ),
                                             ),
                                           ],
@@ -361,8 +402,9 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                     hint: "E.g. Senior Flutter Developer",
                                     prefixIcon: Icon(Icons.work_outline),
                                     keyboardType: TextInputType.name,
-                                    onValidate: (value) =>
-                                        cubit.validateText(value, "title"),
+                                    onValidate:
+                                        (value) =>
+                                            cubit.validateText(value, "title"),
                                   ),
                                   const SizedBox(height: 16),
                                   Row(
@@ -370,7 +412,9 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                       Expanded(
                                         child: CustomDropDown(
                                           label: "Career Level",
-                                          items: AppSharedData.careerLevels ,//cubit.careerLevels,
+                                          items:
+                                              AppSharedData
+                                                  .careerLevels, //cubit.careerLevels,
                                           selectItem: cubit.selectedCareerLevel,
                                           onChanged: cubit.setCareerLevel,
                                         ),
@@ -379,9 +423,11 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                       Expanded(
                                         child: CustomDropDown(
                                           label: "Employment Status",
-                                          items: AppSharedData.employmentStatus,//cubit.employmentStatusList,
+                                          items:
+                                              AppSharedData
+                                                  .employmentStatus, //cubit.employmentStatusList,
                                           selectItem:
-                                          cubit.selectedEmploymentStatus,
+                                              cubit.selectedEmploymentStatus,
                                           onChanged: cubit.setEmploymentStatus,
                                         ),
                                       ),
@@ -399,11 +445,12 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                 label: "About You",
                                 controller: cubit.briefController,
                                 hint:
-                                "Write a brief summary about your professional background...",
+                                    "Write a brief summary about your professional background...",
                                 keyboardType: TextInputType.multiline,
                                 maxLines: 4,
-                                onValidate: (value) =>
-                                    cubit.validateText(value, "brief"),
+                                onValidate:
+                                    (value) =>
+                                        cubit.validateText(value, "brief"),
                               ),
                             ),
                             const SizedBox(height: 16),
@@ -416,13 +463,15 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                 children: [
                                   // title
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         "Social Links",
-                                        style: theme.textTheme.bodyLarge?.copyWith(
-                                          fontWeight: FontWeight.w500,
-                                        ),
+                                        style: theme.textTheme.bodyLarge
+                                            ?.copyWith(
+                                              fontWeight: FontWeight.w500,
+                                            ),
                                       ),
                                       TextButton.icon(
                                         onPressed: () {
@@ -435,7 +484,8 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                         label: Text(
                                           "Add Link",
                                           style: TextStyle(
-                                            color: Theme.of(context).primaryColor,
+                                            color:
+                                                Theme.of(context).primaryColor,
                                           ),
                                         ),
                                       ),
@@ -443,8 +493,9 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                   ),
                                   ...List.generate(
                                     cubit.fieldPairs.length,
-                                        (index) => Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                    (index) => Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Row(
                                           children: [
@@ -453,9 +504,12 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                               child: CustomDropDown(
                                                 label: "Link Type",
                                                 items: cubit.linkTypes,
-                                                selectItem: cubit.fieldPairs[index]['type'],
+                                                selectItem:
+                                                    cubit
+                                                        .fieldPairs[index]['type'],
                                                 onChanged: (val) {
-                                                  cubit.fieldPairs[index]['type'] = val;
+                                                  cubit.fieldPairs[index]['type'] =
+                                                      val;
                                                   // cubit.emitUpdated(); // Ensure UI reflects change
                                                 },
                                               ),
@@ -465,11 +519,15 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                             Expanded(
                                               flex: 3,
                                               child: CustomTextField(
-                                                controller: cubit.fieldPairs[index]['value'],
+                                                controller:
+                                                    cubit
+                                                        .fieldPairs[index]['value'],
                                                 label: "URL",
                                                 hint: "https://example.com",
                                                 keyboardType: TextInputType.url,
-                                                onValidate: (val) => cubit.validateLink(val),
+                                                onValidate:
+                                                    (val) =>
+                                                        cubit.validateLink(val),
                                               ),
                                             ),
                                           ],
@@ -478,8 +536,14 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                           Align(
                                             alignment: Alignment.centerRight,
                                             child: IconButton(
-                                              icon: const Icon(Icons.delete_outline, color: Colors.red),
-                                              onPressed: () => cubit.removeFieldPair(index),
+                                              icon: const Icon(
+                                                Icons.delete_outline,
+                                                color: Colors.red,
+                                              ),
+                                              onPressed:
+                                                  () => cubit.removeFieldPair(
+                                                    index,
+                                                  ),
                                             ),
                                           ),
                                         const SizedBox(height: 12),
@@ -498,25 +562,23 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                 children: [
                                   Expanded(
                                     child: ElevatedButton(
-                                      onPressed: () async{
+                                      onPressed: () async {
                                         if (cubit.formKey.currentState!
                                             .validate()) {
-                                           cubit.formKey.currentState!.save();
-                                           await cubit.updateUserInfo();
-                                          Navigator.pushNamed(
-                                            context,
-                                            PagesRoute.generalTechInfo,
-                                          );
+                                          cubit.formKey.currentState!.save();
+                                          await cubit.updateUserInfo();
                                         }
                                       },
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor:
-                                        Theme.of(context).primaryColor,
+                                            Theme.of(context).primaryColor,
                                         padding: const EdgeInsets.symmetric(
-                                            vertical: 16),
+                                          vertical: 16,
+                                        ),
                                         shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(12),
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
                                         ),
                                         elevation: 2,
                                       ),
@@ -524,9 +586,9 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                         "Save changes",
                                         style: theme.textTheme.labelLarge
                                             ?.copyWith(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                       ),
                                     ),
                                   ),
@@ -541,10 +603,12 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                       },
                                       style: OutlinedButton.styleFrom(
                                         padding: const EdgeInsets.symmetric(
-                                            vertical: 16),
+                                          vertical: 16,
+                                        ),
                                         shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(12),
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
                                         ),
                                         side: BorderSide(
                                           color: Theme.of(context).primaryColor,
@@ -554,9 +618,12 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                         "Change Password",
                                         style: theme.textTheme.labelLarge
                                             ?.copyWith(
-                                          color: Theme.of(context).primaryColor,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                              color:
+                                                  Theme.of(
+                                                    context,
+                                                  ).primaryColor,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                       ),
                                     ),
                                   ),
@@ -577,6 +644,7 @@ class _GeneralInfoState extends State<GeneralInfo> {
       },
     );
   }
+
   Widget _buildImagePickerOption({
     required IconData icon,
     required String label,
@@ -612,6 +680,7 @@ class _GeneralInfoState extends State<GeneralInfo> {
       ),
     );
   }
+
   Widget _buildImagePickerBottomSheet(UserCubit cubit) {
     return Container(
       decoration: BoxDecoration(
@@ -640,9 +709,9 @@ class _GeneralInfoState extends State<GeneralInfo> {
           ),
           Text(
             "Choose Profile Photo",
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.bold,
-            ),
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 24),
           Row(
@@ -665,5 +734,4 @@ class _GeneralInfoState extends State<GeneralInfo> {
       ),
     );
   }
-
 }

@@ -16,6 +16,7 @@ import 'package:hireny/utils/constants/dialogs/loading_dialog.dart';
 import 'package:hireny/utils/data_shared/app_shared_data.dart';
 import 'package:hireny/utils/widgets/job_explore_card.dart';
 
+import '../../../config_app/notification_service.dart';
 import '../../../routes/page_route.dart';
 import '../../../utils/constants/app_colors.dart';
 import '../../../utils/widgets/custom_search_bar.dart';
@@ -28,6 +29,15 @@ class HomeOrg extends StatefulWidget {
 }
 
 class _HomeState extends State<HomeOrg> {
+  @override
+  void initState() {
+    super.initState();
+    NotificationService notificationService = NotificationService();
+    notificationService.init();
+    notificationService.connectToWebSocket(
+      AppSharedData.user?.accessToken ?? "",
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

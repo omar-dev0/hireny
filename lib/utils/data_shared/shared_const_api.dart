@@ -1,3 +1,3 @@
 abstract class ApiShared {
-  static String baseUrl = 'https://hireny.pythonanywhere.com';
+  static String baseUrl = 'http://localhost:8000';
 }

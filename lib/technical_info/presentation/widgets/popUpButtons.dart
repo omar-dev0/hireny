@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../../../utils/constants/app_colors.dart';
 
+
 class popUpButtons extends StatelessWidget {
-  const popUpButtons({super.key, required this.onPressed});
+  const popUpButtons({
+    super.key,required this.onPressed,
+  });
   final void Function()? onPressed;
 
   @override
@@ -16,7 +19,9 @@ class popUpButtons extends StatelessWidget {
           onPressed: () => Navigator.of(context).pop(),
         ),
         ElevatedButton(
-          style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppColors.primary,
+          ),
           child: Text('Submit', style: TextStyle(color: AppColors.white)),
           onPressed: onPressed,
         ),

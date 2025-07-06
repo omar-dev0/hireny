@@ -51,7 +51,7 @@ class ServiceDetailsOrg extends StatelessWidget {
                     color: Colors.grey.shade300,
                     blurRadius: 8.r,
                     offset: const Offset(0, 2),
-                  )
+                  ),
                 ],
               ),
               child: Column(
@@ -66,8 +66,12 @@ class ServiceDetailsOrg extends StatelessWidget {
                           width: 60.w,
                           height: 60.h,
                           fit: BoxFit.cover,
-                          errorBuilder: (_, __, ___) =>
-                              Image.asset(AppAssets.org_logo, width: 60.w, height: 60.h),
+                          errorBuilder:
+                              (_, __, ___) => Image.asset(
+                                AppAssets.org_logo,
+                                width: 60.w,
+                                height: 60.h,
+                              ),
                         ),
                       ),
                       SizedBox(width: 16.w),
@@ -77,14 +81,19 @@ class ServiceDetailsOrg extends StatelessWidget {
                           children: [
                             Text(
                               service.companyName ?? "Company Name",
-                              style: AppFonts.mainText.copyWith(fontSize: 18.sp),
+                              style: AppFonts.mainText.copyWith(
+                                fontSize: 18.sp,
+                              ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
                             SizedBox(height: 4.h),
                             Text(
                               service.serviceTitle ?? "Service Title",
-                              style: AppFonts.secMain.copyWith(fontSize: 16.sp, fontWeight: FontWeight.bold),
+                              style: AppFonts.secMain.copyWith(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ],
                         ),
@@ -94,7 +103,10 @@ class ServiceDetailsOrg extends StatelessWidget {
                   SizedBox(height: 16.h),
 
                   // Description
-                  Text("Description", style: AppFonts.mainText.copyWith(fontSize: 16.sp)),
+                  Text(
+                    "Description",
+                    style: AppFonts.mainText.copyWith(fontSize: 16.sp),
+                  ),
                   SizedBox(height: 8.h),
                   Text(
                     service.serviceDescription ?? "No description provided.",
@@ -109,13 +121,21 @@ class ServiceDetailsOrg extends StatelessWidget {
                     Wrap(
                       spacing: 8.w,
                       runSpacing: 4.h,
-                      children: service.category!
-                          .map((cat) => Chip(
-                        label: Text(cat,
-                            style: AppFonts.textFieldStyle.copyWith(fontSize: 12.sp)),
-                        backgroundColor: AppColors.primary.withOpacity(0.1),
-                      ))
-                          .toList(),
+                      children:
+                          service.category!
+                              .map(
+                                (cat) => Chip(
+                                  label: Text(
+                                    cat,
+                                    style: AppFonts.textFieldStyle.copyWith(
+                                      fontSize: 12.sp,
+                                    ),
+                                  ),
+                                  backgroundColor: AppColors.primary
+                                      .withOpacity(0.1),
+                                ),
+                              )
+                              .toList(),
                     ),
 
                   SizedBox(height: 16.h),
@@ -126,7 +146,9 @@ class ServiceDetailsOrg extends StatelessWidget {
                     children: [
                       Text(
                         "${service.salary} ${service.currency?.first ?? ""}",
-                        style: AppFonts.mainText.copyWith(fontWeight: FontWeight.bold),
+                        style: AppFonts.mainText.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       FittedBox(
                         fit: BoxFit.scaleDown,
@@ -134,7 +156,7 @@ class ServiceDetailsOrg extends StatelessWidget {
                           "${service.country}, ${service.city}",
                           style: AppFonts.secMain.copyWith(fontSize: 14.cSp),
                         ),
-                      )
+                      ),
                     ],
                   ),
 
@@ -148,11 +170,14 @@ class ServiceDetailsOrg extends StatelessWidget {
                       Chip(
                         label: Text(
                           service.serviceAvailable ?? "Unknown",
-                          style: AppFonts.textFieldStyle.copyWith(color: Colors.white),
+                          style: AppFonts.textFieldStyle.copyWith(
+                            color: Colors.white,
+                          ),
                         ),
-                        backgroundColor: service.serviceAvailable == "available"
-                            ? Colors.green
-                            : Colors.orange,
+                        backgroundColor:
+                            service.serviceAvailable == "available"
+                                ? Colors.green
+                                : Colors.orange,
                       ),
                     ],
                   ),
@@ -166,7 +191,9 @@ class ServiceDetailsOrg extends StatelessWidget {
                       Text("Applications:", style: AppFonts.secMain),
                       Text(
                         "${service.totalApplications ?? 0}",
-                        style: AppFonts.mainText.copyWith(fontWeight: FontWeight.bold),
+                        style: AppFonts.mainText.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   ),
@@ -183,12 +210,14 @@ class ServiceDetailsOrg extends StatelessWidget {
                     builder: (_) => LoadingDialog(),
                   );
                 }
+                if (state is HideServiceDialog) {
+                  Navigator.pop(context);
+                }
                 if (state is ServiceAppliedSuccess) {
-
                   showDialog(
                     context: context,
                     barrierDismissible: false,
-                    builder: (_) => SuccessDialog(message: state.message,),
+                    builder: (_) => SuccessDialog(message: state.message),
                   );
                 }
 
@@ -196,14 +225,16 @@ class ServiceDetailsOrg extends StatelessWidget {
                   showDialog(
                     context: context,
                     barrierDismissible: false,
-                    builder: (_) => ErrorDialog(message: state.message,),
+                    builder: (_) => ErrorDialog(message: state.message),
                   );
                 }
               },
               child: CustomButtom(
                 title: "Request",
                 onPressed: () {
-                  BlocProvider.of<ExploreServicesCubit>(context).applyToService(service.id!);
+                  BlocProvider.of<ExploreServicesCubit>(
+                    context,
+                  ).applyToService(service.id!);
                 },
               ),
             ),

@@ -14,7 +14,7 @@ class TechRepoImpl implements TechRepoInterface {
 
   @override
   Future<Result<void>> addTechInfo(dynamic obj, int addID) {
-    return dataSource.addTechInfo(obj, addID);
+    return dataSource.addTechInfo(obj,addID);
   }
 
   @override
@@ -24,7 +24,7 @@ class TechRepoImpl implements TechRepoInterface {
 
   @override
   Future<Result<void>> deleteItem(String id, int deleteID) {
-    return dataSource.deleteItem(id, deleteID);
+    return dataSource.deleteItem(id,deleteID);
   }
 
   @override

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hireny/config_app/notification_service.dart';
+import 'package:hireny/features/auth/view/login/login_screen.dart';
+import 'package:hireny/features/chat_bot/UI/chat_boot_screen.dart';
 import 'package:hireny/features/notification/ui/cubit/notification_cubit.dart';
+import 'package:hireny/features/notification/ui/notification_screen.dart';
 import 'package:hireny/features/organization/view/screens/explore_orgs/explore_organizations_org.dart';
 import 'package:hireny/features/organization/view/screens/explore_services/explore_services_org.dart';
 import 'package:hireny/features/seeker/view/screens/courses/cubit/course_cubit.dart';
@@ -14,7 +17,9 @@ import 'package:hireny/features/seeker/view/screens/salary_insights/cubit/salary
 import 'package:hireny/features/seeker/view/screens/salary_insights/salary_insights_screen.dart';
 import 'package:hireny/routes/page_route.dart';
 import 'package:hireny/utils/data_shared/app_shared_data.dart';
+import 'package:hireny/utils/data_shared/data_const.dart';
 import 'package:hireny/utils/di/di.dart';
+import 'package:hive/hive.dart';
 
 import '../config_app/notification_service.dart';
 import '../features/auth/domain/modules/seeker/seeker.dart';
@@ -32,20 +37,21 @@ class TabBarApp extends StatefulWidget {
   State<TabBarApp> createState() => _TabBarAppState();
 }
 
-
-
 class _TabBarAppState extends State<TabBarApp> {
   @override
   void initState() {
     if (!AppSharedData.initNotfication) {
-      NotificationService  notificationService  = NotificationService();
+      NotificationService notificationService = NotificationService();
       notificationService.init();
-      notificationService.connectToWebSocket(AppSharedData.user?.accessToken ?? "");
+      notificationService.connectToWebSocket(
+        AppSharedData.user?.accessToken ?? "",
+      );
       AppSharedData.initNotfication = true;
     }
 
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -68,9 +74,20 @@ class _TabBarAppState extends State<TabBarApp> {
           create:
               (context) => getIt.get<OrgPostCubit>()..fetchAllOrganizations(),
         ),
-        BlocProvider(create: (context)=>getIt.get<ExploreSeekersCubit>()..fetchAllSeekers()),
-        BlocProvider(create: (context)=>getIt.get<ExploreServicesCubit>()..fetchAllServices()),
-        BlocProvider(create: (context)=>getIt.get<ExploreOrganizationsOrgCubit>()..fetchAllOrgs()),
+        BlocProvider(
+          create:
+              (context) => getIt.get<ExploreSeekersCubit>()..fetchAllSeekers(),
+        ),
+        BlocProvider(
+          create:
+              (context) =>
+                  getIt.get<ExploreServicesCubit>()..fetchAllServices(),
+        ),
+        BlocProvider(
+          create:
+              (context) =>
+                  getIt.get<ExploreOrganizationsOrgCubit>()..fetchAllOrgs(),
+        ),
       ],
       child: DefaultTabController(
         length: AppSharedData.user is Seeker ? 5 : 4,
@@ -86,10 +103,17 @@ class _TabBarAppState extends State<TabBarApp> {
               ),
             ),
             actions: [
+              IconButton(onPressed: (){
+                Hive.box(CashingData.appBox).clear();
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>LoginScreen()), (_)=>false);
+              }, icon:Icon(Icons.logout , color: Colors.white,) ),
               IconButton(
                 icon: Icon(Icons.notifications, color: AppColors.white),
                 onPressed: () {
-                  Navigator.pushNamed(context, PagesRoute.notifications);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => NotificationScreen()),
+                  );
                 },
               ),
               IconButton(
@@ -156,7 +180,10 @@ class _TabBarAppState extends State<TabBarApp> {
                   ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              Navigator.pushNamed(context, PagesRoute.chatBoot);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => ChatBootScreen()),
+              );
             },
             backgroundColor: AppColors.primary,
             child: Icon(Icons.smart_toy, color: AppColors.white),

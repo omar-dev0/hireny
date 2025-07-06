@@ -15,7 +15,8 @@ class ApplicationDetailesScreen extends StatefulWidget {
   const ApplicationDetailesScreen({super.key, required this.applicationModel});
 
   @override
-  State<ApplicationDetailesScreen> createState() => _ApplicationDetailesScreenState();
+  State<ApplicationDetailesScreen> createState() =>
+      _ApplicationDetailesScreenState();
 }
 
 class _ApplicationDetailesScreenState extends State<ApplicationDetailesScreen> {
@@ -25,23 +26,22 @@ class _ApplicationDetailesScreenState extends State<ApplicationDetailesScreen> {
       create: (_) => getIt.get<ApplicationDeatailesCubit>(),
       child: BlocConsumer<ApplicationDeatailesCubit, ApplicationDetailesState>(
         builder:
-            (context, state) =>
-                ApplicationDetailesContent(applicationModel: widget.applicationModel),
+            (context, state) => ApplicationDetailesContent(
+              applicationModel: widget.applicationModel,
+            ),
         listener: (context, state) {
           if (state is SubmitApplicationSuccess) {
-            Future.delayed(Duration(seconds: 1), () {
-              Navigator.pushNamedAndRemoveUntil(
-                context,
-                PagesRoute.firstPage,
-                (_) => false,
-              );
-            });
             showDialog(
               context: context,
               builder:
                   (_) => SuccessDialog(
                     message: 'application submitted successfully',
                   ),
+            );
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              PagesRoute.firstPage,
+              (_) => false,
             );
           }
 

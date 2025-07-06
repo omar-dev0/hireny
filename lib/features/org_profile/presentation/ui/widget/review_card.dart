@@ -10,21 +10,21 @@ import '../../../../../utils/constants/app_colors.dart';
 import '../../../../../utils/constants/app_fonts.dart';
 import 'edit_bottom_sheet.dart';
 
-class ReviewCardOrgProfile extends StatefulWidget {
+class ReviewCardOrg extends StatefulWidget {
   final OrgProfileCubit profileCubit;
   final num Id;
 
-  const ReviewCardOrgProfile({
+  const ReviewCardOrg({
     super.key,
     required this.profileCubit,
     required this.Id,
   });
 
   @override
-  State<ReviewCardOrgProfile> createState() => _ReviewCardOrgProfileState();
+  State<ReviewCardOrg> createState() => _ReviewCardOrgState();
 }
 
-class _ReviewCardOrgProfileState extends State<ReviewCardOrgProfile> {
+class _ReviewCardOrgState extends State<ReviewCardOrg> {
   late OrgProfileCubit cubit;
 
   @override
@@ -46,7 +46,7 @@ class _ReviewCardOrgProfileState extends State<ReviewCardOrgProfile> {
         }
         return ListView.builder(
           padding: const EdgeInsets.symmetric(vertical: 16),
-          itemCount: cubit.reviews.length == 0 ? 1 : cubit.reviews.length,
+          itemCount: cubit.reviews.isEmpty ? 1 : cubit.reviews.length + 1,
           itemBuilder: (context, index) {
             if (index == 0) {
               return Padding(
@@ -105,7 +105,7 @@ class _ReviewCardOrgProfileState extends State<ReviewCardOrgProfile> {
                                 ),
                                 onPressed: () {
                                   final text =
-                                      cubit.reviewController.text.trim();
+                                  cubit.reviewController.text.trim();
                                   if (text.isNotEmpty) {
                                     cubit.addOrgReview(widget.Id, text);
                                     cubit.reviewController.clear();
@@ -133,17 +133,16 @@ class _ReviewCardOrgProfileState extends State<ReviewCardOrgProfile> {
               );
             }
 
-            final review = cubit.reviews[index];
-            final initials =
-                review.reviewerName!.isNotEmpty
-                    ? review.reviewerName
-                        ?.trim()
-                        .split(" ")
-                        .map((e) => e[0])
-                        .take(2)
-                        .join()
-                        .toUpperCase()
-                    : "U";
+            final review = cubit.reviews[index - 1];
+            final initials = review.reviewerName?.isNotEmpty == true
+                ? review.reviewerName
+                ?.trim()
+                .split(" ")
+                .map((e) => e[0])
+                .take(2)
+                .join()
+                .toUpperCase()
+                : "U";
 
             return FadeInUp(
               duration: Duration(milliseconds: 300 + (index * 150)),
@@ -210,7 +209,7 @@ class _ReviewCardOrgProfileState extends State<ReviewCardOrgProfile> {
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         review.reviewerName ?? "",
@@ -222,9 +221,7 @@ class _ReviewCardOrgProfileState extends State<ReviewCardOrgProfile> {
                                       Text(
                                         "${review.createdAt?.day}/${review.createdAt?.month}/${review.createdAt?.year}",
                                         style: AppFonts.textFieldStyle.copyWith(
-                                          color: AppColors.grey.withOpacity(
-                                            0.8,
-                                          ),
+                                          color: AppColors.grey.withOpacity(0.8),
                                           fontSize: 12,
                                         ),
                                       ),
@@ -252,17 +249,16 @@ class _ReviewCardOrgProfileState extends State<ReviewCardOrgProfile> {
                                         setState(() {});
                                       }
                                     },
-                                    itemBuilder:
-                                        (context) => [
-                                          const PopupMenuItem(
-                                            value: 'edit',
-                                            child: Text('Edit'),
-                                          ),
-                                          const PopupMenuItem(
-                                            value: 'delete',
-                                            child: Text('Delete'),
-                                          ),
-                                        ],
+                                    itemBuilder: (context) => const [
+                                      PopupMenuItem(
+                                        value: 'edit',
+                                        child: Text('Edit'),
+                                      ),
+                                      PopupMenuItem(
+                                        value: 'delete',
+                                        child: Text('Delete'),
+                                      ),
+                                    ],
                                   ),
                               ],
                             ),

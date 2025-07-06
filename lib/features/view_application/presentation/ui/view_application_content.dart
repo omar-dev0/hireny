@@ -55,31 +55,31 @@ class ViewApplicationContent extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: const [
-                    ProgressCard(
-                      icon: Icons.assignment_turned_in,
-                      title: "Completed",
-                      value: "3",
-                    ),
-                    ProgressCard(
-                      icon: Icons.access_time,
-                      title: "Pending",
-                      value: "2",
-                    ),
-                    ProgressCard(
-                      icon: Icons.check_circle,
-                      title: "Approved",
-                      value: "1",
-                    ),
-                    ProgressCard(
-                      icon: Icons.cancel,
-                      title: "Rejected",
-                      value: "1",
-                    ),
-                  ],
-                ),
+                // child: Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                //   children: [
+                //     const ProgressCard(
+                //       icon: Icons.assignment_turned_in,
+                //       title: "Completed",
+                //       value: "3",
+                //     ),
+                //     ProgressCard(
+                //       icon: Icons.access_time,
+                //       title: "Pending",
+                //       value: "$pending",
+                //     ),
+                //     ProgressCard(
+                //       icon: Icons.check_circle,
+                //       title: "Approved",
+                //       value: "$approved",
+                //     ),
+                //     ProgressCard(
+                //       icon: Icons.cancel,
+                //       title: "$rejected",
+                //       value: "1",
+                //     ),
+                //   ],
+                // ),
               ),
             ),
             Expanded(

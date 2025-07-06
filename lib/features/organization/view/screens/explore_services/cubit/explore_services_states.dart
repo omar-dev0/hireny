@@ -17,11 +17,14 @@ class ServicesError extends ExploreServicesState {
 
   ServicesError({required this.message});
 }
+
 class ServiceAppliedSuccess extends ExploreServicesState {
   final String message;
 
   ServiceAppliedSuccess({this.message = "Applied successfully!"});
 }
+
+class HideServiceDialog extends ExploreServicesState {}
 
 class ServiceAppliedFailed extends ExploreServicesState {
   final String message;
