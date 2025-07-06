@@ -18,7 +18,16 @@ class Technicalbody extends StatelessWidget {
       builder: (context, state) {
         final cubit = BlocProvider.of<TechnicalInfoCubit>(context);
 
-        if (cubit.checkEmptyList()) {
+        if (state is TechnicalInfoFailure) {
+          return Bounce(
+            child: Center(child: Text("Failed to load technical information.")),
+          );
+        } else if (state is TechnicalInfoLoading) {
+          return FadeIn(
+            duration: Duration(milliseconds: 500),
+            child: Center(child: CircularProgressIndicator()),
+          );
+        } else {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
             child: ListView(
@@ -46,7 +55,7 @@ class Technicalbody extends StatelessWidget {
                   child: Section(
                     title: "My Courses",
                     img: AppAssets.courseImg,
-                    data:AppSharedData.techInfo?['courses'],
+                    data: AppSharedData.techInfo?['courses'],
                   ),
                 ),
                 SizedBox(height: 20),
@@ -55,36 +64,26 @@ class Technicalbody extends StatelessWidget {
                   child: Section(
                     title: "My Certificate",
                     img: AppAssets.courseImg,
-                    data:AppSharedData.techInfo?['certificates'],
+                    data: AppSharedData.techInfo?['certificates'],
                   ),
                 ),
                 SizedBox(height: 20),
                 ElasticIn(
                   duration: Duration(milliseconds: 900),
-                  child: SkillsSection(title: "Skills",cubit:cubit),
+                  child: SkillsSection(title: "Skills", cubit: cubit),
                 ),
                 SizedBox(height: 20),
                 ElasticIn(
                   duration: Duration(milliseconds: 1000),
-                  child: SkillsSection(title: "Languages",cubit: cubit,),
+                  child: SkillsSection(title: "Languages", cubit: cubit),
                 ),
                 SizedBox(height: 20),
-                // todo upload file & check if null
                 BounceInUp(
                   duration: Duration(milliseconds: 1100),
                   child: CVSection(),
                 ),
               ],
             ),
-          );
-        } else if (state is TechnicalInfoFailure) {
-          return Bounce(
-            child: Center(child: Text("Failed to load technical information.")),
-          );
-        } else {
-          return FadeIn(
-            duration: Duration(milliseconds: 500),
-            child: Center(child: CircularProgressIndicator()),
           );
         }
       },
