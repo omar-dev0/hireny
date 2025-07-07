@@ -19,6 +19,7 @@ class AssessmentOrgCubit extends Cubit<AssessmentOrgStates> {
   AssessmentOrgCubit(this.getAssessments) : super(AssessmentInitial());
 
   Future<void> getAssessment() async {
+    debugPrint("===========? call");
     emit(AssessmentLoading());
 
     if (AppSharedData.assessmentsOrg.isNotEmpty) {
