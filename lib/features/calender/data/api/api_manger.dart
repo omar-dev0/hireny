@@ -13,10 +13,13 @@ class CalenderApi {
   @factoryMethod
   CalenderApi(this._dio);
 
-  Future<Result<EventModel>?> addEvent(EventModel event) async {
+  Future<Result<EventModel>?> addEvent(EventModel event, bool isSeeker) async {
     try {
       final FormData data = FormData.fromMap(event.toJson());
-      var result = await _dio.post(CalenderApiConst.addEvent, data: data);
+      var result = await _dio.post(
+        isSeeker ? CalenderApiConst.addEvent : CalenderApiConst.addOrgEvent,
+        data: data,
+      );
       if (result.statusCode == 201) {
         return Success(response: EventModel.fromJson(result.data));
       }
@@ -34,9 +37,13 @@ class CalenderApi {
     return null;
   }
 
-  Future<Result<List<EventModel>>?> getUserEvents() async {
+  Future<Result<List<EventModel>>?> getUserEvents(bool isSeeker) async {
     try {
-      var result = await _dio.get(CalenderApiConst.getUserEvents);
+      var result = await _dio.get(
+        isSeeker
+            ? CalenderApiConst.getUserEvents
+            : CalenderApiConst.getOegEvent,
+      );
       if (result.statusCode == 200) {
         List<EventModel> events = [];
         for (var event in result.data) {

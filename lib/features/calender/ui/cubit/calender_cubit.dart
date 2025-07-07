@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hireny/features/auth/domain/modules/seeker/seeker.dart';
 import 'package:hireny/features/calender/domain/models/event.dart';
 import 'package:hireny/features/calender/ui/cubit/state/calender_state.dart';
 import 'package:hireny/result.dart';
@@ -17,7 +18,9 @@ class CalenderCubit extends Cubit<CalenderState> {
   Future<void> getEvents() async {
     try {
       emit(LoadingCalender());
-      var result = await calenderRepoContract.getUserEvents();
+      var result = await calenderRepoContract.getUserEvents(
+        AppSharedData.user is Seeker,
+      );
       switch (result) {
         case null:
           {
@@ -42,7 +45,10 @@ class CalenderCubit extends Cubit<CalenderState> {
   Future<void> addEvent(EventModel event) async {
     try {
       emit(LoadingAddEvent());
-      var result = await calenderRepoContract.addEvent(event);
+      var result = await calenderRepoContract.addEvent(
+        event,
+        AppSharedData.user is Seeker,
+      );
       switch (result) {
         case null:
           {
