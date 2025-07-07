@@ -28,6 +28,7 @@ abstract class SeekerDataSource {
   Future<Result<void>?> updateReview(String review, num id);
   Future<Result<List<ReviewModel>>?> getReviews(num id);
   Future<Result<List<JobPost>>> getThreeBestJobs();
+  Future<Result<List<JobPost>>> getRelatedJobs(int id);
 
 
 }

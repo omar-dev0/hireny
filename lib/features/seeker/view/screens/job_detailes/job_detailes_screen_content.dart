@@ -208,7 +208,7 @@ class JobDetailesContent extends StatelessWidget {
                       JobDesc(description: job?.jobDescription ?? "null"),
                       Requerment(requirements: job?.jobRequirements ?? "null"),
                       RequiredSkills(skills: job?.requiredSkills ?? []),
-                      RelatedJobs(),
+                      RelatedJobs(jobId: job?.id ?? 0 , cubit: jobDetailsCubit),
                     ],
                   ),
                 ),

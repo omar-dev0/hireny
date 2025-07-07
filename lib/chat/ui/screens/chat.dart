@@ -23,7 +23,9 @@ class ChatScreen extends StatelessWidget {
 
           return GestureDetector(
             onTap: () {
-              cubit.markRead(chatResponse?.comparisonId ?? 0);
+              cubit.markRead(
+                chatResponse?.conversations[index].participantId ?? 0,
+              );
               Navigator.push(
                 context,
                 MaterialPageRoute(

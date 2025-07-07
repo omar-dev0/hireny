@@ -12,6 +12,7 @@ abstract class SeekerConst {
   static String deleteCourseReview = '/api/reviews/courses/';
   static String updateCourseReview = '/api/reviews/courses/';
   static String getThreeBestJobs = '/api/posts/jobs/top-jobs/';
+  static String getRelatedJobs = '/api/posts/jobs/related-jobs/';
 }
 
 //courses

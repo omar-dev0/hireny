@@ -122,6 +122,40 @@ class SeekerApi {
     }
   }
 
+  Future<Result<List<JobPost>>> getRelatedJobs(int id) async {
+    try {
+      _dio.options.headers = {
+        HttpHeaders.contentTypeHeader: 'multipart/form-data',
+        HttpHeaders.authorizationHeader:
+            'Bearer ${AppSharedData.user?.accessToken}',
+      };
+
+      final response = await _dio.get('${SeekerConst.getRelatedJobs}$id/');
+
+      if (response.statusCode == 200 && response.data != null) {
+        final List<JobPost> jobPosts =
+            (response.data as List)
+                .map((item) => JobPost.fromJson(item))
+                .toList();
+
+        return Success(response: jobPosts);
+      } else {
+        return Error(error: 'Failed to load job posts');
+      }
+    } on DioException catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e).message;
+      if (kDebugMode) {
+        print('DioException in getNotAppliedJobPosts: $e');
+      }
+      return Error(error: errorMessage);
+    } catch (e) {
+      if (kDebugMode) {
+        print('General error in getNotAppliedJobPosts: $e');
+      }
+      return Error(error: e.toString());
+    }
+  }
+
   Future<Result<num>?> showInsight(Map<String, String> data) async {
     try {
       _dio.options.headers = {

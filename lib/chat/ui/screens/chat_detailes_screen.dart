@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:hireny/chat/ui/screens/chat.dart';
+import 'package:hireny/chat/ui/screens/chat_bloc_proivder.dart';
 import 'package:http/http.dart' as http;
 import 'package:hireny/utils/data_shared/app_shared_data.dart';
 import '../../domain/model/chat_response.dart';
@@ -144,59 +146,69 @@ class _ChatSocketScreenState extends State<ChatSocketScreen> {
             ? 'http://localhost:8000${widget.conversation.participantPhoto}'
             : widget.conversation.participantPhoto;
 
-    return Scaffold(
-      backgroundColor: const Color(0xFFF9F9F9),
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF168C4B),
-        title: Row(
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pop(context);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => ChatBlocProivder()),
+        ); // 👈 Replace with your target route
+        return false; // prevent default pop
+      },
+      child: Scaffold(
+        backgroundColor: const Color(0xFFF9F9F9),
+        appBar: AppBar(
+          backgroundColor: const Color(0xFF168C4B),
+          title: Row(
+            children: [
+              CircleAvatar(backgroundImage: NetworkImage(avatarUrl)),
+              const SizedBox(width: 10),
+              Text(
+                widget.conversation.participantName,
+                style: const TextStyle(fontWeight: FontWeight.w500),
+              ),
+            ],
+          ),
+        ),
+        body: Column(
           children: [
-            CircleAvatar(backgroundImage: NetworkImage(avatarUrl)),
-            const SizedBox(width: 10),
-            Text(
-              widget.conversation.participantName,
-              style: const TextStyle(fontWeight: FontWeight.w500),
+            Expanded(
+              child: ListView.builder(
+                reverse: true,
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                itemCount: _messages.length,
+                itemBuilder:
+                    (_, index) =>
+                        _buildMessage(_messages[_messages.length - 1 - index]),
+              ),
+            ),
+            const Divider(height: 1),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              color: Colors.white,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _controller,
+                      textInputAction: TextInputAction.send,
+                      onSubmitted: _sendMessage,
+                      decoration: InputDecoration(
+                        hintText: 'Type a message...',
+                        border: InputBorder.none,
+                        hintStyle: TextStyle(color: Colors.grey.shade600),
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.send, color: Color(0xFF168C4B)),
+                    onPressed: () => _sendMessage(_controller.text),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              reverse: true,
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              itemCount: _messages.length,
-              itemBuilder:
-                  (_, index) =>
-                      _buildMessage(_messages[_messages.length - 1 - index]),
-            ),
-          ),
-          const Divider(height: 1),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-            color: Colors.white,
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _controller,
-                    textInputAction: TextInputAction.send,
-                    onSubmitted: _sendMessage,
-                    decoration: InputDecoration(
-                      hintText: 'Type a message...',
-                      border: InputBorder.none,
-                      hintStyle: TextStyle(color: Colors.grey.shade600),
-                    ),
-                  ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.send, color: Color(0xFF168C4B)),
-                  onPressed: () => _sendMessage(_controller.text),
-                ),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }

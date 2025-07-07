@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hireny/features/seeker/domain/modules/job_post.dart';
 import 'package:hireny/result.dart';
 
 import 'package:injectable/injectable.dart';
@@ -9,6 +10,8 @@ import 'job_detailes_state.dart';
 
 @injectable
 class JobDetailsCubit extends Cubit<JobDatailesState> {
+  List<JobPost> relatedJobs = [];
+  late JobDetailsModel jobPost;
   final SeekerRepository seekerRepository;
 
   JobDetailsCubit(this.seekerRepository) : super(InitJobDetailes());
@@ -19,6 +22,7 @@ class JobDetailsCubit extends Cubit<JobDatailesState> {
       final result = await seekerRepository.getJobPostDetails(jobId);
 
       if (result is Success<JobDetailsModel>) {
+        jobPost = result.response!;
         emit(JobDetailsLoaded(jobDetails: result.response));
       } else if (result is Error<JobDetailsModel>) {
         emit(JobDetailsError(message: result.error ?? "An error occurred"));
@@ -56,6 +60,26 @@ class JobDetailsCubit extends Cubit<JobDatailesState> {
     } catch (e) {
       emit(HideSubmitApplicationLoading());
       emit(SubmitApplicationError());
+    }
+  }
+
+  Future<void> getRelatedJobs(int jobId) async {
+    try {
+      emit(LoadRelatedJobs());
+      final result = await seekerRepository.getRelatedJobs(jobId);
+      switch (result) {
+        case Success<List<JobPost>>():
+          {
+            relatedJobs = result.response ?? [];
+            emit(JobDetailsLoaded());
+          }
+        case Error<List<JobPost>>():
+          {
+            emit(RelatedJobsError(message: result.error ?? ""));
+          }
+      }
+    } catch (e) {
+      emit(RelatedJobsError(message: e.toString()));
     }
   }
 }

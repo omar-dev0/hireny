@@ -74,6 +74,10 @@ class SeekerDataSourceImpl implements SeekerDataSource {
   Future<Result<List<JobPost>>> getThreeBestJobs() {
     return seekerApi.getNotAppliedThreePosts();
   }
+  @override
+  Future<Result<List<JobPost>>> getRelatedJobs(int id) {
+    return seekerApi.getRelatedJobs(id);
+  }
 
 
 }
