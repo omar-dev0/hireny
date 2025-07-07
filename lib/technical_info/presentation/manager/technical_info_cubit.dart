@@ -80,6 +80,17 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
     isEducation = education;
     isExperience = experience;
   }
+  void clearControllers() {
+    titleController.clear();
+    institutionController.clear();
+    startDateController.clear();
+    endDateController.clear();
+    descriptionController.clear();
+    selectedJobTitle = null;
+    selectedJobType = null;
+    selectedSkill = null;
+    selectedLang = null;
+  }
 
 /// get
   Future<Result<TechInfoResponse>> getTechInfo() async {
@@ -119,6 +130,7 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
 /// add
   Future<Result<void>> addTechInfo({isLang = false,isSkill = false}) async {
     emit(TechnicalInfoLoading());
+
     try {
       dynamic dataToSend;
       int addID = -1;
@@ -200,6 +212,7 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
       final result = await _addEdu.call(dataToSend, addID);
 
       if (result is Success<void>) {
+        clearControllers();
         await getTechInfo();
         emit(TechnicalInfoSuccess());
       } else if (result is Error<void>) {
@@ -299,6 +312,7 @@ class TechnicalInfoCubit extends Cubit<TechnicalInfoState> {
       final result = await _updateTechInfo.call(itemID, dataToSend, updateID);
 
       if (result is Success<void>) {
+        clearControllers();
         await getTechInfo();
         emit(TechnicalInfoSuccess());
       } else if (result is Error<void>) {

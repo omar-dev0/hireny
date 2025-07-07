@@ -5,6 +5,7 @@ import 'package:hireny/technical_info/data/models/response/course_model.dart';
 import 'package:hireny/technical_info/data/models/response/education_model.dart';
 import 'package:hireny/technical_info/data/models/response/experience_model.dart';
 import 'package:hireny/technical_info/presentation/manager/technical_info_cubit.dart';
+import 'package:hireny/utils/data_shared/app_shared_data.dart';
 
 class FormAddInfo extends StatelessWidget {
   final dynamic type;
@@ -96,7 +97,7 @@ class FormAddInfo extends StatelessWidget {
             if (isExperience) ...[
               DropdownButtonFormField<String>(
                 value: cubit.selectedJobTitle,
-                items: cubit.jobTitles
+                items: AppSharedData.jobTitle
                     .map((e) => DropdownMenuItem(value: e, child: Text(e)))
                     .toList(),
                 decoration: const InputDecoration(labelText: 'Job Title'),
@@ -107,7 +108,7 @@ class FormAddInfo extends StatelessWidget {
               const SizedBox(height: 10),
               DropdownButtonFormField<String>(
                 value: cubit.selectedJobType,
-                items: cubit.jobTypes
+                items: AppSharedData.jobs
                     .map((e) => DropdownMenuItem(value: e, child: Text(e)))
                     .toList(),
                 decoration: const InputDecoration(labelText: 'Job Type'),
