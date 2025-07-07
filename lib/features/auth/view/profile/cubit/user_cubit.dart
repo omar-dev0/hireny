@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hireny/features/auth/domain/modules/org/org_admin.dart';
 import 'package:hireny/features/auth/domain/repo_contract/repo_contract.dart';
 import 'package:hireny/features/auth/view/profile/cubit/user_states.dart';
 import 'package:hireny/result.dart';
@@ -39,6 +40,8 @@ class UserCubit extends Cubit<UserStates> {
   //---------------------------
   TextEditingController titleController = TextEditingController();
   TextEditingController briefController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+
   String? selectedCareerLevel;
   String? selectedEmploymentStatus;
   int counter = 1;
@@ -51,6 +54,23 @@ class UserCubit extends Cubit<UserStates> {
   String? stateValue;
   String? selectedGender;
   String? selectedLinkType;
+//=================================================
+  /// org account
+  TextEditingController nameController = TextEditingController();
+  TextEditingController ceoController = TextEditingController();
+  TextEditingController employeeNumberController = TextEditingController();
+  String? industry;
+  String? orgSize;
+  bool updated = false;
+  void setIndustry(String value){
+    industry = value;
+    emit(SuccessUpdatedState());
+  }
+  void setOrgSize(String value){
+    orgSize = value;
+    emit(SuccessUpdatedState());
+  }
+//=================================================
 
   /// get user info
   void loadData() {
@@ -82,10 +102,31 @@ class UserCubit extends Cubit<UserStates> {
         });
       }
 
-      emit(SuccessUpdatedState()); // optional: update UI if needed
+      emit(SuccessUpdatedState());
+    }
+    if (AppSharedData.user is OrgAdmin) {
+      final org = AppSharedData.user as OrgAdmin;
+      nameController.text = org.companyName ?? '';
+      ceoController.text = org.ceo ?? '';
+      phoneController.text = org.phone ?? '';
+      emailController.text = org.email ?? '';
+      birthDateController.text = org.startYear?.toString() ?? '';
+      city = org.city;
+      industry = org.industry;
+      orgSize = org.orgSize;
+      if(org.updatesToEmail!){
+        updated=true;
+      }
+
+      fieldPairs.clear();
+      for (UserLink? link in org.links) {
+        fieldPairs.add({
+          'type': link?.type,
+          'value': TextEditingController(text: link?.url ?? ''),
+        });
+      }
     }
   }
-
   /// update user info
   Future<void> updateUserInfo() async {
     // Form validation

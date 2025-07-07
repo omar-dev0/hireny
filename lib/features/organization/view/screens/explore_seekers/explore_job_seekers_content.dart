@@ -83,7 +83,7 @@ class ExploreJobSeekersContent extends StatelessWidget {
                     },
                   ),
                   SizedBox(height: 24.h),
-                  Text("All Jobs", style: AppFonts.mainText),
+                  Text("All Seekers", style: AppFonts.mainText),
                   SizedBox(height: 15.h),
                 ],
               ),

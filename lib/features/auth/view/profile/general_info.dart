@@ -234,8 +234,7 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                     prefixIcon: Icon(
                                       Icons.calendar_today_outlined,
                                     ),
-                                    onValidate:
-                                        (value) => cubit.validateDate(value),
+                                    // onValidate: (value) => cubit.validateDate(value),
                                   ),
                                 ),
                               ),

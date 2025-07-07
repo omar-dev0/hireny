@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hireny/features/org_account/org_account.dart';
 import 'package:hireny/routes/app_routes.dart' as AppRoutes;
 import 'package:hireny/utils/di/di.dart';
 import 'package:hireny/utils/theme.dart';
-import 'package:hireny/widget/tabbar.dart';
 
 import 'bloc_observer.dart';
 import 'config_app/app_provider.dart';
-import 'features/manage_org_account/service_request_tab/presentation/manager/service_applications_cubit.dart';
-import 'features/manage_org_account/service_request_tab/presentation/ui/service_request.dart';
+import 'features/auth/view/profile/cubit/user_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,10 +29,11 @@ class Hireny extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
         onGenerateRoute: AppRoutes.GeneratedRoute,
-        //  home:BlocProvider(
-        //    create: (_) => getIt<ServiceApplicationsCubit>()..getApplications(), // or your cubit constructor
-        //    child: ServiceRequest(),
-        //  ),
+        // home:OrgAccount()
+        //   home:  BlocProvider(
+        //     create: (context) => getIt.get<UserCubit>(),
+        //     child: OrgAccount(),
+        //   )
       ),
     );
   }

@@ -192,36 +192,68 @@ class ApiManger {
   }
 
   /////////////////////// update user info
-  Future<Result<void>> updateUserInfo(Seeker seeker) async {
+  Future<Result<void>> updateUserInfo(User seeker) async {
     try {
-      final formData = FormData.fromMap({
-        'firstName': seeker.firstName,
-        'lastName': seeker.lastName,
-        'dob': seeker.dob,
-        'gender': seeker.gender,
-        'title': seeker.title,
-        'nationality': seeker.nationality,
-        'careerLevel': seeker.careerLevel,
-        'employmentStatus': seeker.employmentStatus,
-        'brief': seeker.brief,
-        'country': seeker.country,
-        'city': seeker.city,
-        'immediateStart': seeker.immediateStart.toString(),
-        'updatesToEmail': seeker.updatesToEmail.toString(),
-        'links': jsonEncode(
-          seeker.links,
-        ), // Must be a List<Map<String, dynamic>>
-        if (seeker.cv != null)
-          'cv': await MultipartFile.fromFile(
-            seeker.cv!,
-            filename: seeker.cv!.split('/').last,
+      late FormData formData;
+
+      if (seeker is Seeker) {
+        formData = FormData.fromMap({
+          'firstName': seeker.firstName,
+          'lastName': seeker.lastName,
+          'dob': seeker.dob,
+          'gender': seeker.gender,
+          'title': seeker.title,
+          'nationality': seeker.nationality,
+          'careerLevel': seeker.careerLevel,
+          'employmentStatus': seeker.employmentStatus,
+          'brief': seeker.brief,
+          'country': seeker.country,
+          'city': seeker.city,
+          'immediateStart': seeker.immediateStart.toString(),
+          'updatesToEmail': seeker.updatesToEmail.toString(),
+          'links': jsonEncode(
+            seeker.links?.map((e) => {
+              'type': e?.type,
+              'url': e?.url,
+            }).toList(),
           ),
-        if (seeker.photo != null)
-          'photo': await MultipartFile.fromFile(
-            seeker.photo!,
-            filename: seeker.photo!.split('/').last,
+          if (seeker.cv != null)
+            'cv': await MultipartFile.fromFile(
+              seeker.cv!,
+              filename: seeker.cv!.split('/').last,
+            ),
+          if (seeker.photo != null)
+            'photo': await MultipartFile.fromFile(
+              seeker.photo!,
+              filename: seeker.photo!.split('/').last,
+            ),
+        });
+      } else if (seeker is OrgAdmin) {
+        formData = FormData.fromMap({
+          'name': seeker.companyName,
+          'phone': seeker.phone,
+          'country': seeker.country,
+          'city': seeker.city,
+          'ceoName': seeker.ceo,
+          'eYear': seeker.startYear?.toString(),
+          'industry': seeker.industry,
+          'organizationSize': seeker.orgSize,
+          'updatesToEmail': seeker.updatesToEmail.toString(),
+          'links': jsonEncode(
+            seeker.links?.map((e) => {
+              'type': e?.type,
+              'url': e?.url,
+            }).toList(),
           ),
-      });
+          if (seeker.photo != null)
+            'photo': await MultipartFile.fromFile(
+              seeker.photo!,
+              filename: seeker.photo!.split('/').last,
+            ),
+        });
+      } else {
+        return Error(error: "Unsupported user type");
+      }
 
       final response = await _dio.put(
         ApiConst.updateUserInfo,
@@ -230,13 +262,14 @@ class ApiManger {
       );
 
       if (response.statusCode == 200) {
-        // ✅ Parse updated user from response
-        final updatedUser = Seeker.fromJson(response.data);
+        final updatedUser = seeker is OrgAdmin
+            ? OrgAdmin.fromJson(response.data)
+            : Seeker.fromJson(response.data);
+
         updatedUser.accessToken = AppSharedData.user?.accessToken;
         updatedUser.refreshToken = AppSharedData.user?.refreshToken;
         AppSharedData.user = updatedUser;
 
-        // ✅ Save to Hive if rememberMe is true
         if (AppSharedData.rememberMe) {
           Hive.box(CashingData.appBox).put(CashingData.user, updatedUser);
         }

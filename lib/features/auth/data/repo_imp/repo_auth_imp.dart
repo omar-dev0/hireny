@@ -99,7 +99,7 @@ class RepoAuthImp implements RepoAuth {
   }
 
   @override
-  Future<Result<void>> updateUserInfo(Seeker seeker) {
+  Future<Result<void>> updateUserInfo(User seeker) {
     return dataSource.updateUserInfo(seeker);
   }
 

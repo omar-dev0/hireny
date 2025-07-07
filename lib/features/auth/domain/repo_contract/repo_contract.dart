@@ -27,7 +27,7 @@ abstract class RepoAuth {
     String newPassword,
   );
 
-  Future<Result<void>> updateUserInfo(Seeker seeker);
+  Future<Result<void>> updateUserInfo(User seeker);
 
   Future<Result<void>?> sendOtp(String email);
 
