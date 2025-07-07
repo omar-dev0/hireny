@@ -5,20 +5,13 @@ import 'package:injectable/injectable.dart';
 import '../../domain/repo/assessment_repo_interface.dart';
 import '../data_source/assessment_data_source.dart';
 
-
-@Injectable(as: AssessmentRepoInterface)
-
-class AssessmentRepoImpl implements AssessmentRepoInterface {
-
+class AssessmentRepoImpl extends AssissmentRepo {
   AssessmentDataSource dataSource;
+  @factoryMethod
   AssessmentRepoImpl(this.dataSource);
 
   @override
   Future<Result<void>> getAssessment() {
-    return dataSource.getAssessments();
+    return dataSource.getAssessment();
   }
-
-
-
-
 }

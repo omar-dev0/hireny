@@ -55,32 +55,37 @@ class OrgAdmin extends User {
          photo: photo,
        );
 
-  factory OrgAdmin.fromJson(Map<String, dynamic> json) => OrgAdmin(
-    id: json['user']?['id'],
-    firstName: json['user']?['firstName'],
-    lastName: json['user']?['lastName'],
-    email: json['user']?['email'],
-    phone: json['organization']?['phone'],
-    role: json['user']?['role'],
-    country: json['organization']?['country'],
-    city: json['organization']?['city'],
-    links:
-        (json['organization']?['links'] is List)
-            ? (json['organization']['links'] as List)
-                .map((e) => UserLink.fromJson(e as Map<String, dynamic>))
-                .toList()
-            : null,
-    updatesToEmail: json['organization']?['updatesToEmail'],
-    photo: json['organization']?['photo'],
-    companyName: json['organization']?['name'],
-    ceo: json['organization']?['ceoName'],
-    startYear: json['organization']?['eYear'],
-    industry:
-        (json['organization']?['industry'] as List?)
-            ?.map((e) => e.toString())
-            .toList().first,
-    orgSize: json['organization']?['organizationSize'],
-  );
+  factory OrgAdmin.fromJson(Map<String, dynamic> json) {
+    List<String> industryList = jsonDecode(json['organization']?['industry']).cast<String>();
+    var industry = "";
+    if(industryList.isNotEmpty)
+      {
+        industry = industryList.first;
+      }
+    return OrgAdmin(
+      id: json['user']?['id'],
+      firstName: json['user']?['firstName'],
+      lastName: json['user']?['lastName'],
+      email: json['user']?['email'],
+      phone: json['organization']?['phone'],
+      role: json['user']?['role'],
+      country: json['organization']?['country'],
+      city: json['organization']?['city'],
+      links:
+      (json['organization']?['links'] is List)
+          ? (json['organization']['links'] as List)
+          .map((e) => UserLink.fromJson(e as Map<String, dynamic>))
+          .toList()
+          : null,
+      updatesToEmail: json['organization']?['updatesToEmail'],
+      photo: json['organization']?['photo'],
+      companyName: json['organization']?['name'],
+      ceo: json['organization']?['ceoName'],
+      startYear: json['organization']?['eYear'],
+      industry: industry,
+      orgSize: json['organization']?['organizationSize'],
+    );
+  }
 
   @override
   Map<String, dynamic> toJson() {

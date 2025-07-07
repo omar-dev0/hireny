@@ -22,7 +22,7 @@ class Section extends StatelessWidget {
           child: ListView.separated(
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
-            itemCount: data!.length,
+            itemCount: data?.length ?? 0,
             itemBuilder: (context, index) {
               return InfoBox(img: img,info: data![index]);
             }, separatorBuilder: (BuildContext context, int index)=>SizedBox(width: 16,),

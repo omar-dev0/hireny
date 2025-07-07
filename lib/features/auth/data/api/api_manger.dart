@@ -77,7 +77,6 @@ class ApiManger {
       final response = await _dio.post(ApiConst.reg, data: formData);
 
       if (response.data == null) return null;
-
       return Success(response: OrgAdmin.fromJson(response.data));
     } on DioException catch (e) {
       final errorMessage = DioExceptions.fromDioError(e).message;

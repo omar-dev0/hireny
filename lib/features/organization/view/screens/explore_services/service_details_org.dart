@@ -216,7 +216,6 @@ class ServiceDetailsOrg extends StatelessWidget {
                 if (state is ServiceAppliedSuccess) {
                   showDialog(
                     context: context,
-                    barrierDismissible: false,
                     builder: (_) => SuccessDialog(message: state.message),
                   );
                 }

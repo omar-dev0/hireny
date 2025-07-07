@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:hireny/features/assessment/presentation/manager/assessment_states.dart';
 import 'package:hireny/models/technical%20info.dart';
 import 'package:hireny/technical_info/presentation/manager/technical_info_cubit.dart';
 import 'package:hireny/technical_info/presentation/widgets/section.dart';
@@ -18,7 +19,22 @@ class Technicalbody extends StatelessWidget {
       builder: (context, state) {
         final cubit = BlocProvider.of<TechnicalInfoCubit>(context);
 
-        if (cubit.checkEmptyList()) {
+        if (state is LoadingState) {
+          return FadeIn(
+          duration: Duration(milliseconds: 500),
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+        }
+        else if (state is TechnicalInfoFailure) {
+          return Bounce(
+            child: Center(
+              child: Text("Failed to load technical information."),
+            ),
+          );
+        }
+        else {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
             child: ListView(
@@ -78,21 +94,7 @@ class Technicalbody extends StatelessWidget {
               ],
             ),
           );
-        }
-        else if (state is TechnicalInfoFailure) {
-          return Bounce(
-            child: Center(
-              child: Text("Failed to load technical information."),
-            ),
-          );
-        }
-        else {
-          return FadeIn(
-            duration: Duration(milliseconds: 500),
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
+
         }
       },
     );

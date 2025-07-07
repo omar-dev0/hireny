@@ -1,7 +1,7 @@
-import 'package:hireny/result.dart';
 
-abstract class AssessmentRepoInterface{
+import '../../../../result.dart';
 
+abstract class AssissmentRepo{
   Future<Result<void>> getAssessment();
 
 }

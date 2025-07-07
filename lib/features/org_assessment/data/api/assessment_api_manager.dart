@@ -6,11 +6,10 @@ import 'package:hireny/utils/data_shared/app_shared_data.dart';
 import '../../../../result.dart';
 import '../models/assessment_model.dart';
 
-@singleton
-@injectable
-class AssessmentApiManager {
+class OrgAssessmentApi {
   final Dio _dio;
-  AssessmentApiManager(this._dio);
+  @factoryMethod
+  OrgAssessmentApi(this._dio);
 
 
   /// Get assessment by ID

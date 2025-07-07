@@ -104,13 +104,13 @@ class InfoBox extends StatelessWidget {
                               cubit.selectedJobType = info.jobType;
                             }
 
-                            // Set flags correctly for validation in update
-                            cubit.setFormFlags(
-                              certificate: info is CertificateModel,
-                              course: info is CourseModel,
-                              education: info is Educations,
-                              experience: info is ExperienceModel,
-                            );
+                            // // Set flags correctly for validation in update
+                            // cubit.setFormFlags(
+                            //   certificate: info is CertificateModel,
+                            //   course: info is CourseModel,
+                            //   education: info is Educations,
+                            //   experience: info is ExperienceModel,
+                            // );
                             // Now show the popup
                             popUpForm(context, () {
                               cubit.updateTechInfo(info.id.toString(), info);

@@ -90,9 +90,6 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
   if (name == PagesRoute.orgAccount) {
     return MaterialPageRoute(builder: (context) => OrgAccount());
   }
-  if (name == PagesRoute.orgAssessment) {
-    return MaterialPageRoute(builder: (context) => OrgAssessment()); // done
-  }
   if (name == PagesRoute.orgServiceRequest) {
     return MaterialPageRoute(builder: (context) => ServiceRequest());
   }
@@ -183,10 +180,7 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
   }
   if (name == PagesRoute.orgAssessment) {
     return MaterialPageRoute(
-      builder: (_) => BlocProvider(
-        create: (_) => getIt<AssessmentOrgCubit>()..getAssessment(),
-        child: const OrgAssessment(),
-      ),
+      builder: (_) => const OrgAssessment(),
     );
   }
 

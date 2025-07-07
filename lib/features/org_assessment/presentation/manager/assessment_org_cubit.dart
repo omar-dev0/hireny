@@ -1,18 +1,17 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hireny/features/auth/domain/modules/org/org_admin.dart';
-import 'package:hireny/features/org_assessment/domain/usecase/get_assessments.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../auth/domain/modules/seeker/seeker.dart';
 import '../../data/models/assessment_model.dart';
+import '../../domain/repo/assessment_repo_interface.dart';
 import 'assessment_org_states.dart';
 import 'package:hireny/utils/data_shared/app_shared_data.dart';
 import '../../../../result.dart';
 
-@injectable
 class AssessmentOrgCubit extends Cubit<AssessmentOrgStates> {
-  final GetAssessments getAssessments;
+  final AssissmentRepo getAssessments;
   String? orgName;
 
   @factoryMethod
@@ -26,7 +25,7 @@ class AssessmentOrgCubit extends Cubit<AssessmentOrgStates> {
       return;
     }
 
-    final result = await getAssessments.call();
+    final result = await getAssessments.getAssessment();
 
     if (result is Success) {
       final assessments = result.response as List<AssessmentResponse>;

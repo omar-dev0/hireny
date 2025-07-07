@@ -16,7 +16,7 @@ class CVBox extends StatelessWidget {
             border: Border.all(color: AppColors.primary),
             borderRadius: BorderRadius.circular(12),
           ),
-          height: 120,
+          height: 200,
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Row(
             children: [
@@ -26,9 +26,12 @@ class CVBox extends StatelessWidget {
                 decoration: BoxDecoration(
                   border: Border.all(color: AppColors.primary),
                   borderRadius: BorderRadius.circular(16),
-
                 ),
-                child: Icon(Icons.picture_as_pdf,color: AppColors.primary,size: 30,),
+                child: Icon(
+                  Icons.picture_as_pdf,
+                  color: AppColors.primary,
+                  size: 30,
+                ),
               ),
               const SizedBox(width: 35),
               Expanded(
@@ -36,7 +39,10 @@ class CVBox extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Upload your CV", style: AppFonts.textFieldStyle.copyWith(fontSize: 20)),
+                    Text(
+                      "Upload your CV",
+                      style: AppFonts.textFieldStyle.copyWith(fontSize: 20),
+                    ),
                     const SizedBox(height: 10),
                     Text("PDF, DOC formats allowed", style: AppFonts.secMain),
                     const SizedBox(height: 5),
@@ -64,15 +70,15 @@ class CVBox extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             style: AppFonts.hintStyle.copyWith(fontSize: 15),
                           ),
-                        )
+                        ),
                       ],
-                    )
+                    ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
-        )
+        ),
       ],
     );
   }

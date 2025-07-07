@@ -8,18 +8,24 @@ import 'package:hireny/technical_info/presentation/manager/technical_info_cubit.
 
 class FormAddInfo extends StatelessWidget {
   final dynamic type;
-  const FormAddInfo({super.key, this.type});
+  final String title;
+  const FormAddInfo({super.key, this.type, required this.title});
 
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<TechnicalInfoCubit>();
+    final String cleanTitle = title.replaceFirst("My ", "").trim().toLowerCase();
 
-    // 👇 Derive flags directly from `type`
-    final bool isExperience = type is ExperienceModel;
-    final bool isEducation = type is Educations;
-    final bool isCourse = type is CourseModel;
-    final bool isCertificate = type is CertificateModel;
+    final bool isExperience = cleanTitle == "experience";
+    final bool isEducation = cleanTitle == "education";
+    final bool isCourse = cleanTitle == "courses";
+    final bool isCertificate = cleanTitle == "certificate" || cleanTitle == "certificates";
 
+    debugPrint('Title: $title');
+    debugPrint('isExperience: $isExperience');
+    debugPrint('isEducation: $isEducation');
+    debugPrint('isCourse: $isCourse');
+    debugPrint('isCertificate: $isCertificate');
     return Form(
       key: cubit.formKey,
       child: SingleChildScrollView(
