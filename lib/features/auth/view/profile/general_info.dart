@@ -31,7 +31,6 @@ class _GeneralInfoState extends State<GeneralInfo> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-
     return BlocConsumer<UserCubit, UserStates>(
       listener: (context, state) {
         if (state is LoadingState) {
@@ -256,8 +255,6 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                   color: AppColors.grey.withValues(alpha: 0.5),
                                 ),
                                 keyboardType: TextInputType.emailAddress,
-                                onValidate:
-                                    (value) => cubit.validateEmail(value),
                                 enabled: false,
                               ),
                             ),
@@ -449,9 +446,6 @@ class _GeneralInfoState extends State<GeneralInfo> {
                                     "Write a brief summary about your professional background...",
                                 keyboardType: TextInputType.multiline,
                                 maxLines: 4,
-                                onValidate:
-                                    (value) =>
-                                        cubit.validateText(value, "brief"),
                               ),
                             ),
                             const SizedBox(height: 16),

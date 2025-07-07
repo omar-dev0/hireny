@@ -139,32 +139,6 @@ class _LoginContentState extends State<LoginContent> {
                         style: AppFonts.secMain.copyWith(fontSize: 14.cSp),
                       ),
                       SizedBox(height: 16.cSp),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          BounceInLeft(
-                            child: GestureDetector(
-                              onTap: () {},
-                              child: Image.asset(
-                                AppAssets.google,
-                                width: 46.96.w,
-                                height: 42.33.h,
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 16.cSp),
-                          BounceInRight(
-                            child: GestureDetector(
-                              onTap: () {},
-                              child: Image.asset(
-                                AppAssets.microsoft,
-                                width: 46.96.w,
-                                height: 42.33.h,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
                       SizedBox(height: 16.cSp),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,

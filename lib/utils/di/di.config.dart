@@ -218,22 +218,22 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i572.NotificationApiManger(gh<_i361.Dio>()));
     gh.singleton<_i527.OrgProfileApi>(
         () => _i527.OrgProfileApi(gh<_i361.Dio>()));
+    gh.singleton<_i511.OrgApi>(() => _i511.OrgApi(gh<_i361.Dio>()));
+    gh.singleton<_i451.CoursesApiManager>(
+        () => _i451.CoursesApiManager(gh<_i361.Dio>()));
     gh.singleton<_i758.ApiManger>(() => _i758.ApiManger(gh<_i361.Dio>()));
     gh.singleton<_i2.CalenderApi>(() => _i2.CalenderApi(gh<_i361.Dio>()));
+    gh.singleton<_i417.ApplicationApi>(
+        () => _i417.ApplicationApi(gh<_i361.Dio>()));
     gh.singleton<_i174.ChatBootApiManger>(
         () => _i174.ChatBootApiManger(gh<_i361.Dio>()));
-    gh.singleton<_i511.OrgApi>(() => _i511.OrgApi(gh<_i361.Dio>()));
-    gh.singleton<_i590.AssessmentApiManager>(
-        () => _i590.AssessmentApiManager(gh<_i361.Dio>()));
     gh.singleton<_i514.SeekerApi>(() => _i514.SeekerApi(gh<_i361.Dio>()));
     gh.singleton<_i341.ServiceApiManager>(
         () => _i341.ServiceApiManager(gh<_i361.Dio>()));
-    gh.singleton<_i451.CoursesApiManager>(
-        () => _i451.CoursesApiManager(gh<_i361.Dio>()));
-    gh.singleton<_i417.ApplicationApi>(
-        () => _i417.ApplicationApi(gh<_i361.Dio>()));
     gh.singleton<_i409.TechApiManager>(
         () => _i409.TechApiManager(gh<_i361.Dio>()));
+    gh.singleton<_i590.AssessmentApiManager>(
+        () => _i590.AssessmentApiManager(gh<_i361.Dio>()));
     gh.lazySingleton<_i387.ServiceOrgDataSourceInterface>(
         () => _i618.ServiceOrgDataSource(gh<_i341.ServiceApiManager>()));
     gh.factory<_i656.AdminRepoInterface>(
@@ -280,14 +280,14 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i742.NotificationRepoImp(gh<_i707.NotificationDataSource>()));
     gh.factory<_i901.ApplicationRepo>(
         () => _i1009.ApplicationRepoImp(gh<_i674.ApplicationDataSource>()));
-    gh.factory<_i607.AddServiceOrgPost>(
-        () => _i607.AddServiceOrgPost(gh<_i154.ServiceOrgRepoInterface>()));
     gh.factory<_i554.DeleteService>(
         () => _i554.DeleteService(gh<_i154.ServiceOrgRepoInterface>()));
     gh.factory<_i193.GetServicesOrg>(
         () => _i193.GetServicesOrg(gh<_i154.ServiceOrgRepoInterface>()));
     gh.factory<_i132.UpdateService>(
         () => _i132.UpdateService(gh<_i154.ServiceOrgRepoInterface>()));
+    gh.factory<_i607.AddServiceOrgPost>(
+        () => _i607.AddServiceOrgPost(gh<_i154.ServiceOrgRepoInterface>()));
     gh.factory<_i401.OrgDataSource>(
         () => _i336.OrgDataSourceImpl(gh<_i511.OrgApi>()));
     gh.factory<_i981.RegSeekerVm>(
@@ -307,8 +307,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i894.GetAdmins>(),
           gh<_i640.DeleteAdmin>(),
         ));
-    gh.factory<_i866.LoginVm>(() => _i866.LoginVm(gh<_i412.RepoAuth>()));
     gh.factory<_i609.UserCubit>(() => _i609.UserCubit(gh<_i412.RepoAuth>()));
+    gh.factory<_i866.LoginVm>(() => _i866.LoginVm(gh<_i412.RepoAuth>()));
     gh.factory<_i201.UserAssessmentCubit>(
         () => _i201.UserAssessmentCubit(gh<_i412.RepoAuth>()));
     gh.factory<_i386.SeekerRepository>(
@@ -337,14 +337,14 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i731.ChatBootRepoImp(gh<_i1018.ChatBootDataSource>()));
     gh.factory<_i938.CourseDetailsCubit>(
         () => _i938.CourseDetailsCubit(gh<_i386.SeekerRepository>()));
-    gh.factory<_i123.OrgPostCubit>(
-        () => _i123.OrgPostCubit(gh<_i386.SeekerRepository>()));
-    gh.factory<_i507.ApplicationDeatailesCubit>(
-        () => _i507.ApplicationDeatailesCubit(gh<_i386.SeekerRepository>()));
     gh.factory<_i704.JobDetailsCubit>(
         () => _i704.JobDetailsCubit(gh<_i386.SeekerRepository>()));
+    gh.factory<_i507.ApplicationDeatailesCubit>(
+        () => _i507.ApplicationDeatailesCubit(gh<_i386.SeekerRepository>()));
     gh.factory<_i627.SalaryCubit>(
         () => _i627.SalaryCubit(gh<_i386.SeekerRepository>()));
+    gh.factory<_i123.OrgPostCubit>(
+        () => _i123.OrgPostCubit(gh<_i386.SeekerRepository>()));
     gh.factory<_i610.AppCubit>(
         () => _i610.AppCubit(gh<_i901.ApplicationRepo>()));
     gh.factory<_i185.OrgRepository>(
@@ -363,14 +363,14 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i369.ExploreSeekersCubit(gh<_i185.OrgRepository>()));
     gh.factory<_i735.ExploreServicesCubit>(
         () => _i735.ExploreServicesCubit(gh<_i185.OrgRepository>()));
-    gh.factory<_i377.DeleteTechInfo>(
-        () => _i377.DeleteTechInfo(gh<_i854.TechRepoInterface>()));
-    gh.factory<_i394.GetTechInfo>(
-        () => _i394.GetTechInfo(gh<_i854.TechRepoInterface>()));
-    gh.factory<_i883.AddTechInfo>(
-        () => _i883.AddTechInfo(gh<_i854.TechRepoInterface>()));
     gh.factory<_i120.UpdateTechInfo>(
         () => _i120.UpdateTechInfo(gh<_i854.TechRepoInterface>()));
+    gh.factory<_i377.DeleteTechInfo>(
+        () => _i377.DeleteTechInfo(gh<_i854.TechRepoInterface>()));
+    gh.factory<_i883.AddTechInfo>(
+        () => _i883.AddTechInfo(gh<_i854.TechRepoInterface>()));
+    gh.factory<_i394.GetTechInfo>(
+        () => _i394.GetTechInfo(gh<_i854.TechRepoInterface>()));
     gh.factory<_i583.SeekerCoursesCubit>(
         () => _i583.SeekerCoursesCubit(gh<_i714.ShowCourses>()));
     gh.factory<_i953.TechnicalInfoCubit>(() => _i953.TechnicalInfoCubit(
