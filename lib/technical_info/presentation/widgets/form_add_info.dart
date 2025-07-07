@@ -1,42 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hireny/technical_info/data/models/response/certificate_model.dart';
+import 'package:hireny/technical_info/data/models/response/course_model.dart';
+import 'package:hireny/technical_info/data/models/response/education_model.dart';
+import 'package:hireny/technical_info/data/models/response/experience_model.dart';
 import 'package:hireny/technical_info/presentation/manager/technical_info_cubit.dart';
 
 class FormAddInfo extends StatelessWidget {
-  const FormAddInfo({super.key});
+  final dynamic type;
+  const FormAddInfo({super.key, this.type});
 
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<TechnicalInfoCubit>();
+
+    // 👇 Derive flags directly from `type`
+    final bool isExperience = type is ExperienceModel;
+    final bool isEducation = type is Educations;
+    final bool isCourse = type is CourseModel;
+    final bool isCertificate = type is CertificateModel;
 
     return Form(
       key: cubit.formKey,
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Title / Degree / Job Title
-            TextFormField(
-              controller: cubit.titleController,
-              decoration: const InputDecoration(labelText: 'Title'),
-              validator: (value) =>
-              (value == null || value.trim().isEmpty) ? 'Required' : null,
-            ),
-            const SizedBox(height: 10),
+            // ✅ Title (skip for experience)
+            if (!isExperience) ...[
+              TextFormField(
+                controller: cubit.titleController,
+                decoration: const InputDecoration(labelText: 'Title'),
+                validator: (value) =>
+                (value == null || value.trim().isEmpty) ? 'Required' : null,
+              ),
+              const SizedBox(height: 10),
+            ],
 
-            // Institution / Company
+            // ✅ Institution / Company
             TextFormField(
               controller: cubit.institutionController,
               decoration: InputDecoration(
-                labelText: cubit.isExperience ? 'Company Name' : 'Institution Name',
+                labelText: isExperience ? 'Company Name' : 'Institution Name',
               ),
               validator: (value) =>
               (value == null || value.trim().isEmpty) ? 'Required' : null,
             ),
             const SizedBox(height: 10),
 
-            // Start and End Date fields
-            if (cubit.isEducation || cubit.isExperience) ...[
+            // ✅ Dates
+            if (isEducation || isExperience) ...[
               Row(
                 children: [
                   Expanded(
@@ -64,17 +78,16 @@ class FormAddInfo extends StatelessWidget {
                 controller: cubit.startDateController,
                 readOnly: true,
                 decoration: InputDecoration(
-                  labelText: (cubit.isCourse || cubit.isCertificate)
-                      ? 'Date Issued'
-                      : 'Start Date',
+                  labelText:
+                  (isCourse || isCertificate) ? 'Date Issued' : 'Start Date',
                 ),
                 onTap: () => _pickDate(context, cubit.startDateController),
               ),
               const SizedBox(height: 10),
             ],
 
-            // Dropdowns for Experience
-            if (cubit.isExperience) ...[
+            // ✅ Job Info for experience
+            if (isExperience) ...[
               DropdownButtonFormField<String>(
                 value: cubit.selectedJobTitle,
                 items: cubit.jobTitles
@@ -99,7 +112,7 @@ class FormAddInfo extends StatelessWidget {
               const SizedBox(height: 10),
             ],
 
-            // Description
+            // ✅ Description
             TextFormField(
               controller: cubit.descriptionController,
               decoration: const InputDecoration(labelText: 'Description'),

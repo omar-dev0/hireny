@@ -31,7 +31,7 @@ class OrgAdminAdapter extends TypeAdapter<OrgAdmin> {
       companyName: fields[13] as String?,
       ceo: fields[14] as String?,
       startYear: fields[15] as num?,
-      industry: fields[16] as String?,
+      industry: (fields[16] as List?)?.cast<String?>(),
       orgSize: fields[17] as String?,
     )
       ..accessToken = fields[11] as String?

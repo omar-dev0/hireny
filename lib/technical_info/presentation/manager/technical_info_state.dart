@@ -9,6 +9,7 @@ final class TechnicalInfoLoading extends TechnicalInfoState {}
 final class TechnicalInfoSuccess extends TechnicalInfoState {}
 final class TechnicalInfoSuccessUpdated extends TechnicalInfoState {}
 final class TechnicalInfoSuccessDeleted extends TechnicalInfoState {}
+final class change extends TechnicalInfoState {}
 
 final class TechnicalInfoFailure extends TechnicalInfoState {
   String? message;

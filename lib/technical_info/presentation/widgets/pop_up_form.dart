@@ -6,7 +6,7 @@ import '../../../utils/constants/app_colors.dart';
 import '../manager/technical_info_cubit.dart';
 // form without fields
 void popUpForm(BuildContext context, Function()? onPressed, String title,
-    {bool updateFlag = false}) {
+    {bool updateFlag = false,dynamic type}) {
   final techCubit = BlocProvider.of<TechnicalInfoCubit>(context);
 
   techCubit.setFlagByTitle(title);
@@ -28,18 +28,17 @@ void popUpForm(BuildContext context, Function()? onPressed, String title,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      FormAddInfo(),
+                      FormAddInfo(type: type),
                       const SizedBox(height: 30),
                       popUpButtons(
                         onPressed: () {
                           if (techCubit.formKey.currentState!.validate()) {
                             if(updateFlag){
-                              techCubit.addTechInfo();
                               onPressed?.call();
                               Navigator.pop(dialogContext);
                             }else{
                               techCubit.addTechInfo();
-                              onPressed?.call();
+                              // onPressed?.call();
                               Navigator.pop(dialogContext);
                             }
 

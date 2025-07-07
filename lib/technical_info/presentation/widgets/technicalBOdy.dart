@@ -5,6 +5,7 @@ import 'package:hireny/models/technical%20info.dart';
 import 'package:hireny/technical_info/presentation/manager/technical_info_cubit.dart';
 import 'package:hireny/technical_info/presentation/widgets/section.dart';
 import 'package:hireny/technical_info/presentation/widgets/skillSection.dart';
+import 'package:hireny/utils/data_shared/app_shared_data.dart';
 import '../../../utils/constants/app_assets.dart';
 import 'CVSection.dart';
 
@@ -27,7 +28,7 @@ class Technicalbody extends StatelessWidget {
                   child: Section(
                     title: "My Experience",
                     img: AppAssets.experienceImg,
-                    data: cubit.experiences,
+                    data: AppSharedData.techInfo?['experiences'],
                   ),
                 ),
                 SizedBox(height: 20),
@@ -36,7 +37,7 @@ class Technicalbody extends StatelessWidget {
                   child: Section(
                     title: "My Education",
                     img: AppAssets.eduImg,
-                    data: cubit.education,
+                    data: AppSharedData.techInfo?['educations'],
 
                   ),
                 ),
@@ -46,7 +47,7 @@ class Technicalbody extends StatelessWidget {
                   child: Section(
                     title: "My Courses",
                     img: AppAssets.courseImg,
-                    data: cubit.courses,
+                    data:AppSharedData.techInfo?['courses'],
                   ),
                 ),
                 SizedBox(height: 20),
@@ -55,18 +56,18 @@ class Technicalbody extends StatelessWidget {
                   child: Section(
                     title: "My Certificate",
                     img: AppAssets.courseImg,
-                    data: cubit.certificates,
+                    data:AppSharedData.techInfo?['certificates'],
                   ),
                 ),
                 SizedBox(height: 20),
                 ElasticIn(
                   duration: Duration(milliseconds: 900),
-                  child: SkillsSection(title: "Skills"),
+                  child: SkillsSection(title: "Skills",cubit:cubit),
                 ),
                 SizedBox(height: 20),
                 ElasticIn(
                   duration: Duration(milliseconds: 1000),
-                  child: SkillsSection(title: "Languages"),
+                  child: SkillsSection(title: "Languages",cubit: cubit,),
                 ),
                 SizedBox(height: 20),
                 // todo upload file & check if null
