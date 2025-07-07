@@ -28,7 +28,7 @@ void popUpForm(BuildContext context, Function()? onPressed, String title,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      FormAddInfo(type: type),
+                      FormAddInfo(type: type, title: title,),
                       const SizedBox(height: 30),
                       popUpButtons(
                         onPressed: () {
