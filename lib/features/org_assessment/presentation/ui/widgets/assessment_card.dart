@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hireny/features/auth/domain/modules/org/org_admin.dart';
 import '../../../../../utils/constants/app_colors.dart';
+import 'package:hireny/utils/data_shared/app_shared_data.dart';
+import 'package:hireny/features/org_assessment/data/models/assessment_model.dart';
 
 class AssessmentCard extends StatelessWidget {
   final int index;
@@ -8,6 +11,8 @@ class AssessmentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final user =AppSharedData.user?.role as OrgAdmin ;
+    final AssessmentResponse assessment = AppSharedData.assessmentsOrg[index];
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -50,7 +55,7 @@ class AssessmentCard extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            "Flutter Developer Assessment",
+                            assessment.assessmentTitle ?? "No title",
                             style: theme.textTheme.titleMedium?.copyWith(
                               fontWeight: FontWeight.w600,
                               color: AppColors.black,
@@ -94,12 +99,12 @@ class AssessmentCard extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 4),
-                    Text(
-                      "Technical Screening",
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: AppColors.grey.withOpacity(0.6),
-                      ),
-                    ),
+                    // Text(
+                    //   assessment. ?? "No description",
+                    //   style: theme.textTheme.bodySmall?.copyWith(
+                    //     color: AppColors.grey.withOpacity(0.6),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
@@ -112,19 +117,32 @@ class AssessmentCard extends StatelessWidget {
           Wrap(
             spacing: 16,
             runSpacing: 8,
+            crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-              Icon(Icons.business_center, size: 16, color: AppColors.grey),
-              const SizedBox(width: 4),
-              Text("Google", style: const TextStyle(fontSize: 13)),
-
-              Icon(Icons.timer, size: 16, color: AppColors.grey),
-              const SizedBox(width: 4),
-              Text("20 min", style: const TextStyle(fontSize: 13)),
-
-              Icon(Icons.score, size: 16, color: AppColors.grey),
-              const SizedBox(width: 4),
-              Text("12/15", style: const TextStyle(fontSize: 13)),
-
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.business_center, size: 16, color: AppColors.grey),
+                  const SizedBox(width: 4),
+                  Text(user.companyName!, style: const TextStyle(fontSize: 13))
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.timer, size: 16, color: AppColors.grey),
+                  const SizedBox(width: 4),
+                  Text("${assessment.assessmentDuration ?? 0} min", style: const TextStyle(fontSize: 13)),
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.score, size: 16, color: AppColors.grey),
+                  const SizedBox(width: 4),
+                  Text("${assessment.questions.length ?? '--'}", style: const TextStyle(fontSize: 13)),
+                ],
+              ),
             ],
           ),
 
@@ -134,8 +152,18 @@ class AssessmentCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Flexible(child: Text("Started: 12 Oct 2022", style: theme.textTheme.bodySmall)),
-              Flexible(child: Text("Completed: 12 Oct 2022", style: theme.textTheme.bodySmall)),
+              Flexible(
+                child: Text(
+                  "Started: ${assessment.createdAt ?? 'N/A'}",
+                  style: theme.textTheme.bodySmall,
+                ),
+              ),
+              Flexible(
+                child: Text(
+                  "Completed: ${assessment.updatedAt ?? 'N/A'}",
+                  style: theme.textTheme.bodySmall,
+                ),
+              ),
             ],
           ),
         ],

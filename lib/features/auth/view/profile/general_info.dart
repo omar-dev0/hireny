@@ -31,6 +31,7 @@ class _GeneralInfoState extends State<GeneralInfo> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
+
     return BlocConsumer<UserCubit, UserStates>(
       listener: (context, state) {
         if (state is LoadingState) {

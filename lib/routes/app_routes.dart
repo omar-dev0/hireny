@@ -33,6 +33,7 @@ import '../features/calender/ui/calender_screen_content.dart';
 import '../features/course_detailes/presentation/views/course_details_view.dart';
 import '../features/manage_org_account/org_rep_tab/presentation/ui/org_rep.dart';
 import '../features/manage_org_account/service_request_tab/presentation/ui/service_request.dart';
+import '../features/org_assessment/presentation/manager/assessment_org_cubit.dart';
 import '../features/organization/domain/modules/seeker.dart';
 import '../features/organization/view/related_services_org.dart';
 import '../features/organization/view/screens/explore_orgs/explore_organizations_org.dart';
@@ -180,14 +181,16 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
   if (name == PagesRoute.myApplication) {
     return MaterialPageRoute(builder: (_) => ViewApplicationScreen());
   }
-  // if (name == PagesRoute.myAssessment) {
-  //   return MaterialPageRoute(
-  //     builder:
-  //         (_) => BlocProvider(
-  //       create: (_) => getIt.get<AppCubit>(),
-  //       child: MyAssessment(),
-  //     ),
-  //   );
+  if (name == PagesRoute.orgAssessment) {
+    return MaterialPageRoute(
+      builder: (_) => BlocProvider(
+        create: (_) => getIt<AssessmentOrgCubit>()..getAssessment(),
+        child: const OrgAssessment(),
+      ),
+    );
+  }
+
+
 
   if (name == PagesRoute.myAssessment) {
     return MaterialPageRoute(builder: (_) => MyAssessmentScreen());
