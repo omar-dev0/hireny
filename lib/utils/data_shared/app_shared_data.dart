@@ -255,7 +255,7 @@ abstract class AppSharedData {
 
   static List<String> skills = []; //===============> 38592
 
-  static List<String> jobLocationTypes = ["On-Site", "Remote", "Hybrid"];
+  static List<String> jobLocationTypes = ["Onsite", "Remote", "Hybrid"];
 
   static List<String> categories = [];
 

@@ -50,7 +50,6 @@ class _ExploreJobsForJobSeekerState extends State<ExploreJobsForJobSeeker> {
               'Category',
               'Job Type',
               'Job Location',
-              'Experience Level',
               'Date Posted',
               'Salary',
             ],
@@ -59,7 +58,6 @@ class _ExploreJobsForJobSeekerState extends State<ExploreJobsForJobSeeker> {
               () => _showCategoryBottomSheet(context),
               () => _showJobTypeBottomSheet(context),
               () => _showJobLocationBottomSheet(context),
-              () => _showExperienceLevelBottomSheet(context),
               () => _showDatePostedBottomSheet(context),
               () => _showSalaryRangeBottomSheet(context),
             ],
@@ -236,7 +234,38 @@ class _ExploreJobsForJobSeekerState extends State<ExploreJobsForJobSeeker> {
     showDynamicBottomSheet(
       context: context,
       title: "Select your category",
-      items: AppSharedData.categories,
+      items: [
+        "Agriculture",
+        "Automotive",
+        "Banking",
+        "Construction",
+        "Consumer Goods",
+        "Education",
+        "Energy & Utilities",
+        "Entertainment",
+        "Environmental Services",
+        "Fashion & Apparel",
+        "Food & Beverage",
+        "Government",
+        "Healthcare",
+        "Hospitality & Tourism",
+        "Information Technology",
+        "Insurance",
+        "Legal Services",
+        "Logistics & Transportation",
+        "Manufacturing",
+        "Media & Communications",
+        "Mining",
+        "Nonprofit",
+        "Pharmaceuticals",
+        "Real Estate",
+        "Retail",
+        "Software Development",
+        "Telecommunications",
+        "Textiles",
+        "Waste Management",
+        "Wholesale & Distribution",
+      ],
       initialSelection: cubit.selectedCategoryIndices,
       onSelectedIndicesChanged: (selectedIndices) {
         cubit.updateCategoryFilter(selectedIndices);
@@ -249,7 +278,7 @@ class _ExploreJobsForJobSeekerState extends State<ExploreJobsForJobSeeker> {
     showDynamicBottomSheet(
       context: context,
       title: "Select Job Type",
-      items: AppSharedData.employmentStatus,
+      items: AppSharedData.jobTitle,
       initialSelection: cubit.selectedJobTypeIndices,
       onSelectedIndicesChanged: (selectedIndices) {
         cubit.updateJobTypeFilter(selectedIndices);
@@ -270,18 +299,7 @@ class _ExploreJobsForJobSeekerState extends State<ExploreJobsForJobSeeker> {
     );
   }
 
-  void _showExperienceLevelBottomSheet(BuildContext context) {
-    final cubit = context.read<JobPostCubit>();
-    showDynamicBottomSheet(
-      context: context,
-      title: "Select Experience Level",
-      items: AppSharedData.careerLevels,
-      initialSelection: cubit.selectedExperienceLevelIndices,
-      onSelectedIndicesChanged: (selectedIndices) {
-        cubit.updateExperienceLevelFilter(selectedIndices);
-      },
-    );
-  }
+
 
   void _showDatePostedBottomSheet(BuildContext context) {
     final cubit = context.read<JobPostCubit>();

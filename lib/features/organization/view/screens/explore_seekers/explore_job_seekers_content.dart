@@ -45,7 +45,7 @@ class ExploreJobSeekersContent extends StatelessWidget {
                     },
                   ),
                   SizedBox(height: 20.h),
-                  Text("Job Search", style: AppFonts.mainText),
+                  Text("Seekers Search", style: AppFonts.mainText),
                   Text(
                     "Search for your desired job matching your skills.",
                     style: AppFonts.secMain,
@@ -122,7 +122,7 @@ class ExploreJobSeekersContent extends StatelessWidget {
                 } else if (state is SeekerLoaded && state.seekers.isEmpty) {
                   return SliverToBoxAdapter(
                     child: Center(
-                      child: Text("No jobs found.", style: AppFonts.secMain),
+                      child: Text("No Seeker found.", style: AppFonts.secMain),
                     ),
                   );
                 } else {
