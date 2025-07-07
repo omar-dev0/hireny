@@ -16,7 +16,6 @@ class InfoBox extends StatelessWidget {
     super.key, required this.img, required this.info,
   });
   final String img;
-  // final int id;
   final dynamic info;
 
   @override
@@ -26,9 +25,7 @@ class InfoBox extends StatelessWidget {
     String organization = "";
     String startDate = "";
     String endDate = "";
-    // String itemID = "";
 
-    // Safely extract values based on the object type
     if (info is ExperienceModel) {
       title = info.jobTitle;
       organization = info.companyName;
@@ -53,6 +50,7 @@ class InfoBox extends StatelessWidget {
       title = "Unknown";
       organization = "Unknown";
     }
+    final cubit = context.read<TechnicalInfoCubit>();
 
     return Column(
       children: [
@@ -113,17 +111,16 @@ class InfoBox extends StatelessWidget {
                               education: info is Educations,
                               experience: info is ExperienceModel,
                             );
-
                             // Now show the popup
                             popUpForm(context, () {
                               cubit.updateTechInfo(info.id.toString(), info);
-                            }, title,updateFlag: true);
+                            }, title,updateFlag: true,type: info);
                           },
                           icon: Icon(Icons.edit),
                         ),
                         IconButton(
                           onPressed: () {
-                            context.read<TechnicalInfoCubit>().deleteItem(info.id.toString(), info);
+                            cubit.deleteItem(info.id.toString(), info);
 
                           },
                           icon: Icon(Icons.delete),

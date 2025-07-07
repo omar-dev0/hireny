@@ -18,7 +18,6 @@ import 'package:hireny/features/seeker/view/screens/salary_insights/salary_insig
 import 'package:hireny/features/services/presentation/ui/services_view.dart';
 import 'package:hireny/features/view_application/presentation/manager/app_cubit.dart';
 import 'package:hireny/routes/page_route.dart';
-import 'package:hireny/technical_info/presentation/manager/technical_info_cubit.dart';
 import 'package:hireny/widget/tabbar.dart';
 
 import '../features/admin/view/personal_profile_admin.dart';
