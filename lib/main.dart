@@ -8,6 +8,8 @@ import 'package:hireny/widget/tabbar.dart';
 
 import 'bloc_observer.dart';
 import 'config_app/app_provider.dart';
+import 'features/manage_org_account/service_request_tab/presentation/manager/service_applications_cubit.dart';
+import 'features/manage_org_account/service_request_tab/presentation/ui/service_request.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,6 +30,10 @@ class Hireny extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
         onGenerateRoute: AppRoutes.GeneratedRoute,
+        //  home:BlocProvider(
+        //    create: (_) => getIt<ServiceApplicationsCubit>()..getApplications(), // or your cubit constructor
+        //    child: ServiceRequest(),
+        //  ),
       ),
     );
   }

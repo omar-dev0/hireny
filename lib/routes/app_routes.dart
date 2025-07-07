@@ -32,6 +32,7 @@ import '../features/auth/view/reg/reg_screen.dart';
 import '../features/calender/ui/calender_screen_content.dart';
 import '../features/course_detailes/presentation/views/course_details_view.dart';
 import '../features/manage_org_account/org_rep_tab/presentation/ui/org_rep.dart';
+import '../features/manage_org_account/service_request_tab/presentation/manager/service_applications_cubit.dart';
 import '../features/manage_org_account/service_request_tab/presentation/ui/service_request.dart';
 import '../features/org_assessment/presentation/manager/assessment_org_cubit.dart';
 import '../features/organization/domain/modules/seeker.dart';
@@ -91,7 +92,10 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
     return MaterialPageRoute(builder: (context) => OrgAccount());
   }
   if (name == PagesRoute.orgServiceRequest) {
-    return MaterialPageRoute(builder: (context) => ServiceRequest());
+    return MaterialPageRoute(builder: (context) => BlocProvider(
+        create: (_) => getIt<ServiceApplicationsCubit>()..getApplications(), // or your cubit constructor
+        child: ServiceRequest())
+    );
   }
   if (name == PagesRoute.orgRep) {
     return MaterialPageRoute(builder: (context) => OrgRep()); //

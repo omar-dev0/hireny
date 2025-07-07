@@ -8,6 +8,7 @@ import 'package:hireny/features/seeker/domain/modules/course.dart';
 import 'package:hireny/features/services/domain/models/response/service_post_response.dart';
 import 'package:hireny/features/show_courses/data/models/seeker_courses_registered.dart';
 
+import '../../features/manage_org_account/service_request_tab/data/models/service_applications.dart';
 import '../../features/org_assessment/data/models/assessment_model.dart';
 import '../../features/organization/domain/modules/organization.dart';
 import '../../features/seeker/domain/modules/job_post.dart';
@@ -171,6 +172,8 @@ abstract class AppSharedData {
   static List<String> jobs = [];
   static List<AssessmentResponse>assessmentsOrg = [];
   static List<ServiceResponse> servicesOrg = [];
+  static List<Application> serviceApplications = [];
+
   static List<JobPost> jobPosts = [];
   static List<OrgPost> orgPosts = [];
   static List<OrgPost> orgs = [];

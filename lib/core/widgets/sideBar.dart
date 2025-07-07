@@ -56,11 +56,11 @@ class SideBarScreen extends StatelessWidget {
       "icon": Icons.info,
       "route": PagesRoute.orgAccount,
     },
-    {
-      "title": "Representatives",
-      "icon": Icons.apartment,
-      "route": PagesRoute.orgRep,
-    },
+    // {
+    //   "title": "Representatives",
+    //   "icon": Icons.apartment,
+    //   "route": PagesRoute.orgRep,
+    // },
     {
       "title": "Assessments",
       "icon": Icons.assessment,
