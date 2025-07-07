@@ -29,7 +29,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    if(AppSharedData.connectNotification)return;
+    if (AppSharedData.connectNotification) return;
     NotificationService notificationService = NotificationService();
     notificationService.init();
     notificationService.connectToWebSocket(
@@ -47,12 +47,11 @@ class _HomeState extends State<Home> {
           return LoadingDialog();
         }
         if (state is JobPostLoaded && state.jobPosts.isNotEmpty) {
-          jobPosts = state.jobPosts.take(5).toList();
+          jobPosts = AppSharedData.bestThreeJobs;
         } else {
           jobPosts =
-              AppSharedData.jobPosts
-                  .take(5)
-                  .toList(); // Fallback to cached jobs
+              AppSharedData.bestThreeJobs;
+
         }
 
         return Padding(

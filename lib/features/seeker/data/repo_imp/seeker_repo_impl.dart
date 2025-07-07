@@ -72,4 +72,8 @@ class SeekerRepoImpl implements SeekerRepository {
   Future<Result<List<ReviewModel>>?> getReviews(num id) {
     return _dataSource.getReviews(id);
   }
+  @override
+  Future<Result<List<JobPost>>> getThreeBestJobs() {
+    return _dataSource.getThreeBestJobs();
+  }
 }

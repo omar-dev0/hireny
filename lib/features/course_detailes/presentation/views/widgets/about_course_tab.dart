@@ -18,7 +18,6 @@ class AboutCourseTab extends StatelessWidget {
     }
 
     List<String> learningOutcomes = _generateLearningOutcomes(course!.title, course!.description ?? "");
-    List<String> requirements = _generateRequirements(course!.title, course!.description ?? "");
 
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -40,62 +39,13 @@ class AboutCourseTab extends StatelessWidget {
           child: ScrollContainer(items: learningOutcomes),
         ),
 
-        const SizedBox(height: 30),
-        FadeInLeft(
-          duration: Duration(milliseconds: 600),
-          child: Text("Requirements", style: AppFonts.mainText),
-        ),
         const SizedBox(height: 20),
-        SlideInUp(
-          duration: Duration(milliseconds: 700),
-          child: ScrollContainer(items: requirements),
-        ),
       ],
     );
   }
 
   List<String> _generateLearningOutcomes(String title, String description) {
-    final Map<List<String>, List<String>> templates = {
-      ['python', 'programming', 'coding','cpp']: [
-        "Master the fundamentals of Python programming",
-        "Write clean and efficient code",
-        "Understand data structures like lists, dictionaries, and tuples",
-        "Build simple scripts and applications",
-        "Work with external libraries and modules"
-      ],
-      ['banking', 'finance', 'accounting']: [
-        "Understand core banking operations",
-        "Learn about financial systems and transactions",
-        "Explore different types of bank accounts",
-        "Familiarize yourself with loan processing",
-        "Gain insights into risk management in banking"
-      ],
-      ['design', 'ui', 'ux']: [
-        "Learn the principles of visual design",
-        "Create compelling layouts and interfaces",
-        "Use design tools effectively",
-        "Develop a professional design portfolio"
-      ],
-      ['data science', 'machine learning', 'ml', 'ai']: [
-        "Understand the basics of data analysis",
-        "Apply statistical methods to real-world datasets",
-        "Build predictive models using machine learning algorithms",
-        "Visualize and interpret results effectively"
-      ],
-    };
-
-    for (var keywords in templates.keys) {
-      if (_containsAny(title.toLowerCase(), keywords) || _containsAny(description.toLowerCase(), keywords)) {
-        return templates[keywords]!;
-      }
-    }
-
-    return [
-      "Understand the basics of $title",
-      "Apply key concepts in real-world scenarios",
-      "Develop practical skills related to $title",
-      "Enhance your knowledge through hands-on practice"
-    ];
+    return description.split(',');
   }
 
   List<String> _generateRequirements(String title, String description) {

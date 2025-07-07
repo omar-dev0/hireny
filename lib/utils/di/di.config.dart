@@ -13,6 +13,12 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart' as _i528;
 
+import '../../chat/data/api/api_manger.dart' as _i88;
+import '../../chat/data/data_source/chat_data_source.dart' as _i238;
+import '../../chat/data/data_source_imp/chat_data_source_imp.dart' as _i345;
+import '../../chat/data/repo_imp/repo_chat_imp.dart' as _i221;
+import '../../chat/domain/repo_contract/chat_repo_contract.dart' as _i638;
+import '../../chat/ui/cubit/chat_cubit.dart' as _i301;
 import '../../features/auth/data/api/api_manger.dart' as _i758;
 import '../../features/auth/data/data_source/auth_data_source.dart' as _i364;
 import '../../features/auth/data/data_source_imp/auth_data_source_imp.dart'
@@ -218,6 +224,7 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i341.ServiceApiManager(gh<_i361.Dio>()));
     gh.singleton<_i409.TechApiManager>(
         () => _i409.TechApiManager(gh<_i361.Dio>()));
+    gh.singleton<_i88.ChatApiManger>(() => _i88.ChatApiManger(gh<_i361.Dio>()));
     gh.lazySingleton<_i387.ServiceOrgDataSourceInterface>(
         () => _i618.ServiceOrgDataSource(gh<_i341.ServiceApiManager>()));
     gh.factory<_i656.AdminRepoInterface>(
@@ -250,6 +257,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i894.GetAdmins(adminRepo: gh<_i656.AdminRepoInterface>()));
     gh.lazySingleton<_i234.CourseDataInterface>(
         () => _i338.LocalCourseData(gh<_i451.CoursesApiManager>()));
+    gh.factory<_i238.ChatDataSource>(
+        () => _i345.ChatDataSourceImp(gh<_i88.ChatApiManger>()));
     gh.factory<_i1018.ChatBootDataSource>(
         () => _i347.ChatBootDataSourceImp(gh<_i174.ChatBootApiManger>()));
     gh.factory<_i674.ApplicationDataSource>(
@@ -301,6 +310,8 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.lazySingleton<_i854.TechRepoInterface>(
         () => _i557.TechRepoImpl(gh<_i411.TechDataSourceInterface>()));
+    gh.factory<_i638.ChatRepo>(
+        () => _i221.ChatRepoImp(gh<_i238.ChatDataSource>()));
     gh.factory<_i896.ServiceOrgCubit>(() => _i896.ServiceOrgCubit(
           gh<_i607.AddServiceOrgPost>(),
           gh<_i193.GetServicesOrg>(),
@@ -347,6 +358,7 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i883.AddTechInfo(gh<_i854.TechRepoInterface>()));
     gh.factory<_i394.GetTechInfo>(
         () => _i394.GetTechInfo(gh<_i854.TechRepoInterface>()));
+    gh.factory<_i301.ChatCubit>(() => _i301.ChatCubit(gh<_i638.ChatRepo>()));
     gh.factory<_i583.SeekerCoursesCubit>(
         () => _i583.SeekerCoursesCubit(gh<_i714.ShowCourses>()));
     gh.factory<_i953.TechnicalInfoCubit>(() => _i953.TechnicalInfoCubit(

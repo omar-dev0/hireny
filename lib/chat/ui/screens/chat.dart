@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hireny/chat/domain/model/chat_response.dart';
+
+import '../cubit/chat_cubit.dart';
+import 'chat_detailes_screen.dart';
 
 class ChatScreen extends StatelessWidget {
   final ChatResponse? chatResponse;
@@ -7,6 +11,7 @@ class ChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var cubit = BlocProvider.of<ChatCubit>(context);
     return Scaffold(
       appBar: AppBar(title: const Text('Conversations'), centerTitle: true),
       body: ListView.separated(
@@ -18,7 +23,13 @@ class ChatScreen extends StatelessWidget {
 
           return GestureDetector(
             onTap: () {
-              // Navigate to message screen or handle tap
+              cubit.markRead(chatResponse?.comparisonId ?? 0);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => ChatSocketScreen(conversation: convo),
+                ),
+              );
             },
             child: Container(
               decoration: BoxDecoration(

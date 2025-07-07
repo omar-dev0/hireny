@@ -9,9 +9,7 @@ class CourseContentSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (course == null || course!.lessons.isEmpty) {
-      return const Center(
-        child: Text("No lessons available for this course."),
-      );
+      return const Center(child: Text("No lessons available for this course."));
     }
 
     // Dynamically build course content based on lessons
@@ -20,12 +18,13 @@ class CourseContentSection extends StatelessWidget {
     // Group all lessons under one chapter or split by section/chapter if needed
     courseContent.add({
       "chapter": "Course Content",
-      "lessons": course!.lessons.map((lesson) {
-        return {
-          "title": lesson.title,
-          "duration": _formatDuration(lesson.duration),
-        };
-      }).toList(),
+      "lessons":
+          course!.lessons.map((lesson) {
+            return {
+              "title": lesson.title,
+              "duration": _formatDuration(lesson.duration),
+            };
+          }).toList(),
     });
 
     return ListView.builder(
@@ -39,17 +38,14 @@ class CourseContentSection extends StatelessWidget {
             chapter["chapter"],
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
-          children: List.generate(
-            chapter["lessons"].length,
-                (i) {
-              final lesson = chapter["lessons"][i];
-              return ListTile(
-                leading: Text('${i + 1}.'),
-                title: Text(lesson["title"]),
-                trailing: Text(lesson["duration"]),
-              );
-            },
-          ),
+          children: List.generate(chapter["lessons"].length, (i) {
+            final lesson = chapter["lessons"][i];
+            return ListTile(
+              leading: Text('${i + 1}.'),
+              title: Text(lesson["title"]),
+              trailing: Text(lesson["duration"]),
+            );
+          }),
         );
       },
     );
