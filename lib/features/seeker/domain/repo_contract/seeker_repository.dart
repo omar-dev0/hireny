@@ -1,5 +1,6 @@
 import 'package:hireny/features/seeker/domain/modules/job_post.dart';
 import 'package:hireny/result.dart';
+import '../../../org_profile/domain/models/reviews.dart';
 import '../modules/course.dart';
 import '../modules/job_details.dart';
 import '../modules/org_post.dart';
@@ -17,4 +18,8 @@ abstract class SeekerRepository {
     bool haveApplication,
     List<dynamic> answers,
   );
+  Future<Result<ReviewModel>?> createReview(String review, num id);
+  Future<Result<void>?> deleteReview(num id);
+  Future<Result<void>?> updateReview(String review, num id);
+  Future<Result<List<ReviewModel>>?> getReviews(num id);
 }

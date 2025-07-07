@@ -106,8 +106,8 @@ class _CalenderViewState extends State<CalenderView> {
                       builder: (_) {
                         return AddEventBottomSheet(
                           selectedDay: selectedDay,
-                          onEventAdded: (String title, TimeOfDay time) {
-                            calenderCubit.addEvent(
+                          onEventAdded: (String title, TimeOfDay time) async{
+                            await calenderCubit.addEvent(
                               EventModel(
                                 title: title,
                                 startDate: DateTime(
@@ -119,6 +119,9 @@ class _CalenderViewState extends State<CalenderView> {
                                 ),
                               ),
                             );
+                            setState(() {
+
+                            });
                           },
                         );
                       },

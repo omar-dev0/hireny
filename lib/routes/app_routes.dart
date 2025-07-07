@@ -195,20 +195,26 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
   }
 
   if (name == PagesRoute.reg) {
-    bool isOrg = false;
-    var arg = settings.arguments;
-    if (arg != null && arg is bool) {
-      isOrg = arg;
+    final args = settings.arguments as Map<String, dynamic>;
+    final isOrg = args['isOrg'] as bool;
+    final user = args['user'];
+    var finalUser;
+    var cv;
+    if (user != null) {
+      finalUser = user['user'];
+      cv = user['cv'];
     }
-    return MaterialPageRoute(builder: (_) => RegSeekerScreen(isOrg: isOrg));
+    return MaterialPageRoute(
+      builder:
+          (_) => RegSeekerScreen(isOrg: isOrg, autoFill: finalUser, cv: cv),
+    );
   }
   if (name == PagesRoute.personalProfileAdmin) {
     return MaterialPageRoute(builder: (_) => PersonalProfileAdmin());
   }
-  if(name == PagesRoute.aiTools)
-    {
-      return MaterialPageRoute(builder: (_)=>AiScreen());
-    }
+  if (name == PagesRoute.aiTools) {
+    return MaterialPageRoute(builder: (_) => AiScreen());
+  }
   if (name == PagesRoute.verifyOrganizationAdmin) {
     return MaterialPageRoute(builder: (_) => VerifyOrganizationAdmin());
   }
@@ -218,14 +224,18 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
     final cubit = args['cubit'] as ExploreServicesCubit;
 
     return MaterialPageRoute(
-      builder: (context) => BlocProvider.value(
-        value: cubit,
-        child: ServiceDetailsOrg(service: service, cubit: cubit),
-      ),
+      builder:
+          (context) => BlocProvider.value(
+            value: cubit,
+            child: ServiceDetailsOrg(service: service, cubit: cubit),
+          ),
     );
   }
   if (name == PagesRoute.seekerDetailsOrg) {
-    return MaterialPageRoute(builder: (_) => SeekerDetailsOrg(seeker:settings.arguments as SeekerModel ,));
+    return MaterialPageRoute(
+      builder:
+          (_) => SeekerDetailsOrg(seeker: settings.arguments as SeekerModel),
+    );
   }
   if (name == PagesRoute.relatedServicesOrg) {
     return MaterialPageRoute(builder: (_) => RelatedServicesOrg());
@@ -298,7 +308,7 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
 
   if (name == PagesRoute.orgProfile) {
     return MaterialPageRoute(
-      builder: (_) => OrgProfile(orgPost: settings.arguments as OrgPost,),
+      builder: (_) => OrgProfile(orgPost: settings.arguments as OrgPost),
     );
   }
 
@@ -311,4 +321,3 @@ Route<dynamic> GeneratedRoute(RouteSettings settings) {
         ),
   );
 }
-

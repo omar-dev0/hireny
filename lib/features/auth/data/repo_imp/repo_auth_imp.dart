@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hireny/features/auth/data/data_source/auth_data_source.dart';
+import 'package:hireny/features/auth/domain/modules/auto_fill/auto_fill_org_admin.dart';
 import 'package:hireny/features/auth/domain/modules/org/org_admin.dart';
 import 'package:hireny/features/auth/domain/modules/seeker/seeker.dart';
 import 'package:hireny/features/auth/domain/modules/user/user.dart';
@@ -14,6 +15,7 @@ import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../domain/modules/assessment/assessment.dart';
+import '../../domain/modules/auto_fill/autofill_seeker.dart';
 
 @Injectable(as: RepoAuth)
 class RepoAuthImp implements RepoAuth {
@@ -50,7 +52,6 @@ class RepoAuthImp implements RepoAuth {
         String refreshToken = response.response?['refresh'];
         var userInfo = await getUserInfo(accessToken);
         if (userInfo is Success) {
-
           Success<User?> response = userInfo as Success<User?>;
           AppSharedData.user = response.response;
           print(AppSharedData.user?.firstName);
@@ -96,6 +97,7 @@ class RepoAuthImp implements RepoAuth {
   ) {
     return dataSource.changePassword(token, oldPassword, newPassword);
   }
+
   @override
   Future<Result<void>> updateUserInfo(Seeker seeker) {
     return dataSource.updateUserInfo(seeker);
@@ -122,7 +124,7 @@ class RepoAuthImp implements RepoAuth {
   }
 
   @override
-  Future<Result<Seeker?>?> extractFromSeekerCV(File cv) {
+  Future<Result<AutoFillSeeker?>?> extractFromSeekerCV(File cv) {
     return dataSource.extractFromSeekerCV(cv);
   }
 
@@ -134,5 +136,25 @@ class RepoAuthImp implements RepoAuth {
   @override
   Future<Result<void>?> submitAssessment(num id, List<dynamic> answers) {
     return dataSource.submitAssessment(id, answers);
+  }
+
+  @override
+  Future<Result<void>?> generateAndDownloadCoverLetter(File file) {
+    return dataSource.generateAndDownloadCoverLetter(file);
+  }
+
+  @override
+  Future<Result<void>?> generateAndDownloadResume() {
+    return dataSource.generateAndDownloadResume();
+  }
+
+  @override
+  Future<Result<List<String>?>?> recommendTitles() {
+    return dataSource.recommendTitles();
+  }
+
+  @override
+  Future<Result<AutoFillOrg?>?> extractFromOrgProf(File cv) {
+    return dataSource.extractFromOrgProf(cv);
   }
 }

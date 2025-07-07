@@ -17,4 +17,7 @@ class ErrorCalender extends CalenderState {}
 
 class HideLoadingCalender extends CalenderState {}
 
-class SuccessAddedEvent extends CalenderState {}
+class SuccessAddedEvent extends CalenderState {
+  EventModel event;
+  SuccessAddedEvent(this.event);
+}

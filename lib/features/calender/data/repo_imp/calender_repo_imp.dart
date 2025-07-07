@@ -11,7 +11,7 @@ class CalenderRepoImp extends CalenderRepoContract {
   CalenderRepoImp(this.calenderDataSource);
 
   @override
-  Future<Result<void>?> addEvent(EventModel event) {
+  Future<Result<EventModel>?> addEvent(EventModel event) {
     return calenderDataSource.addEvent(event);
   }
 

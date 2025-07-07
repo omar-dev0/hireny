@@ -34,18 +34,6 @@ class CalenderScreen extends StatelessWidget {
               builder: (_) => ErrorDialog(message: 'can\'t get events'),
             );
           }
-          if (state is SuccessAddedEvent) {
-            Future.delayed(
-              Duration(seconds: 1),
-              () =>
-                  Navigator.pushReplacementNamed(context, PagesRoute.calender),
-            );
-            showDialog(
-              context: context,
-              builder:
-                  (_) => SuccessDialog(message: 'event added successfully'),
-            );
-          }
           if (state is LoadingAddEvent) {
             showDialog(context: context, builder: (_) => LoadingDialog());
           }

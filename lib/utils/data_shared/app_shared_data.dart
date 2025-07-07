@@ -165,7 +165,7 @@ abstract class AppSharedData {
     "Singapore",
     "United Kingdom",
     "South Africa",
-    "United States"
+    "United States",
   ];
   static List<String> jobs = [];
   static List<ServiceResponse> servicesOrg = [];
@@ -181,12 +181,12 @@ abstract class AppSharedData {
     "Temporary",
     "Freelance",
     "Contract",
-    "Volunteer"
+    "Volunteer",
   ];
   static List<RegisteredCourses> registeredCourses = [];
 
-  static Map<String,List<dynamic>>? techInfo ;
-  static bool calling = false ;
+  static Map<String, List<dynamic>>? techInfo;
+  static bool calling = false;
   static List<String> careerLevels = [
     "Entry Level",
     "Early Career",
@@ -259,7 +259,7 @@ abstract class AppSharedData {
 
   static List<String> categories = [];
 
-  static List<String> lang =  [];
+  static List<String> lang = [];
 
   static List<String> educationLevels = [
     "No Formal Education",
@@ -306,4 +306,6 @@ abstract class AppSharedData {
   static List<AppNotification> notifications = [];
 
   static bool initNotfication = false;
+
+  static bool connectNotification = false;
 }

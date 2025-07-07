@@ -1,5 +1,6 @@
 import 'package:hireny/result.dart';
 
+import '../../../org_profile/domain/models/reviews.dart';
 import '../../domain/modules/course.dart';
 import '../../domain/modules/job_details.dart';
 import '../../domain/modules/job_post.dart';
@@ -22,4 +23,10 @@ abstract class SeekerDataSource {
     bool haveApplication,
     List<dynamic> answers,
   );
+  Future<Result<ReviewModel>?> createReview(String review, num id);
+  Future<Result<void>?> deleteReview(num id);
+  Future<Result<void>?> updateReview(String review, num id);
+  Future<Result<List<ReviewModel>>?> getReviews(num id);
+
+
 }

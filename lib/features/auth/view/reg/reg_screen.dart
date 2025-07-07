@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hireny/features/auth/domain/modules/auto_fill/autofill.dart';
 import 'package:hireny/features/auth/view/reg/cubit/reg_vm.dart';
 import 'package:hireny/features/auth/view/reg/reg_org_content.dart';
 import 'package:hireny/features/auth/view/reg/reg_seeker_content.dart';
@@ -11,16 +12,32 @@ import 'package:hireny/utils/constants/dialogs/success_dialog.dart';
 import 'package:hireny/utils/constants/dialogs/toast/error.dart';
 import 'package:hireny/utils/di/di.dart';
 import '../../../../utils/lang/lang.dart';
+import '../../domain/modules/auto_fill/auto_fill_org_admin.dart';
+import '../../domain/modules/auto_fill/autofill_seeker.dart';
 import 'cubit/state/reg_states.dart';
 
 class RegSeekerScreen extends StatelessWidget {
   bool isOrg;
-  RegSeekerScreen({super.key, required this.isOrg});
+  AutoFill? autoFill;
+  String? cv;
+  RegSeekerScreen({
+    super.key,
+    required this.isOrg,
+    required this.autoFill,
+    this.cv,
+  });
   final RegSeekerVm regVm = getIt.get<RegSeekerVm>();
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => regVm,
+      create: (_) {
+        if (autoFill is AutoFillSeeker) {
+          regVm.loadSeekerData(autoFill as AutoFillSeeker, cv: cv);
+        } else if (autoFill is AutoFillOrg) {
+          regVm.loadOrgData(autoFill as AutoFillOrg, cv: cv);
+        }
+        return regVm;
+      },
       child: BlocConsumer<RegSeekerVm, RegState>(
         listener: (context, state) {
           if (state is RegSuccess) {

@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hireny/features/assessment/presentation/ui/assessment.dart';
+import 'package:hireny/features/auth/domain/modules/auto_fill/auto_fill_org_admin.dart';
+import 'package:hireny/features/auth/domain/modules/auto_fill/autofill_seeker.dart';
 import 'package:hireny/features/auth/domain/modules/org/org_admin.dart';
 import 'package:hireny/features/auth/domain/modules/seeker/seeker.dart';
 import 'package:hireny/features/auth/domain/modules/user/user.dart';
@@ -11,9 +13,12 @@ import 'package:hireny/utils/data_shared/app_shared_data.dart';
 import 'package:hireny/utils/dio_provider.dart';
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../../../../utils/data_shared/app_shared_data.dart';
 import '../../../../utils/data_shared/data_const.dart';
+import '../../../../utils/data_shared/shared_const_api.dart';
 import '../../../../utils/exceptions/dio_exception.dart';
 import '../../domain/modules/assessment/assessment.dart';
 import 'api_const.dart';
@@ -363,12 +368,13 @@ class ApiManger {
       }
       return Error(error: 'some thing went wrong');
     }
+    return null;
   }
 
-  Future<Result<Seeker?>?> extractFromSeekerCV(File cv) async {
+  Future<Result<AutoFillSeeker?>?> extractFromSeekerCV(File cv) async {
     try {
       final formData = FormData.fromMap({
-        'cv': await MultipartFile.fromFile(cv.path),
+        'file': await MultipartFile.fromFile(cv.path),
       });
       final response = await _dio.post(
         ApiConst.extractJobSeekerInfoModel,
@@ -380,7 +386,7 @@ class ApiManger {
       if (response.statusCode != 200) {
         return Error(error: 'can\'t extract data from your cv');
       }
-      return Success(response: Seeker.fromJson(response.data));
+      return Success(response: AutoFillSeeker.fromJson(response.data));
     } on DioException catch (e) {
       final errorMessage = DioExceptions.fromDioError(e).message;
       if (kDebugMode) {
@@ -392,6 +398,149 @@ class ApiManger {
         print('General Error in extractFromSeekerCV: $e');
       }
       return Error(error: 'some thing went wrong');
+    }
+  }
+
+  Future<Result<AutoFillOrg?>?> extractFromOrgProf(File cv) async {
+    try {
+      final formData = FormData.fromMap({
+        'file': await MultipartFile.fromFile(cv.path),
+      });
+      final response = await _dio.post(ApiConst.fillOrgReg, data: formData);
+      if (response.data == null) {
+        return Error(error: 'can\'t extract data from your cv');
+      }
+      if (response.statusCode != 200) {
+        return Error(error: 'can\'t extract data from your cv');
+      }
+      return Success(response: AutoFillOrg.fromJson(response.data));
+    } on DioException catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e).message;
+      if (kDebugMode) {
+        print('DioException in extractFromSeekerCV: $e');
+      }
+      return Error(error: errorMessage);
+    } catch (e) {
+      if (kDebugMode) {
+        print('General Error in extractFromSeekerCV: $e');
+      }
+      return Error(error: 'some thing went wrong');
+    }
+    return null;
+  }
+
+  Future<Result<void>?> generateAndDownloadResume() async {
+    try {
+      final response = await _dio.get(ApiConst.generateResume);
+
+      if (response.statusCode == 200 && response.data != null) {
+        final docxUrl = response.data['docx_download_url'];
+        final pdfUrl = response.data['pdf_download_url'];
+
+        if (docxUrl != null) {
+          await _downloadFile(docxUrl, 'resume.docx');
+        }
+        if (pdfUrl != null) {
+          await _downloadFile(pdfUrl, 'resume.pdf');
+        }
+
+        print('Resume files downloaded successfully.');
+        return Success();
+      } else {
+        print('Resume request failed: ${response.statusCode}');
+        return Error();
+      }
+    } catch (e) {
+      print('Error generating resume: $e');
+      return Error();
+    }
+  }
+
+  Future<Result<void>?> generateAndDownloadCoverLetter(File file) async {
+    return await _generateAndDownload(
+      file,
+      ApiConst.generateCoverLetter,
+      'cover_letter',
+    );
+  }
+
+  Future<Result<void>?> _generateAndDownload(
+    File file,
+    String endpoint,
+    String baseFileName,
+  ) async {
+    try {
+      final formData = FormData.fromMap({
+        'file': await MultipartFile.fromFile(
+          file.path,
+          filename: file.path.split('/').last,
+        ),
+      });
+
+      final response = await _dio.post(endpoint, data: formData);
+
+      if (response.statusCode == 200 && response.data != null) {
+        final docxUrl = response.data['docx_download_url'];
+        final pdfUrl = response.data['pdf_download_url'];
+
+        if (docxUrl != null) {
+          await _downloadFile(docxUrl, '$baseFileName.docx');
+        }
+        if (pdfUrl != null) {
+          await _downloadFile(pdfUrl, '$baseFileName.pdf');
+        }
+
+        print('$baseFileName files downloaded successfully.');
+        return Success();
+      } else {
+        print('Request failed: ${response.statusCode}');
+        return Error();
+      }
+    } catch (e) {
+      print('Error during $baseFileName generation: $e');
+      return Error();
+    }
+  }
+
+  Future<void> _downloadFile(String relativeUrl, String fileName) async {
+    try {
+      final dir = await getApplicationDocumentsDirectory();
+      final path = '${dir.path}/$fileName';
+
+      final fullUrl =
+          relativeUrl.startsWith('http')
+              ? relativeUrl
+              : '${ApiShared.baseUrl}/media/$relativeUrl';
+
+      await _dio.download(fullUrl, path);
+      print('Downloaded to $path');
+
+      // Open the file after downloading
+      final result = await OpenFile.open(path);
+      print('OpenFile result: ${result.message}');
+    } catch (e) {
+      print('Download or open failed: $e');
+    }
+  }
+
+  Future<Result<List<String>>?> recommendTitles() async {
+    try {
+      final response = await _dio.get(ApiConst.recommendTitles);
+      if (response.statusCode == 200) {
+        var data = response.data['titles'];
+        List<String> titles = List<String>.from(data);
+        return Success(response: titles);
+      }
+    } on DioException catch (e) {
+      if (kDebugMode) {
+        print(e.toString());
+      }
+      return Error(error: e.message);
+    } catch (e) {
+      if (kDebugMode) {
+        print(e.toString());
+      }
+      return Error(error: e.toString());
     }
     return null;
   }

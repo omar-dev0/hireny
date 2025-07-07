@@ -73,7 +73,6 @@ Future<String?> showEditReviewBottomSheet({
                   child: ElevatedButton(
                     onPressed: () {
                       onEdit.call(controller.text);
-                      Navigator.pop(context);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,

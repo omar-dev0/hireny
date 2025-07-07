@@ -1,3 +1,4 @@
+import 'package:hireny/features/org_profile/domain/models/reviews.dart';
 import 'package:hireny/result.dart';
 import 'package:injectable/injectable.dart';
 
@@ -49,4 +50,27 @@ class SeekerDataSourceImpl implements SeekerDataSource {
   ) {
     return seekerApi.applyJob(jobId, haveApplication, answers);
   }
+
+  @override
+  Future<Result<ReviewModel>?> createReview(String review, num id) {
+    return seekerApi.createReview(review, id);
+  }
+
+  @override
+  Future<Result<void>?> deleteReview(num id) {
+    return seekerApi.deleteReview(id);
+  }
+
+  @override
+  Future<Result<void>?> updateReview(String review, num id) {
+    return seekerApi.updateReview(review, id);
+  }
+
+  @override
+  Future<Result<List<ReviewModel>>?> getReviews(num id) {
+    return seekerApi.getReviews(id);
+  }
+
+
+
 }

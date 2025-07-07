@@ -3,11 +3,14 @@ import 'dart:io';
 import 'package:hireny/features/auth/data/api/api_manger.dart';
 import 'package:hireny/features/auth/data/data_source/auth_data_source.dart';
 import 'package:hireny/features/auth/domain/modules/assessment/assessment.dart';
+import 'package:hireny/features/auth/domain/modules/auto_fill/auto_fill_org_admin.dart';
 import 'package:hireny/features/auth/domain/modules/org/org_admin.dart';
 import 'package:hireny/features/auth/domain/modules/seeker/seeker.dart';
 import 'package:hireny/features/auth/domain/modules/user/user.dart';
 import 'package:hireny/result.dart';
 import 'package:injectable/injectable.dart';
+
+import '../../domain/modules/auto_fill/autofill_seeker.dart';
 
 @Injectable(as: AuthDataSource)
 class DataSourcAuthImp implements AuthDataSource {
@@ -39,7 +42,7 @@ class DataSourcAuthImp implements AuthDataSource {
   }
 
   @override
-  Future<Result<User?>?> getUserInfo(String token)async {
+  Future<Result<User?>?> getUserInfo(String token) async {
     return apiManger.getUserInfo(token);
   }
 
@@ -78,7 +81,7 @@ class DataSourcAuthImp implements AuthDataSource {
   }
 
   @override
-  Future<Result<Seeker?>?> extractFromSeekerCV(File cv) {
+  Future<Result<AutoFillSeeker?>?> extractFromSeekerCV(File cv) {
     return apiManger.extractFromSeekerCV(cv);
   }
 
@@ -90,5 +93,25 @@ class DataSourcAuthImp implements AuthDataSource {
   @override
   Future<Result<void>?> submitAssessment(num id, List<dynamic> answers) {
     return apiManger.submitAssessment(id, answers);
+  }
+
+  @override
+  Future<Result<void>?> generateAndDownloadCoverLetter(File file) {
+    return apiManger.generateAndDownloadCoverLetter(file);
+  }
+
+  @override
+  Future<Result<void>?> generateAndDownloadResume() {
+    return apiManger.generateAndDownloadResume();
+  }
+
+  @override
+  Future<Result<List<String>?>?> recommendTitles() {
+    return apiManger.recommendTitles();
+  }
+
+  @override
+  Future<Result<AutoFillOrg?>?> extractFromOrgProf(File cv) {
+    return apiManger.extractFromOrgProf(cv);
   }
 }

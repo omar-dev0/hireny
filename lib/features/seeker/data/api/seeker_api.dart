@@ -2,12 +2,14 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:hireny/features/auth/data/api/api_const.dart';
 import 'package:hireny/features/seeker/domain/modules/org_post.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../result.dart';
 import '../../../../utils/data_shared/app_shared_data.dart';
 import '../../../../utils/exceptions/dio_exception.dart';
+import '../../../org_profile/domain/models/reviews.dart';
 import '../../domain/modules/course.dart';
 import '../../domain/modules/job_details.dart';
 import '../../domain/modules/job_post.dart';
@@ -242,6 +244,98 @@ class SeekerApi {
     } catch (e) {
       if (kDebugMode) {
         print('General error in applyJob: $e');
+      }
+      return Error(error: e.toString());
+    }
+    return null;
+  }
+
+  Future<Result<ReviewModel>?> createReview(String review, num id) async {
+    try {
+      final response = await _dio.post(
+        '${SeekerConst.creatReview}$id/reviews/create/',
+        data: {'message': review},
+        options: Options(headers: {'Content-Type': 'application/json'}),
+      );
+      if (response.statusCode == 299) {
+        return Error(error: '299');
+      } else if (response.statusCode == 201) {
+        return Success(response: ReviewModel.fromJson(response.data));
+      }
+    } on DioException catch (e) {
+      if (kDebugMode) {
+        print(e.message);
+      }
+      return Error(error: e.message);
+    } catch (e) {
+      if (kDebugMode) {
+        print(e.toString());
+      }
+      return Error(error: e.toString());
+    }
+    return null;
+  }
+
+  Future<Result<void>?> deleteReview(num id) async {
+    try {
+      await _dio.delete('${SeekerConst.deleteCourseReview}reviews/$id/delete/');
+      return Success();
+    } on DioException catch (e) {
+      if (kDebugMode) {
+        print(e.message);
+      }
+      return Error(error: e.message);
+    } catch (e) {
+      if (kDebugMode) {
+        print(e.toString());
+      }
+    }
+    return null;
+  }
+
+  Future<Result<void>?> updateReview(String review, num id) async {
+    try {
+      var response = await _dio.put(
+        '${SeekerConst.updateCourseReview}reviews/$id/update/',
+        data: FormData.fromMap({"message": review}),
+      );
+      if (response.statusCode == 299) {
+        return Error(error: '299');
+      }
+      return Success();
+    } on DioException catch (e) {
+      if (kDebugMode) {
+        print(e.message);
+      }
+      return Error(error: '299');
+    } catch (e) {
+      if (kDebugMode) {
+        print(e.toString());
+      }
+    }
+    return null;
+  }
+
+  Future<Result<List<ReviewModel>>?> getReviews(num id) async {
+    try {
+      final response = await _dio.get(
+        '${SeekerConst.getCourseReviews}$id/reviews',
+      );
+      if (response.statusCode == 200) {
+        final List<ReviewModel> reviews = [];
+        for (var review in response.data) {
+          reviews.add(ReviewModel.fromJson(review));
+        }
+        return Success(response: reviews);
+      }
+    } on DioException catch (e) {
+      if (kDebugMode) {
+        print(e.message);
+      }
+      return Error(error: e.message);
+    } catch (e) {
+      if (kDebugMode) {
+        print(e.toString());
       }
       return Error(error: e.toString());
     }

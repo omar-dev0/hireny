@@ -10,6 +10,7 @@ import 'package:hireny/utils/di/di.dart';
 import 'package:hireny/utils/theme.dart';
 import 'package:hireny/widget/tabbar.dart';
 
+import 'bloc_observer.dart';
 import 'config_app/app_provider.dart';
 import 'features/services/presentation/manager/service_org_cubit.dart';
 import 'features/services/presentation/ui/service_details.dart';
@@ -19,6 +20,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
   await AppProvider.configApp();
+  Bloc.observer = MyBlocObserver();
   runApp(Hireny());
 }
 

@@ -7,7 +7,11 @@ import 'package:hireny/features/course_detailes/presentation/views/widgets/revie
 import 'package:hireny/utils/constants/app_colors.dart';
 import 'package:hireny/utils/constants/dialogs/loading_dialog.dart';
 import 'package:hireny/utils/di/di.dart';
+import '../../../../../utils/constants/dialogs/error_dialog.dart';
+import '../../../../../utils/constants/dialogs/success_dialog.dart';
+import '../../../../org_profile/presentation/manager/org_profile_states.dart';
 import '../../../domain/modules/course.dart';
+import 'course_deatailes_content.dart';
 import 'cubit/course_details_cubit.dart';
 import 'cubit/course_details_states.dart';
 
@@ -19,92 +23,48 @@ class courseScreenSeekerDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<CourseDetailsCubit>(),
-      child: Builder(builder: (context) {
-        // Fetch course details as soon as screen loads
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          context.read<CourseDetailsCubit>().fetchCourseDetails(courseId);
-        });
-        print(courseId);
+      create:
+          (context) =>
+              getIt<CourseDetailsCubit>()..fetchCourseDetails(courseId),
+      child: BlocConsumer<CourseDetailsCubit, CourseDetailsState>(
+        builder: (context, state) {
+          var cubit = context.read<CourseDetailsCubit>();
+          if (state is CourseDetailsLoading) {
+            return Scaffold(body: Center(child: CircularProgressIndicator()));
+          }
+          if (state is CourseDetailsError) {
+            return Scaffold(body: Center(child: Text(state.message)));
+          }
+          return CourseDeatailesContent(course: cubit.course);
+        },
+        listener: (context, state) {
+          if (state is LoadingAddOrgReview) {
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (_) => LoadingDialog(),
+            );
+          }
 
-        return DefaultTabController(
-          length: 4,
-          child: Scaffold(
-            backgroundColor: Colors.white,
-            body: SafeArea(
-              child: BlocBuilder<CourseDetailsCubit, CourseDetailsState>(
-                builder: (context, state) {
-                  if (state is CourseDetailsLoading) {
-                    return LoadingDialog();
-                  } else if (state is CourseDetailsLoaded) {
-                    final course = state.courseDetails;
-                    return Padding(
-                      padding: EdgeInsets.all(20),
-                      child: Column(
-                        children: [
-                          // Header Section with course info
-                          course_header_section(course: course,),
+          if (state is HideDialogCourseReview) {
+            Navigator.pop(context);
+          }
 
-                          // TabBar
-                          TabBar(
-                            labelColor: AppColors.primary,
-                            unselectedLabelColor: Colors.grey,
-                            indicatorColor: AppColors.primary,
-                            tabs: const [
-                              Tab(text: "About Course"),
-                              Tab(text: "Content"),
-                              Tab(text: "Instructor"),
-                              Tab(text: "Reviews"),
-                            ],
-                          ),
+          if (state is ErrorAddCourseReview) {
+            showDialog(
+              context: context,
+              builder: (_) => ErrorDialog(message: state.error),
+            );
+          }
 
-                          Expanded(
-                            child: TabBarView(
-                              children: [
-                                AboutCourseTab( course: course,),
-                                CourseContentTap(course : course),
-                                instructorTab(course : course),
-                                ReviewsTab(),
-                              ],
-                            ),
-                          ),
-
-                          SizedBox(height: 20),
-                        ],
-                      ),
-                    );
-                  } else if (state is CourseDetailsError) {
-                    return Center(
-                      child: Text("Failed to load course: ${state.message}"),
-                    );
-                  }
-                  return Container(); // fallback
-                },
-              ),
-            ),
-          ),
-        );
-      }),
-    );
-  }
-
-  Widget instructorTab({required Course? course}) {
-    if (course == null) {
-      return Center(child: Text("Course not found"));
-    }
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Instructor",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 10),
-          Text("Name: ${course.instructorName}"),
-          Text("Bio:  No bio available"),
-        ],
+          if (state is SuccessAddCourseReview) {
+            showDialog(
+              context: context,
+              builder: (_) => SuccessDialog(message: 'Success'),
+            );
+          }
+        },
       ),
     );
-  }}
+  }
+}

@@ -18,6 +18,12 @@ abstract class ApiConst {
   static const String getSeekerAssessments =
       '/api/assessments/assessments/user/';
 
+  static const String submitAssessment =
+      '/api/assessments/user-assessments/submit/';
 
-  static const String submitAssessment = '/api/assessments/user-assessments/submit/';
+  static String generateResume = '/api/AI_models/download_resume/';
+  static String generateCoverLetter = '/api/AI_models/download_cover_letter/';
+
+  static String recommendTitles = '/api/AI_models/recommend_titles/';
+  static String fillOrgReg = '/api/AI_models/extract_org_proof_data/';
 }

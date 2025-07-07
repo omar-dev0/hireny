@@ -1,5 +1,8 @@
 import 'package:hireny/features/auth/domain/modules/seeker/seeker.dart';
 
+import '../../../domain/modules/auto_fill/auto_fill_org_admin.dart';
+import '../../../domain/modules/auto_fill/autofill_seeker.dart';
+
 abstract class LoginState {}
 
 class InitLogin extends LoginState {}
@@ -16,12 +19,18 @@ class FailLogin extends LoginState {
 class ShowRegChoices extends LoginState {}
 
 class ShowSeekerChoicesReg extends LoginState {}
+class ShowOrgChoicesReg extends LoginState {}
 
 class HideLoading extends LoginState {}
 
 class CVLoadedSuccessfully extends LoginState {
-  Seeker? seeker;
+  AutoFillSeeker? seeker;
   CVLoadedSuccessfully({this.seeker});
+}
+
+class ProfLoadedSuccessfully extends LoadingLogin{
+  AutoFillOrg? org;
+  ProfLoadedSuccessfully({this.org});
 }
 
 class FailLoadedCV extends LoginState {}

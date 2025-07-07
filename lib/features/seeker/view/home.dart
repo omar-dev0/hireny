@@ -29,6 +29,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    if(AppSharedData.connectNotification)return;
     NotificationService notificationService = NotificationService();
     notificationService.init();
     notificationService.connectToWebSocket(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hireny/utils/constants/app_fonts.dart';
 import 'package:hireny/utils/widgets/custom_buttom.dart';
 import 'package:hireny/utils/widgets/custome_appbar_drawer.dart';
@@ -6,6 +7,7 @@ import 'package:lottie/lottie.dart';
 
 import '../../../../../core/widgets/sideBar.dart';
 import '../../../../../routes/page_route.dart';
+import 'cubit/ai_cubit.dart';
 
 class AiContent extends StatefulWidget {
   const AiContent({super.key});
@@ -29,6 +31,7 @@ class _AiContentState extends State<AiContent> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    var cubit = BlocProvider.of<AiCubit>(context);
     return CustomScreen(
       title: 'Ai Tools',
       drawer: SideBarScreen(currentRoute: PagesRoute.aiTools),
@@ -77,11 +80,18 @@ class _AiContentState extends State<AiContent> with TickerProviderStateMixin {
                       fit: BoxFit.contain,
                     ),
                     const SizedBox(height: 20),
-                    CustomButtom(title: 'Generate Resume', onPressed: () {}),
+                    CustomButtom(
+                      title: 'Generate Resume',
+                      onPressed: () {
+                        cubit.generateAndDownloadResume();
+                      },
+                    ),
                     const SizedBox(height: 20),
                     CustomButtom(
                       title: 'Generate Cover Letter',
-                      onPressed: () {},
+                      onPressed: () {
+                        cubit.geneateAndDownloadCoverLetter();
+                      },
                     ),
                   ],
                 ),

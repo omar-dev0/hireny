@@ -13,12 +13,12 @@ class CalenderApi {
   @factoryMethod
   CalenderApi(this._dio);
 
-  Future<Result<void>?> addEvent(EventModel event) async {
+  Future<Result<EventModel>?> addEvent(EventModel event) async {
     try {
       final FormData data = FormData.fromMap(event.toJson());
       var result = await _dio.post(CalenderApiConst.addEvent, data: data);
       if (result.statusCode == 201) {
-        return Success();
+        return Success(response: EventModel.fromJson(result.data));
       }
     } on DioException catch (e) {
       if (kDebugMode) {

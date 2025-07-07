@@ -12,6 +12,8 @@ import 'package:injectable/injectable.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../../utils/lang/lang.dart';
+import '../../../domain/modules/auto_fill/auto_fill_org_admin.dart';
+import '../../../domain/modules/auto_fill/autofill_seeker.dart';
 import '../../../domain/modules/org/org_admin.dart';
 import '../../../domain/modules/user/user.dart';
 
@@ -255,5 +257,44 @@ class RegSeekerVm extends Cubit<RegState> {
     }
 
     return true;
+  }
+
+  void loadSeekerData(AutoFillSeeker seeker, {String? cv}) {
+    firstName.text = seeker.firstName ?? "";
+    lastName.text = seeker.lastName ?? "";
+    email.text = seeker.email ?? "";
+    phone.text = seeker.phone ?? "";
+    country = seeker.country;
+    city = seeker.city;
+    dob = seeker.dob ?? "YYYY-MM-DD";
+    gender = seeker.gender;
+    nationality = seeker.nationality;
+    careerLevel = seeker.careerLevel;
+    employmentStatus = seeker.employmentStatus;
+    briefController.text = seeker.brief ?? "";
+    if (cv != null) {
+      this.cv = File(cv);
+    }
+  }
+
+  void loadOrgData(AutoFillOrg org, {String? cv}) {
+    if (org.name != null && org.name!.length >= 2) {
+      firstName.text = org.name!.split(" ")[0];
+      lastName.text = org.name!.split(" ")[1];
+    } else {
+      firstName.text = org.name ?? "";
+    }
+    email.text = org.email ?? "";
+    phone.text = org.phone ?? "";
+    country = org.country;
+    city = org.city;
+    dob = org.eYear.toString();
+    industry = org.industry?.first;
+    orgSize = org.organizationSize;
+    orgCeo.text = org.ceoName ?? "";
+    websiteLink.text = org.links?.first.url ?? "";
+    if (cv != null) {
+      this.cv = File(cv);
+    }
   }
 }

@@ -4,6 +4,8 @@ import 'package:hireny/features/auth/domain/modules/org/org_admin.dart';
 
 import '../../../../result.dart';
 import '../../domain/modules/assessment/assessment.dart';
+import '../../domain/modules/auto_fill/auto_fill_org_admin.dart';
+import '../../domain/modules/auto_fill/autofill_seeker.dart';
 import '../../domain/modules/seeker/seeker.dart';
 import '../../domain/modules/user/user.dart';
 
@@ -27,8 +29,14 @@ abstract class AuthDataSource {
   Future<Result<void>?> resetPassword(String email, String newPassword);
   Future<Result<AssessmentModel?>?> getAssessmentDetailes(int id);
 
-  Future<Result<Seeker?>?> extractFromSeekerCV(File cv);
+  Future<Result<AutoFillSeeker?>?> extractFromSeekerCV(File cv);
   Future<Result<List<AssessmentModel>?>?> getAssessments();
 
   Future<Result<void>?> submitAssessment(num id, List<dynamic> answers);
-}
+  Future<Result<void>?> generateAndDownloadResume();
+  Future<Result<void>?> generateAndDownloadCoverLetter(File file);
+  Future<Result<List<String>?>?> recommendTitles();
+  Future<Result<AutoFillOrg?>?> extractFromOrgProf(File cv);
+
+
+  }

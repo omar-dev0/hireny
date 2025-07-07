@@ -45,6 +45,7 @@ dependencies:
   http: ^1.4.0
   socket_io_client: ^3.1.2
   url_launcher: ^6.3.1
+  open_file: ^3.5.10
 
 dev_dependencies:
   flutter_test:

@@ -54,7 +54,7 @@ class CalenderCubit extends Cubit<CalenderState> {
             emit(HideLoadingCalender());
             AppSharedData.events.add(event);
             addSingleEventToMap(event, events);
-            emit(SuccessAddedEvent());
+            emit(SuccessAddedEvent(event));
           }
         case Error<void>():
           {

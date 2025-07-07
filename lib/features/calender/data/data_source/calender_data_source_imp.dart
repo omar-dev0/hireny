@@ -12,7 +12,7 @@ class CalenderDataSourceImp extends CalenderDataSource {
   CalenderDataSourceImp(this.calenderApi);
 
   @override
-  Future<Result<void>?> addEvent(EventModel event) {
+  Future<Result<EventModel>?> addEvent(EventModel event) {
     return calenderApi.addEvent(event);
   }
 

@@ -195,7 +195,6 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     final dioProvider = _$DioProvider();
-    gh.factory<_i71.AiCubit>(() => _i71.AiCubit());
     gh.lazySingleton<_i361.Dio>(() => dioProvider.dioProvider());
     gh.lazySingleton<_i528.PrettyDioLogger>(() => dioProvider.providePretty());
     gh.lazySingleton<_i5.AdminDataInterface>(
@@ -273,6 +272,7 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i336.OrgDataSourceImpl(gh<_i511.OrgApi>()));
     gh.factory<_i981.RegSeekerVm>(
         () => _i981.RegSeekerVm(gh<_i412.RepoAuth>()));
+    gh.factory<_i71.AiCubit>(() => _i71.AiCubit(gh<_i412.RepoAuth>()));
     gh.factory<_i721.AssissmentCubit>(
         () => _i721.AssissmentCubit(gh<_i412.RepoAuth>()));
     gh.factory<_i504.NotificationCubit>(

@@ -42,12 +42,7 @@ class LoginScreen extends StatelessWidget {
                     },
                     onPressButton2: () {
                       AppSharedData.user = OrgAdmin();
-                      Navigator.pop(context);
-                      Navigator.pushReplacementNamed(
-                        context,
-                        PagesRoute.reg,
-                        arguments: true,
-                      );
+                      loginVm.showOrgChoicesReg();
                     },
                   ),
             );
@@ -62,16 +57,67 @@ class LoginScreen extends StatelessWidget {
                     button2Text: Lang.manualFillData,
                     iconButton1: Icon(Icons.rocket, color: AppColors.white),
                     iconButton2: Icon(Icons.edit, color: AppColors.primary),
-                    onPressButton1: () async {
-                      await loginVm.loadAndParseCv();
+                    onPressButton1: ()  {
+                       loginVm.autoFillSeeker();
                     },
                     onPressButton2: () {
                       Navigator.pop(context);
-                      Navigator.pushReplacementNamed(context, PagesRoute.reg);
+                      Navigator.pushReplacementNamed(
+                        context,
+                        PagesRoute.reg,
+                        arguments: {'isOrg': false},
+                      );
                     },
                   ),
             );
           }
+
+          if (state is ShowOrgChoicesReg) {
+            showDialog(
+              context: context,
+              builder:
+                  (_) => ChoiceDialog(
+                    message: '',
+                    button1Text: Lang.autoFillData,
+                    button2Text: Lang.manualFillData,
+                    iconButton1: Icon(Icons.rocket, color: AppColors.white),
+                    iconButton2: Icon(Icons.edit, color: AppColors.primary),
+                    onPressButton1: ()  {
+                       loginVm.autoFillOrg();
+                    },
+                    onPressButton2: () {
+                      Navigator.pop(context);
+                      Navigator.pushReplacementNamed(
+                        context,
+                        PagesRoute.reg,
+                        arguments: {'isOrg': true},
+                      );
+                    },
+                  ),
+            );
+          }
+          if (state is CVLoadedSuccessfully){
+            Navigator.pushReplacementNamed(
+              context,
+              PagesRoute.reg,
+              arguments: {
+                'isOrg': false,
+                'user': {'user': state.seeker, 'cv': loginVm.file?.path},
+              },
+            );
+          }
+          if (state is ProfLoadedSuccessfully) {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              PagesRoute.reg,
+              (route) => false,
+              arguments: {
+                'isOrg': true,
+                'user': {'user': state.org, 'cv': loginVm.file?.path},
+              },
+            );
+          }
+
           if (state is HideLoading) {
             Navigator.pop(context);
           }
@@ -98,7 +144,6 @@ class LoginScreen extends StatelessWidget {
               context: context,
               builder: (context) => ErrorDialog(message: state.error),
             );
-
           }
         },
 

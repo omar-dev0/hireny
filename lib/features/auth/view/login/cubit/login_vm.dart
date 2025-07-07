@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hireny/features/auth/domain/modules/auto_fill/auto_fill_org_admin.dart';
 import 'package:hireny/features/auth/domain/modules/seeker/seeker.dart';
 import 'package:hireny/features/auth/domain/repo_contract/repo_contract.dart';
 import 'package:hireny/features/auth/view/login/cubit/state.dart';
@@ -10,6 +11,7 @@ import 'package:file_picker/file_picker.dart';
 
 import '../../../../../result.dart';
 import '../../../../../utils/data_shared/app_shared_data.dart';
+import '../../../domain/modules/auto_fill/autofill_seeker.dart';
 
 @injectable
 class LoginVm extends Cubit<LoginState> {
@@ -29,29 +31,14 @@ class LoginVm extends Cubit<LoginState> {
       type: FileType.custom,
       allowedExtensions: ['pdf'],
     );
-    try {
-      if (result != null && result.files.isNotEmpty) {
-        file = File(result.files.single.path!);
-        var responseResult = await _repoAuth.extractFromSeekerCV(file!);
-        switch (responseResult) {
-          case null:
-            {
-              emit(HideLoading());
-              emit(FailLoadedCV());
-            }
-          case Success<Seeker?>():
-            {
-              emit(HideLoading());
-              emit(CVLoadedSuccessfully());
-            }
-          case Error<Seeker?>():
-            {
-              emit(HideLoading());
-              emit(FailLoadedCV());
-            }
-        }
-      }
-    } catch (e) {}
+    if (result == null) {
+      emit(HideLoading());
+      return;
+    }
+    if (result.files.isNotEmpty) {
+      emit(HideLoading());
+      file = File(result.files.single.path!);
+    }
   }
 
   Future<bool> _requestStoragePermission() async {
@@ -68,7 +55,12 @@ class LoginVm extends Cubit<LoginState> {
 
   void showSeekerChoicesReg() {
     emit(HideLoading());
-    emit(ShowSeekerChoicesReg());
+    emit(ShowOrgChoicesReg());
+  }
+
+  void showOrgChoicesReg() {
+    emit(HideLoading());
+    emit(ShowOrgChoicesReg());
   }
 
   Future<void> login() async {
@@ -76,7 +68,9 @@ class LoginVm extends Cubit<LoginState> {
       emit(LoadingLogin());
       try {
         Result<void> result = await _repoAuth.login(email.text, password.text);
-        debugPrint("✅ ServiceOrgCubit created ${AppSharedData.user?.firstName}");
+        debugPrint(
+          "✅ ServiceOrgCubit created ${AppSharedData.user?.firstName}",
+        );
 
         if (result is Success) {
           emit(HideLoading());
@@ -89,6 +83,66 @@ class LoginVm extends Cubit<LoginState> {
         emit(HideLoading());
         emit(FailLogin(error: 'email or password is wrong'));
       }
+    }
+  }
+
+  Future<void> autoFillSeeker() async {
+    try {
+      await loadAndParseCv();
+      if (file == null) {
+        return;
+      }
+      var responseResult = await _repoAuth.extractFromSeekerCV(file!);
+      switch (responseResult) {
+        case null:
+          {
+            emit(HideLoading());
+            emit(FailLoadedCV());
+          }
+        case Success<AutoFillSeeker?>():
+          {
+            emit(HideLoading());
+            emit(CVLoadedSuccessfully(seeker: responseResult.response));
+          }
+        case Error<AutoFillSeeker?>():
+          {
+            emit(HideLoading());
+            emit(FailLoadedCV());
+          }
+      }
+    } catch (e) {
+      emit(HideLoading());
+      emit(FailLoadedCV());
+    }
+  }
+
+  Future<void> autoFillOrg() async {
+    try {
+      await loadAndParseCv();
+      if (file == null) {
+        return;
+      }
+      var responseResult = await _repoAuth.extractFromOrgProf(file!);
+      switch (responseResult) {
+        case null:
+          {
+            emit(HideLoading());
+            emit(FailLoadedCV());
+          }
+        case Success<AutoFillOrg?>():
+          {
+            emit(HideLoading());
+            emit(ProfLoadedSuccessfully(org: responseResult.response));
+          }
+        case Error<AutoFillOrg?>():
+          {
+            emit(HideLoading());
+            emit(FailLoadedCV());
+          }
+      }
+    } catch (e) {
+      emit(HideLoading());
+      emit(FailLoadedCV());
     }
   }
 }
