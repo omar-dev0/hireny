@@ -89,26 +89,6 @@ class JobDetailesContent extends StatelessWidget {
                                     color: AppColors.primary,
                                     size: 15.sp,
                                   ),
-                                  SizedBox(width: 5.w),
-                                  Container(
-                                    padding: EdgeInsets.all(5),
-                                    decoration: BoxDecoration(
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.5),
-                                          spreadRadius: 2,
-                                          blurRadius: 5,
-                                          offset: Offset(0, 3),
-                                        ),
-                                      ],
-                                      color: AppColors.primary,
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: Text(
-                                      '10 min ago',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
                                 ],
                               ),
                             ],
@@ -169,7 +149,7 @@ class JobDetailesContent extends StatelessWidget {
                               Icons.location_on_rounded,
                               color: AppColors.primary,
                             ),
-                            label: '${job?.country}, ${job?.city}',
+                            label: '${job?.country}',
                           ),
                         ],
                       ),

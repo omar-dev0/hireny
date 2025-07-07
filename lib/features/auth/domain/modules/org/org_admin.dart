@@ -19,7 +19,7 @@ class OrgAdmin extends User {
   num? startYear;
 
   @HiveField(16)
-  List<String?>? industry;
+  String? industry;
 
   @HiveField(17)
   String? orgSize;
@@ -78,7 +78,7 @@ class OrgAdmin extends User {
     industry:
         (json['organization']?['industry'] as List?)
             ?.map((e) => e.toString())
-            .toList(),
+            .toList().first,
     orgSize: json['organization']?['organizationSize'],
   );
 

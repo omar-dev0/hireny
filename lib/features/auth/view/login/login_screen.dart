@@ -18,14 +18,13 @@ import '../widgets/choice_widget.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
-  LoginVm loginVm = getIt.get<LoginVm>();
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => loginVm,
+      create: (_) => getIt.get<LoginVm>(),
       child: BlocConsumer<LoginVm, LoginState>(
         listener: (context, state) {
-          final loginVm = context.read<LoginVm>();
+          LoginVm loginVm = context.read<LoginVm>();
           if (state is ShowRegChoices) {
             showDialog(
               context: context,
@@ -57,8 +56,8 @@ class LoginScreen extends StatelessWidget {
                     button2Text: Lang.manualFillData,
                     iconButton1: Icon(Icons.rocket, color: AppColors.white),
                     iconButton2: Icon(Icons.edit, color: AppColors.primary),
-                    onPressButton1: ()  {
-                       loginVm.autoFillSeeker();
+                    onPressButton1: () {
+                      loginVm.autoFillSeeker();
                     },
                     onPressButton2: () {
                       Navigator.pop(context);
@@ -82,8 +81,8 @@ class LoginScreen extends StatelessWidget {
                     button2Text: Lang.manualFillData,
                     iconButton1: Icon(Icons.rocket, color: AppColors.white),
                     iconButton2: Icon(Icons.edit, color: AppColors.primary),
-                    onPressButton1: ()  {
-                       loginVm.autoFillOrg();
+                    onPressButton1: () {
+                      loginVm.autoFillOrg();
                     },
                     onPressButton2: () {
                       Navigator.pop(context);
@@ -96,7 +95,7 @@ class LoginScreen extends StatelessWidget {
                   ),
             );
           }
-          if (state is CVLoadedSuccessfully){
+          if (state is CVLoadedSuccessfully) {
             Navigator.pushReplacementNamed(
               context,
               PagesRoute.reg,
@@ -107,10 +106,9 @@ class LoginScreen extends StatelessWidget {
             );
           }
           if (state is ProfLoadedSuccessfully) {
-            Navigator.pushNamedAndRemoveUntil(
+            Navigator.pushReplacementNamed(
               context,
               PagesRoute.reg,
-              (route) => false,
               arguments: {
                 'isOrg': true,
                 'user': {'user': state.org, 'cv': loginVm.file?.path},

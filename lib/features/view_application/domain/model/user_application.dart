@@ -26,12 +26,22 @@ class SeekerApplication {
       id: json['id'],
       hasApplication: json['hasApplication'],
       answers: json['answers'],
-      createdAt: json['createdAt'] != null ? DateTime.tryParse(json['createdAt']) : null,
-      updatedAt: json['updatedAt'] != null ? DateTime.tryParse(json['updatedAt']) : null,
+      createdAt:
+          json['createdAt'] != null
+              ? DateTime.tryParse(json['createdAt'])
+              : null,
+      updatedAt:
+          json['updatedAt'] != null
+              ? DateTime.tryParse(json['updatedAt'])
+              : null,
       status: json['status'],
       user: json['user'],
-      jobPost: json['jobPost'] != null ? JobPost.fromJson(json['jobPost']) : null,
-      applicant: json['applicant'] != null ? Applicant.fromJson(json['applicant']) : null,
+      jobPost:
+          json['jobPost'] != null ? JobPost.fromJson(json['jobPost']) : null,
+      applicant:
+          json['applicant'] != null
+              ? Applicant.fromJson(json['applicant'])
+              : null,
     );
   }
 
@@ -73,11 +83,15 @@ class JobPost {
     return JobPost(
       id: json['id'],
       title: json['title'],
-      questions: (json['questions'] as List?)?.map((e) => Question.fromJson(e)).toList(),
+      questions:
+          (json['questions'] as List?)
+              ?.map((e) => Question.fromJson(e))
+              .toList(),
       companyName: json['companyName'],
       companyId: json['companyId'],
       photo: json['photo'],
-      deadline: json['deadline'] != null ? DateTime.tryParse(json['deadline']) : null,
+      deadline:
+          json['deadline'] != null ? DateTime.tryParse(json['deadline']) : null,
     );
   }
 
@@ -98,21 +112,19 @@ class Question {
   final String? text;
   final String? type;
   final List<String>? choices;
-  final String? optionsCount;
+  final int? optionsCount;
 
-  Question({
-    this.text,
-    this.type,
-    this.choices,
-    this.optionsCount,
-  });
+  Question({this.text, this.type, this.choices, this.optionsCount});
 
   factory Question.fromJson(Map<String, dynamic> json) {
     return Question(
       text: json['text'],
       type: json['type'],
       choices: (json['choices'] as List?)?.map((e) => e.toString()).toList(),
-      optionsCount: json['optionsCount'],
+      optionsCount:
+          json['optionsCount'] is String
+              ? int.tryParse(json['optionsCount'])
+              : json['optionsCount'],
     );
   }
 

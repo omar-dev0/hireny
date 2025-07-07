@@ -26,11 +26,11 @@ class RegSeekerScreen extends StatelessWidget {
     required this.autoFill,
     this.cv,
   });
-  final RegSeekerVm regVm = getIt.get<RegSeekerVm>();
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) {
+        final RegSeekerVm regVm = getIt.get<RegSeekerVm>();
         if (autoFill is AutoFillSeeker) {
           regVm.loadSeekerData(autoFill as AutoFillSeeker, cv: cv);
         } else if (autoFill is AutoFillOrg) {
@@ -57,33 +57,34 @@ class RegSeekerScreen extends StatelessWidget {
               context: context,
               builder: (_) => ErrorDialog(message: state.message),
             );
-          } else if (state is LoadingReg) {
+          }
+           if (state is LoadingReg) {
             showDialog(
               context: context,
               barrierDismissible: false,
               builder: (_) => const LoadingDialog(),
             );
-          } else if (state is HideRegLoading) {
+          }  if (state is HideRegLoading) {
             Navigator.pop(context);
-          } else if (state is ValidateDate) {
+          }  if (state is ValidateDate) {
             showError(Lang.notValidDate);
-          } else if (state is ValidateGender) {
+          }  if (state is ValidateGender) {
             showError(Lang.validateGenderEmpty);
-          } else if (state is ValidateNationality) {
+          }  if (state is ValidateNationality) {
             showError(Lang.validateNationalityEmpty);
-          } else if (state is ValidateCountry) {
+          }  if (state is ValidateCountry) {
             showError(Lang.validateCountryEmpty);
-          } else if (state is ValidateCity) {
+          }  if (state is ValidateCity) {
             showError(Lang.validateCityEmpty);
-          } else if (state is ValidateCareerLevel) {
+          }  if (state is ValidateCareerLevel) {
             showError(Lang.validateCareerLevelEmpty);
-          } else if (state is ValidateEmploymentStatus) {
+          }  if (state is ValidateEmploymentStatus) {
             showError(Lang.validateEmploymentStatusEmpty);
-          } else if (state is ValidateFile) {
+          }  if (state is ValidateFile) {
             showError(Lang.validateFileEmpty);
-          } else if (state is ValidateIndestry) {
+          }  if (state is ValidateIndestry) {
             showError(Lang.validateIndustryEmpty);
-          } else if (state is ValidateOrgSize) {
+          }  if (state is ValidateOrgSize) {
             showError(Lang.validateOrgSizeEmpty);
           }
         },

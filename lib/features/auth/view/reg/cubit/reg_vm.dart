@@ -156,7 +156,7 @@ class RegSeekerVm extends Cubit<RegState> {
           startYear: int.parse(dob),
           companyName: orgName.text,
           ceo: orgCeo.text,
-          industry: [industry],
+          industry: industry,
           orgSize: orgSize,
           updatesToEmail: sendMeEmail,
           links: [UserLink(type: 'website', url: websiteLink.text)],
@@ -278,18 +278,18 @@ class RegSeekerVm extends Cubit<RegState> {
   }
 
   void loadOrgData(AutoFillOrg org, {String? cv}) {
-    if (org.name != null && org.name!.length >= 2) {
-      firstName.text = org.name!.split(" ")[0];
-      lastName.text = org.name!.split(" ")[1];
-    } else {
-      firstName.text = org.name ?? "";
-    }
+    firstName.text = org.adminFirstName ?? "";
+    lastName.text = org.adminLastName ?? "";
+    orgName.text = org.name ?? "";
+    if(org.industry != null && org.industry!.isNotEmpty)
+      {
+        industry = org.industry!.first;
+      }
     email.text = org.email ?? "";
     phone.text = org.phone ?? "";
     country = org.country;
     city = org.city;
     dob = org.eYear.toString();
-    industry = org.industry?.first;
     orgSize = org.organizationSize;
     orgCeo.text = org.ceoName ?? "";
     websiteLink.text = org.links?.first.url ?? "";

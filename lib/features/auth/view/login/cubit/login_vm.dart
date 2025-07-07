@@ -55,7 +55,7 @@ class LoginVm extends Cubit<LoginState> {
 
   void showSeekerChoicesReg() {
     emit(HideLoading());
-    emit(ShowOrgChoicesReg());
+    emit(ShowSeekerChoicesReg());
   }
 
   void showOrgChoicesReg() {
@@ -145,4 +145,5 @@ class LoginVm extends Cubit<LoginState> {
       emit(FailLoadedCV());
     }
   }
+
 }

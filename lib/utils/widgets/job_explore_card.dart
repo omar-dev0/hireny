@@ -10,7 +10,7 @@ import '../constants/helper_functions.dart';
 import '../data_shared/shared_const_api.dart';
 
 class JobExploreCard extends StatelessWidget {
-  JobPost jobPost;
+  final JobPost jobPost;
 
   JobExploreCard({required this.jobPost});
 
@@ -29,8 +29,12 @@ class JobExploreCard extends StatelessWidget {
           Text(
             jobPost.jobTitle,
             style: AppFonts.mainText.copyWith(fontSize: 18.sp),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
           SizedBox(height: 16.h),
+
+          /// Job Type
           Container(
             padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
             decoration: BoxDecoration(
@@ -43,55 +47,77 @@ class JobExploreCard extends StatelessWidget {
                 fontSize: 12.sp,
                 color: AppColors.white,
               ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
           SizedBox(height: 10.h),
+
+          /// Salary
           Text(
             "Salary: ${jobPost.minSalary} ${jobPost.currency} - ${jobPost.maxSalary} ${jobPost.currency}",
             style: AppFonts.secMain.copyWith(color: AppColors.grey),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
           SizedBox(height: 10.h),
+
+          /// Company Row
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Image.network(
                 '${ApiShared.baseUrl}${jobPost.companyLogo}',
-                width: MediaQuery.sizeOf(context).width * .2,
-                height: MediaQuery.sizeOf(context).height * .1,
+                width: 60.w,
+                height: 60.w,
                 fit: BoxFit.cover,
                 errorBuilder: (_, __, ___) {
                   return Image.asset(
                     AppAssets.org_logo,
-                  ); // Fallback to placeholder if image fails to load
+                    width: 60.w,
+                    height: 60.w,
+                    fit: BoxFit.cover,
+                  );
                 },
               ),
               SizedBox(width: 8.w),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    jobPost.companyName,
-                    style: AppFonts.mainText.copyWith(fontSize: 16.sp),
-                  ),
-                  SizedBox(height: 4.h),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.location_on,
-                        size: 16.sp,
-                        color: AppColors.grey,
-                      ),
-                      SizedBox(width: 4.w),
-                      Text(
-                        jobPost.country,
-                        style: AppFonts.secMain.copyWith(color: AppColors.grey),
-                      ),
-                    ],
-                  ),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      jobPost.companyName,
+                      style: AppFonts.mainText.copyWith(fontSize: 16.sp),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    SizedBox(height: 4.h),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.location_on,
+                          size: 16.sp,
+                          color: AppColors.grey,
+                        ),
+                        SizedBox(width: 4.w),
+                        Expanded(
+                          child: Text(
+                            jobPost.country,
+                            style: AppFonts.secMain.copyWith(color: AppColors.grey),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
           SizedBox(height: 10.h),
+
+          /// Total Applications
           Row(
             children: [
               Icon(Icons.people, size: 16.sp, color: AppColors.grey),
@@ -99,10 +125,14 @@ class JobExploreCard extends StatelessWidget {
               Text(
                 jobPost.totalApplications.toString(),
                 style: AppFonts.secMain.copyWith(color: AppColors.grey),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),
           SizedBox(height: 10.h),
+
+          /// Deadline
           Row(
             children: [
               Icon(Icons.calendar_today, size: 16.sp, color: AppColors.grey),
@@ -110,12 +140,17 @@ class JobExploreCard extends StatelessWidget {
               Text(
                 "Deadline:",
                 style: AppFonts.secMain.copyWith(color: AppColors.grey),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
               SizedBox(width: 4.w),
-              Text(
-                formatDate(jobPost.deadline), // <-- Format the date here
-
-                style: AppFonts.secMain.copyWith(color: AppColors.grey),
+              Expanded(
+                child: Text(
+                  formatDate(jobPost.deadline),
+                  style: AppFonts.secMain.copyWith(color: AppColors.grey),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ],
           ),

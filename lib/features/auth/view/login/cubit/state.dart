@@ -28,7 +28,7 @@ class CVLoadedSuccessfully extends LoginState {
   CVLoadedSuccessfully({this.seeker});
 }
 
-class ProfLoadedSuccessfully extends LoadingLogin{
+class ProfLoadedSuccessfully extends LoginState{
   AutoFillOrg? org;
   ProfLoadedSuccessfully({this.org});
 }

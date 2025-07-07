@@ -27,7 +27,7 @@ class LoginContent extends StatefulWidget {
 class _LoginContentState extends State<LoginContent> {
   @override
   Widget build(BuildContext context) {
-    LoginVm loginVm = BlocProvider.of<LoginVm>(context);
+    LoginVm loginVm = context.read<LoginVm>();
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(

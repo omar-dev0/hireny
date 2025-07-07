@@ -183,6 +183,7 @@ class _RegOrgContentState extends State<RegOrgContent> {
                         ),
                         SizedBox(height: 6.h),
                         CustomDropDown(
+                          selectItem: regVm.industry,
                           label: Lang.industry,
                           items: AppSharedData.industries,
                           onChanged: (val) {
@@ -197,6 +198,7 @@ class _RegOrgContentState extends State<RegOrgContent> {
                             children: [
                               Expanded(
                                 child: CustomDropDown(
+                                  selectItem: regVm.country,
                                   label: Lang.countryHint,
                                   items:
                                       AppSharedData.countryCityData.keys
@@ -212,6 +214,7 @@ class _RegOrgContentState extends State<RegOrgContent> {
                               SizedBox(width: 20.w),
                               Expanded(
                                 child: CustomDropDown(
+                                  selectItem: regVm.city,
                                   label: Lang.cityHint,
                                   items:
                                       AppSharedData.countryCityData[regVm
@@ -241,6 +244,7 @@ class _RegOrgContentState extends State<RegOrgContent> {
                                   ),
                                   SizedBox(height: 6.h),
                                   CustomDropDown(
+                                    selectItem: regVm.orgSize,
                                     items: AppSharedData.organizationSizes,
                                     onChanged: (val) {
                                       setState(() {

@@ -2,6 +2,8 @@ import '../linkes/link.dart';
 import 'autofill.dart';
 
 class AutoFillOrg extends AutoFill {
+  final String? adminFirstName;
+  final String? adminLastName;
   final String? name;
   final String? phone;
   final String? email;
@@ -14,6 +16,8 @@ class AutoFillOrg extends AutoFill {
   final List<UserLink>? links;
 
   AutoFillOrg({
+    this.adminFirstName,
+    this.adminLastName,
     this.name,
     this.phone,
     this.email,
@@ -28,13 +32,15 @@ class AutoFillOrg extends AutoFill {
 
   factory AutoFillOrg.fromJson(Map<String, dynamic> json) {
     return AutoFillOrg(
-      name: json['name'],
+      adminFirstName: json['adminFirstName'],
+      adminLastName: json['adminLastName'],
+      name: json['organizationName'],
       phone: json['phone'],
-      email: json['email'],
+      email: json['organizationEmail'],
       country: json['country'],
       city: json['city'],
       ceoName: json['ceoName'],
-      eYear: json['eYear'],
+      eYear: json['eYear']?.toString(),
       industry: (json['industry'] as List?)?.map((e) => e.toString()).toList(),
       organizationSize: json['organizationSize'],
       links: (json['links'] as List?)
@@ -45,9 +51,11 @@ class AutoFillOrg extends AutoFill {
 
   Map<String, dynamic> toJson() {
     return {
-      'name': name,
+      'adminFirstName': adminFirstName,
+      'adminLastName': adminLastName,
+      'organizationName': name,
       'phone': phone,
-      'email': email,
+      'organizationEmail': email,
       'country': country,
       'city': city,
       'ceoName': ceoName,

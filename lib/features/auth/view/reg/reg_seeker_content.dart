@@ -232,6 +232,7 @@ class _RegSeekerContentState extends State<RegSeekerContent> {
                         ),
                         SizedBox(height: 6.h),
                         CustomDropDown(
+                          selectItem: regVm.nationality,
                           label: Lang.nationalityHint,
                           items: AppSharedData.nationalities,
                           onChanged: (val) {
@@ -250,6 +251,7 @@ class _RegSeekerContentState extends State<RegSeekerContent> {
                       children: [
                         Expanded(
                           child: CustomDropDown(
+                            selectItem: regVm.country,
                             label: Lang.countryHint,
                             items:
                                 AppSharedData.countryCityData.keys
@@ -265,6 +267,7 @@ class _RegSeekerContentState extends State<RegSeekerContent> {
                         SizedBox(width: 20.w),
                         Expanded(
                           child: CustomDropDown(
+                            selectItem: regVm.city,
                             label: Lang.cityHint,
                             items:
                                 AppSharedData.countryCityData[regVm.country] ??
@@ -296,6 +299,7 @@ class _RegSeekerContentState extends State<RegSeekerContent> {
                               ),
                               SizedBox(height: 6.h),
                               CustomDropDown(
+                                selectItem: regVm.careerLevel,
                                 label: Lang.careerLevel,
                                 items: AppSharedData.careerLevels,
                                 onChanged: (val) {
@@ -318,6 +322,7 @@ class _RegSeekerContentState extends State<RegSeekerContent> {
                               ),
                               SizedBox(height: 6.h),
                               CustomDropDown(
+                                selectItem: regVm.employmentStatus,
                                 label: Lang.employmentStatus,
                                 items: AppSharedData.employmentStatus,
                                 onChanged: (val) {

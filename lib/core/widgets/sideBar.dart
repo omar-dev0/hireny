@@ -77,11 +77,6 @@ class SideBarScreen extends StatelessWidget {
       "route": PagesRoute.orgServiceRequest,
     },
     {
-      "title": "Reviews",
-      "icon": Icons.reviews,
-      "route": PagesRoute.orgReviewForOrg,
-    },
-    {
       "title": "Calendar",
       "icon": Icons.calendar_today,
       "route": PagesRoute.calender,
@@ -110,7 +105,7 @@ class SideBarScreen extends StatelessWidget {
                   const SizedBox(width: 16),
                   Expanded(
                     child: Text(
-                      isSeeker ? "Seeker Name" : "Organization Name",
+                      isSeeker ? "${AppSharedData.user?.firstName} ${AppSharedData.user?.lastName}" : "${AppSharedData.user?.firstName}",
                       style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
